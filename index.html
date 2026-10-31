@@ -346,21 +346,122 @@ window.COURSE = {
 <section class="page" id="c1" data-cls="1–2" data-title="Simple Harmonic Motion" data-group="Unit 1 · Waves and Oscillations">
   <div class="kicker">Class 1 and 2 · Text 1 · Ref 1, 5</div>
   <h1>Simple Harmonic Motion</h1>
-  <ul class="topics"><li>Periodic motion and restoring force</li><li>Differential equation of SHM and its solution</li><li>x, v, a against time</li><li>Maximum velocity and acceleration</li><li>Kinetic, potential and total energy</li><li>Average energies</li><li>Time period and frequency</li></ul>
+  <ul class="topics"><li>Periodic motion and restoring force</li><li>Condition for SHM</li><li>Equation of motion from a free body diagram</li><li>Spring–mass system</li><li>Simple pendulum</li><li>Exponential solution of the SHM equation</li><li>x, v, a against time</li><li>Energy and average energies</li><li>Time period and frequency</li></ul>
 
   <h2>Key ideas</h2>
   <div class="idea">
-    <p>A motion is <b>periodic</b> if it repeats after a fixed time $T$. It is <b>simple harmonic</b> if the restoring force is proportional to the displacement and points back toward equilibrium, $F=-kx$.</p>
-    <p>Newton's second law turns this into a differential equation. Its solution is a sine or cosine, so position, velocity and acceleration all oscillate with the same angular frequency $\omega$.</p>
+    <p>A motion is <b>periodic</b> if it repeats itself after a fixed time $T$, called the period. A body oscillates when a <b>restoring force</b> always pulls it back toward its equilibrium position.</p>
+    <p>The simplest and most important case is when the restoring force grows in direct proportion to the displacement. This gives simple harmonic motion (SHM).</p>
   </div>
+
+  <div class="idea" style="border-left-color:#121826">
+    <p><b>Condition for SHM (the rule to remember)</b></p>
+    <p>Whenever the acceleration of a body is directly proportional to its displacement from a fixed point and is always directed toward that point, the body executes simple harmonic motion.</p>
+    $$a=-\omega^2x\qquad\Longleftrightarrow\qquad\frac{d^2x}{dt^2}+\omega^2x=0$$
+    <p>Here $\omega^2$ must be a <b>positive constant</b>. The minus sign means the acceleration always points opposite to the displacement, that is, back toward equilibrium. So any system whose equation of motion can be brought to the form $\ddot x+\omega^2x=0$ is an SHM, and its angular frequency is read off directly as $\omega$, with period $T=2\pi/\omega$.</p>
+  </div>
+
+  <h2>Deriving the equation of motion: spring–mass system</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 660 270" width="100%" style="max-width:660px" role="img" aria-label="Free body diagram of a block on a spring">
+      <defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3263e"/></marker>
+      <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f3a6e"/></marker></defs>
+      <rect x="24" y="70" width="14" height="130" fill="#d5dae3"/>
+      <g stroke="#8a93a3" stroke-width="1.2"><line x1="24" y1="80" x2="12" y2="92"/><line x1="24" y1="105" x2="12" y2="117"/><line x1="24" y1="130" x2="12" y2="142"/><line x1="24" y1="155" x2="12" y2="167"/><line x1="24" y1="180" x2="12" y2="192"/></g>
+      <line x1="24" y1="200" x2="640" y2="200" stroke="#121826" stroke-width="2"/>
+      <g stroke="#8a93a3" stroke-width="1.2"><line x1="60" y1="200" x2="48" y2="212"/><line x1="140" y1="200" x2="128" y2="212"/><line x1="220" y1="200" x2="208" y2="212"/><line x1="300" y1="200" x2="288" y2="212"/><line x1="380" y1="200" x2="368" y2="212"/><line x1="460" y1="200" x2="448" y2="212"/><line x1="540" y1="200" x2="528" y2="212"/><line x1="620" y1="200" x2="608" y2="212"/></g>
+      <polyline points="38,165 60,165 72,147 92,183 112,147 132,183 152,147 172,183 192,147 212,183 232,147 252,183 272,147 292,183 312,147 332,183 352,147 370,165 410,165" fill="none" stroke="#121826" stroke-width="2"/>
+      <rect x="410" y="130" width="84" height="70" rx="4" fill="#1f3a6e"/>
+      <text x="452" y="171" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="22" fill="#fff">m</text>
+      <line x1="340" y1="40" x2="340" y2="200" stroke="#8a93a3" stroke-dasharray="5 4"/>
+      <text x="340" y="32" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#5b6475">equilibrium, x = 0</text>
+      <line x1="342" y1="112" x2="408" y2="112" stroke="#121826" stroke-width="1.6" marker-end="url(#ar2)"/>
+      <text x="375" y="104" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="17" fill="#121826">x</text>
+      <line x1="410" y1="165" x2="330" y2="165" stroke="#b3263e" stroke-width="3" marker-end="url(#ar1)" transform="translate(0,-22)"/>
+      <text x="300" y="138" text-anchor="end" font-family="Georgia,serif" font-size="16" fill="#b3263e">F = −kx</text>
+      <line x1="452" y1="200" x2="452" y2="252" stroke="#b3263e" stroke-width="3" marker-end="url(#ar1)"/>
+      <text x="462" y="250" font-family="Georgia,serif" font-style="italic" font-size="16" fill="#b3263e">mg</text>
+      <line x1="452" y1="130" x2="452" y2="80" stroke="#b3263e" stroke-width="3" marker-end="url(#ar1)"/>
+      <text x="462" y="88" font-family="Georgia,serif" font-style="italic" font-size="16" fill="#b3263e">N</text>
+      <text x="540" y="150" font-family="system-ui,sans-serif" font-size="13" fill="#5b6475">frictionless</text>
+      <text x="540" y="166" font-family="system-ui,sans-serif" font-size="13" fill="#5b6475">surface</text>
+    </svg>
+    <figcaption>Free body diagram of a block pulled a distance x to the right of equilibrium. The spring pulls it back with F = −kx. Weight mg and normal force N cancel.</figcaption>
+  </figure>
+  <ol>
+    <li><b>Forces.</b> Vertically, $N$ and $mg$ balance, so there is no vertical motion. Horizontally, the only force is the spring force. By Hooke's law it is proportional to the stretch and opposite to it, $F=-kx$.</li>
+    <li><b>Newton's second law</b> along $x$ gives $$m\frac{d^2x}{dt^2}=-kx$$</li>
+    <li><b>Rearrange</b> by dividing by $m$ $$\frac{d^2x}{dt^2}+\frac{k}{m}\,x=0$$</li>
+    <li><b>Compare</b> with $\ddot x+\omega^2x=0$. The acceleration is proportional to $-x$, so the motion is SHM with $$\omega=\sqrt{\frac km},\qquad T=2\pi\sqrt{\frac mk}$$</li>
+  </ol>
+
+  <h2>Deriving the equation of motion: simple pendulum</h2>
+  <figure class="fig">
+    <svg viewBox="0 0 660 380" width="100%" style="max-width:660px" role="img" aria-label="Free body diagram of a simple pendulum">
+      <defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b3263e"/></marker>
+      <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0f7d6f"/></marker></defs>
+      <line x1="230" y1="30" x2="410" y2="30" stroke="#121826" stroke-width="3"/>
+      <g stroke="#8a93a3" stroke-width="1.2"><line x1="240" y1="30" x2="228" y2="18"/><line x1="270" y1="30" x2="258" y2="18"/><line x1="300" y1="30" x2="288" y2="18"/><line x1="330" y1="30" x2="318" y2="18"/><line x1="360" y1="30" x2="348" y2="18"/><line x1="390" y1="30" x2="378" y2="18"/></g>
+      <circle cx="320" cy="30" r="4" fill="#121826"/>
+      <line x1="320" y1="30" x2="320" y2="300" stroke="#8a93a3" stroke-dasharray="5 4"/>
+      <path d="M 218.6 247.5 A 240 240 0 0 0 421.4 247.5" fill="none" stroke="#8a93a3" stroke-dasharray="2 4"/>
+      <path d="M 320 270 A 240 240 0 0 0 421.4 247.5" fill="none" stroke="#0f7d6f" stroke-width="2.5"/>
+      <text x="336" y="300" font-family="Georgia,serif" font-size="15" fill="#0f7d6f">s = Lθ</text>
+      <line x1="320" y1="30" x2="421.4" y2="247.5" stroke="#121826" stroke-width="2"/>
+      <text x="382" y="128" font-family="Georgia,serif" font-style="italic" font-size="17" fill="#121826">L</text>
+      <path d="M 320 90 A 60 60 0 0 0 345.4 84.4" fill="none" stroke="#121826" stroke-width="1.4"/>
+      <text x="326" y="108" font-family="Georgia,serif" font-style="italic" font-size="16" fill="#121826">θ</text>
+      <line x1="421.4" y1="247.5" x2="387.6" y2="175" stroke="#b3263e" stroke-width="3" marker-end="url(#ar3)"/>
+      <text x="368" y="190" font-family="Georgia,serif" font-style="italic" font-size="16" fill="#b3263e">T</text>
+      <line x1="421.4" y1="247.5" x2="421.4" y2="345" stroke="#b3263e" stroke-width="3" marker-end="url(#ar3)"/>
+      <text x="429" y="356" font-family="Georgia,serif" font-style="italic" font-size="16" fill="#b3263e">mg</text>
+      <line x1="421.4" y1="247.5" x2="459.1" y2="328.3" stroke="#0f7d6f" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ar4)"/>
+      <text x="466" y="330" font-family="Georgia,serif" font-size="15" fill="#0f7d6f">mg cos θ</text>
+      <line x1="421.4" y1="247.5" x2="380.1" y2="266.8" stroke="#0f7d6f" stroke-width="2.5" marker-end="url(#ar4)"/>
+      <text x="300" y="232" font-family="Georgia,serif" font-size="15" fill="#0f7d6f">mg sin θ</text>
+      <line x1="421.4" y1="345" x2="459.1" y2="328.3" stroke="#8a93a3" stroke-dasharray="2 3"/>
+      <path d="M 421.4 287.5 A 40 40 0 0 0 438.3 283.7" fill="none" stroke="#0f7d6f" stroke-width="1.2"/>
+      <text x="426" y="303" font-family="Georgia,serif" font-style="italic" font-size="13" fill="#0f7d6f">θ</text>
+      <circle cx="421.4" cy="247.5" r="14" fill="#1f3a6e"/>
+      <text x="421.4" y="252.5" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#fff">m</text>
+      <text x="500" y="70" font-family="system-ui,sans-serif" font-size="13" fill="#5b6475">string: light,</text>
+      <text x="500" y="86" font-family="system-ui,sans-serif" font-size="13" fill="#5b6475">inextensible</text>
+    </svg>
+    <figcaption>Free body diagram of a bob of mass m on a string of length L, displaced by an angle θ. The weight is split into mg cos θ along the string and mg sin θ along the arc, toward equilibrium.</figcaption>
+  </figure>
+  <ol>
+    <li><b>Forces on the bob.</b> Tension $T$ along the string toward the pivot, and weight $mg$ straight down. Resolve $mg$ into two parts, $mg\cos\theta$ along the string and $mg\sin\theta$ along the arc (tangential), pointing back toward equilibrium.</li>
+    <li><b>Along the string</b> (radial direction), $T-mg\cos\theta=\dfrac{mv^2}{L}$. This only fixes the tension and does not affect the swinging.</li>
+    <li><b>Along the arc</b> (tangential direction), the displacement is the arc length $s=L\theta$, so the tangential acceleration is $\ddot s=L\ddot\theta$. Newton's second law gives $$mL\frac{d^2\theta}{dt^2}=-mg\sin\theta$$ The minus sign shows the force always acts back toward $\theta=0$.</li>
+    <li><b>Small angle approximation.</b> For small $\theta$ (in radians, up to about $10^\circ$), $\sin\theta\approx\theta$. Then $$\frac{d^2\theta}{dt^2}+\frac{g}{L}\,\theta=0$$</li>
+    <li><b>Compare</b> with $\ddot x+\omega^2x=0$. The angular acceleration is proportional to $-\theta$, so the small swings are SHM with $$\omega=\sqrt{\frac gL},\qquad T=2\pi\sqrt{\frac Lg}$$ The period depends only on $L$ and $g$, not on the mass or (for small swings) the amplitude.</li>
+  </ol>
+  <div class="idea"><p>For large angles $\sin\theta$ is no longer close to $\theta$, the acceleration is no longer exactly proportional to $-\theta$, and the motion is periodic but <b>not</b> simple harmonic.</p></div>
+
+  <h2>Solving the SHM equation with the exponential method</h2>
+  <p>We solve $\ddot x+\omega^2x=0$ by trying an exponential, because the derivative of an exponential is the same exponential times a constant. The same method is used again for damped and forced oscillations.</p>
+  <ol>
+    <li><b>Trial solution.</b> Put $x=e^{\lambda t}$. Then $\dot x=\lambda e^{\lambda t}$ and $\ddot x=\lambda^2e^{\lambda t}$.</li>
+    <li><b>Substitute.</b> $$\lambda^2e^{\lambda t}+\omega^2e^{\lambda t}=0\quad\Rightarrow\quad(\lambda^2+\omega^2)\,e^{\lambda t}=0$$ Since $e^{\lambda t}$ is never zero, we get the <b>characteristic (auxiliary) equation</b> $$\lambda^2+\omega^2=0\quad\Rightarrow\quad\lambda=\pm i\omega$$</li>
+    <li><b>General solution.</b> Both roots give a solution, and their sum is also a solution $$x(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}$$</li>
+    <li><b>Make it real.</b> Using Euler's formula $e^{\pm i\omega t}=\cos\omega t\pm i\sin\omega t$, and choosing $C_1=\tfrac A2e^{i\phi}$ and $C_2=\tfrac A2e^{-i\phi}$ so that $x$ is real, $$x(t)=\frac A2\left[e^{i(\omega t+\phi)}+e^{-i(\omega t+\phi)}\right]=A\cos(\omega t+\phi)$$</li>
+    <li><b>Constants.</b> The amplitude $A$ and the phase constant $\phi$ come from the starting conditions $x(0)$ and $v(0)$.</li>
+  </ol>
+  <div class="idea"><p><b>Looking ahead.</b> For damped motion the same trial $x=e^{\lambda t}$ turns $\ddot x+2\gamma\dot x+\omega_0^2x=0$ into $\lambda^2+2\gamma\lambda+\omega_0^2=0$. The nature of its roots (real, equal or complex) decides whether the motion is overdamped, critically damped or underdamped.</p></div>
+
+  <h2>Key equations</h2>
   <div class="eqs">
-    <div class="eq"><span class="n">Equation of motion</span>$$\frac{d^2x}{dt^2}+\omega^2x=0,\quad \omega=\sqrt{\frac km}$$</div>
-    <div class="eq"><span class="n">Solution</span>$$x=A\cos(\omega t+\phi)$$</div>
-    <div class="eq"><span class="n">Velocity</span>$$v=-A\omega\sin(\omega t+\phi)=\pm\omega\sqrt{A^2-x^2}$$</div>
-    <div class="eq"><span class="n">Acceleration</span>$$a=-\omega^2x,\quad a_{\max}=\omega^2A$$</div>
-    <div class="eq"><span class="n">Period and frequency</span>$$T=\frac{2\pi}{\omega}=2\pi\sqrt{\frac mk},\quad f=\frac1T$$</div>
-    <div class="eq"><span class="n">Energy</span>$$K=\tfrac12m v^2,\ U=\tfrac12kx^2,\ E=\tfrac12kA^2$$</div>
-    <div class="eq"><span class="n">Time averages</span>$$\langle K\rangle=\langle U\rangle=\tfrac14kA^2=\tfrac12E$$</div>
+    <div class="eq"><span class="n">Condition for SHM</span>$$a=-\omega^2x$$</div>
+    <div class="eq"><span class="n">Equation of motion</span>$$\frac{d^2x}{dt^2}+\omega^2x=0$$</div>
+    <div class="eq"><span class="n">Characteristic equation</span>$$\lambda^2+\omega^2=0,\quad\lambda=\pm i\omega$$</div>
+    <div class="eq"><span class="n">Exponential solution</span>$$x=C_1e^{i\omega t}+C_2e^{-i\omega t}$$</div>
+    <div class="eq"><span class="n">Real form</span>$$x=A\cos(\omega t+\phi)$$</div>
+    <div class="eq"><span class="n">Spring–mass</span>$$\omega=\sqrt{\frac km},\quad T=2\pi\sqrt{\frac mk}$$</div>
+    <div class="eq"><span class="n">Simple pendulum</span>$$\omega=\sqrt{\frac gL},\quad T=2\pi\sqrt{\frac Lg}$$</div>
+    <div class="eq"><span class="n">Velocity</span>$$v=\pm\omega\sqrt{A^2-x^2},\quad v_{\max}=\omega A$$</div>
+    <div class="eq"><span class="n">Acceleration</span>$$a_{\max}=\omega^2A$$</div>
+    <div class="eq"><span class="n">Energy</span>$$E=\tfrac12mv^2+\tfrac12kx^2=\tfrac12kA^2$$</div>
+    <div class="eq"><span class="n">Time averages</span>$$\langle K\rangle=\langle U\rangle=\tfrac14kA^2$$</div>
   </div>
   <div class="sim" data-sim="shm"></div>
 
@@ -461,6 +562,8 @@ window.COURSE = {
   <div class="eqs">
     <div class="eq"><span class="n">Damped oscillator</span>$$m\ddot x+b\dot x+kx=0$$</div>
     <div class="eq"><span class="n">Standard form</span>$$\ddot x+2\gamma\dot x+\omega_0^2x=0,\ \gamma=\frac b{2m}$$</div>
+    <div class="eq"><span class="n">Characteristic equation</span>$$\lambda^2+2\gamma\lambda+\omega_0^2=0$$</div>
+    <div class="eq"><span class="n">Roots</span>$$\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$</div>
     <div class="eq"><span class="n">Underdamped solution</span>$$x=Ae^{-\gamma t}\cos(\omega' t+\phi),\ \omega'=\sqrt{\omega_0^2-\gamma^2}$$</div>
     <div class="eq"><span class="n">LC circuit</span>$$\frac{d^2q}{dt^2}+\frac{q}{LC}=0,\quad f=\frac1{2\pi\sqrt{LC}}$$</div>
     <div class="eq"><span class="n">Series RLC</span>$$L\ddot q+R\dot q+\frac qC=0,\ \gamma=\frac R{2L}$$</div>
@@ -468,6 +571,15 @@ window.COURSE = {
     <div class="eq"><span class="n">Log decrement</span>$$\lambda=\ln\frac{A_n}{A_{n+1}}=\gamma T'$$</div>
     <div class="eq"><span class="n">Reactance and impedance</span>$$X_L=\omega L,\ X_C=\frac1{\omega C},\ Z=\sqrt{R^2+(X_L-X_C)^2}$$</div>
   </div>
+  <h2>Solving the damped equation with the exponential method</h2>
+  <p>Exactly as for SHM, try $x=e^{\lambda t}$ in $\ddot x+2\gamma\dot x+\omega_0^2x=0$.</p>
+  <ol>
+    <li><b>Substitute.</b> $(\lambda^2+2\gamma\lambda+\omega_0^2)\,e^{\lambda t}=0$, so the characteristic equation is $$\lambda^2+2\gamma\lambda+\omega_0^2=0\quad\Rightarrow\quad\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$</li>
+    <li><b>Overdamped</b> ($\gamma>\omega_0$). Two real negative roots. With $\beta=\sqrt{\gamma^2-\omega_0^2}$, $$x=e^{-\gamma t}\left(C_1e^{\beta t}+C_2e^{-\beta t}\right)$$ The body creeps back to equilibrium without oscillating.</li>
+    <li><b>Critically damped</b> ($\gamma=\omega_0$). One repeated root $\lambda=-\gamma$, $$x=(C_1+C_2t)\,e^{-\gamma t}$$ This returns to equilibrium in the shortest time without overshooting.</li>
+    <li><b>Underdamped</b> ($\gamma<\omega_0$). Complex roots $\lambda=-\gamma\pm i\omega'$ with $\omega'=\sqrt{\omega_0^2-\gamma^2}$, $$x=e^{-\gamma t}\left(C_1e^{i\omega't}+C_2e^{-i\omega't}\right)=Ae^{-\gamma t}\cos(\omega't+\phi)$$ The body oscillates at $\omega'$ inside a shrinking envelope $Ae^{-\gamma t}$.</li>
+    <li><b>Check.</b> Setting $\gamma=0$ gives back $\lambda=\pm i\omega_0$, the SHM result.</li>
+  </ol>
   <div class="sim" data-sim="damped"></div>
   <div class="sim" data-sim="rlc"></div>
 
