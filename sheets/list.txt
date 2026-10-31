@@ -1,0 +1,6 @@
+# Problem sheets list
+# One line per sheet, in the form
+#   page id | title shown to students | file name in this folder (or a full web link)
+# Page ids are c0, c1, c3, c4, c6, c7, c8, c9, c10, c12, c13 ... c24
+# Example (remove the # to use it)
+# c1 | Problem Sheet 1. Simple Harmonic Motion | sheet1-shm.pdf
