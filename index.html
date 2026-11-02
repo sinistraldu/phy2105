@@ -55,6 +55,11 @@ h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:1.4em 0 .4em}
 .topics{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 0;padding:0;list-style:none}
 .topics li{background:#fff;border:1px solid var(--line2);border-radius:7px;padding:3px 10px;font-size:14px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin:16px 0}
+.fbcard{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;background:#fff;border:1px solid var(--line2);border-left:4px solid var(--navy);border-radius:14px;padding:20px 24px;margin:0 0 22px}
+.fbcard h3{margin:2px 0 6px;font-size:19px}.fbcard p{margin:0;font-size:14.8px;max-width:560px}
+.fbk{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--navy2);font-weight:700}
+.fbbtn{background:var(--navy);color:#fff;text-decoration:none;font-weight:600;border-radius:10px;padding:11px 20px;white-space:nowrap}
+.fbbtn:hover{background:var(--navy2)}
 .nextcard{background:var(--navy);color:#fff;border:none;border-radius:16px;padding:26px 28px;margin:22px 0}
 .nextcard .kicker{color:#ffffffb5}
 .nextcard h2{border:none;margin:.3em 0 .3em;padding:0;color:#fff;font-size:28px}
@@ -245,6 +250,15 @@ window.COURSE = {
   <h1>PHY 2105 Physics for CSE</h1>
   <p class="lead">Welcome. This site follows our lectures class by class. Before every class, open the page marked <b>Next class</b>, read the key ideas, play with the illustrations, and try the problems. After class, come back and finish the practice set.</p>
   <div class="nextcard" id="nextCard"></div>
+
+  <div class="fbcard">
+    <div>
+      <div class="fbk">Before Class Test 1</div>
+      <h3>How are the classes going for you?</h3>
+      <p>Please share an honest, anonymous review of the classes so far, from SHM to Lissajous figures. It takes about two minutes and helps me improve the teaching.</p>
+    </div>
+    <a class="fbbtn" href="https://docs.google.com/forms/d/e/1FAIpQLSffY5pGkpjLN6piJFPENgAQ78o4Mr3E0Tg3gVKK93xxwB5Nlg/viewform" target="_blank" rel="noopener noreferrer">Give feedback &rarr;</a>
+  </div>
 
   <h2>How to use this site</h2>
   <div class="grid2">
