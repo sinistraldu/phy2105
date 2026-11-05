@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rotation, Momentum and Energy | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 1 to 4: angular motion, torque, moment of inertia, angular momentum, impulse, work and rotational energy, with simple simulations and practice problems.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html" aria-current="page">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 1 &middot; Classes 1&ndash;5 &middot; General principles</span>
+  <h1>Rotation, Momentum and Energy</h1>
+  <p class="lead">Everything you know about moving in a straight line has a twin for spinning. Joints, centrifuges, bacterial flagella and dividing cells all rotate, and the same few rules describe them.</p>
+  <ul class="toc">
+    <li><a href="#c1"><span>Class 1</span>Angular motion</a></li>
+    <li><a href="#c2"><span>Class 2</span>Torque and equilibrium</a></li>
+    <li><a href="#c3"><span>Class 3</span>Moment of inertia</a></li>
+    <li><a href="#c4"><span>Class 4</span>Angular momentum, impulse, energy</a></li>
+    <li><a href="#c5"><span>Class 5</span>Review and Quiz 1</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 1 ===================== -->
+<section class="class" id="c1"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 1</span>
+    <h2>Angular displacement, velocity and acceleration</h2>
+    <p class="goals"><b>By the end you can:</b> describe spinning with &theta;, &omega;, &alpha;; link them to linear motion with v = r&omega;; use the four constant-&alpha; equations; convert rpm to rad/s.</p>
+  </div>
+
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>For straight-line motion we use position x, velocity v and acceleration a. For spinning we swap <b>distance</b> for <b>angle</b>. Every straight-line formula you already know has a spinning twin.</p>
+  </div>
+
+  <h3><span class="n">1.1</span>Why biotechnologists care</h3>
+  <p>A centrifuge separates blood plasma from cells by spinning tubes thousands of times per minute. A bacterium swims by rotating its flagellum like a propeller. ATP synthase, the enzyme that makes most of your ATP, is a tiny rotating motor. Your elbow, knee and hip are pivots. To understand any of these we need a language for rotation.</p>
+
+  <h3><span class="n">1.2</span>The three angular quantities</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <ul>
+      <li><b>Angular displacement &theta;</b>: how far something has turned, in <b>radians</b>. One full turn = 2&pi; rad = 360&deg;.</li>
+      <li><b>Angular velocity &omega;</b> = &Delta;&theta;/&Delta;t: how fast it turns, in rad/s.</li>
+      <li><b>Angular acceleration &alpha;</b> = &Delta;&omega;/&Delta;t: how fast the spin rate changes, in rad/s&sup2;.</li>
+    </ul>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Quantity</th><th>Linear</th><th>Angular</th><th>Link (point at radius r)</th></tr>
+    <tr><td>Displacement</td><td>x (m)</td><td>&theta; (rad)</td><td>s = r&theta; (arc length)</td></tr>
+    <tr><td>Velocity</td><td>v (m/s)</td><td>&omega; (rad/s)</td><td>v = r&omega;</td></tr>
+    <tr><td>Acceleration</td><td>a (m/s&sup2;)</td><td>&alpha; (rad/s&sup2;)</td><td>a<sub>t</sub> = r&alpha;</td></tr>
+  </table></div>
+  <p>On a merry-go-round everyone completes a turn in the same time, so everyone has the <b>same &omega;</b>. But a child at the edge travels a bigger circle, so has a <b>larger v</b>. The simulation below shows exactly this.</p>
+
+  <div class="sim" id="sim-turntable">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Two ladybugs on a turntable</h4></div>
+    <p class="sim-try"><b>Try:</b> change the spin rate, then move ladybug B outward. Watch the two speed arrows.</p>
+    <p class="sim-note"><b>What to notice:</b> both bugs always share the same &omega; (they turn together), but the bug farther out moves faster, because v = r&omega;. Double r and the speed doubles.</p>
+  </div>
+
+  <h3><span class="n">1.3</span>Equations for constant angular acceleration</h3>
+  <p>These are the straight-line equations with x&rarr;&theta;, v&rarr;&omega;, a&rarr;&alpha;. Use them only when &alpha; is constant.</p>
+  <div class="box key"><span class="lbl">Rotational kinematics</span>
+    <div class="eq">&omega; = &omega;<sub>0</sub> + &alpha;t &emsp;&emsp; &theta; = &omega;<sub>0</sub>t + &frac12;&alpha;t<sup>2</sup></div>
+    <div class="eq">&omega;<sup>2</sup> = &omega;<sub>0</sub><sup>2</sup> + 2&alpha;&theta; &emsp;&emsp; &theta; = &frac12;(&omega;<sub>0</sub> + &omega;)t</div>
+    <p><b>Unit conversions:</b> 1 revolution = 2&pi; rad &nbsp;&middot;&nbsp; &omega; (rad/s) = rpm &times; 2&pi;/60 &nbsp;&middot;&nbsp; revolutions = &theta;/2&pi;</p>
+  </div>
+
+  <div class="sim" id="sim-spinup">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Spinning up a centrifuge rotor</h4></div>
+    <p class="sim-try"><b>Try:</b> set a starting speed &omega;<sub>0</sub> and an angular acceleration &alpha;, then press <b>Start</b>. Pause at any time and check the numbers with the equations above.</p>
+    <p class="sim-note"><b>What to notice:</b> the &omega;&ndash;t graph is a straight line whose slope is &alpha;. The rotor turns through more and more angle each second, because it keeps getting faster. Set &alpha; negative to see it slow down.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example 1 &middot; from rest</span>
+    <p>A drill chuck starts from rest with &alpha; = 4.0 rad/s&sup2;. Find &omega; after 3.0 s and the angle turned.</p>
+    <p><span class="step">Step 1</span>&omega; = &omega;<sub>0</sub> + &alpha;t = 0 + (4.0)(3.0) = <b>12 rad/s</b></p>
+    <p><span class="step">Step 2</span>&theta; = &frac12;&alpha;t&sup2; = &frac12;(4.0)(3.0)&sup2; = <b>18 rad</b> &asymp; 18/2&pi; = 2.9 revolutions</p>
+  </div>
+  <div class="box ex"><span class="lbl">Worked example 2 &middot; with rpm</span>
+    <p>A blender blade speeds up from 600 rpm to 1800 rpm in 4.0 s. Find &alpha; and the number of revolutions.</p>
+    <p><span class="step">Step 1</span>Convert: &omega;<sub>0</sub> = 600 &times; 2&pi;/60 = 20&pi; rad/s; &omega; = 1800 &times; 2&pi;/60 = 60&pi; rad/s</p>
+    <p><span class="step">Step 2</span>&alpha; = (&omega; &minus; &omega;<sub>0</sub>)/t = 40&pi;/4.0 = 10&pi; &asymp; <b>31.4 rad/s&sup2;</b></p>
+    <p><span class="step">Step 3</span>&theta; = &frac12;(&omega;<sub>0</sub> + &omega;)t = &frac12;(80&pi;)(4.0) = 160&pi; rad = <b>80 revolutions</b></p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A wheel starts from rest with constant &alpha; = 2.5 rad/s&sup2;. Find (a) &omega; after 6 s, (b) the angle turned. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &omega; = 0 + 2.5 &times; 6 = <b>15 rad/s</b>. (b) &theta; = &frac12; &times; 2.5 &times; 6&sup2; = <b>45 rad</b>.</p></div></details></li>
+    <li>A microscope stage speeds up from 10 rad/s to 25 rad/s in 3 s. Find (a) &alpha;, (b) the angular displacement. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &alpha; = (25 &minus; 10)/3 = <b>5 rad/s&sup2;</b>. (b) &theta; = &frac12;(10 + 25)(3) = <b>52.5 rad</b>.</p></div></details></li>
+    <li>A rotor completes 5 revolutions in 2 s. Find &omega; in rad/s. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&theta; = 5 &times; 2&pi; = 10&pi; rad, so &omega; = 10&pi;/2 = 5&pi; &asymp; <b>15.7 rad/s</b>.</p></div></details></li>
+    <li>A ceiling fan goes from 0 to 300 rpm in 20 s. Find (a) &alpha;, (b) the number of revolutions. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&omega; = 300 &times; 2&pi;/60 = 10&pi; rad/s. (a) &alpha; = 10&pi;/20 = &pi;/2 &asymp; <b>1.57 rad/s&sup2;</b>. (b) &theta; = &frac12;(0 + 10&pi;)(20) = 100&pi; rad = <b>50 revolutions</b>.</p></div></details></li>
+    <li>A bicycle wheel of radius 0.35 m spins at 150 rpm. Find (a) &omega; in rad/s, (b) the speed of a point on the rim. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &omega; = 150 &times; 2&pi;/60 = 5&pi; &asymp; <b>15.7 rad/s</b>. (b) v = r&omega; = 0.35 &times; 15.7 &asymp; <b>5.50 m/s</b>.</p></div></details></li>
+    <li>A fan slows from 25 rad/s to 5 rad/s in 10 s. Find (a) the angular deceleration, (b) the time it takes to stop completely from 25 rad/s. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &alpha; = (5 &minus; 25)/10 = <b>&minus;2 rad/s&sup2;</b> (2 rad/s&sup2; of deceleration). (b) 0 = 25 &minus; 2t, so t = <b>12.5 s</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 2 ===================== -->
+<section class="class" id="c2"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 2</span>
+    <h2>Torque, Newton's second law for rotation, and equilibrium</h2>
+    <p class="goals"><b>By the end you can:</b> calculate torque; explain why &tau; = I&alpha;; use &Sigma;&tau; = 0 to find muscle forces in a joint.</p>
+  </div>
+
+  <h3><span class="n">2.1</span>What is torque?</h3>
+  <p>A force makes things move. A <b>torque</b> makes things turn. Push a door near the hinge and it barely moves; push at the handle and it swings easily. Same force, different effect.</p>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">&tau; = r F sin&thinsp;&theta;</div>
+    <p>r = distance from the pivot to where the force acts (the <b>lever arm</b>), F = force, &theta; = angle between the force and the lever arm. Unit: N&middot;m. Torque is biggest when you push at 90&deg; (sin 90&deg; = 1) and zero when you push straight along the arm (sin 0&deg; = 0).</p>
+  </div>
+
+  <div class="sim" id="sim-door">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Push the door</h4></div>
+    <p class="sim-try"><b>Try:</b> keep the force the same and move the push point toward the hinge. Then change the angle from 90&deg; to 0&deg;.</p>
+    <p class="sim-note"><b>What to notice:</b> torque grows with both force and distance from the hinge. Only the part of the force that is perpendicular to the door (F sin&theta;, the orange arrow) turns it.</p>
+  </div>
+
+  <h3><span class="n">2.2</span>Where does &tau; = I&alpha; come from?</h3>
+  <div class="box der"><span class="lbl">Let's derive it</span>
+    <p><span class="step">Step 1</span>Think of a rigid body as many small masses m<sub>i</sub>, each at distance r<sub>i</sub> from the axis. Newton's law for one mass: F<sub>i</sub> = m<sub>i</sub>a<sub>i</sub>.</p>
+    <p><span class="step">Step 2</span>For rotation a<sub>i</sub> = r<sub>i</sub>&alpha;, and every piece shares the same &alpha;. So F<sub>i</sub> = m<sub>i</sub>r<sub>i</sub>&alpha;.</p>
+    <p><span class="step">Step 3</span>Multiply by r<sub>i</sub> to get each torque: &tau;<sub>i</sub> = m<sub>i</sub>r<sub>i</sub>&sup2;&alpha;.</p>
+    <p><span class="step">Step 4</span>Add them up: &tau;<sub>total</sub> = (&Sigma; m<sub>i</sub>r<sub>i</sub>&sup2;) &alpha;.</p>
+    <p><span class="step">Step 5</span>Call the bracket the <b>moment of inertia</b> I = &Sigma; m<sub>i</sub>r<sub>i</sub>&sup2;. Result:</p>
+    <div class="eq boxed"><span class="b">&tau; = I&alpha;</span></div>
+  </div>
+  <p>This is the spinning twin of F = ma. Mass resists being pushed; moment of inertia resists being spun.</p>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; swinging the forearm</span>
+    <p>Treat forearm plus hand as a 1.2 kg point mass at r = 0.30 m from the elbow. The biceps gives &tau; = 4.5 N&middot;m. Find &alpha;.</p>
+    <p><span class="step">Step 1</span>I = mr&sup2; = 1.2 &times; 0.30&sup2; = 0.108 kg&middot;m&sup2;</p>
+    <p><span class="step">Step 2</span>&alpha; = &tau;/I = 4.5/0.108 &asymp; <b>41.7 rad/s&sup2;</b></p>
+  </div>
+
+  <h3><span class="n">2.3</span>Equilibrium of rotating bodies</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>A body does not start to rotate when the torques balance: <b>&Sigma;&tau; = 0</b>, i.e. clockwise torques = anticlockwise torques. (For full equilibrium the forces must balance too: &Sigma;F = 0.)</p>
+  </div>
+  <div class="box bio"><span class="lbl">Why this matters for biology</span>
+    <p>The elbow is a <b>third-class lever</b>: pivot (elbow), then effort (biceps tendon, close to the elbow), then load (hand, far away). Because the biceps is so close to the pivot, it must pull many times harder than the weight you hold. You lose force but gain speed and range of motion.</p>
+  </div>
+
+  <div class="sim" id="sim-biceps">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Hold the dumbbell steady</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the dumbbell mass, then move the tendon attachment farther from the elbow. Watch the biceps force.</p>
+    <p class="sim-note"><b>What to notice:</b> balancing torques gives F<sub>biceps</sub> &times; d = W &times; x. With d = 4 cm and x = 32 cm the muscle pulls 8 times the weight. Moving the tendon outward a little makes holding much easier.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; biceps force</span>
+    <p>A 2.0 kg dumbbell is held 0.32 m from the elbow, forearm horizontal. The biceps attaches 0.04 m from the elbow and pulls straight up. Ignore the forearm's weight.</p>
+    <p><span class="step">Step 1</span>Balance torques about the elbow: F<sub>b</sub>(0.04) = (2.0)(9.8)(0.32)</p>
+    <p><span class="step">Step 2</span>F<sub>b</sub> = 6.272/0.04 = <b>157 N</b>, about 8 times the 19.6 N weight.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A 15 N force acts at 60&deg; to a lever arm 0.5 m long. Find the torque. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = rF sin&theta; = 0.5 &times; 15 &times; sin 60&deg; = <b>6.50 N&middot;m</b>.</p></div></details></li>
+    <li>A bar 0.8 m long is pivoted at one end. A 12 N force acts at the free end at 30&deg; to the bar. Find the torque. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = 0.8 &times; 12 &times; sin 30&deg; = <b>4.8 N&middot;m</b>.</p></div></details></li>
+    <li>A forearm holds a 25 N load 0.30 m from the elbow. The biceps attaches 0.05 m from the elbow and pulls perpendicular to the forearm. Find the biceps force. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F<sub>b</sub>(0.05) = 25(0.30), so F<sub>b</sub> = <b>150 N</b>.</p></div></details></li>
+    <li>A wheel has I = 0.75 kg&middot;m&sup2;. What torque gives it &alpha; = 4 rad/s&sup2;? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = I&alpha; = 0.75 &times; 4 = <b>3.0 N&middot;m</b>.</p></div></details></li>
+    <li>A forearm (0.35 m long, mass 2.2 kg, weight acting at its middle) holds a 4.0 kg load at the hand (0.35 m). The biceps attaches 0.05 m from the elbow at 70&deg; to the forearm. Find (a) the torque of the load about the elbow, (b) the biceps force for equilibrium. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &tau;<sub>load</sub> = 4.0 &times; 9.8 &times; 0.35 = <b>13.7 N&middot;m</b>.</p><p>(b) Forearm: 2.2 &times; 9.8 &times; 0.175 = 3.77 N&middot;m. Total clockwise = 17.5 N&middot;m. Biceps: F &times; 0.05 &times; sin 70&deg; = 17.5, so F &asymp; <b>372 N</b>.</p></div></details></li>
+    <li>During standing, the ground force (700 N) passes 0.06 m in front of the knee. What torque must the quadriceps supply to stop the knee buckling? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = F &times; d = 700 &times; 0.06 = <b>42 N&middot;m</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 3 ===================== -->
+<section class="class" id="c3"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 3</span>
+    <h2>Moment of inertia</h2>
+    <p class="goals"><b>By the end you can:</b> calculate I for point masses, a rod and a disc; use the parallel-axis and perpendicular-axis theorems.</p>
+  </div>
+
+  <h3><span class="n">3.1</span>Definition</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">I = &Sigma; m<sub>i</sub> r<sub>i</sub><sup>2</sup> &emsp; (unit kg&middot;m&sup2;)</div>
+    <p>I measures how hard it is to spin something. It depends on the mass <b>and on how far that mass sits from the axis</b>, and distance counts <b>squared</b>. Moving mass twice as far out makes it four times harder to spin.</p>
+  </div>
+
+  <div class="sim" id="sim-inertia">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Same push, different spin</h4></div>
+    <p class="sim-try"><b>Try:</b> both rotors get exactly the same torque. Slide the masses on rotor B outward and press <b>Restart</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> with the masses twice as far out, I is four times bigger and rotor B spins up four times more slowly. This is why a gymnast tucks in to spin fast and why a bent knee swings forward more easily than a straight leg.</p>
+  </div>
+
+  <h3><span class="n">3.2</span>Simple bodies</h3>
+  <p>For a solid object we add up (integrate) all the tiny pieces: I = &int; r&sup2; dm. You only need the results:</p>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Body (mass M)</th><th>Axis</th><th>I</th></tr>
+    <tr><td>Point mass at distance r</td><td>through pivot</td><td>Mr&sup2;</td></tr>
+    <tr><td>Thin rod, length L</td><td>through centre, perpendicular</td><td>ML&sup2;/12</td></tr>
+    <tr><td>Thin rod, length L</td><td>through one end, perpendicular</td><td>ML&sup2;/3</td></tr>
+    <tr><td>Solid disc or cylinder, radius R</td><td>through centre, perpendicular to face</td><td>MR&sup2;/2</td></tr>
+    <tr><td>Ring or thin hoop, radius R</td><td>through centre, perpendicular to face</td><td>MR&sup2;</td></tr>
+    <tr><td>Solid disc, radius R</td><td>along a diameter</td><td>MR&sup2;/4</td></tr>
+  </table></div>
+  <div class="box bio"><span class="lbl">Why this matters for biology</span>
+    <p>A limb turns about a joint at its <b>end</b>, not its middle. A rod about its end has I = ML&sup2;/3, four times bigger than about its centre. That is why swinging a straight leg from the hip takes so much effort.</p>
+  </div>
+
+  <h3><span class="n">3.3</span>Parallel-axis theorem</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">I = I<sub>cm</sub> + M d<sup>2</sup></div>
+    <p>If you know I about an axis through the centre of mass, the moment of inertia about any <b>parallel</b> axis a distance d away is bigger by Md&sup2;. The smallest I is always about the centre of mass.</p>
+  </div>
+  <div class="box ex"><span class="lbl">Check it: rod about its end</span>
+    <p>I<sub>cm</sub> = ML&sup2;/12, and the end is d = L/2 from the centre. I<sub>end</sub> = ML&sup2;/12 + M(L/2)&sup2; = ML&sup2;/12 + 3ML&sup2;/12 = <b>ML&sup2;/3</b>. It matches the table.</p>
+  </div>
+
+  <div class="sim" id="sim-parallel">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Move the axis along a rod</h4></div>
+    <p class="sim-try"><b>Try:</b> drag the slider to move the pivot from the centre of the rod to its end.</p>
+    <p class="sim-note"><b>What to notice:</b> I is smallest at the centre and grows as d&sup2; (the curve is a parabola). At the end, d = L/2 and I becomes ML&sup2;/3.</p>
+  </div>
+
+  <h3><span class="n">3.4</span>Perpendicular-axis theorem</h3>
+  <div class="box key"><span class="lbl">Key concept (flat objects only)</span>
+    <div class="eq">I<sub>z</sub> = I<sub>x</sub> + I<sub>y</sub></div>
+    <p>For a flat plate in the x&ndash;y plane, I about the z axis (perpendicular to the plate) equals the sum of the I values about two perpendicular axes lying in the plate. Example: a disc has I<sub>z</sub> = MR&sup2;/2, and by symmetry I<sub>x</sub> = I<sub>y</sub>, so each diameter gives MR&sup2;/4.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; forearm as a rod</span>
+    <p>Model a forearm as a uniform rod, M = 1.5 kg, L = 0.35 m, turning about the elbow (one end). The biceps gives 4.5 N&middot;m.</p>
+    <p><span class="step">Step 1</span>I = ML&sup2;/3 = 1.5 &times; 0.35&sup2;/3 &asymp; 0.0613 kg&middot;m&sup2;</p>
+    <p><span class="step">Step 2</span>&alpha; = &tau;/I = 4.5/0.0613 &asymp; <b>73.4 rad/s&sup2;</b></p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Two 0.5 kg masses sit at the ends of a light rod 0.6 m long that turns about its centre. Find I. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Each mass is 0.3 m from the axis: I = 2 &times; 0.5 &times; 0.3&sup2; = <b>0.09 kg&middot;m&sup2;</b>.</p></div></details></li>
+    <li>A centrifuge rotor is a solid disc, M = 3.0 kg, R = 0.10 m. Find I about its axle. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I = &frac12;MR&sup2; = 0.5 &times; 3.0 &times; 0.01 = <b>0.015 kg&middot;m&sup2;</b>.</p></div></details></li>
+    <li>A uniform rod (M = 2 kg, L = 1.2 m) turns about one end. Find I. Then use the parallel-axis theorem to check it from I<sub>cm</sub>. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I = ML&sup2;/3 = 2 &times; 1.44/3 = <b>0.96 kg&middot;m&sup2;</b>. Check: I<sub>cm</sub> = 2 &times; 1.44/12 = 0.24; Md&sup2; = 2 &times; 0.6&sup2; = 0.72; total 0.96 kg&middot;m&sup2;.</p></div></details></li>
+    <li>A 1.0 kg rod of length 0.40 m turns about an axis 0.10 m from its centre. Find I. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I = ML&sup2;/12 + Md&sup2; = 1.0 &times; 0.16/12 + 1.0 &times; 0.01 = 0.0133 + 0.0100 = <b>0.0233 kg&middot;m&sup2;</b>.</p></div></details></li>
+    <li>A thin disc has I = 0.02 kg&middot;m&sup2; about its central perpendicular axis. What is I about a diameter? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Perpendicular-axis theorem: I<sub>z</sub> = I<sub>x</sub> + I<sub>y</sub> = 2I<sub>diameter</sub>, so I<sub>diameter</sub> = <b>0.01 kg&middot;m&sup2;</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 4 ===================== -->
+<section class="class" id="c4"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 4</span>
+    <h2>Angular momentum, impulse, work and rotational energy</h2>
+    <p class="goals"><b>By the end you can:</b> use L = I&omega; and its conservation; relate torque to change of L; use impulse J = F&Delta;t = &Delta;p; find rotational kinetic energy and work; explain centrifuges and molecular motors.</p>
+  </div>
+
+  <h3><span class="n">4.1</span>Linear momentum and impulse</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">p = m v &emsp;&emsp; J = F &Delta;t &emsp;&emsp; <span class="up">Impulse&ndash;momentum theorem:</span> F &Delta;t = &Delta;p</div>
+    <p>Momentum is "mass in motion" (a vector, kg&middot;m/s). Impulse is a force acting for a time (N&middot;s). Start from F = ma = m(&Delta;v/&Delta;t), multiply by &Delta;t, and you get F&Delta;t = m&Delta;v = &Delta;p.</p>
+  </div>
+  <p>Rearranged, <b>F = &Delta;p / &Delta;t</b>. For the same change in momentum, a longer stopping time means a smaller force. This is the body's favourite trick: bending the knees on landing, cartilage in joints, cushioned shoes.</p>
+
+  <div class="sim" id="sim-landing">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Stiff or soft landing?</h4></div>
+    <p class="sim-try"><b>Try:</b> keep the mass and speed fixed, then make the landing time longer (bend the knees more).</p>
+    <p class="sim-note"><b>What to notice:</b> the shaded area (force &times; time = impulse) stays the same, because &Delta;p is fixed. Stretch the time 8 times and the force drops 8 times.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; jumping off a wall</span>
+    <p>A 60 kg person lands at 3.0 m/s and stops. &Delta;p = 60 &times; 3.0 = 180 kg&middot;m/s.</p>
+    <p>Stiff legs (&Delta;t = 0.05 s): F = 180/0.05 = <b>3600 N</b>. Bent knees (&Delta;t = 0.40 s): F = 180/0.40 = <b>450 N</b>.</p>
+  </div>
+
+  <h3><span class="n">4.2</span>Angular momentum</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">L = I &omega; &emsp;&emsp; &tau; = <span class="fr"><span>&Delta;L</span><span>&Delta;t</span></span> &emsp;&emsp; <span class="up">angular impulse</span> &tau;&Delta;t = &Delta;L</div>
+    <p>These are the twins of p = mv and F = &Delta;p/&Delta;t. If no outside torque acts, <b>L stays constant</b>:</p>
+    <div class="eq boxed"><span class="b">I<sub>1</sub>&omega;<sub>1</sub> = I<sub>2</sub>&omega;<sub>2</sub></span></div>
+  </div>
+
+  <div class="sim" id="sim-skater">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>The spinning diver</h4></div>
+    <p class="sim-try"><b>Try:</b> pull the arms in and push them out again while the figure spins.</p>
+    <p class="sim-note"><b>What to notice:</b> L = I&omega; never changes. Arms in makes I small, so &omega; must grow. The kinetic energy goes up too; the muscles did work pulling the arms in.</p>
+  </div>
+
+  <div class="sim" id="sim-wheel3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Angular momentum is a vector</h4></div>
+    <p class="sim-try"><b>Try:</b> drag the picture to look from any side. Change the spin rate (negative = the other way) and switch between a disc and a ring of the same mass.</p>
+    <p class="sim-note"><b>What to notice:</b> L points along the axle (right-hand rule: curl your fingers the way it spins, your thumb gives L). The ring has all its mass at the rim, so its I and L are twice the disc's at the same &omega;.</p>
+  </div>
+
+  <h3><span class="n">4.3</span>Work and rotational kinetic energy</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">K<sub>rot</sub> = &frac12; I &omega;<sup>2</sup> &emsp;&emsp; W = &tau; &theta; &emsp;&emsp; W = &Delta;K<sub>rot</sub></div>
+    <p>Compare with K = &frac12;mv&sup2; and W = Fd. A torque acting through an angle does work, and that work changes the rotational kinetic energy (work&ndash;energy theorem). Power is P = &tau;&omega;.</p>
+  </div>
+
+  <h3><span class="n">4.4</span>Applications: centrifuges and molecular motors</h3>
+  <p><b>Centrifuge.</b> A sample spinning at radius r has centripetal acceleration a = &omega;&sup2;r. Biologists quote this as <b>relative centrifugal force</b>, RCF = &omega;&sup2;r/g, in "&times; g". Denser particles (cells, then organelles, then large molecules) are pushed outward and form a pellet.</p>
+
+  <div class="sim" id="sim-centrifuge">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Centrifuge a blood sample</h4></div>
+    <p class="sim-try"><b>Try:</b> set the speed in rpm and the rotor radius, then watch the red cells settle in the tube.</p>
+    <p class="sim-note"><b>What to notice:</b> RCF grows with rpm <b>squared</b>. Doubling the rpm makes the cells settle four times faster. Plasma (yellow) stays on top; red cells pack at the bottom.</p>
+  </div>
+
+  <p><b>Molecular motors.</b> The bacterial flagellar motor spins the flagellum at around 100 revolutions per second, driven by ions flowing through the membrane. ATP synthase turns its central shaft in 120&deg; steps, making one ATP per step. Both obey &tau; = I&alpha; and W = &tau;&theta; just like a centrifuge, only at the nanometre scale.</p>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; energy in a rotor</span>
+    <p>The 0.015 kg&middot;m&sup2; rotor spins at 6000 rpm. &omega; = 6000 &times; 2&pi;/60 = 628 rad/s. K = &frac12;(0.015)(628)&sup2; &asymp; <b>2.96 kJ</b>. That is why a centrifuge lid must stay locked.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A 0.15 kg ball is thrown at 25 m/s. Find its momentum. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>p = mv = 0.15 &times; 25 = <b>3.75 kg&middot;m/s</b>.</p></div></details></li>
+    <li>A racket pushes a ball with 40 N for 0.02 s. Find the impulse. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>J = F&Delta;t = 40 &times; 0.02 = <b>0.8 N&middot;s</b>.</p></div></details></li>
+    <li>A 0.5 kg ball moving at 8 m/s is hit and leaves at 8 m/s the other way. Contact lasts 0.01 s. Find (a) &Delta;p, (b) the average force. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &Delta;p = m(v<sub>f</sub> &minus; v<sub>i</sub>) = 0.5(8 &minus; (&minus;8)) = <b>8 kg&middot;m/s</b>. (b) F = 8/0.01 = <b>800 N</b>. The direction reversal doubles &Delta;p.</p></div></details></li>
+    <li>A 55 kg gymnast lands at 4.5 m/s. Find the average force if the landing takes (a) 0.06 s, (b) 0.35 s. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&Delta;p = 55 &times; 4.5 = 247.5 kg&middot;m/s. (a) 247.5/0.06 = <b>4125 N</b>. (b) 247.5/0.35 &asymp; <b>707 N</b>.</p></div></details></li>
+    <li>A skater spins at 1.5 rev/s with I = 4.0 kg&middot;m&sup2;, then pulls in the arms to I = 1.6 kg&middot;m&sup2;. Find the new spin rate. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I<sub>1</sub>&omega;<sub>1</sub> = I<sub>2</sub>&omega;<sub>2</sub>: &omega;<sub>2</sub> = 4.0 &times; 1.5/1.6 = <b>3.75 rev/s</b>.</p></div></details></li>
+    <li>A constant torque of 2.0 N&middot;m turns a wheel through 10 revolutions. How much work is done? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&theta; = 10 &times; 2&pi; = 20&pi; rad. W = &tau;&theta; = 2.0 &times; 20&pi; &asymp; <b>126 J</b>.</p></div></details></li>
+    <li>A rotor spinning at 10,000 rpm holds a tube 8.0 cm from the axis. Find the RCF. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&omega; = 10,000 &times; 2&pi;/60 = 1047 rad/s. RCF = &omega;&sup2;r/g = 1047&sup2; &times; 0.08/9.8 &asymp; <b>8950 &times; g</b>.</p></div></details></li>
+    <li>A uniform rod (2 kg, 1.2 m) pivoted at one end is released from horizontal. Using energy, find &omega; when it hangs vertically. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>The centre falls L/2 = 0.6 m: Mg(L/2) = &frac12;(ML&sup2;/3)&omega;&sup2;, so &omega; = &radic;(3g/L) = &radic;(3 &times; 9.8/1.2) &asymp; <b>4.95 rad/s</b>.</p></div></details></li>
+    <li>A centrifuge reaches 30,000 rpm in 20 s from rest. Find (a) &alpha;, (b) the number of revolutions while speeding up. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&omega; = 30,000 &times; 2&pi;/60 = 1000&pi; rad/s. (a) &alpha; = 1000&pi;/20 &asymp; <b>157 rad/s&sup2;</b>. (b) &theta; = &frac12;(1000&pi;)(20) = 10,000&pi; rad = <b>5000 rev</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 5 ===================== -->
+<section class="class" id="c5"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 5</span>
+    <h2>Review and Quiz 1: formula sheet</h2>
+    <p class="goals">Everything from Classes 1&ndash;4 on one screen. Know what each symbol means and when each formula applies.</p>
+  </div>
+  <div class="sheet">
+    <div><h4>Angular motion</h4><p>v = r&omega; &nbsp; a<sub>t</sub> = r&alpha;</p><p>&omega; = &omega;<sub>0</sub> + &alpha;t</p><p>&theta; = &omega;<sub>0</sub>t + &frac12;&alpha;t&sup2;</p><p>&omega;&sup2; = &omega;<sub>0</sub>&sup2; + 2&alpha;&theta;</p><p>rad/s = rpm &times; 2&pi;/60</p></div>
+    <div><h4>Torque</h4><p>&tau; = rF sin&theta;</p><p>&tau; = I&alpha;</p><p>Equilibrium: &Sigma;&tau; = 0, &Sigma;F = 0</p></div>
+    <div><h4>Moment of inertia</h4><p>I = &Sigma;mr&sup2;</p><p>Rod: ML&sup2;/12 (centre), ML&sup2;/3 (end)</p><p>Disc: MR&sup2;/2 &nbsp; Ring: MR&sup2;</p><p>I = I<sub>cm</sub> + Md&sup2;</p><p>I<sub>z</sub> = I<sub>x</sub> + I<sub>y</sub></p></div>
+    <div><h4>Momentum</h4><p>p = mv &nbsp; J = F&Delta;t = &Delta;p</p><p>L = I&omega; &nbsp; &tau;&Delta;t = &Delta;L</p><p>No outside torque: I<sub>1</sub>&omega;<sub>1</sub> = I<sub>2</sub>&omega;<sub>2</sub></p></div>
+    <div><h4>Work and energy</h4><p>K = &frac12;mv&sup2; &nbsp; K<sub>rot</sub> = &frac12;I&omega;&sup2;</p><p>W = &tau;&theta; = &Delta;K</p><p>P = &tau;&omega;</p><p>RCF = &omega;&sup2;r/g</p></div>
+  </div>
+  <div class="pager"><a href="index.html"><small>Back to</small>Course home</a><a href="fluids.html"><small>Next unit</small>Fluids &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/rotation.js"></script>
+</body>
+</html>

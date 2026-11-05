@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electricity in the Body | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 13 to 19: charge, Coulomb's law, electric field and dipoles, potential, capacitors and dielectrics, current and Ohm's law, RC circuits, Kirchhoff's laws and action potentials.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html" aria-current="page">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 4 &middot; Classes 13&ndash;19 &middot; Electricity</span>
+  <h1>Electricity in the Body</h1>
+  <p class="lead">Every nerve signal, heartbeat and thought is electrical. Cell membranes hold charge like capacitors, ion channels act as resistors, and a neuron behaves like a simple RC circuit.</p>
+  <ul class="toc">
+    <li><a href="#c13"><span>Class 13</span>Charge, Coulomb, field</a></li>
+    <li><a href="#c14"><span>Class 14</span>Potential and capacitors</a></li>
+    <li><a href="#c15"><span>Class 15</span>Current and Ohm's law</a></li>
+    <li><a href="#c16"><span>Class 16</span>RC circuits</a></li>
+    <li><a href="#c17"><span>Class 17</span>Kirchhoff's laws</a></li>
+    <li><a href="#c18"><span>Class 18</span>Review and Quiz 3</a></li>
+    <li><a href="#c19"><span>Class 19</span>Action potentials</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 13 ===================== -->
+<section class="class" id="c13"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 13</span>
+    <h2>Electric charge, Coulomb's law, electric field and field lines</h2>
+    <p class="goals"><b>By the end you can:</b> state the properties of charge; use F = kq<sub>1</sub>q<sub>2</sub>/r&sup2;; find E = kq/r&sup2;; sketch field lines; describe an electric dipole.</p>
+  </div>
+
+  <h3><span class="n">13.1</span>The nature of electric charge</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <ul>
+      <li>Two kinds: <b>positive</b> and <b>negative</b>. Like charges repel; unlike charges attract.</li>
+      <li>Charge is <b>quantised</b>: it comes in whole multiples of e = 1.6 &times; 10<sup>&minus;19</sup> C (one proton is +e, one electron is &minus;e).</li>
+      <li>Charge is <b>conserved</b>: it can move around but is never created or destroyed.</li>
+      <li><b>Conductors</b> let charge move (metals, salty body fluids); <b>insulators</b> do not (the lipid core of a membrane, myelin).</li>
+    </ul>
+  </div>
+  <p>In biology the charges are mostly <b>ions</b>: Na<sup>+</sup>, K<sup>+</sup>, Ca<sup>2+</sup>, Cl<sup>&minus;</sup>. DNA is negatively charged along its backbone, which is why it moves towards the positive electrode in gel electrophoresis.</p>
+
+  <h3><span class="n">13.2</span>Coulomb's law</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">F = k <span class="fr"><span>q<sub>1</sub> q<sub>2</sub></span><span>r<sup>2</sup></span></span> &emsp;&emsp; k = <span class="fr"><span>1</span><span>4&pi;&epsilon;<sub>0</sub></span></span> = 8.99 &times; 10<sup>9</sup> N&middot;m&sup2;/C&sup2;</div>
+    <p>Double the distance and the force drops to one quarter (inverse square). In a medium such as water the force is weaker by the dielectric constant &kappa; (water: &kappa; &asymp; 80), which is why salt dissolves.</p>
+  </div>
+
+  <div class="sim" id="sim-coulomb">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Two charges push or pull</h4></div>
+    <p class="sim-try"><b>Try:</b> change the two charges (make one negative) and pull them apart.</p>
+    <p class="sim-note"><b>What to notice:</b> both charges feel the same size of force, in opposite directions (Newton's third law). Doubling r cuts the force to 1/4; doubling one charge doubles the force.</p>
+  </div>
+
+  <h3><span class="n">13.3</span>Electric field and field lines</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">E = <span class="fr"><span>F</span><span>q<sub>test</sub></span></span> &emsp;&emsp; <span class="up">point charge:</span> E = k<span class="fr"><span>q</span><span>r<sup>2</sup></span></span> &emsp; (N/C or V/m)</div>
+    <p>The field is the force per unit positive charge at each point in space. <b>Field lines</b> start on + charges and end on &minus; charges, never cross, and are crowded where the field is strong.</p>
+  </div>
+
+  <div class="sim" id="sim-fieldlines">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Draw the field lines</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a set-up. <b>Drag the charges</b> around on the picture. Turn on <b>Show potential</b> for the next class.</p>
+    <p class="sim-note"><b>What to notice:</b> lines leave + and enter &minus;. Between a + and a &minus; (a dipole) lines link the two; between two + charges they push apart and leave an empty point in the middle where E = 0.</p>
+  </div>
+
+  <h3><span class="n">13.4</span>The electric dipole</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">p = q d &emsp;&emsp; <span class="up">torque in a field:</span> &tau; = p E sin&thinsp;&theta;</div>
+    <p>An <b>electric dipole</b> is a + and a &minus; charge separated by a distance d. Water is a dipole (p &asymp; 6.2 &times; 10<sup>&minus;30</sup> C&middot;m); so are many proteins and the heart as a whole, which is why an ECG can read it from the skin. A dipole in a field is twisted until it lines up with the field.</p>
+  </div>
+
+  <div class="sim" id="sim-field3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>The field all around a charge</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to rotate. Switch between a single charge and a dipole.</p>
+    <p class="sim-note"><b>What to notice:</b> the field exists in all three dimensions, not just on paper. Arrows are long and bright near the charge and fade as 1/r&sup2;. For the dipole they curve from + to &minus;.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; salt in water</span>
+    <p>Na<sup>+</sup> and Cl<sup>&minus;</sup>, 0.28 nm apart. In vacuum: F = (8.99 &times; 10<sup>9</sup>)(1.6 &times; 10<sup>&minus;19</sup>)&sup2;/(0.28 &times; 10<sup>&minus;9</sup>)&sup2; &asymp; <b>2.9 &times; 10<sup>&minus;9</sup> N</b>. In water, divide by &kappa; = 80: about <b>3.7 &times; 10<sup>&minus;11</sup> N</b>, weak enough for thermal motion to pull the ions apart.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Two charges of 2 &micro;C and 3 &micro;C are 0.5 m apart. Find the force. Attractive or repulsive? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = 8.99 &times; 10<sup>9</sup> &times; 2 &times; 10<sup>&minus;6</sup> &times; 3 &times; 10<sup>&minus;6</sup>/0.25 &asymp; <b>0.216 N</b>, repulsive (both positive).</p></div></details></li>
+    <li>How many electrons make a charge of &minus;1 nC? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>n = 10<sup>&minus;9</sup>/1.6 &times; 10<sup>&minus;19</sup> &asymp; <b>6.25 &times; 10<sup>9</sup> electrons</b>.</p></div></details></li>
+    <li>Find E at 10 cm from a 5 nC charge. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>E = kq/r&sup2; = 8.99 &times; 10<sup>9</sup> &times; 5 &times; 10<sup>&minus;9</sup>/0.01 &asymp; <b>4500 N/C</b>.</p></div></details></li>
+    <li>If the distance between two charges is tripled, what happens to the force? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F &prop; 1/r&sup2;, so it becomes <b>1/9</b> of the original.</p></div></details></li>
+    <li>A dipole p = 6.2 &times; 10<sup>&minus;30</sup> C&middot;m sits at 90&deg; to a field of 10<sup>7</sup> V/m (like inside a membrane). Find the torque. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = pE sin 90&deg; = 6.2 &times; 10<sup>&minus;30</sup> &times; 10<sup>7</sup> = <b>6.2 &times; 10<sup>&minus;23</sup> N&middot;m</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 14 ===================== -->
+<section class="class" id="c14"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 14</span>
+    <h2>Electric potential, equipotentials, capacitors and dielectrics</h2>
+    <p class="goals"><b>By the end you can:</b> use U = kq<sub>1</sub>q<sub>2</sub>/r and V = kq/r; relate E and V; describe equipotentials; use C = Q/V and C = &kappa;&epsilon;<sub>0</sub>A/d; treat a cell membrane as a capacitor.</p>
+  </div>
+
+  <h3><span class="n">14.1</span>Potential energy and potential</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">U = k <span class="fr"><span>q<sub>1</sub>q<sub>2</sub></span><span>r</span></span> &emsp;&emsp; V = <span class="fr"><span>U</span><span>q</span></span> = k<span class="fr"><span>q</span><span>r</span></span> &emsp;&emsp; W = q &Delta;V</div>
+    <p><b>Potential V</b> (volts, J/C) is potential energy per unit charge. It is a number, not a vector, so potentials from several charges simply add. A charge q moved through a potential difference &Delta;V gains or loses energy q&Delta;V. One electron-volt (eV) = 1.6 &times; 10<sup>&minus;19</sup> J.</p>
+  </div>
+
+  <h3><span class="n">14.2</span>Equipotentials</h3>
+  <p>An <b>equipotential</b> is a surface where V is the same everywhere. Moving a charge along it costs no work. Equipotentials are always <b>perpendicular</b> to field lines, and the field points from high V to low V. In a uniform field:</p>
+  <div class="eq">E = <span class="fr"><span>&Delta;V</span><span>d</span></span></div>
+  <p>Go back to the field-line simulation above and switch on <b>Show potential</b>: the colour bands are equipotentials.</p>
+
+  <h3><span class="n">14.3</span>Capacitors and dielectrics</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">C = <span class="fr"><span>Q</span><span>V</span></span> &emsp;&emsp; C = <span class="fr"><span>&kappa; &epsilon;<sub>0</sub> A</span><span>d</span></span> &emsp;&emsp; U = &frac12;CV<sup>2</sup></div>
+    <p>A capacitor is two conductors separated by an insulator. It stores charge (Q = CV) and energy. Bigger plates, a thinner gap, or a <b>dielectric</b> (insulator with &kappa; &gt; 1) between the plates all give more capacitance. &epsilon;<sub>0</sub> = 8.85 &times; 10<sup>&minus;12</sup> F/m. Unit: farad (F).</p>
+  </div>
+
+  <div class="sim" id="sim-capacitor">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Build a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> change plate area, gap and voltage, then slide a dielectric in by raising &kappa;.</p>
+    <p class="sim-note"><b>What to notice:</b> at fixed voltage, a thinner gap or a dielectric lets the plates hold more charge. The field between the plates is uniform, E = V/d, so a 7 nm membrane with only 70 mV across it has a huge field of 10<sup>7</sup> V/m.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">The cell membrane is a capacitor</span>
+    <p>The lipid bilayer (&kappa; &asymp; 7, d &asymp; 7 nm) is an insulator separating two salty conductors (cytoplasm and outside fluid). C per area = &kappa;&epsilon;<sub>0</sub>/d &asymp; 7 &times; 8.85 &times; 10<sup>&minus;12</sup>/7 &times; 10<sup>&minus;9</sup> &asymp; <b>0.9 &micro;F/cm&sup2;</b>. At a resting potential of &minus;70 mV, each cm&sup2; holds only about 6 &times; 10<sup>&minus;8</sup> C, a tiny layer of extra ions right at the membrane surface.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the potential 1 nm from a single proton. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>V = kq/r = 8.99 &times; 10<sup>9</sup> &times; 1.6 &times; 10<sup>&minus;19</sup>/10<sup>&minus;9</sup> &asymp; <b>1.44 V</b>.</p></div></details></li>
+    <li>How much energy does a Na<sup>+</sup> ion gain crossing a 70 mV membrane? Give J and eV. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>W = q&Delta;V = 1.6 &times; 10<sup>&minus;19</sup> &times; 0.07 = <b>1.12 &times; 10<sup>&minus;20</sup> J = 0.07 eV</b>.</p></div></details></li>
+    <li>Find the field inside a 7 nm membrane with 70 mV across it. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>E = &Delta;V/d = 0.07/7 &times; 10<sup>&minus;9</sup> = <b>1.0 &times; 10<sup>7</sup> V/m</b>.</p></div></details></li>
+    <li>Parallel plates: A = 0.01 m&sup2;, d = 1 mm, air. Find C, and Q and U at 12 V. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>C = &epsilon;<sub>0</sub>A/d = 8.85 &times; 10<sup>&minus;11</sup> F (88.5 pF). Q = CV &asymp; <b>1.06 &times; 10<sup>&minus;9</sup> C</b>. U = &frac12;CV&sup2; &asymp; <b>6.4 &times; 10<sup>&minus;9</sup> J</b>.</p></div></details></li>
+    <li>A defibrillator stores energy in a 100 &micro;F capacitor charged to 2000 V. How much energy? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>U = &frac12;CV&sup2; = 0.5 &times; 10<sup>&minus;4</sup> &times; 4 &times; 10<sup>6</sup> = <b>200 J</b>.</p></div></details></li>
+    <li>How many monovalent ions sit on 1 cm&sup2; of membrane (C = 0.885 &micro;F/cm&sup2;) at 70 mV? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Q = CV = 0.885 &times; 10<sup>&minus;6</sup> &times; 0.07 &asymp; 6.2 &times; 10<sup>&minus;8</sup> C. n = Q/e &asymp; <b>3.9 &times; 10<sup>11</sup> ions</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 15 ===================== -->
+<section class="class" id="c15"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 15</span>
+    <h2>Electric current, resistance, Ohm's law and EMF</h2>
+    <p class="goals"><b>By the end you can:</b> use I = Q/t, V = IR, R = &rho;L/A and P = VI; explain EMF and internal resistance; treat membranes and axons as resistors.</p>
+  </div>
+
+  <h3><span class="n">15.1</span>Current and resistance</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">I = <span class="fr"><span>Q</span><span>t</span></span> &emsp;&emsp; V = I R &emsp;&emsp; R = &rho; <span class="fr"><span>L</span><span>A</span></span> &emsp;&emsp; P = V I = I<sup>2</sup>R</div>
+    <p><b>Current I</b> (amperes, C/s) is the flow of charge. <b>Resistance R</b> (ohms) opposes it. <b>Ohm's law</b>: current is proportional to voltage for a fixed resistor. Resistance grows with length and falls with cross-section area; &rho; is the material's resistivity (&Omega;&middot;m). In body fluids, the moving charges are ions, not electrons.</p>
+  </div>
+
+  <div class="sim" id="sim-ohm">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Ohm's law with a lamp</h4></div>
+    <p class="sim-try"><b>Try:</b> raise the battery voltage, then raise the resistance. Watch the charges and the lamp.</p>
+    <p class="sim-note"><b>What to notice:</b> double V and the current doubles; double R and it halves. The lamp's power P = VI grows with V&sup2; at fixed R.</p>
+  </div>
+
+  <h3><span class="n">15.2</span>EMF and internal resistance</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">V<sub>terminal</sub> = &epsilon; &minus; I r</div>
+    <p>The <b>EMF &epsilon;</b> is the energy a source gives each coulomb of charge (volts). Real sources have an internal resistance r, so the voltage at their terminals drops when they deliver current. In cells, the "batteries" are ion concentration differences across the membrane.</p>
+  </div>
+
+  <h3><span class="n">15.3</span>Biological membranes and axons as resistors</h3>
+  <p>The lipid bilayer is a very good insulator; ions cross it only through <b>ion channels</b>. Each open channel is a tiny resistor (conductance, G = 1/R, in siemens). Opening more channels lowers the membrane's resistance. Inside an axon, the axoplasm is a salty conductor, but it is thin and not very conductive (&rho; &asymp; 2 &Omega;&middot;m, about 100 million times copper's), so an axon is a poor wire.</p>
+
+  <div class="sim" id="sim-axon">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Why an axon is a poor wire</h4></div>
+    <p class="sim-try"><b>Try:</b> change the length and radius of the "wire" and switch between axoplasm and copper.</p>
+    <p class="sim-note"><b>What to notice:</b> R = &rho;L/A. A thin axon a few centimetres long has hundreds of megaohms of resistance, so a signal cannot simply flow along it like in a copper cable. Nerves solve this with action potentials that regenerate the signal (Class 19).</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A charge of 30 C passes through a wire in 1 minute. Find the current. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I = Q/t = 30/60 = <b>0.5 A</b>.</p></div></details></li>
+    <li>A 12 V source drives 0.2 A through a resistor. Find R and the power. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = V/I = <b>60 &Omega;</b>. P = VI = <b>2.4 W</b>.</p></div></details></li>
+    <li>An axon is 1 cm long with radius 5 &micro;m and &rho; = 2 &Omega;&middot;m. Find its resistance. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = &rho;L/(&pi;r&sup2;) = 2 &times; 0.01/(&pi; &times; 25 &times; 10<sup>&minus;12</sup>) &asymp; <b>2.5 &times; 10<sup>8</sup> &Omega;</b>.</p></div></details></li>
+    <li>A 9 V battery with internal resistance 0.5 &Omega; drives a 4 &Omega; load. Find I and the terminal voltage. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I = &epsilon;/(R + r) = 9/4.5 = <b>2 A</b>. V = &epsilon; &minus; Ir = 9 &minus; 1 = <b>8 V</b>.</p></div></details></li>
+    <li>A single ion channel passes 2 pA at 100 mV. Find its resistance and conductance. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = 0.1/2 &times; 10<sup>&minus;12</sup> = <b>5 &times; 10<sup>10</sup> &Omega;</b>. G = 1/R = <b>20 pS</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 16 ===================== -->
+<section class="class" id="c16"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 16</span>
+    <h2>RC circuits: charging, discharging and the time constant</h2>
+    <p class="goals"><b>By the end you can:</b> use the charging and discharging equations; find &tau; = RC; explain why a membrane responds slowly to a stimulus; describe a simple RC neuron model.</p>
+  </div>
+
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq"><span class="up">Charging:</span> V<sub>C</sub>(t) = &epsilon;(1 &minus; e<sup>&minus;t/RC</sup>) &emsp;&emsp; <span class="up">Discharging:</span> V<sub>C</sub>(t) = V<sub>0</sub> e<sup>&minus;t/RC</sup></div>
+    <div class="eq boxed"><span class="b">&tau; = R C</span></div>
+    <p>A capacitor cannot charge instantly, because the resistor limits the current. After one time constant &tau; it reaches <b>63%</b> of its final voltage (or falls to <b>37%</b> when discharging). After 5&tau; it is essentially done. The current is largest at the start and dies away: I = (&epsilon;/R)e<sup>&minus;t/RC</sup>.</p>
+  </div>
+
+  <div class="sim" id="sim-rc">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Charge and discharge a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Charge</b>, wait, then <b>Discharge</b>. Change R or C and try again. The dashed line marks t = &tau;.</p>
+    <p class="sim-note"><b>What to notice:</b> the curve is steep at first and flattens out. At t = &tau; the voltage is 63% of the battery voltage. Doubling either R or C doubles &tau;, so everything happens twice as slowly.</p>
+  </div>
+
+  <div class="box der"><span class="lbl">Where the equation comes from</span>
+    <p><span class="step">Step 1</span>Loop rule while charging: &epsilon; = IR + q/C.</p>
+    <p><span class="step">Step 2</span>I = dq/dt, so dq/dt = (&epsilon;C &minus; q)/(RC).</p>
+    <p><span class="step">Step 3</span>Separate and integrate from q = 0: q = &epsilon;C(1 &minus; e<sup>&minus;t/RC</sup>). Divide by C to get V<sub>C</sub>.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">Cell membranes and simple neuron models</span>
+    <p>A patch of membrane is a capacitor (the bilayer) in parallel with a resistor (the leak channels). Inject a small current and the membrane voltage does not jump; it rises along an RC curve with &tau; = R<sub>m</sub>C<sub>m</sub>, typically 1&ndash;20 ms. In the simplest neuron model (the <b>integrate-and-fire</b> model), the membrane charges like an RC circuit and, when it crosses a <b>threshold</b>, the cell fires a spike and resets. Pacemakers and heart-rate monitors use the same RC timing.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find &tau; for R = 10 k&Omega; and C = 100 &micro;F. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = RC = 10<sup>4</sup> &times; 10<sup>&minus;4</sup> = <b>1.0 s</b>.</p></div></details></li>
+    <li>That capacitor charges from a 9 V battery. Find V<sub>C</sub> at t = 1 s and t = 2 s. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>t = &tau;: 9(1 &minus; e<sup>&minus;1</sup>) &asymp; <b>5.69 V</b>. t = 2&tau;: 9(1 &minus; e<sup>&minus;2</sup>) &asymp; <b>7.78 V</b>.</p></div></details></li>
+    <li>How long does it take a discharging capacitor to fall to half its voltage? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&frac12; = e<sup>&minus;t/&tau;</sup>, so t = &tau; ln 2 &asymp; <b>0.693&tau;</b>.</p></div></details></li>
+    <li>A membrane patch has R<sub>m</sub> = 100 M&Omega; and C<sub>m</sub> = 100 pF. Find &tau;. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&tau; = 10<sup>8</sup> &times; 10<sup>&minus;10</sup> = <b>10 ms</b>.</p></div></details></li>
+    <li>Myelin adds layers of insulation around an axon. Does this increase or decrease the membrane capacitance? Why does that speed up the signal? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Many layers make the insulator much thicker (bigger d), so C = &kappa;&epsilon;<sub>0</sub>A/d <b>decreases</b>. Less charge is needed to change the voltage, so the membrane charges faster and the signal jumps quickly between the gaps (nodes of Ranvier).</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 17 ===================== -->
+<section class="class" id="c17"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 17</span>
+    <h2>Series and parallel circuits; Kirchhoff's laws</h2>
+    <p class="goals"><b>By the end you can:</b> combine resistors in series and parallel; apply the junction and loop rules; solve simple circuits.</p>
+  </div>
+
+  <div class="box key"><span class="lbl">Combining resistors</span>
+    <div class="eq"><span class="up">Series:</span> R = R<sub>1</sub> + R<sub>2</sub> + &hellip; &emsp;&emsp; <span class="up">Parallel:</span> <span class="fr"><span>1</span><span>R</span></span> = <span class="fr"><span>1</span><span>R<sub>1</sub></span></span> + <span class="fr"><span>1</span><span>R<sub>2</sub></span></span> + &hellip;</div>
+    <p>In <b>series</b> the same current goes through each resistor and the voltages add. In <b>parallel</b> each resistor has the same voltage and the currents add. A parallel combination is always smaller than its smallest resistor.</p>
+  </div>
+  <div class="box key"><span class="lbl">Kirchhoff's laws</span>
+    <ul>
+      <li><b>Junction (current) rule:</b> the total current into a junction equals the total current out (&Sigma;I = 0). Charge is conserved.</li>
+      <li><b>Loop (voltage) rule:</b> around any closed loop, the voltage rises equal the voltage drops (&Sigma;V = 0). Energy is conserved.</li>
+    </ul>
+  </div>
+
+  <div class="sim" id="sim-circuit">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Series or parallel?</h4></div>
+    <p class="sim-try"><b>Try:</b> switch between series and parallel, and change the two resistors. Check that the numbers obey Kirchhoff's laws.</p>
+    <p class="sim-note"><b>What to notice:</b> in series, V<sub>1</sub> + V<sub>2</sub> = battery voltage (loop rule). In parallel, I<sub>1</sub> + I<sub>2</sub> = total current (junction rule), and the smaller resistor takes the bigger current.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">Why this matters for biology</span>
+    <p>Ion channels in a membrane are resistors in <b>parallel</b>: opening more of them lowers the total resistance. Blood vessels also branch in parallel (Unit 2), so the same rules apply to flow resistance.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>4 &Omega; and 6 &Omega; are in series across 12 V. Find the current and the voltage across each. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = 10 &Omega;, I = <b>1.2 A</b>. V<sub>1</sub> = <b>4.8 V</b>, V<sub>2</sub> = <b>7.2 V</b> (sum 12 V).</p></div></details></li>
+    <li>The same resistors in parallel across 12 V. Find the total resistance and each current. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = 4 &times; 6/10 = <b>2.4 &Omega;</b>. I<sub>1</sub> = 12/4 = <b>3 A</b>, I<sub>2</sub> = 12/6 = <b>2 A</b>, total 5 A.</p></div></details></li>
+    <li>Three currents meet at a junction: 2 A and 3 A flow in. What current flows out? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p><b>5 A</b> (junction rule).</p></div></details></li>
+    <li>A 3 &Omega; resistor is in series with a parallel pair of 6 &Omega; and 6 &Omega;, across 12 V. Find the total current and the current in each 6 &Omega; resistor. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Parallel pair = 3 &Omega;, total = 6 &Omega;, I = <b>2 A</b>. The pair has 6 V across it, so each 6 &Omega; carries <b>1 A</b>.</p></div></details></li>
+    <li>100 identical channels, each 10<sup>11</sup> &Omega;, are open in parallel. Find the total resistance. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = 10<sup>11</sup>/100 = <b>10<sup>9</sup> &Omega;</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 18 ===================== -->
+<section class="class" id="c18"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Class 18</span><h2>Review and Quiz 3: formula sheet</h2></div>
+  <div class="sheet">
+    <div><h4>Charge and field</h4><p>e = 1.6 &times; 10<sup>&minus;19</sup> C</p><p>F = kq<sub>1</sub>q<sub>2</sub>/r&sup2;</p><p>E = F/q = kq/r&sup2;</p><p>p = qd, &tau; = pE sin&theta;</p></div>
+    <div><h4>Potential</h4><p>U = kq<sub>1</sub>q<sub>2</sub>/r</p><p>V = kq/r</p><p>W = q&Delta;V</p><p>E = &Delta;V/d</p></div>
+    <div><h4>Capacitors</h4><p>C = Q/V</p><p>C = &kappa;&epsilon;<sub>0</sub>A/d</p><p>U = &frac12;CV&sup2;</p></div>
+    <div><h4>Current</h4><p>I = Q/t &nbsp; V = IR</p><p>R = &rho;L/A &nbsp; P = VI</p><p>V = &epsilon; &minus; Ir</p></div>
+    <div><h4>Circuits</h4><p>Series: R<sub>1</sub> + R<sub>2</sub></p><p>Parallel: 1/R = 1/R<sub>1</sub> + 1/R<sub>2</sub></p><p>&Sigma;I = 0, &Sigma;V = 0</p></div>
+    <div><h4>RC</h4><p>&tau; = RC</p><p>V = &epsilon;(1 &minus; e<sup>&minus;t/&tau;</sup>)</p><p>V = V<sub>0</sub>e<sup>&minus;t/&tau;</sup></p></div>
+  </div>
+</div></section>
+
+<!-- ===================== CLASS 19 ===================== -->
+<section class="class" id="c19"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 19</span>
+    <h2>Action potentials, ion channels and the electrical neuron</h2>
+    <p class="goals"><b>By the end you can:</b> explain the resting potential; describe the stages of an action potential and which channels open; link the membrane's response to RC behaviour; explain how myelin speeds conduction.</p>
+  </div>
+
+  <h3><span class="n">19.1</span>The resting potential</h3>
+  <p>The Na<sup>+</sup>/K<sup>+</sup> pump keeps K<sup>+</sup> high inside the cell and Na<sup>+</sup> high outside. At rest the membrane is mostly permeable to K<sup>+</sup>, which leaks out and leaves the inside negative: the <b>resting potential is about &minus;70 mV</b>. The membrane is a charged capacitor.</p>
+
+  <h3><span class="n">19.2</span>The action potential, step by step</h3>
+  <ol>
+    <li><b>Stimulus:</b> a small current charges the membrane capacitor (RC rise). If it stays below <b>threshold (about &minus;55 mV)</b>, the voltage just relaxes back.</li>
+    <li><b>Depolarisation:</b> at threshold, voltage-gated <b>Na<sup>+</sup> channels</b> open. Na<sup>+</sup> rushes in and the voltage shoots up to about +30 mV. All or nothing: a bigger stimulus does not make a bigger spike.</li>
+    <li><b>Repolarisation:</b> Na<sup>+</sup> channels close; voltage-gated <b>K<sup>+</sup> channels</b> open. K<sup>+</sup> flows out and the voltage falls.</li>
+    <li><b>Hyperpolarisation:</b> K<sup>+</sup> channels close slowly, so the voltage briefly dips below &minus;70 mV.</li>
+    <li><b>Refractory period:</b> for 1&ndash;2 ms the cell cannot fire again, so signals travel one way only.</li>
+  </ol>
+
+  <div class="sim" id="sim-action">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Fire a neuron</h4></div>
+    <p class="sim-try"><b>Try:</b> set a weak stimulus and press <b>Stimulate</b>. Then increase the stimulus until the neuron fires. Then try a very strong stimulus.</p>
+    <p class="sim-note"><b>What to notice:</b> below threshold the membrane just charges and relaxes like an RC circuit. Once it crosses &minus;55 mV, the spike is always the same height (all or nothing). A stronger stimulus reaches threshold sooner but does not make a bigger spike.</p>
+  </div>
+
+  <h3><span class="n">19.3</span>Electrical properties of neurons and the RC link</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>Each patch of axon is an RC circuit: membrane capacitance C<sub>m</sub>, membrane (leak) resistance R<sub>m</sub>, and the axoplasm's resistance along the axon. The time constant &tau; = R<sub>m</sub>C<sub>m</sub> sets how fast the membrane can follow a stimulus, and the ratio of membrane to axoplasm resistance sets how far a signal spreads passively before fading.</p>
+  </div>
+  <div class="box bio"><span class="lbl">Myelin and conduction speed</span>
+    <p><b>Myelin</b> wraps the axon in many insulating layers: R<sub>m</sub> goes up (less leak) and C<sub>m</sub> goes down (thicker insulator). The signal spreads quickly and far under the myelin and is regenerated only at the gaps (nodes of Ranvier): <b>saltatory conduction</b>. Myelinated fibres conduct at up to about 100 m/s; thin unmyelinated fibres at about 1 m/s. Diseases that destroy myelin, like multiple sclerosis, slow or block nerve signals.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>The membrane goes from &minus;70 mV to +30 mV during a spike. What is the change in voltage? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&Delta;V = 30 &minus; (&minus;70) = <b>100 mV</b>.</p></div></details></li>
+    <li>Which ions move, and in which direction, during (a) depolarisation, (b) repolarisation? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) Na<sup>+</sup> flows <b>in</b>. (b) K<sup>+</sup> flows <b>out</b>.</p></div></details></li>
+    <li>A membrane with &tau; = 10 ms receives a constant stimulus that would raise it by 20 mV if held forever. How much has it risen after 10 ms? Does it reach a threshold 15 mV above rest? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&Delta;V = 20(1 &minus; e<sup>&minus;1</sup>) &asymp; <b>12.6 mV</b>. Not yet; it needs t = &minus;&tau; ln(1 &minus; 15/20) &asymp; 13.9 ms.</p></div></details></li>
+    <li>A nerve impulse travels 1 m from spinal cord to foot. How long does it take at 100 m/s (myelinated) and at 1 m/s (unmyelinated)? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p><b>10 ms</b> and <b>1 s</b>.</p></div></details></li>
+    <li>How many Na<sup>+</sup> ions must cross 1 &micro;m&sup2; of membrane (C = 0.01 F/m&sup2;) to change its voltage by 100 mV? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Q = CA&Delta;V = 0.01 &times; 10<sup>&minus;12</sup> &times; 0.1 = 10<sup>&minus;15</sup> C. n = Q/e &asymp; <b>6250 ions</b>, a tiny fraction of the ions in the cell.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="sound.html"><small>&larr; Previous unit</small>Sound</a><a href="magnetism.html"><small>Next unit</small>Magnetism &amp; EM &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/electricity.js"></script>
+</body>
+</html>
