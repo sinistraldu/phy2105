@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Imaging: Microscopes to Lasers | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 23 and 24: lenses, microscopes and telescopes, magnification and resolution, interference and diffraction, X-rays and X-ray diffraction, lasers and holography.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html" aria-current="page">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 6 &middot; Classes 23&ndash;24 &middot; Imaging systems</span>
+  <h1>Imaging: Microscopes to Lasers</h1>
+  <p class="lead">Lenses let us see cells; the wave nature of light limits how small we can see; and X-rays, diffraction, lasers and holograms open up structures far smaller than a wavelength of light.</p>
+  <ul class="toc">
+    <li><a href="#c23"><span>Class 23</span>Microscopes and telescopes</a></li>
+    <li><a href="#c24"><span>Class 24</span>X-rays, diffraction, lasers, holography</a></li>
+    <li><a href="#review"><span>Review</span>Formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 23 ===================== -->
+<section class="class" id="c23"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 23</span>
+    <h2>Microscopes and telescopes: magnification and resolution</h2>
+    <p class="goals"><b>By the end you can:</b> use the lens equation; find magnification; explain how a compound microscope and a telescope work; use the resolution limit; describe modern bio-microscopy.</p>
+  </div>
+
+  <h3><span class="n">23.1</span>Lenses and images</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq"><span class="fr"><span>1</span><span>f</span></span> = <span class="fr"><span>1</span><span>d<sub>o</sub></span></span> + <span class="fr"><span>1</span><span>d<sub>i</sub></span></span> &emsp;&emsp; m = &minus;<span class="fr"><span>d<sub>i</sub></span><span>d<sub>o</sub></span></span> &emsp;&emsp; P = <span class="fr"><span>1</span><span>f</span></span> <span class="up">(dioptres, f in m)</span></div>
+    <p>A converging (convex) lens bends parallel rays to a <b>focal point</b> a distance f away. d<sub>o</sub> = object distance, d<sub>i</sub> = image distance. A positive d<sub>i</sub> means a <b>real</b> image on the far side (can be put on a screen, upside down); a negative d<sub>i</sub> means a <b>virtual</b>, upright image (what you see through a magnifying glass). The eye itself is a lens with f &asymp; 1.7 cm.</p>
+  </div>
+
+  <div class="sim" id="sim-lens">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Where does the image form?</h4></div>
+    <p class="sim-try"><b>Try:</b> move the object (the green arrow) toward the lens. Watch what happens as it passes 2f and then f.</p>
+    <p class="sim-note"><b>What to notice:</b> beyond 2f the image is smaller and inverted (a camera, the eye). Between f and 2f it is bigger and inverted (a microscope objective, a projector). Inside f it becomes upright, virtual and magnified (a magnifying glass, a microscope eyepiece).</p>
+  </div>
+
+  <h3><span class="n">23.2</span>The compound microscope</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">M = m<sub>obj</sub> &times; M<sub>eye</sub> &asymp; <span class="fr"><span>L</span><span>f<sub>obj</sub></span></span> &times; <span class="fr"><span>25 cm</span><span>f<sub>eye</sub></span></span></div>
+    <p>The <b>objective</b> (short focal length) makes a large, real, inverted image inside the tube. The <b>eyepiece</b> acts as a magnifying glass on that image. L is the tube length (about 16 cm) and 25 cm is the closest comfortable viewing distance. A "40&times;" objective with a "10&times;" eyepiece gives 400&times;.</p>
+  </div>
+
+  <h3><span class="n">23.3</span>The telescope</h3>
+  <p>A telescope looks at distant objects. Its objective has a <b>long</b> focal length and a large diameter to collect light; the eyepiece magnifies the image. Angular magnification M = &minus;f<sub>obj</sub>/f<sub>eye</sub>. Biologists use the same idea in binoculars for field work and in the long-working-distance lenses of surgical microscopes.</p>
+
+  <div class="sim" id="sim-lens3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A lens bends a whole bundle of rays</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to rotate. Change the lens's focal length and the beam width.</p>
+    <p class="sim-note"><b>What to notice:</b> every ray parallel to the axis passes through the same focal point, from all around the lens, not just in one plane. A stronger lens (shorter f) bends the rays more sharply; a wider beam makes a steeper cone, which is what a high-NA objective does.</p>
+  </div>
+
+  <h3><span class="n">23.4</span>Resolution: why magnification is not enough</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">d<sub>min</sub> = <span class="fr"><span>0.61 &lambda;</span><span>NA</span></span> &emsp;&emsp; NA = n sin&thinsp;&alpha; &emsp;&emsp; <span class="up">(telescope or eye:</span> &theta;<sub>min</sub> = 1.22 &lambda;/D<span class="up">)</span></div>
+    <p>Light spreads out (diffracts) as it passes through a lens, so each point of the object becomes a small blurry disc. Two points closer than d<sub>min</sub> blur into one. Resolution is the <b>smallest separation you can still tell apart</b>. It improves with shorter wavelength and larger <b>numerical aperture</b> NA (n = refractive index between lens and sample, &alpha; = half-angle of the cone of light the lens collects). Oil immersion (n = 1.5) pushes NA to about 1.4, giving d<sub>min</sub> &asymp; 0.2 &micro;m. Magnifying more than this allows is "empty magnification".</p>
+  </div>
+
+  <div class="sim" id="sim-resolve">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Can you tell two dots apart?</h4></div>
+    <p class="sim-try"><b>Try:</b> two tiny fluorescent beads sit 300 nm apart. Change the light colour and the objective's NA until you can see two separate peaks.</p>
+    <p class="sim-note"><b>What to notice:</b> blue light and a high-NA oil objective resolve the pair; red light and a low-NA objective blur them into one blob. This is why the smallest bacteria (about 0.2 &micro;m) are at the edge of what a light microscope can show, and viruses are not resolved at all.</p>
+  </div>
+
+  <h3><span class="n">23.5</span>Modern bio-microscopy</h3>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Technique</th><th>Idea</th><th>Typical use</th></tr>
+    <tr><td>Phase contrast</td><td>Turns tiny differences in how much a cell slows light into brightness differences</td><td>Living, unstained cells</td></tr>
+    <tr><td>Fluorescence</td><td>Dyes or proteins (e.g. GFP) absorb one colour and emit a longer one; filters show only the emitted light</td><td>Labelling particular proteins, DNA, organelles</td></tr>
+    <tr><td>Confocal</td><td>A pinhole blocks out-of-focus light, so you get sharp optical slices and 3D stacks</td><td>Thick tissues, 3D cell structure</td></tr>
+    <tr><td>Super-resolution</td><td>Switches fluorescent molecules on a few at a time to beat the 0.2 &micro;m limit</td><td>Structures down to about 20 nm</td></tr>
+    <tr><td>Electron microscope</td><td>Uses electrons, whose wavelength is thousands of times shorter than light's</td><td>Viruses, membranes, single proteins (cryo-EM)</td></tr>
+  </table></div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>An object is 30 cm from a lens with f = 10 cm. Find the image distance and magnification. Real or virtual? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>1/d<sub>i</sub> = 1/10 &minus; 1/30 &rArr; d<sub>i</sub> = <b>15 cm</b>. m = &minus;15/30 = <b>&minus;0.5</b>: real, inverted, half size.</p></div></details></li>
+    <li>The object moves to 5 cm from the same lens. Find d<sub>i</sub> and m. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>1/d<sub>i</sub> = 1/10 &minus; 1/5 &rArr; d<sub>i</sub> = <b>&minus;10 cm</b> (virtual). m = &minus;(&minus;10)/5 = <b>+2</b>: upright, twice as big (magnifying glass).</p></div></details></li>
+    <li>A microscope has a 4 mm objective, a 25 mm eyepiece and a 160 mm tube. Find the total magnification. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>M = (160/4) &times; (250/25) = 40 &times; 10 = <b>400&times;</b>.</p></div></details></li>
+    <li>Find d<sub>min</sub> for green light (550 nm) with (a) an NA = 1.4 oil objective, (b) an NA = 0.25 objective. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) 0.61 &times; 550/1.4 &asymp; <b>240 nm</b>. (b) 0.61 &times; 550/0.25 &asymp; <b>1.34 &micro;m</b>.</p></div></details></li>
+    <li>A lens has f = 50 cm. What is its power? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>P = 1/0.5 m = <b>+2 dioptres</b>.</p></div></details></li>
+    <li>A telescope has f<sub>obj</sub> = 100 cm and f<sub>eye</sub> = 2.5 cm. Find its magnification. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>|M| = 100/2.5 = <b>40&times;</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 24 ===================== -->
+<section class="class" id="c24"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 24</span>
+    <h2>Interference, diffraction, X-rays, lasers and holography</h2>
+    <p class="goals"><b>By the end you can:</b> use the double-slit and grating equations; explain X-ray production and imaging; use Bragg's law; describe what makes laser light special; explain the idea of a hologram.</p>
+  </div>
+
+  <h3><span class="n">24.1</span>Interference</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>When two waves overlap they add. If crest meets crest they reinforce (<b>constructive interference</b>); if crest meets trough they cancel (<b>destructive</b>). It depends on the <b>path difference</b>: a whole number of wavelengths gives bright, a half-number gives dark.</p>
+    <div class="eq"><span class="up">Young's double slit:</span> d sin&thinsp;&theta; = m&lambda; &emsp;&emsp; <span class="up">fringe spacing:</span> &Delta;y = <span class="fr"><span>&lambda; L</span><span>d</span></span></div>
+    <p>d = slit separation, L = distance to the screen, m = 0, 1, 2, &hellip;</p>
+  </div>
+
+  <div class="sim" id="sim-slits">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Young's double slit</h4></div>
+    <p class="sim-try"><b>Try:</b> change the wavelength (colour) and the slit separation. Watch the fringes on the screen.</p>
+    <p class="sim-note"><b>What to notice:</b> red light (long &lambda;) gives wider fringes than blue. Moving the slits closer together spreads the fringes out. Light behaving like this is the proof that it is a wave.</p>
+  </div>
+
+  <h3><span class="n">24.2</span>Diffraction</h3>
+  <p><b>Diffraction</b> is the spreading of a wave through a gap or around an edge. It matters when the gap is not much bigger than the wavelength. A single slit of width a gives a central bright band with dark fringes at a sin&theta; = m&lambda;. A <b>diffraction grating</b> (many slits, spacing d) gives very sharp bright lines at d sin&theta; = m&lambda;; spectrometers use gratings to split light into colours to identify molecules.</p>
+
+  <h3><span class="n">24.3</span>X-rays</h3>
+  <div class="box key"><span class="lbl">Production and imaging</span>
+    <p>In an X-ray tube, electrons are accelerated through a high voltage V and smash into a metal target (usually tungsten). Their sudden stop gives a continuous spread of X-rays (bremsstrahlung) plus sharp lines from the target atoms. The shortest wavelength comes when an electron gives all its energy eV to one photon:</p>
+    <div class="eq">&lambda;<sub>min</sub> = <span class="fr"><span>hc</span><span>eV</span></span> &emsp;&emsp; I = I<sub>0</sub> e<sup>&minus;&mu;x</sup></div>
+    <p>X-rays fade exponentially through matter; &mu; (attenuation coefficient) is much larger for bone (calcium) than for soft tissue, so bone casts a shadow. CT takes many X-ray images around the body and computes cross-sections.</p>
+  </div>
+
+  <div class="sim" id="sim-xray">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>X-ray image of an arm</h4></div>
+    <p class="sim-try"><b>Try:</b> change the tube voltage. Higher kV means more penetrating X-rays (smaller &mu;).</p>
+    <p class="sim-note"><b>What to notice:</b> bone lets much less through than soft tissue, so it shows up white on the film. At very high kV everything gets through and the contrast falls: radiographers choose the kV to get the best contrast for each body part.</p>
+  </div>
+
+  <h3><span class="n">24.4</span>X-ray diffraction: seeing molecules</h3>
+  <div class="box key"><span class="lbl">Bragg's law</span>
+    <div class="eq">2 d sin&thinsp;&theta; = n &lambda;</div>
+    <p>X-ray wavelengths (about 0.1 nm) are similar to the spacing d between atoms in a crystal. Rays reflected from neighbouring layers of atoms interfere; they add up strongly only at angles where the extra path 2d sin&theta; is a whole number of wavelengths. Measuring these angles reveals the spacing and arrangement of atoms. Rosalind Franklin's X-ray pattern of DNA revealed its double helix; today X-ray crystallography solves protein structures for drug design.</p>
+  </div>
+
+  <div class="sim" id="sim-bragg">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Bragg reflection from a crystal</h4></div>
+    <p class="sim-try"><b>Try:</b> sweep the angle &theta; and watch the detector. Then change the layer spacing d.</p>
+    <p class="sim-note"><b>What to notice:</b> the two reflected rays are in step (bright) only when 2d sin&theta; = n&lambda;. At other angles they partly cancel. A bigger spacing gives bright reflections at smaller angles.</p>
+  </div>
+
+  <h3><span class="n">24.5</span>Lasers</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>LASER = <b>L</b>ight <b>A</b>mplification by <b>S</b>timulated <b>E</b>mission of <b>R</b>adiation. Atoms are "pumped" into an excited state (population inversion). A passing photon can <b>stimulate</b> an excited atom to emit an identical photon: same wavelength, same direction, same phase. Mirrors bounce the light back and forth so it builds up. Laser light is:</p>
+    <ul>
+      <li><b>Monochromatic</b>: one wavelength;</li>
+      <li><b>Coherent</b>: all waves in step;</li>
+      <li><b>Directional</b>: a narrow beam that hardly spreads;</li>
+      <li><b>Intense</b>: can be focused to a tiny, very bright spot.</li>
+    </ul>
+    <p>Uses in biology and medicine: eye surgery (LASIK, retinal repair), cutting and sealing tissue, removing tattoos and birthmarks, confocal and super-resolution microscopy, flow cytometry, DNA sequencers, optical tweezers that hold single cells.</p>
+  </div>
+
+  <div class="sim" id="sim-laser">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Lamp light vs laser light</h4></div>
+    <p class="sim-try"><b>Try:</b> switch between an ordinary lamp and a laser.</p>
+    <p class="sim-note"><b>What to notice:</b> the lamp's waves have many colours, many directions and random phases, so they add up messily. The laser's waves are one colour, one direction and all in step, so they add up to a strong, clean beam.</p>
+  </div>
+
+  <h3><span class="n">24.6</span>Holography</h3>
+  <p>An ordinary photo records only how bright the light is. A <b>hologram</b> records the light's <b>phase</b> too. A laser beam is split in two: the <b>reference beam</b> goes straight to the film, the <b>object beam</b> reflects off the object first. Where they meet they make an interference pattern, which the film records. Shine the reference beam on the developed film and it diffracts the light to rebuild the original wavefront, so you see a true 3D image that changes as you move your head. Laser coherence is essential, otherwise there is no stable interference pattern. Uses: security marks on cards and banknotes, holographic data storage, and <b>digital holographic microscopy</b>, which measures the thickness and volume of living cells without staining.</p>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Light of 600 nm passes two slits 0.2 mm apart onto a screen 1 m away. Find the fringe spacing. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&Delta;y = &lambda;L/d = 600 &times; 10<sup>&minus;9</sup> &times; 1/0.2 &times; 10<sup>&minus;3</sup> = <b>3.0 mm</b>.</p></div></details></li>
+    <li>A grating has 600 lines per mm. At what angle is the first-order line of 500 nm light? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>d = 1/600 mm = 1.67 &micro;m. sin&theta; = &lambda;/d = 0.30, &theta; &asymp; <b>17.5&deg;</b>.</p></div></details></li>
+    <li>X-rays of 0.154 nm reflect from atomic layers 0.20 nm apart. Find the first-order Bragg angle. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>sin&theta; = &lambda;/(2d) = 0.154/0.40 = 0.385, &theta; &asymp; <b>22.6&deg;</b>.</p></div></details></li>
+    <li>Find the shortest X-ray wavelength from a 30 kV tube. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&lambda;<sub>min</sub> = hc/(eV) = (6.63 &times; 10<sup>&minus;34</sup> &times; 3 &times; 10<sup>8</sup>)/(1.6 &times; 10<sup>&minus;19</sup> &times; 3 &times; 10<sup>4</sup>) &asymp; <b>0.041 nm</b>.</p></div></details></li>
+    <li>Bone has &mu; = 0.5 cm<sup>&minus;1</sup>. What fraction of X-rays passes through 2 cm? What thickness halves the beam? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>I/I<sub>0</sub> = e<sup>&minus;1</sup> &asymp; <b>0.37</b>. Half-value thickness = ln 2/&mu; &asymp; <b>1.39 cm</b>.</p></div></details></li>
+    <li>Give two properties of laser light that make holography possible. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>It is <b>coherent</b> (fixed phase, so the interference pattern is stable) and <b>monochromatic</b> (one wavelength, so the pattern is sharp).</p></div></details></li>
+  </ol>
+</div></section>
+
+<section class="class" id="review"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Review</span><h2>Formula sheet: imaging</h2></div>
+  <div class="sheet">
+    <div><h4>Lenses</h4><p>1/f = 1/d<sub>o</sub> + 1/d<sub>i</sub></p><p>m = &minus;d<sub>i</sub>/d<sub>o</sub></p><p>P = 1/f (dioptres)</p></div>
+    <div><h4>Instruments</h4><p>Microscope: M &asymp; (L/f<sub>o</sub>)(25 cm/f<sub>e</sub>)</p><p>Telescope: M = &minus;f<sub>o</sub>/f<sub>e</sub></p></div>
+    <div><h4>Resolution</h4><p>d<sub>min</sub> = 0.61&lambda;/NA</p><p>NA = n sin&alpha;</p><p>&theta;<sub>min</sub> = 1.22&lambda;/D</p></div>
+    <div><h4>Waves of light</h4><p>d sin&theta; = m&lambda;</p><p>&Delta;y = &lambda;L/d</p><p>Bragg: 2d sin&theta; = n&lambda;</p></div>
+    <div><h4>X-rays</h4><p>&lambda;<sub>min</sub> = hc/eV</p><p>I = I<sub>0</sub>e<sup>&minus;&mu;x</sup></p><p>half thickness = ln2/&mu;</p></div>
+  </div>
+  <p style="margin-top:18px"><b>Final written exam</b> covers the whole course, with emphasis on Units 4&ndash;6.</p>
+  <div class="pager"><a href="magnetism.html"><small>&larr; Previous unit</small>Magnetism &amp; EM</a><a href="index.html"><small>Back to</small>Course home</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/optics.js"></script>
+</body>
+</html>

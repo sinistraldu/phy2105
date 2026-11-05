@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fluids in Living Systems | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 6 to 10: density, pressure, viscosity, Pascal's law, buoyancy, continuity, Bernoulli, laminar and turbulent flow, Poiseuille's law, Stokes' law and Einstein's diffusion relation.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html" aria-current="page">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 2 &middot; Classes 6&ndash;10 &middot; Fluid dynamics</span>
+  <h1>Fluids in Living Systems</h1>
+  <p class="lead">Blood, air, lymph and cytoplasm are all fluids. A handful of ideas explains why blood pressure is higher in your feet, why a narrowed artery is so dangerous, and why proteins diffuse slowly.</p>
+  <ul class="toc">
+    <li><a href="#c6"><span>Class 6</span>Density, pressure, viscosity</a></li>
+    <li><a href="#c7"><span>Class 7</span>Pascal, depth, buoyancy</a></li>
+    <li><a href="#c8"><span>Class 8</span>Continuity, Bernoulli, Poiseuille</a></li>
+    <li><a href="#c9"><span>Class 9</span>Stokes and diffusion</a></li>
+    <li><a href="#c10"><span>Class 10</span>Review and Quiz 2</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 6 ===================== -->
+<section class="class" id="c6"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 6</span>
+    <h2>Nature and types of fluids; density, pressure and viscosity</h2>
+    <p class="goals"><b>By the end you can:</b> classify fluids; use &rho; = m/V and P = F/A with correct units and dimensions; explain what viscosity means.</p>
+  </div>
+
+  <h3><span class="n">6.1</span>What is a fluid?</h3>
+  <p>A <b>fluid</b> is anything that flows: it cannot keep its own shape and takes the shape of its container. Liquids and gases are both fluids.</p>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Type</th><th>Meaning</th><th>Biological example</th></tr>
+    <tr><td>Liquid vs gas</td><td>Liquids are nearly incompressible; gases compress easily</td><td>Blood (liquid), air in lungs (gas)</td></tr>
+    <tr><td>Ideal vs real</td><td>Ideal: no viscosity, incompressible. Real fluids have friction</td><td>Bernoulli assumes ideal; blood is real</td></tr>
+    <tr><td>Newtonian vs non-Newtonian</td><td>Newtonian: viscosity stays fixed. Non-Newtonian: viscosity changes with flow speed</td><td>Water and plasma (Newtonian); whole blood and mucus (non-Newtonian)</td></tr>
+    <tr><td>Laminar vs turbulent flow</td><td>Smooth layers vs chaotic swirls</td><td>Most vessels (laminar); aorta at peak flow (near turbulent)</td></tr>
+  </table></div>
+
+  <h3><span class="n">6.2</span>Density and pressure</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">&rho; = <span class="fr"><span>m</span><span>V</span></span> &emsp;&emsp;&emsp; P = <span class="fr"><span>F</span><span>A</span></span></div>
+    <p>Density in kg/m&sup3; (water 1000, blood about 1060). Pressure in pascals, 1 Pa = 1 N/m&sup2;. Doctors measure blood pressure in mmHg: <b>1 mmHg = 133.3 Pa</b>, and 1 atm = 101.3 kPa = 760 mmHg.</p>
+  </div>
+
+  <h3><span class="n">6.3</span>Dimensions and units</h3>
+  <p>Every quantity can be written in terms of mass [M], length [L] and time [T]. Checking dimensions is the quickest way to catch a wrong formula: both sides must match.</p>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Quantity</th><th>SI unit</th><th>Dimensions</th></tr>
+    <tr><td>Density &rho;</td><td>kg/m&sup3;</td><td>[M L<sup>&minus;3</sup>]</td></tr>
+    <tr><td>Pressure P</td><td>Pa = N/m&sup2;</td><td>[M L<sup>&minus;1</sup> T<sup>&minus;2</sup>]</td></tr>
+    <tr><td>Viscosity &eta;</td><td>Pa&middot;s</td><td>[M L<sup>&minus;1</sup> T<sup>&minus;1</sup>]</td></tr>
+    <tr><td>Flow rate Q</td><td>m&sup3;/s</td><td>[L<sup>3</sup> T<sup>&minus;1</sup>]</td></tr>
+    <tr><td>Diffusion constant D</td><td>m&sup2;/s</td><td>[L<sup>2</sup> T<sup>&minus;1</sup>]</td></tr>
+  </table></div>
+
+  <h3><span class="n">6.4</span>Viscosity: fluid friction</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">F = &eta; A <span class="fr"><span>&Delta;v</span><span>&Delta;y</span></span></div>
+    <p>Imagine fluid between two plates. Drag the top plate and the fluid moves in layers: the layer touching the top plate moves with it, the layer touching the bottom stays still. The force needed depends on the plate area A, the speed gradient &Delta;v/&Delta;y and the <b>viscosity &eta;</b> ("thickness" of the fluid). Water: 0.001 Pa&middot;s. Blood: about 0.003&ndash;0.004 Pa&middot;s. Honey: about 10 Pa&middot;s.</p>
+  </div>
+
+  <div class="sim" id="sim-plates">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Slide a plate over a fluid</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a fluid, then change how fast the top plate moves. Plate area 0.01 m&sup2;, gap 5 mm.</p>
+    <p class="sim-note"><b>What to notice:</b> each layer moves a little faster than the one below (arrows grow steadily upward). Honey needs 10,000 times more force than water at the same speed: that is what a large &eta; means.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">Why this matters for biology</span>
+    <p>Pressure differences, not pressure itself, push fluids: air into your lungs and blood through your arteries. Viscosity is what the heart must fight to keep blood moving, and dehydration (which thickens blood) makes that harder.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A blood sample has mass 10.6 g and volume 10 mL. Find its density in kg/m&sup3;. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>10 mL = 1.0 &times; 10<sup>&minus;5</sup> m&sup3;, 10.6 g = 0.0106 kg. &rho; = 0.0106/10<sup>&minus;5</sup> = <b>1060 kg/m&sup3;</b>.</p></div></details></li>
+    <li>A force of 50 N acts on 0.010 m&sup2;. Find the pressure. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>P = F/A = 50/0.010 = <b>5.0 &times; 10<sup>3</sup> Pa</b>.</p></div></details></li>
+    <li>Convert a blood pressure of 120 mmHg into pascals. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>120 &times; 133.3 = <b>1.60 &times; 10<sup>4</sup> Pa</b> (16 kPa).</p></div></details></li>
+    <li>Use dimensions to find the unit of &eta; from F = &eta;A(&Delta;v/&Delta;y). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&eta; = F&Delta;y/(A&Delta;v): [M L T<sup>&minus;2</sup>][L]/([L<sup>2</sup>][L T<sup>&minus;1</sup>]) = <b>[M L<sup>&minus;1</sup> T<sup>&minus;1</sup>]</b>, i.e. kg/(m&middot;s) = Pa&middot;s.</p></div></details></li>
+    <li>A plate of area 0.02 m&sup2; slides at 0.1 m/s over a 2 mm layer of blood (&eta; = 0.004 Pa&middot;s). Find the force. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = &eta;A(v/d) = 0.004 &times; 0.02 &times; 0.1/0.002 = <b>4.0 &times; 10<sup>&minus;3</sup> N</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 7 ===================== -->
+<section class="class" id="c7"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 7</span>
+    <h2>Pascal's law, hydrostatic pressure and buoyancy</h2>
+    <p class="goals"><b>By the end you can:</b> use P = P<sub>0</sub> + &rho;gh; apply Pascal's law to a hydraulic lift; use Archimedes' principle to decide float or sink.</p>
+  </div>
+
+  <h3><span class="n">7.1</span>Pressure increases with depth</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">P = P<sub>0</sub> + &rho; g h</div>
+    <p>The deeper you go, the more fluid sits above you, so the pressure is higher. Only the depth h matters, not the shape of the container.</p>
+  </div>
+  <div class="box der"><span class="lbl">Where it comes from</span>
+    <p>Take a column of fluid, area A, height h. The upward push from below (PA) must hold up the push from above (P<sub>0</sub>A) plus the column's weight mg = &rho;(Ah)g. So PA = P<sub>0</sub>A + &rho;Ahg. Divide by A: P = P<sub>0</sub> + &rho;gh.</p>
+  </div>
+
+  <div class="sim" id="sim-iv">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>How high should the IV bag hang?</h4></div>
+    <p class="sim-try"><b>Try:</b> raise and lower the IV bag. The fluid only flows into the vein if its pressure beats the vein's pressure (about 8 mmHg here).</p>
+    <p class="sim-note"><b>What to notice:</b> pressure at the needle is &rho;gh, so doubling the height doubles the pressure and speeds up the drip. Below about 11 cm the bag cannot push fluid into the vein at all.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; feet vs head</span>
+    <p>Standing, the blood column from head to feet is about 1.3 m (&rho; = 1060 kg/m&sup3;). Extra pressure at the feet: &Delta;P = &rho;gh = 1060 &times; 9.8 &times; 1.3 &asymp; <b>13.5 kPa &asymp; 100 mmHg</b>. Leg veins need one-way valves to stop blood pooling.</p>
+  </div>
+
+  <h3><span class="n">7.2</span>Pascal's law</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>A pressure change applied to a confined fluid is passed on <b>equally to every part</b> of the fluid. In a hydraulic lift, the same pressure acts on a small and a large piston:</p>
+    <div class="eq"><span class="fr"><span>F<sub>1</sub></span><span>A<sub>1</sub></span></span> = <span class="fr"><span>F<sub>2</sub></span><span>A<sub>2</sub></span></span> &emsp;&rArr;&emsp; F<sub>2</sub> = F<sub>1</sub> <span class="fr"><span>A<sub>2</sub></span><span>A<sub>1</sub></span></span></div>
+  </div>
+
+  <div class="sim" id="sim-hydraulic">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Hydraulic lift (like a hospital bed or dentist's chair)</h4></div>
+    <p class="sim-try"><b>Try:</b> push on the small piston, then make the big piston wider.</p>
+    <p class="sim-note"><b>What to notice:</b> the pressure is the same under both pistons, so the force is multiplied by A<sub>2</sub>/A<sub>1</sub>. There is no free lunch: the big piston rises a much smaller distance.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">Why this matters for biology</span>
+    <p>Pascal's law is why squeezing one part of a closed fluid system is felt everywhere: pressure in the eye (glaucoma), in the skull (cerebrospinal fluid) and in a blood-pressure cuff is spread through the whole fluid.</p>
+  </div>
+
+  <h3><span class="n">7.3</span>Buoyancy: Archimedes' principle</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">F<sub>b</sub> = &rho;<sub>fluid</sub> g V<sub>displaced</sub></div>
+    <p>A body in a fluid is pushed up by a force equal to the weight of fluid it pushes aside. If the object is <b>less dense</b> than the fluid it floats, with the fraction &rho;<sub>object</sub>/&rho;<sub>fluid</sub> under the surface. If it is <b>denser</b>, it sinks.</p>
+  </div>
+
+  <div class="sim" id="sim-float">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Float or sink?</h4></div>
+    <p class="sim-try"><b>Try:</b> change the density of the 1-litre block and switch between fluids.</p>
+    <p class="sim-note"><b>What to notice:</b> a block with half the fluid's density floats half under. Exactly equal densities means it hovers anywhere (neutral buoyancy, like a fish with a tuned swim bladder).</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>An IV bag is 1.5 m above a vein. Estimate the pressure due to the height (&rho; = 1000 kg/m&sup3;). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&rho;gh = 1000 &times; 9.8 &times; 1.5 = <b>1.47 &times; 10<sup>4</sup> Pa &asymp; 110 mmHg</b>.</p></div></details></li>
+    <li>A hydraulic lift has A<sub>1</sub> = 0.010 m&sup2; and A<sub>2</sub> = 0.50 m&sup2;. If F<sub>1</sub> = 120 N, find F<sub>2</sub>. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F<sub>2</sub> = 120 &times; 0.50/0.010 = <b>6.0 &times; 10<sup>3</sup> N</b>.</p></div></details></li>
+    <li>A closed container's fluid is pushed by an extra 250 Pa at one point. What is the pressure change elsewhere in the fluid? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p><b>250 Pa</b> everywhere (Pascal's law).</p></div></details></li>
+    <li>A bead of volume 3.0 cm&sup3; is fully under water. Find the buoyant force. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F<sub>b</sub> = 1000 &times; 9.8 &times; 3.0 &times; 10<sup>&minus;6</sup> = <b>2.94 &times; 10<sup>&minus;2</sup> N</b>.</p></div></details></li>
+    <li>An object of density 1050 kg/m&sup3; is placed in water. Does it float or sink? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>It <b>sinks</b>, because it is denser than water (1050 &gt; 1000 kg/m&sup3;).</p></div></details></li>
+    <li>Ice (917 kg/m&sup3;) floats in sea water (1025 kg/m&sup3;). What fraction is under the surface? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Fraction = 917/1025 &asymp; <b>0.89</b>, so about 89% is hidden.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 8 ===================== -->
+<section class="class" id="c8"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 8</span>
+    <h2>Continuity, Bernoulli, laminar vs turbulent flow, Poiseuille's law</h2>
+    <p class="goals"><b>By the end you can:</b> use A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub>; use Bernoulli to find pressure changes; decide laminar or turbulent from the Reynolds number; use Poiseuille's law and explain why radius matters so much.</p>
+  </div>
+
+  <h3><span class="n">8.1</span>The continuity equation</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">Q = A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub></div>
+    <p>Fluid cannot pile up or disappear inside a pipe, so the volume flow rate Q (m&sup3;/s) is the same everywhere. Where the pipe is narrow, the fluid must move faster.</p>
+  </div>
+
+  <h3><span class="n">8.2</span>Bernoulli's principle</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">P + &frac12;&rho;v<sup>2</sup> + &rho;gh = constant</div>
+    <p>Along a streamline of an ideal fluid, pressure energy, kinetic energy and height energy (all per unit volume) trade with each other. At the same height: <b>faster flow means lower pressure</b>.</p>
+  </div>
+
+  <div class="sim" id="sim-venturi">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>A narrowed artery (stenosis)</h4></div>
+    <p class="sim-try"><b>Try:</b> make the narrow section narrower. Watch the particle speed and the height of fluid in the two pressure tubes.</p>
+    <p class="sim-note"><b>What to notice:</b> continuity makes the fluid speed up in the narrow part, and Bernoulli says its pressure drops there. This local low pressure is one reason a stenosis is dangerous: the vessel wall can be pulled inward.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; Venturi meter</span>
+    <p>Water flows from A<sub>1</sub> = 5.0 cm&sup2; to A<sub>2</sub> = 1.0 cm&sup2; with v<sub>1</sub> = 0.50 m/s.</p>
+    <p><span class="step">Step 1</span>Continuity: v<sub>2</sub> = (A<sub>1</sub>/A<sub>2</sub>)v<sub>1</sub> = 5 &times; 0.50 = 2.5 m/s</p>
+    <p><span class="step">Step 2</span>Bernoulli (same height): P<sub>1</sub> &minus; P<sub>2</sub> = &frac12;&rho;(v<sub>2</sub>&sup2; &minus; v<sub>1</sub>&sup2;) = &frac12;(1000)(6.25 &minus; 0.25) = <b>3.0 &times; 10<sup>3</sup> Pa</b></p>
+  </div>
+
+  <h3><span class="n">8.3</span>Laminar vs turbulent flow</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">Re = <span class="fr"><span>&rho; v D</span><span>&eta;</span></span></div>
+    <p>The <b>Reynolds number</b> (no units) compares the fluid's tendency to keep moving (inertia) with its friction (viscosity). <b>Re &lt; 2000</b>: laminar, smooth layers. <b>2000&ndash;4000</b>: transitional. <b>Re &gt; 4000</b>: turbulent, swirling.</p>
+  </div>
+
+  <div class="sim" id="sim-reynolds">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Laminar or turbulent blood flow?</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the blood speed and the vessel diameter until the dye lines start to swirl.</p>
+    <p class="sim-note"><b>What to notice:</b> small, slow vessels stay laminar. A wide vessel with fast flow (the aorta at peak heartbeat) gets close to turbulence. Turbulence is noisy: that is what a doctor hears as a murmur or in a blood-pressure cuff.</p>
+  </div>
+
+  <div class="box bio"><span class="lbl">Blood velocity in the body</span>
+    <p>Each capillary is tiny, but there are billions of them, so their <b>total</b> area is about 1000 times the aorta's. By continuity, blood slows from about 30 cm/s in the aorta to under 1 mm/s in capillaries, giving oxygen time to diffuse out.</p>
+  </div>
+
+  <h3><span class="n">8.4</span>Poiseuille's law: viscous flow in a tube</h3>
+  <p>Real fluids stick to the walls (no-slip). So flow in a tube is fastest in the middle and zero at the wall. The speed profile is a parabola:</p>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">v(r) = <span class="fr"><span>&Delta;P</span><span>4&eta;L</span></span>(R<sup>2</sup> &minus; r<sup>2</sup>) &emsp;&emsp; Q = <span class="fr"><span>&pi;R<sup>4</sup>&Delta;P</span><span>8&eta;L</span></span></div>
+    <p>R = tube radius, L = length, &Delta;P = pressure drop along it, &eta; = viscosity. Flow rate goes as <b>R to the fourth power</b>. Halve the radius and flow drops to 1/16.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation in short</span>
+    <p><span class="step">Step 1</span>Take an inner cylinder of fluid, radius r. Pressure pushes it forward with &Delta;P&middot;&pi;r&sup2;.</p>
+    <p><span class="step">Step 2</span>Viscous drag on its surface (area 2&pi;rL) holds it back: &minus;&eta;(dv/dr)(2&pi;rL).</p>
+    <p><span class="step">Step 3</span>Steady flow: the two balance, so dv/dr = &minus;&Delta;P r/(2&eta;L). Integrate and use v(R) = 0 to get v(r) above.</p>
+    <p><span class="step">Step 4</span>Add up the flow through thin rings, dQ = v(r)&middot;2&pi;r dr, from 0 to R: Q = &pi;R<sup>4</sup>&Delta;P/(8&eta;L).</p>
+  </div>
+  <p>Written as &Delta;P = Q &times; (8&eta;L/&pi;R<sup>4</sup>), this looks exactly like Ohm's law V = IR (Unit 4). The term 8&eta;L/&pi;R<sup>4</sup> is the <b>flow resistance</b>.</p>
+
+  <div class="sim" id="sim-poiseuille">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Narrow the vessel, watch the flow collapse</h4></div>
+    <p class="sim-try"><b>Try:</b> shrink the vessel radius to 80%, then 50%. The pressure drop stays fixed.</p>
+    <p class="sim-note"><b>What to notice:</b> the velocity profile is a parabola, zero at the wall. A 20% narrower vessel keeps only 41% of the flow (0.8<sup>4</sup>). This is why plaque in an artery matters far more than its size suggests.</p>
+  </div>
+
+  <div class="sim" id="sim-vessel3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Inside a blood vessel</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to look along the vessel or from the side. Then narrow the vessel.</p>
+    <p class="sim-note"><b>What to notice:</b> cells near the centre (bright yellow) race ahead; cells near the wall (dark red) barely move. The arrows trace the parabola v(r) = (&Delta;P/4&eta;L)(R&sup2; &minus; r&sup2;).</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A pipe narrows from 3.0 cm&sup2; to 1.2 cm&sup2;. If v<sub>1</sub> = 0.60 m/s, find v<sub>2</sub>. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>v<sub>2</sub> = (3.0/1.2) &times; 0.60 = <b>1.5 m/s</b>.</p></div></details></li>
+    <li>In a horizontal artery v<sub>1</sub> = 0.4 m/s, P<sub>1</sub> = 100 mmHg and v<sub>2</sub> = 1.2 m/s. Find P<sub>2</sub> (&rho; = 1060 kg/m&sup3;). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>P<sub>1</sub> &minus; P<sub>2</sub> = &frac12;(1060)(1.44 &minus; 0.16) = 678 Pa = 5.1 mmHg. So P<sub>2</sub> &asymp; <b>94.9 mmHg</b>.</p></div></details></li>
+    <li>Find Re for blood (&rho; = 1060 kg/m&sup3;, &eta; = 0.004 Pa&middot;s) at 0.50 m/s in a 4.0 mm vessel. Laminar or turbulent? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Re = 1060 &times; 0.50 &times; 0.004/0.004 = <b>530</b>: laminar.</p></div></details></li>
+    <li>A vessel has R = 2.0 mm, L = 0.20 m, &eta; = 0.004 Pa&middot;s and &Delta;P = 1200 Pa. Find Q and the centre-line speed. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Q = &pi;(0.002)<sup>4</sup>(1200)/(8 &times; 0.004 &times; 0.20) &asymp; <b>9.42 &times; 10<sup>&minus;6</sup> m&sup3;/s</b> (9.4 mL/s). v<sub>max</sub> = &Delta;PR&sup2;/(4&eta;L) = 1200 &times; 4 &times; 10<sup>&minus;6</sup>/0.0032 = <b>1.5 m/s</b>.</p></div></details></li>
+    <li>A stenosis reduces a radius to 0.7R with &Delta;P fixed. By what factor does Q change? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Q &prop; R<sup>4</sup>: 0.7<sup>4</sup> = <b>0.24</b>. Flow drops by about 76%.</p></div></details></li>
+    <li>A main artery (3.0 cm&sup2;) branches into 6 identical arteries whose total area equals the parent's. If v<sub>1</sub> = 0.30 m/s, find the speed in each branch. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Total area is unchanged, so the speed is unchanged: <b>0.30 m/s</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 9 ===================== -->
+<section class="class" id="c9"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 9</span>
+    <h2>Stokes' law, measuring viscosity and Einstein's diffusion relation</h2>
+    <p class="goals"><b>By the end you can:</b> find the drag on a small sphere; use a falling-ball viscometer; use D = k<sub>B</sub>T/6&pi;&eta;r; explain why small molecules diffuse fast and big ones slowly.</p>
+  </div>
+
+  <h3><span class="n">9.1</span>Stokes' law: drag on a sphere</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">F<sub>d</sub> = 6&pi;&eta; r v</div>
+    <p>A small sphere of radius r moving slowly at speed v through a fluid of viscosity &eta; feels this drag force. It is valid for slow, laminar motion: red blood cells, bacteria, nanoparticles, dust in air.</p>
+  </div>
+
+  <h3><span class="n">9.2</span>Measuring viscosity: the falling-ball viscometer</h3>
+  <p>Drop a ball into a liquid. It speeds up until the drag (plus buoyancy) balances its weight. After that it falls at a constant <b>terminal speed</b>:</p>
+  <div class="box key"><span class="lbl">Terminal speed</span>
+    <div class="eq">v<sub>t</sub> = <span class="fr"><span>2 r<sup>2</sup> (&rho;<sub>s</sub> &minus; &rho;<sub>f</sub>) g</span><span>9 &eta;</span></span> &emsp;&rArr;&emsp; &eta; = <span class="fr"><span>2 r<sup>2</sup> (&rho;<sub>s</sub> &minus; &rho;<sub>f</sub>) g</span><span>9 v<sub>t</sub></span></span></div>
+    <p>From weight = drag + buoyancy: (4/3)&pi;r&sup3;&rho;<sub>s</sub>g = 6&pi;&eta;rv<sub>t</sub> + (4/3)&pi;r&sup3;&rho;<sub>f</sub>g. Time the ball over a known distance, get v<sub>t</sub>, and you have &eta;.</p>
+  </div>
+
+  <div class="sim" id="sim-viscometer">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Falling-ball viscometer</h4></div>
+    <p class="sim-try"><b>Try:</b> drop a steel ball into different liquids, and change the ball's radius. Then press <b>Drop again</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> thicker liquids give slower falls (v<sub>t</sub> &prop; 1/&eta;). Doubling the ball radius makes it fall four times faster (v<sub>t</sub> &prop; r&sup2;). The same physics sets how fast cells settle in a test tube.</p>
+  </div>
+
+  <h3><span class="n">9.3</span>Diffusion and the Einstein (Stokes&ndash;Einstein) relation</h3>
+  <p>Molecules in a fluid are constantly kicked around by thermal motion. A drop of dye spreads out even in perfectly still water. This random spreading is <b>diffusion</b>, measured by the diffusion constant D (m&sup2;/s).</p>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">D = <span class="fr"><span>k<sub>B</sub>T</span><span>6&pi;&eta; r</span></span> &emsp;&emsp; x<sub>rms</sub> = <span class="m">&radic;<span class="sq">2Dt</span></span> &emsp;&rArr;&emsp; t &asymp; <span class="fr"><span>x<sup>2</sup></span><span>2D</span></span></div>
+    <p>k<sub>B</sub> = 1.38 &times; 10<sup>&minus;23</sup> J/K (Boltzmann's constant). Hotter means faster diffusion; bigger particles and thicker fluids mean slower diffusion. Distance grows only as &radic;t: to go 10 times farther takes 100 times longer.</p>
+  </div>
+  <div class="box der"><span class="lbl">Einstein's idea in words</span>
+    <p>Diffusion (random kicks) and drag (friction) look unrelated, but both come from the same collisions with fluid molecules. Einstein showed that D equals the particle's <b>mobility</b> (1/6&pi;&eta;r, from Stokes' law) times the thermal energy k<sub>B</sub>T. So friction and randomness are tied together by temperature.</p>
+  </div>
+
+  <div class="sim" id="sim-diffusion">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Small molecule vs big protein</h4></div>
+    <p class="sim-try"><b>Try:</b> watch the two clouds spread from the centre. Change the size of the big particle and the temperature. Press <b>Restart</b> to begin again.</p>
+    <p class="sim-note"><b>What to notice:</b> oxygen-sized particles (green) spread much faster than protein-sized ones (purple). D &prop; 1/r: a particle 25 times bigger diffuses 25 times more slowly. This is why cells use active transport for big cargo.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; oxygen vs albumin</span>
+    <p>At 298 K in water (&eta; = 0.001 Pa&middot;s): O<sub>2</sub> (r = 0.14 nm) has D &asymp; 1.6 &times; 10<sup>&minus;9</sup> m&sup2;/s. Albumin (r = 3.5 nm) has D &asymp; 6.2 &times; 10<sup>&minus;11</sup> m&sup2;/s, about 25 times smaller.</p>
+  </div>
+  <div class="box bio"><span class="lbl">Applications: blood flow and filtration</span>
+    <p>Diffusion carries O<sub>2</sub> and CO<sub>2</sub> across the thin capillary wall in milliseconds. Kidney filtration and dialysis membranes let small molecules (urea, glucose) through quickly while holding back big proteins, which diffuse slowly and are too large for the pores.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A sphere of radius 1.0 &micro;m moves at 0.010 m/s in a fluid with &eta; = 0.001 Pa&middot;s. Find the Stokes drag. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = 6&pi;(0.001)(1.0 &times; 10<sup>&minus;6</sup>)(0.010) &asymp; <b>1.88 &times; 10<sup>&minus;10</sup> N</b>.</p></div></details></li>
+    <li>If the particle radius doubles (all else fixed), by what factor does the Stokes drag change? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F &prop; r, so it <b>doubles</b>.</p></div></details></li>
+    <li>A red blood cell (r = 3.5 &micro;m) moves at 0.5 mm/s in plasma (&eta; = 0.0015 Pa&middot;s). Find the drag. If &eta; rises by 30%, how does the drag change? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = 6&pi;(0.0015)(3.5 &times; 10<sup>&minus;6</sup>)(5 &times; 10<sup>&minus;4</sup>) &asymp; <b>4.9 &times; 10<sup>&minus;11</sup> N</b>. Drag &prop; &eta;, so it rises by <b>30%</b>.</p></div></details></li>
+    <li>A steel ball (r = 1.0 mm, &rho; = 7800 kg/m&sup3;) falls through glycerol (&rho; = 1260 kg/m&sup3;) at a steady 1.0 cm/s. Find &eta; of glycerol. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&eta; = 2r&sup2;(&rho;<sub>s</sub> &minus; &rho;<sub>f</sub>)g/(9v) = 2(10<sup>&minus;6</sup>)(6540)(9.8)/(9 &times; 0.010) &asymp; <b>1.4 Pa&middot;s</b>.</p></div></details></li>
+    <li>Estimate D for glucose (r = 0.5 nm) in water at 310 K, &eta; = 0.001 Pa&middot;s. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>D = (1.38 &times; 10<sup>&minus;23</sup>)(310)/(6&pi; &times; 0.001 &times; 0.5 &times; 10<sup>&minus;9</sup>) &asymp; <b>4.5 &times; 10<sup>&minus;10</sup> m&sup2;/s</b>.</p></div></details></li>
+    <li>O<sub>2</sub> (D = 2.0 &times; 10<sup>&minus;9</sup> m&sup2;/s) crosses a 5 &micro;m capillary wall. Estimate the time, t &asymp; d&sup2;/2D. What if the wall is twice as thick? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>t = (5 &times; 10<sup>&minus;6</sup>)&sup2;/(4 &times; 10<sup>&minus;9</sup>) &asymp; <b>6.25 ms</b>. Doubling d makes it <b>4 times longer</b> (25 ms).</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 10 ===================== -->
+<section class="class" id="c10"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 10</span>
+    <h2>Review and Quiz 2: formula sheet</h2>
+  </div>
+  <div class="sheet">
+    <div><h4>Basics</h4><p>&rho; = m/V &nbsp; P = F/A</p><p>1 mmHg = 133.3 Pa</p><p>F = &eta;A(&Delta;v/&Delta;y)</p></div>
+    <div><h4>Fluids at rest</h4><p>P = P<sub>0</sub> + &rho;gh</p><p>Pascal: F<sub>1</sub>/A<sub>1</sub> = F<sub>2</sub>/A<sub>2</sub></p><p>F<sub>b</sub> = &rho;<sub>fluid</sub>gV</p></div>
+    <div><h4>Moving fluids</h4><p>A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub> = Q</p><p>P + &frac12;&rho;v&sup2; + &rho;gh = const</p><p>Re = &rho;vD/&eta; (&lt;2000 laminar, &gt;4000 turbulent)</p></div>
+    <div><h4>Viscous flow</h4><p>Q = &pi;R<sup>4</sup>&Delta;P/(8&eta;L)</p><p>v<sub>max</sub> = &Delta;PR&sup2;/(4&eta;L)</p><p>R<sub>flow</sub> = 8&eta;L/(&pi;R<sup>4</sup>)</p></div>
+    <div><h4>Drag and diffusion</h4><p>F<sub>d</sub> = 6&pi;&eta;rv</p><p>v<sub>t</sub> = 2r&sup2;(&rho;<sub>s</sub> &minus; &rho;<sub>f</sub>)g/(9&eta;)</p><p>D = k<sub>B</sub>T/(6&pi;&eta;r)</p><p>t &asymp; x&sup2;/(2D)</p></div>
+  </div>
+  <div class="pager"><a href="rotation.html"><small>&larr; Previous unit</small>Rotation</a><a href="sound.html"><small>Next unit</small>Sound &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/fluids.js"></script>
+</body>
+</html>

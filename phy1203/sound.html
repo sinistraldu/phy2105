@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sound, Ultrasound and Hearing | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 11 and 12: vibration and sound waves, frequency, wavelength and speed, ultrasound and infrasound, medical imaging, decibels and hearing aids.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html" aria-current="page">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 3 &middot; Classes 11&ndash;12 &middot; Acoustics</span>
+  <h1>Sound, Ultrasound and Hearing</h1>
+  <p class="lead">A stethoscope, an ultrasound scan, an elephant's rumble and a bat's hunting call all use the same physics: a vibration that travels through a medium as a pressure wave.</p>
+  <ul class="toc">
+    <li><a href="#c11"><span>Class 11</span>Vibration and sound waves</a></li>
+    <li><a href="#c12"><span>Class 12</span>Ultrasound, infrasound, hearing aids</a></li>
+    <li><a href="#review"><span>Review</span>Formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 11 ===================== -->
+<section class="class" id="c11"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 11</span>
+    <h2>Vibration and the nature of sound waves</h2>
+    <p class="goals"><b>By the end you can:</b> explain how a vibration makes sound; tell longitudinal from transverse waves; use v = f&lambda;, T = 1/f, &omega; = 2&pi;f, k = 2&pi;/&lambda;; read a wave equation; explain why sound is faster in bone.</p>
+  </div>
+
+  <h3><span class="n">11.1</span>Vibration: where sound starts</h3>
+  <p>Every sound begins with something <b>vibrating</b>, moving back and forth about a rest position: vocal cords, a drum skin, a heart valve snapping shut, a piezoelectric crystal in an ultrasound probe. Each push squeezes the neighbouring air (or tissue) together; each pull spreads it apart. That pattern of squeezes travels outward as a sound wave.</p>
+  <div class="box key"><span class="lbl">Describing a vibration</span>
+    <ul>
+      <li><b>Amplitude A</b>: the biggest displacement from rest.</li>
+      <li><b>Period T</b>: time for one full back-and-forth (s).</li>
+      <li><b>Frequency f = 1/T</b>: cycles per second, hertz (Hz). A heart at 72 beats/min has f = 1.2 Hz.</li>
+      <li><b>Angular frequency &omega; = 2&pi;f</b> (rad/s).</li>
+    </ul>
+  </div>
+
+  <h3><span class="n">11.2</span>What makes a wave a wave</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>A wave carries <b>energy</b> from place to place, but <b>not matter</b>. Each particle of the medium just vibrates about its own spot. Think of a stadium "wave": the pattern goes round the stadium, the people stay in their seats.</p>
+    <ul>
+      <li><b>Transverse</b>: particles move <b>perpendicular</b> to the wave direction (wave on a string, light).</li>
+      <li><b>Longitudinal</b>: particles move <b>along</b> the wave direction, making compressions and rarefactions. <b>Sound is longitudinal.</b></li>
+    </ul>
+  </div>
+
+  <div class="sim" id="sim-wave">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Watch a sound wave move</h4></div>
+    <p class="sim-try"><b>Try:</b> switch between <b>Longitudinal</b> (sound) and <b>Transverse</b>. Follow the orange particle. Then change the frequency and the wave speed and read off the wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> the orange particle only jiggles about its own place; the pattern is what travels. Higher frequency squeezes the crests closer together (shorter &lambda;), because v = f&lambda; and v is set by the medium.</p>
+  </div>
+
+  <div class="sim" id="sim-sound3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A sound wave in a block of air</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to rotate. The speaker cone pushes and pulls the air. Change the frequency and the loudness.</p>
+    <p class="sim-note"><b>What to notice:</b> red slices are compressions (high pressure), blue slices are rarefactions (low pressure). They march away from the speaker while each air molecule only shuffles back and forth. Louder = bigger shuffles, not a faster wave.</p>
+  </div>
+
+  <h3><span class="n">11.3</span>Frequency, wavelength and speed</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">v = f &lambda; &emsp;&emsp; T = <span class="fr"><span>1</span><span>f</span></span> &emsp;&emsp; &omega; = 2&pi;f &emsp;&emsp; k = <span class="fr"><span>2&pi;</span><span>&lambda;</span></span> &emsp;&emsp; v = <span class="fr"><span>&omega;</span><span>k</span></span></div>
+    <p>A wave moving in the +x direction is written <span class="m">y(x, t) = A sin(kx &minus; &omega;t)</span>. With +&omega;t instead, it moves in the &minus;x direction.</p>
+  </div>
+
+  <div class="sim" id="sim-equation">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Build a wave equation</h4></div>
+    <p class="sim-try"><b>Try:</b> change A, &lambda; and f. The equation underneath the graph updates with real numbers, and the wave moves at v = f&lambda;.</p>
+    <p class="sim-note"><b>What to notice:</b> A sets the height, &lambda; sets the spacing of crests, f sets how fast each point bobs. The number in front of x is k = 2&pi;/&lambda; and the number in front of t is &omega; = 2&pi;f.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; reading a wave</span>
+    <p>y = 0.02 sin(314t &minus; 6.28x) m. Compare with y = A sin(&omega;t &minus; kx): A = 0.02 m, &omega; = 314 rad/s, k = 6.28 rad/m.</p>
+    <p>f = &omega;/2&pi; = <b>50 Hz</b>; &lambda; = 2&pi;/k = <b>1.0 m</b>; v = f&lambda; = <b>50 m/s</b>.</p>
+  </div>
+
+  <h3><span class="n">11.4</span>Speed of sound: stiffness wins</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">v = <span class="m">&radic;<span class="sq">B / &rho;</span></span></div>
+    <p>B = bulk modulus (how hard the medium is to squeeze), &rho; = density. Bone is denser than air, but enormously stiffer, so sound moves much faster in bone.</p>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Medium</th><th>Speed of sound (m/s)</th></tr>
+    <tr><td>Air (20 &deg;C)</td><td>343</td></tr>
+    <tr><td>Water (37 &deg;C)</td><td>about 1530</td></tr>
+    <tr><td>Soft tissue (average)</td><td>1540</td></tr>
+    <tr><td>Blood</td><td>about 1570</td></tr>
+    <tr><td>Bone (cortical)</td><td>3500&ndash;4000</td></tr>
+  </table></div>
+
+  <h3><span class="n">11.5</span>Wave behaviour</h3>
+  <ul>
+    <li><b>Reflection</b>: a wave bounces off a boundary. Echoes, and every ultrasound image.</li>
+    <li><b>Refraction</b>: a wave bends when it enters a medium where its speed is different.</li>
+    <li><b>Interference</b>: two waves add. Crest on crest gives a louder sound (constructive), crest on trough cancels (destructive). Noise-cancelling headphones use this.</li>
+    <li><b>Diffraction</b>: waves spread around obstacles and through gaps about as big as their wavelength. You hear someone round a corner because audible sound has &lambda; of centimetres to metres.</li>
+  </ul>
+
+  <h3><span class="n">11.6</span>The sound spectrum</h3>
+  <p>Humans hear roughly <b>20 Hz to 20 kHz</b>. Below that is <b>infrasound</b>; above it is <b>ultrasound</b>. The physics is the same; only our ears decide the names.</p>
+
+  <div class="sim" id="sim-spectrum">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Sound spectrum explorer</h4></div>
+    <p class="sim-try"><b>Try:</b> slide the frequency from 1 Hz up to 20 MHz. Switch the medium between air and soft tissue to see the wavelength change.</p>
+    <p class="sim-note"><b>What to notice:</b> each step to the right is a factor of 10 in frequency. An elephant's call has a wavelength of tens of metres; a 10 MHz scan in tissue has a wavelength of 0.15 mm, small enough to see fine detail.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A heart beats 72 times per minute. Find (a) the period, (b) the frequency in Hz. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) T = 60/72 = <b>0.833 s</b>. (b) f = 1/T = <b>1.2 Hz</b>.</p></div></details></li>
+    <li>Soft tissue has v = 1540 m/s. Find &lambda; for (a) 3 MHz, (b) 12 MHz. Which shows finer detail? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &lambda; = 1540/3 &times; 10<sup>6</sup> = <b>0.513 mm</b>. (b) <b>0.128 mm</b>. 12 MHz: shorter wavelength gives finer resolution (about &lambda;/2).</p></div></details></li>
+    <li>An elephant calls at 8 Hz in air (343 m/s). Find (a) &lambda;, (b) T, (c) the time to reach another elephant 5 km away. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) &lambda; = 343/8 &asymp; <b>42.9 m</b>. (b) T = 1/8 = <b>0.125 s</b>. (c) t = 5000/343 &asymp; <b>14.6 s</b>.</p></div></details></li>
+    <li>For y = 0.04 sin(6.28x &minus; 188.5t) m, find A, &lambda;, f, v and the direction. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>A = <b>0.04 m</b>; &lambda; = 2&pi;/6.28 = <b>1.0 m</b>; f = 188.5/2&pi; &asymp; <b>30 Hz</b>; v = f&lambda; = <b>30 m/s</b>; moving in the <b>+x</b> direction (kx &minus; &omega;t).</p></div></details></li>
+    <li>What frequency gives &lambda; = 0.30 mm in soft tissue? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>f = v/&lambda; = 1540/0.30 &times; 10<sup>&minus;3</sup> &asymp; <b>5.13 MHz</b>.</p></div></details></li>
+    <li>Why does sound travel faster in bone than in air, though bone is denser? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>v = &radic;(B/&rho;). Bone's bulk modulus is about 10<sup>5</sup> times bigger than air's, while its density is only about 10<sup>3</sup> times bigger. The stiffness wins.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 12 ===================== -->
+<section class="class" id="c12"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 12</span>
+    <h2>Ultrasound and infrasound: imaging, hearing aids and lab uses</h2>
+    <p class="goals"><b>By the end you can:</b> find depth from an echo time; use Z = &rho;v and the reflection fraction; explain why gel is needed; use decibels; explain the depth vs detail trade-off; describe hearing aids, ultrasonic cleaning and infrasound.</p>
+  </div>
+
+  <h3><span class="n">12.1</span>Ultrasound imaging: timing an echo</h3>
+  <p>The probe sends a short pulse (1&ndash;15 MHz) into the body and listens. Every boundary between tissues reflects a little sound back. The machine knows v &asymp; 1540 m/s and measures the round-trip time t:</p>
+  <div class="box key"><span class="lbl">Echo ranging</span>
+    <div class="eq">d = <span class="fr"><span>v t</span><span>2</span></span></div>
+    <p>Divide by 2 because the pulse goes down <b>and</b> back. Bats and dolphins find prey the same way (echolocation).</p>
+  </div>
+
+  <h3><span class="n">12.2</span>Acoustic impedance and reflection</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">Z = &rho; v &emsp;&emsp; R = <span class="m">(<span class="fr"><span>Z<sub>2</sub> &minus; Z<sub>1</sub></span><span>Z<sub>2</sub> + Z<sub>1</sub></span></span>)<sup>2</sup></span> &emsp;&emsp; T = 1 &minus; R</div>
+    <p>Z (unit rayl = kg/m&sup2;s) is how strongly a medium resists a pressure wave. R is the fraction of intensity reflected at a boundary, T the fraction transmitted. Equal Z means no reflection at all; a big mismatch reflects nearly everything.</p>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Medium</th><th>Z (MRayl = 10<sup>6</sup> kg/m&sup2;s)</th></tr>
+    <tr><td>Air</td><td>0.0004</td></tr>
+    <tr><td>Fat</td><td>1.38</td></tr>
+    <tr><td>Coupling gel</td><td>about 1.50</td></tr>
+    <tr><td>Soft tissue</td><td>1.62</td></tr>
+    <tr><td>Muscle</td><td>1.70</td></tr>
+    <tr><td>Bone</td><td>7.75</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-reflect">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>What happens at a boundary?</h4></div>
+    <p class="sim-try"><b>Try:</b> choose the two materials and press <b>Send pulse</b>. Compare tissue &rarr; muscle with tissue &rarr; bone and skin &rarr; air.</p>
+    <p class="sim-note"><b>What to notice:</b> a small mismatch (tissue&ndash;muscle) lets almost everything through, giving a faint echo. Tissue&ndash;bone reflects about 45%, so bone shows up bright and hides what is behind it. Air reflects 99.9%: that is why the probe needs gel.</p>
+  </div>
+
+  <div class="sim" id="sim-echo">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Find the depth of a bone</h4></div>
+    <p class="sim-try"><b>Try:</b> set how deep the bone surface is and press <b>Send pulse</b>. Read the echo time and check d = vt/2. Then switch the gel off.</p>
+    <p class="sim-note"><b>What to notice:</b> a boundary 5 cm deep returns its echo after about 65 &micro;s. Without gel, the air gap reflects almost all the sound at the skin and the echo from the bone disappears.</p>
+  </div>
+
+  <h3><span class="n">12.3</span>Intensity and decibels</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">I = <span class="fr"><span>P</span><span>A</span></span> &emsp;&emsp; &beta; = 10 log<sub>10</sub><span class="fr"><span>I</span><span>I<sub>0</sub></span></span> &emsp; (dB), &emsp; I<sub>0</sub> = 10<sup>&minus;12</sup> W/m<sup>2</sup></div>
+    <p>Our ears cover 12 powers of ten in intensity, so we use a logarithmic scale. <b>+10 dB = 10&times; the intensity. +3 dB = 2&times; the intensity.</b> Above about 85 dB, long exposure damages the cochlea's hair cells, which do not grow back. Each +3 dB halves the safe daily time (8 h at 85 dB, 4 h at 88 dB, 2 h at 91 dB&hellip;).</p>
+  </div>
+
+  <h3><span class="n">12.4</span>Hearing aids</h3>
+  <p>A hearing aid has three parts: a <b>microphone</b> turns sound into an electrical signal, an <b>amplifier</b> boosts it, and a small <b>speaker</b> (receiver) plays it into the ear canal. The boost is the <b>gain</b> in dB. Modern digital aids give more gain at the frequencies the person has lost (often high frequencies) and limit the output so loud sounds never reach a damaging level. For people whose middle ear cannot pass sound on, <b>bone-conduction</b> aids vibrate the skull directly; for severe hair-cell loss, a <b>cochlear implant</b> stimulates the hearing nerve electrically.</p>
+
+  <div class="sim" id="sim-hearing">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Decibels and a hearing aid</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a sound, then raise the hearing-aid gain until the patient (who needs at least 50 dB to hear) can hear it. Don't push the output into the danger zone.</p>
+    <p class="sim-note"><b>What to notice:</b> 20 dB of gain multiplies the intensity by 100. Quiet speech needs the aid, but a loud sound plus gain quickly passes 85 dB, which is why good aids cap their output.</p>
+  </div>
+
+  <h3><span class="n">12.5</span>Attenuation: depth vs detail</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">I(d) = I<sub>0</sub> e<sup>&minus;2&alpha;d</sup> &emsp;&emsp; soft tissue: loss &asymp; 0.5 dB per cm per MHz</div>
+    <p>Sound fades as it goes deeper, losing a fixed <b>fraction</b> per centimetre (exponential, like a drug clearing from blood). Higher frequency fades faster. But higher frequency has shorter &lambda; and so finer detail (resolution &asymp; &lambda;/2). So abdominal scans use 1&ndash;3 MHz (deep, coarse) and thyroid or vein scans use 7&ndash;15 MHz (shallow, sharp).</p>
+  </div>
+
+  <div class="sim" id="sim-atten">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Choose the probe frequency</h4></div>
+    <p class="sim-try"><b>Try:</b> move the frequency from 2 MHz to 12 MHz. Watch how deep the beam can usefully reach and how small a detail it can show.</p>
+    <p class="sim-note"><b>What to notice:</b> there is no single best frequency. Each choice trades how deep you can see against how sharp the picture is.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example &middot; round-trip loss</span>
+    <p>A 5 MHz probe images a target 6 cm deep (12 cm round trip). Loss = 0.5 &times; 5 &times; 12 = <b>30 dB</b>. Fraction returned = 10<sup>&minus;30/10</sup> = 10<sup>&minus;3</sup> = <b>0.1%</b>. The machine amplifies the echoes to make up for it.</p>
+  </div>
+
+  <h3><span class="n">12.6</span>Other uses of ultrasound and infrasound</h3>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Use</th><th>How it works</th></tr>
+    <tr><td>Medical imaging (sonography)</td><td>Echo timing builds a picture; safe (no ionising radiation), used in pregnancy, heart (echocardiography), abdomen.</td></tr>
+    <tr><td>Doppler ultrasound</td><td>Echoes from moving blood cells come back at a shifted frequency, giving blood speed and direction.</td></tr>
+    <tr><td>Ultrasonic cleaning (lab)</td><td>20&ndash;40 kHz waves in a liquid bath make tiny bubbles that collapse violently (cavitation), scrubbing glassware and instruments.</td></tr>
+    <tr><td>Cell disruption (sonication)</td><td>The same cavitation breaks open cells to release DNA and proteins.</td></tr>
+    <tr><td>Therapy</td><td>Focused ultrasound heats and destroys small tumours; lithotripsy breaks kidney stones.</td></tr>
+    <tr><td>Infrasound in nature</td><td>Elephants and whales communicate over kilometres with long, slowly-fading waves.</td></tr>
+    <tr><td>Infrasound monitoring</td><td>Detects earthquakes, volcanoes and storms far away. Strong infrasound near 5&ndash;10 Hz can make body organs resonate, causing discomfort and nausea.</td></tr>
+  </table></div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>An echo returns 130 &micro;s after the pulse (v = 1540 m/s). How deep is the boundary? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>d = vt/2 = 1540 &times; 130 &times; 10<sup>&minus;6</sup>/2 &asymp; <b>0.10 m = 10 cm</b>.</p></div></details></li>
+    <li>Find Z for soft tissue (&rho; = 1050 kg/m&sup3;, v = 1540 m/s) and bone (&rho; = 1900 kg/m&sup3;, v = 4080 m/s). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Z<sub>tissue</sub> = 1050 &times; 1540 &asymp; <b>1.62 MRayl</b>. Z<sub>bone</sub> = 1900 &times; 4080 &asymp; <b>7.75 MRayl</b>.</p></div></details></li>
+    <li>Find the fraction reflected at a tissue (1.54 MRayl) to bone (7.75 MRayl) boundary, and the fraction transmitted. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>R = ((7.75 &minus; 1.54)/(7.75 + 1.54))&sup2; = (6.21/9.29)&sup2; &asymp; <b>0.447</b>. T &asymp; <b>0.553</b>.</p></div></details></li>
+    <li>Compute R at an air (0.0004 MRayl)&ndash;skin (1.62 MRayl) boundary, then with gel (1.50 MRayl). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>No gel: R &asymp; <b>0.999</b> (99.9% reflected). Gel: R = (0.12/3.12)&sup2; &asymp; <b>0.0015</b> (0.15%).</p></div></details></li>
+    <li>A conversation is 60 dB and a rock concert 110 dB. How many times more intense is the concert? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>50 dB difference = 10<sup>5</sup> = <b>100,000 times</b>.</p></div></details></li>
+    <li>Two sources each give 70 dB. What is the level when both play? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Intensities add: 2 &times; 10<sup>&minus;5</sup> W/m&sup2;. &beta; = 10 log(2 &times; 10<sup>7</sup>) &asymp; <b>73 dB</b> (not 140 dB).</p></div></details></li>
+    <li>A hearing aid has 30 dB gain. By what factor does it multiply the sound intensity? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>10<sup>30/10</sup> = <b>1000 times</b>.</p></div></details></li>
+    <li>A 7 MHz probe looks at a target 10 cm deep. Find the round-trip loss and the fraction of intensity returned. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Loss = 0.5 &times; 7 &times; 20 = <b>70 dB</b>. Fraction = 10<sup>&minus;7</sup>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<section class="class" id="review"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Review</span><h2>Formula sheet: sound</h2></div>
+  <div class="sheet">
+    <div><h4>Waves</h4><p>v = f&lambda; &nbsp; T = 1/f</p><p>&omega; = 2&pi;f &nbsp; k = 2&pi;/&lambda;</p><p>y = A sin(kx &minus; &omega;t)</p><p>v = &radic;(B/&rho;)</p></div>
+    <div><h4>Imaging</h4><p>d = vt/2</p><p>Z = &rho;v</p><p>R = ((Z<sub>2</sub> &minus; Z<sub>1</sub>)/(Z<sub>2</sub> + Z<sub>1</sub>))&sup2;, T = 1 &minus; R</p><p>resolution &asymp; &lambda;/2</p></div>
+    <div><h4>Loudness</h4><p>I = P/A</p><p>&beta; = 10 log(I/I<sub>0</sub>), I<sub>0</sub> = 10<sup>&minus;12</sup> W/m&sup2;</p><p>+10 dB = &times;10, +3 dB = &times;2</p></div>
+    <div><h4>Attenuation</h4><p>A(d) = A<sub>0</sub>e<sup>&minus;&alpha;d</sup></p><p>I(d) = I<sub>0</sub>e<sup>&minus;2&alpha;d</sup></p><p>&asymp; 0.5 dB/(cm&middot;MHz) in tissue</p></div>
+    <div><h4>Ranges</h4><p>Infrasound &lt; 20 Hz</p><p>Hearing 20 Hz&ndash;20 kHz</p><p>Ultrasound &gt; 20 kHz</p><p>Medical: 1&ndash;15 MHz</p></div>
+  </div>
+  <p style="margin-top:18px"><b>Mid-term examination</b> covers Units 1&ndash;3 (Classes 1&ndash;12).</p>
+  <div class="pager"><a href="fluids.html"><small>&larr; Previous unit</small>Fluids</a><a href="electricity.html"><small>Next unit</small>Electricity &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/sound.js"></script>
+</body>
+</html>

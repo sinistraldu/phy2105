@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHY1203 Physics for Biologists I</title>
+<meta name="description" content="Course website for PHY1203 Physics for Biologists I (Section B, Fall 2026), United International University: theory, worked examples, practice problems and simple 2D and 3D simulations for every class in the course outline.">
+<meta property="og:title" content="PHY1203 Physics for Biologists I">
+<meta property="og:description" content="Theory, problems and easy simulations for every class of Physics for Biologists I at UIU.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/sim.js"></script>
+<style>
+.units{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:18px}
+.unit{display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;color:var(--ink);border-bottom:1px solid var(--line);transition:border-color .15s,transform .15s}
+.unit:hover{border-color:var(--accent-2);transform:translateY(-2px)}
+.unit .kicker{display:block;margin-bottom:4px}
+.unit h3{margin:0 0 6px;font-size:21px}
+.unit p{margin:0;font-size:15.5px;color:var(--muted);font-family:var(--sans);line-height:1.5}
+.unit .count{margin-top:10px;font-family:var(--sans);font-size:12.5px;color:var(--accent-2);font-weight:600}
+.info{display:grid;grid-template-columns:150px 1fr;gap:6px 18px;font-family:var(--sans);font-size:15px;margin:0}
+.info dt{color:var(--faint);font-weight:500}
+.info dd{margin:0}
+.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;margin:14px 0 0;padding:0;list-style:none;counter-reset:st}
+.steps li{counter-increment:st;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--sans);font-size:14.5px;line-height:1.5}
+.steps li::before{content:counter(st);display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent-2);color:#fff;font-weight:700;font-size:12.5px;margin-bottom:6px}
+.steps b{display:block;font-size:15px;margin-bottom:2px}
+table.sched td:first-child{white-space:nowrap;font-weight:600}
+table.sched tr.quiz td{background:var(--der-bg)}
+table.sched tr.exam td{background:var(--accent-soft);font-weight:600}
+@media (max-width:700px){.info{grid-template-columns:1fr}.info dt{margin-top:6px}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">United International University &middot; Department of Biotechnology and Genetic Engineering</span>
+  <h1>PHY1203: Physics for Biologists I</h1>
+  <p class="lead">Every class in the course outline, explained simply: the theory, worked examples, practice problems with solutions, and small simulations you can play with in the browser, including 3D views you can turn with your finger.</p>
+  <ul class="toc">
+    <li><a href="#units">Start learning</a></li>
+    <li><a href="#schedule">Class-by-class schedule</a></li>
+    <li><a href="#course">Course information</a></li>
+  </ul>
+</div></div>
+
+<section class="class" id="how"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">How to use this site</span><h2>Read, play, practise</h2></div>
+  <ol class="steps">
+    <li><b>Read the idea</b>Each class starts with the big idea in plain words, then the key formula in a box.</li>
+    <li><b>Play with the simulation</b>Every simulation works the same way: a picture, a few sliders, a box of live numbers, and a green "What to notice" line.</li>
+    <li><b>Turn the 3D views</b>Simulations marked <i>3D</i> can be dragged with a mouse or finger to look from any side.</li>
+    <li><b>Try the problems</b>Each class ends with practice problems. Work them out first, then press <i>Show solution</i>.</li>
+  </ol>
+</div></section>
+
+<section class="class" id="units"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Units</span><h2>Six units, 24 classes</h2></div>
+  <div class="units">
+    <a class="unit" href="rotation.html"><span class="kicker">Unit 1 &middot; Classes 1&ndash;5</span><h3>Rotation, Momentum and Energy</h3><p>Angular motion, torque, moment of inertia, angular momentum, impulse, work and rotational energy. Joints, centrifuges, molecular motors.</p><div class="count">10 simulations &middot; 1 in 3D</div></a>
+    <a class="unit" href="fluids.html"><span class="kicker">Unit 2 &middot; Classes 6&ndash;10</span><h3>Fluids in Living Systems</h3><p>Pressure, Pascal, buoyancy, continuity, Bernoulli, turbulence, Poiseuille, Stokes and diffusion. Blood flow and IV drips.</p><div class="count">10 simulations &middot; 1 in 3D</div></a>
+    <a class="unit" href="sound.html"><span class="kicker">Unit 3 &middot; Classes 11&ndash;12</span><h3>Sound, Ultrasound and Hearing</h3><p>Vibration and waves, v = f&lambda;, ultrasound and infrasound, echo imaging, decibels, hearing aids, ultrasonic cleaning.</p><div class="count">8 simulations &middot; 1 in 3D</div></a>
+    <a class="unit" href="electricity.html"><span class="kicker">Unit 4 &middot; Classes 13&ndash;19</span><h3>Electricity in the Body</h3><p>Charge, Coulomb, field, dipoles, potential, capacitors, Ohm's law, RC circuits, Kirchhoff, action potentials.</p><div class="count">9 simulations &middot; 1 in 3D</div></a>
+    <a class="unit" href="magnetism.html"><span class="kicker">Unit 5 &middot; Classes 20&ndash;22</span><h3>Magnetism, EM Waves and MRI</h3><p>Magnetic force, magnetism in biology, EM oscillations and waves, the EM spectrum, &alpha;, &beta; and &gamma; rays, NMR and MRI.</p><div class="count">8 simulations &middot; 3 in 3D</div></a>
+    <a class="unit" href="optics.html"><span class="kicker">Unit 6 &middot; Classes 23&ndash;24</span><h3>Imaging: Microscopes to Lasers</h3><p>Lenses, microscopes, telescopes, resolution, interference, diffraction, X-rays, Bragg's law, lasers, holography.</p><div class="count">7 simulations &middot; 1 in 3D</div></a>
+  </div>
+</div></section>
+
+<section class="class" id="schedule"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Lecture outline</span><h2>Class-by-class schedule</h2><p class="goals">Follows the official course outline. Click a class to go straight to it.</p></div>
+  <div class="table-wrap"><table class="data sched">
+    <tr><th>Class</th><th>Topics</th><th>Activities</th></tr>
+    <tr><td><a href="rotation.html#c1">1</a></td><td>Importance in biotech; angular displacement, velocity, acceleration; relation to linear motion</td><td>Lecture, problem solving</td></tr>
+    <tr><td><a href="rotation.html#c2">2</a></td><td>Torque; Newton's second law for rotation; equilibrium of rotating bodies</td><td>Assignment</td></tr>
+    <tr><td><a href="rotation.html#c3">3</a></td><td>Moment of inertia: rod, disc; parallel- and perpendicular-axis theorems</td><td>Problem solving</td></tr>
+    <tr><td><a href="rotation.html#c4">4</a></td><td>Angular momentum and its conservation; torque&ndash;angular momentum; impulse; work and rotational KE; centrifuges, molecular motors</td><td>Problem solving</td></tr>
+    <tr class="quiz"><td><a href="rotation.html#c5">5</a></td><td>CT + review</td><td>Quiz 1</td></tr>
+    <tr><td><a href="fluids.html#c6">6</a></td><td>Nature and types of fluids; dimensions and units; density; pressure; viscosity</td><td>Problem solving</td></tr>
+    <tr><td><a href="fluids.html#c7">7</a></td><td>Pascal's law; hydrostatic pressure; buoyancy; blood pressure, IV flow</td><td>Assignment</td></tr>
+    <tr><td><a href="fluids.html#c8">8</a></td><td>Continuity; Bernoulli; laminar vs turbulent flow; Poiseuille's law; blood velocity</td><td>Problem solving</td></tr>
+    <tr><td><a href="fluids.html#c9">9</a></td><td>Stokes' law; measuring viscosity; Einstein's diffusion relation; blood flow, filtration</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="fluids.html#c10">10</a></td><td>CT + review</td><td>Quiz 2</td></tr>
+    <tr><td><a href="sound.html#c11">11</a></td><td>Vibration; nature of sound waves; frequency, wavelength, speed; wave behaviour</td><td>Problem solving</td></tr>
+    <tr><td><a href="sound.html#c12">12</a></td><td>Ultrasound and infrasound; medical imaging; hearing aids; ultrasonic cleaning</td><td>Problem solving</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Mid-term examination (Classes 1&ndash;12)</td><td>30%</td></tr>
+    <tr><td><a href="electricity.html#c13">13</a></td><td>Electric charge; Coulomb's law; electric field and field lines; dipole</td><td>Assignment</td></tr>
+    <tr><td><a href="electricity.html#c14">14</a></td><td>Electric potential energy; equipotentials; capacitors; dielectrics in biology</td><td>Problem solving</td></tr>
+    <tr><td><a href="electricity.html#c15">15</a></td><td>Current; resistance; Ohm's law; EMF; membranes as resistors</td><td>Assignment</td></tr>
+    <tr><td><a href="electricity.html#c16">16</a></td><td>RC circuits: charging, discharging, time constant; cell membranes; simple neuron models</td><td>Assignment</td></tr>
+    <tr><td><a href="electricity.html#c17">17</a></td><td>Series and parallel; Kirchhoff's current and voltage laws</td><td>Problem solving</td></tr>
+    <tr class="quiz"><td><a href="electricity.html#c18">18</a></td><td>CT + review</td><td>Quiz 3</td></tr>
+    <tr><td><a href="electricity.html#c19">19</a></td><td>Action potentials; ion channels; electrical properties of neurons; RC link</td><td>Assignment</td></tr>
+    <tr><td><a href="magnetism.html#c20">20</a></td><td>Magnetic fields; force on moving charges; magnetic effects in biology</td><td>Assignment</td></tr>
+    <tr><td><a href="magnetism.html#c21">21</a></td><td>EM oscillations and waves; spectrum regions and uses; &alpha;, &beta;, &gamma;; NMR; MRI basics</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="magnetism.html#c22">22</a></td><td>CT + review</td><td>Quiz 4</td></tr>
+    <tr><td><a href="optics.html#c23">23</a></td><td>Microscopes and telescopes; resolution and magnification; modern bio-microscopy</td><td>Problem solving</td></tr>
+    <tr><td><a href="optics.html#c24">24</a></td><td>Interference; diffraction; X-rays; lasers; holography; medical and biotech imaging</td><td>Problem solving</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Final written examination</td><td>40%</td></tr>
+  </table></div>
+</div></section>
+
+<section class="class" id="course"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Course information</span><h2>About the course</h2></div>
+  <dl class="info">
+    <dt>Course</dt><dd>Physics 1203: Physics for Biologists I (3 credits)</dd>
+    <dt>Section</dt><dd>B, Fall 2026</dd>
+    <dt>Class hours</dt><dd>Saturday and Tuesday, 3:11 PM &ndash; 4:30 PM</dd>
+    <dt>Room</dt><dd>805</dd>
+    <dt>Instructor</dt><dd>Arafat Rahman &middot; <a href="mailto:arafatrahman@ins.uiu.ac.bd">arafatrahman@ins.uiu.ac.bd</a> &middot; Room 1033 G</dd>
+    <dt>Assessment</dt><dd>Attendance 5% &middot; Assignments 5% &middot; Class tests 20% &middot; Mid-term 30% &middot; Final 40%</dd>
+    <dt>Textbooks</dt><dd>Aegerter, <i>Introductory Physics for Biological Scientists</i>; Davidovits, <i>Physics in Biology and Medicine</i>; Halliday, Resnick &amp; Walker, <i>Fundamentals of Physics</i> (10th ed.)</dd>
+    <dt>References</dt><dd>Halliday, Resnick &amp; Krane, <i>Physics</i> Vol. I &amp; II; Mathur, <i>Properties of Matter</i>; Young &amp; Freedman, <i>University Physics</i> (12th ed.); Vogel, <i>Life in Moving Fluids</i></dd>
+  </dl>
+  <h3>Course outcomes</h3>
+  <ol>
+    <li><b>Explain</b> rotational motion, momentum, work and energy, fluids, electricity, magnetism, acoustics and imaging in biological and mechanical systems.</li>
+    <li><b>Demonstrate</b> the physical laws of rotation, fluids, waves, electric fields and potentials, RC circuits and resonance through derivations and graphs.</li>
+    <li><b>Evaluate</b> and solve numerical problems on torque, impulse, energy, fluid flow, fields, circuits and waves, with biological relevance.</li>
+    <li><b>Apply</b> EM oscillations, NMR and optics (X-rays, lasers, microscopes) to diagnostics and medical imaging.</li>
+    <li><b>Interpret</b> sound, ultrasound and infrasound and their use in hearing and in devices such as hearing aids and sonography.</li>
+  </ol>
+  <p style="margin-top:20px"><a href="https://sinistraldu.github.io/">&larr; Arafat Rahman's homepage</a> &middot; <a href="../">PHY 2105 course site</a></p>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+</body>
+</html>

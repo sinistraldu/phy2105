@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnetism, EM Waves and MRI | PHY1203</title>
+<meta name="description" content="PHY1203 Physics for Biologists I, Classes 20 to 22: magnetic fields, force on moving charges, magnetism in biology, electromagnetic oscillations and waves, the electromagnetic spectrum, alpha, beta and gamma rays, NMR and MRI.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%231e4d2b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='white' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1203</b> Physics for Biologists I</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="rotation.html">Rotation</a></li>
+      <li><a href="fluids.html">Fluids</a></li>
+      <li><a href="sound.html">Sound</a></li>
+      <li><a href="electricity.html">Electricity</a></li>
+      <li><a href="magnetism.html" aria-current="page">Magnetism &amp; EM</a></li>
+      <li><a href="optics.html">Optics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 5 &middot; Classes 20&ndash;22 &middot; Magnetism and EM waves</span>
+  <h1>Magnetism, EM Waves and MRI</h1>
+  <p class="lead">Moving charges make magnetic fields and feel magnetic forces. Changing fields make light, radio and X-rays. And the magnetism of the protons in your body's water is what an MRI scanner listens to.</p>
+  <ul class="toc">
+    <li><a href="#c20"><span>Class 20</span>Magnetic fields and forces</a></li>
+    <li><a href="#c21"><span>Class 21</span>EM waves, spectrum, NMR and MRI</a></li>
+    <li><a href="#c22"><span>Class 22</span>Review and Quiz 4</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 20 ===================== -->
+<section class="class" id="c20"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 20</span>
+    <h2>Magnetic fields and the force on moving charges</h2>
+    <p class="goals"><b>By the end you can:</b> describe a magnetic field and its sources; use F = qvB sin&theta; and the right-hand rule; find the radius of a charge's circular path; give examples of magnetism in biology.</p>
+  </div>
+
+  <h3><span class="n">20.1</span>Magnetic field</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <p>A <b>magnetic field B</b> surrounds magnets and <b>moving charges</b> (currents). Field lines leave a magnet's north pole and enter its south pole, and always form closed loops. Unit: <b>tesla (T)</b>. Earth's field &asymp; 50 &micro;T; a fridge magnet &asymp; 5 mT; an MRI scanner 1.5&ndash;3 T.</p>
+    <div class="eq"><span class="up">Field around a long straight wire:</span> B = <span class="fr"><span>&mu;<sub>0</sub> I</span><span>2&pi; r</span></span> &emsp; &mu;<sub>0</sub> = 4&pi; &times; 10<sup>&minus;7</sup> T&middot;m/A</div>
+  </div>
+
+  <h3><span class="n">20.2</span>Force on a moving charge</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">F = q v B sin&thinsp;&theta; &emsp;&emsp; <span class="up">on a wire:</span> F = B I L sin&thinsp;&theta;</div>
+    <p>&theta; is the angle between the velocity and the field. The force is <b>perpendicular to both v and B</b> (right-hand rule: fingers along v, curl them toward B, thumb gives F for a positive charge). A charge at rest, or one moving along the field, feels no magnetic force.</p>
+    <p>Because the force is always sideways, it never speeds the charge up; it only bends its path into a circle:</p>
+    <div class="eq">qvB = <span class="fr"><span>mv<sup>2</sup></span><span>r</span></span> &emsp;&rArr;&emsp; r = <span class="fr"><span>m v</span><span>q B</span></span></div>
+  </div>
+
+  <div class="sim" id="sim-bcircle">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>A charge in a magnetic field</h4></div>
+    <p class="sim-try"><b>Try:</b> the field points into the screen (&otimes;). Change the speed and the field strength, and switch between a proton and an electron.</p>
+    <p class="sim-note"><b>What to notice:</b> faster charges make bigger circles (r &prop; v); a stronger field makes tighter circles (r &prop; 1/B). The electron is much lighter, so it circles much more tightly and turns the other way because its charge is negative.</p>
+  </div>
+
+  <div class="sim" id="sim-helix3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Spiralling along a field line</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to rotate. Change the angle between the velocity and the field.</p>
+    <p class="sim-note"><b>What to notice:</b> only the part of v across the field (v sin&theta;) is bent into a circle; the part along the field (v cos&theta;) carries on. The result is a helix. At 90&deg; it is a flat circle; at 0&deg; it is a straight line with no force. Charged particles from the Sun spiral along Earth's field this way to make the auroras.</p>
+  </div>
+
+  <h3><span class="n">20.3</span>Magnetic effects in biology</h3>
+  <ul>
+    <li><b>Magnetotactic bacteria</b> grow chains of tiny magnetite (Fe<sub>3</sub>O<sub>4</sub>) crystals that act as a compass needle. The torque from Earth's field lines the cell up, and it swims along the field lines down toward the low-oxygen mud it prefers.</li>
+    <li><b>Birds, sea turtles and salmon</b> sense Earth's field for navigation, probably with magnetite or with light-sensitive proteins (cryptochromes) in the eye.</li>
+    <li><b>Nerve and heart currents</b> make extremely weak magnetic fields (the brain's are about 10<sup>&minus;13</sup> T). Magnetoencephalography (MEG) measures them with ultra-sensitive sensors.</li>
+    <li><b>MRI</b> uses strong fields to read the magnetism of protons in water (Class 21). Magnetic forces on ions in moving blood also give an electromagnetic blood-flow meter.</li>
+  </ul>
+
+  <div class="sim" id="sim-bacteria">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Magnetotactic bacteria follow the field</h4></div>
+    <p class="sim-try"><b>Try:</b> rotate the magnetic field direction, and make the field stronger or weaker.</p>
+    <p class="sim-note"><b>What to notice:</b> each cell's magnetite chain feels a torque &tau; = &mu;B sin&theta; that turns it toward the field. In a strong field they line up neatly and swim in a group; in a weak field random jostling wins and they wander.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A proton moves at 10<sup>6</sup> m/s at right angles to a 1.5 T field. Find the force. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = qvB = 1.6 &times; 10<sup>&minus;19</sup> &times; 10<sup>6</sup> &times; 1.5 = <b>2.4 &times; 10<sup>&minus;13</sup> N</b>.</p></div></details></li>
+    <li>Find the radius of that proton's path (m<sub>p</sub> = 1.67 &times; 10<sup>&minus;27</sup> kg). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>r = mv/(qB) = 1.67 &times; 10<sup>&minus;27</sup> &times; 10<sup>6</sup>/(1.6 &times; 10<sup>&minus;19</sup> &times; 1.5) &asymp; <b>7.0 mm</b>.</p></div></details></li>
+    <li>What is the force on a charge moving parallel to B? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&theta; = 0, sin 0 = 0, so <b>F = 0</b>.</p></div></details></li>
+    <li>Find B at 5 cm from a long wire carrying 10 A. Compare with Earth's field. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>B = &mu;<sub>0</sub>I/(2&pi;r) = 4&pi; &times; 10<sup>&minus;7</sup> &times; 10/(2&pi; &times; 0.05) = <b>4 &times; 10<sup>&minus;5</sup> T</b>, about the same as Earth's field.</p></div></details></li>
+    <li>A 0.2 m wire carries 2 A at right angles to a 0.5 T field. Find the force. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>F = BIL = 0.5 &times; 2 &times; 0.2 = <b>0.2 N</b>.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 21 ===================== -->
+<section class="class" id="c21"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 21</span>
+    <h2>EM oscillations and waves, the EM spectrum, NMR and MRI</h2>
+    <p class="goals"><b>By the end you can:</b> explain LC oscillations; describe an EM wave; use c = f&lambda; and E = hf; name the spectrum regions with their properties and uses; compare &alpha;, &beta;, &gamma; rays; explain NMR and the basics of MRI.</p>
+  </div>
+
+  <h3><span class="n">21.1</span>Electromagnetic oscillations</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">f = <span class="fr"><span>1</span><span>2&pi;<span class="m">&radic;<span class="sq">LC</span></span></span></span></div>
+    <p>Connect a charged capacitor to a coil (inductor L). The capacitor drives a current through the coil; the coil's magnetic field keeps the current going and charges the capacitor the other way; and so on. Energy sloshes back and forth between the <b>electric field</b> of the capacitor (&frac12;CV&sup2;) and the <b>magnetic field</b> of the coil (&frac12;LI&sup2;), like a mass on a spring. Radio transmitters, the RF coils of an MRI and the tuning circuits of a receiver all use LC oscillators.</p>
+  </div>
+
+  <div class="sim" id="sim-lc">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>LC oscillator: energy sloshes back and forth</h4></div>
+    <p class="sim-try"><b>Try:</b> watch the two energy bars. Then change L and C and read the frequency.</p>
+    <p class="sim-note"><b>What to notice:</b> when the capacitor is full the current is zero, and when the current is biggest the capacitor is empty. The total energy stays constant. Bigger L or C means slower oscillation.</p>
+  </div>
+
+  <h3><span class="n">21.2</span>Electromagnetic waves</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">c = f &lambda; = 3.00 &times; 10<sup>8</sup> m/s &emsp;&emsp; E = cB &emsp;&emsp; <span class="up">photon energy:</span> E = hf = <span class="fr"><span>hc</span><span>&lambda;</span></span></div>
+    <p>An oscillating charge sends out an <b>electromagnetic wave</b>: an electric field and a magnetic field, at right angles to each other and to the direction of travel, each making the other. EM waves need no medium and all travel at c in vacuum. h = 6.63 &times; 10<sup>&minus;34</sup> J&middot;s (Planck's constant).</p>
+  </div>
+
+  <div class="sim" id="sim-emwave3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>An electromagnetic wave</h4></div>
+    <p class="sim-try"><b>Try:</b> drag to view it from different sides. Change the wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> E (red) wiggles up and down, B (blue) wiggles side to side, and the wave moves along the third direction. E and B rise and fall together. This is a transverse wave.</p>
+  </div>
+
+  <h3><span class="n">21.3</span>The electromagnetic spectrum</h3>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Region</th><th>Wavelength</th><th>Properties and propagation</th><th>Biological and medical uses</th></tr>
+    <tr><td>Radio</td><td>&gt; 1 m</td><td>Low energy; passes through the body; bends round obstacles</td><td>MRI signal (tens of MHz), radio telemetry of animals</td></tr>
+    <tr><td>Microwave</td><td>1 mm &ndash; 1 m</td><td>Absorbed by water molecules, heating them</td><td>Microwave ovens (2.45 GHz), diathermy, tumour ablation</td></tr>
+    <tr><td>Infrared</td><td>700 nm &ndash; 1 mm</td><td>"Heat radiation"; given off by all warm bodies</td><td>Thermal imaging, ear and forehead thermometers, physiotherapy heating</td></tr>
+    <tr><td>Visible</td><td>400 &ndash; 700 nm</td><td>What eyes and photosynthesis use</td><td>Vision, photosynthesis, light microscopy, pulse oximetry</td></tr>
+    <tr><td>Ultraviolet</td><td>10 &ndash; 400 nm</td><td>Enough energy to break chemical bonds; damages DNA</td><td>Vitamin D synthesis, sterilising surfaces and water, fluorescence; causes sunburn</td></tr>
+    <tr><td>X-rays</td><td>0.01 &ndash; 10 nm</td><td>Ionising; pass through soft tissue, stopped more by bone</td><td>Radiography, CT, X-ray crystallography of proteins and DNA</td></tr>
+    <tr><td>Gamma rays</td><td>&lt; 0.01 nm</td><td>Most energetic, most penetrating, ionising; from nuclei</td><td>Radiotherapy, sterilising instruments, PET and gamma cameras</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-emspectrum">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>EM spectrum explorer</h4></div>
+    <p class="sim-try"><b>Try:</b> slide from radio to gamma rays and watch the frequency, the photon energy and whether it is ionising.</p>
+    <p class="sim-note"><b>What to notice:</b> shorter wavelength means higher frequency and more energy per photon. Above roughly 10 eV (ultraviolet and beyond) a single photon can knock electrons out of molecules: that is <b>ionising radiation</b>, which can damage DNA.</p>
+  </div>
+
+  <h3><span class="n">21.4</span>Alpha, beta and gamma rays</h3>
+  <p>Unstable nuclei give off three kinds of radiation. Only gamma is an EM wave; alpha and beta are particles.</p>
+  <div class="table-wrap"><table class="data">
+    <tr><th></th><th>Alpha (&alpha;)</th><th>Beta (&beta;)</th><th>Gamma (&gamma;)</th></tr>
+    <tr><td>What it is</td><td>Helium nucleus (2 protons + 2 neutrons)</td><td>Fast electron (&beta;<sup>&minus;</sup>) or positron (&beta;<sup>+</sup>)</td><td>High-energy photon (EM wave)</td></tr>
+    <tr><td>Charge</td><td>+2e</td><td>&minus;e (or +e)</td><td>0</td></tr>
+    <tr><td>Stopped by</td><td>A sheet of paper or the outer skin</td><td>A few mm of aluminium</td><td>Thick lead or concrete (reduced, not fully stopped)</td></tr>
+    <tr><td>Ionising power</td><td>Very high (dangerous if swallowed or breathed in)</td><td>Medium</td><td>Low per cm, but goes deep</td></tr>
+    <tr><td>Uses</td><td>Smoke detectors; targeted alpha therapy</td><td>PET scans (&beta;<sup>+</sup>), treating thyroid with I-131</td><td>Radiotherapy, sterilising, gamma cameras</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-radiation">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>What stops each kind of radiation?</h4></div>
+    <p class="sim-try"><b>Try:</b> put paper, aluminium or lead in front of the three beams.</p>
+    <p class="sim-note"><b>What to notice:</b> paper stops alpha, aluminium stops beta, and even lead only weakens gamma. Charged particles in a magnetic field would bend in opposite directions (Class 20); gamma, having no charge, would not bend at all.</p>
+  </div>
+
+  <h3><span class="n">21.5</span>Nuclear magnetic resonance (NMR)</h3>
+  <div class="box key"><span class="lbl">Key concept</span>
+    <div class="eq">f<sub>Larmor</sub> = <span class="fr"><span>&gamma;</span><span>2&pi;</span></span> B &emsp;&emsp; <span class="up">for protons:</span> <span class="fr"><span>&gamma;</span><span>2&pi;</span></span> = 42.58 MHz/T</div>
+    <ol>
+      <li>A proton (hydrogen nucleus) spins and behaves like a tiny bar magnet.</li>
+      <li>In a strong field B, the proton magnets line up (slightly more along B than against it) and <b>precess</b> (wobble like a spinning top) at the Larmor frequency.</li>
+      <li>A pulse of radio waves at <b>exactly</b> that frequency is absorbed (<b>resonance</b>) and tips the protons over.</li>
+      <li>When the pulse stops, the protons <b>relax</b> back, sending out a radio signal. Two relaxation times: T<sub>1</sub> (realigning with B) and T<sub>2</sub> (losing step with each other).</li>
+    </ol>
+  </div>
+
+  <div class="sim" id="sim-nmr3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Proton spins and resonance</h4></div>
+    <p class="sim-try"><b>Try:</b> set the magnet strength, then tune the radio frequency. Press <b>RF pulse</b>. Only when the radio frequency matches the Larmor frequency do the spins tip over. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> the spins wobble (precess) faster in a stronger field. Resonance is very sharp: a few percent off and nothing happens. That sharpness is what lets MRI pick out one slice of the body at a time.</p>
+  </div>
+
+  <h3><span class="n">21.6</span>MRI basics</h3>
+  <p>The body is mostly water, so it is full of protons. An MRI scanner has a strong main magnet (1.5&ndash;3 T), extra <b>gradient coils</b> that make the field slightly different at each place (so each place has its own Larmor frequency, which tells the computer where a signal came from), and RF coils that send pulses and pick up the signal. Tissues differ in water content and in their T<sub>1</sub> and T<sub>2</sub>, which gives contrast between fat, muscle, brain matter and fluid. MRI uses radio waves, not ionising radiation, so it is safe for repeated scans; but metal objects near the magnet are dangerous.</p>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the resonance (LC) frequency for L = 1 mH and C = 1 nF. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>f = 1/(2&pi;&radic;(10<sup>&minus;3</sup> &times; 10<sup>&minus;9</sup>)) &asymp; <b>159 kHz</b>.</p></div></details></li>
+    <li>Find the wavelength of a 100 MHz radio wave and of a 2.45 GHz microwave. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&lambda; = c/f: <b>3.0 m</b> and <b>12.2 cm</b>.</p></div></details></li>
+    <li>Find the photon energy (in eV) of green light, &lambda; = 500 nm, and an X-ray, &lambda; = 0.1 nm. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>E = hc/&lambda;: green &asymp; 4.0 &times; 10<sup>&minus;19</sup> J = <b>2.5 eV</b>. X-ray &asymp; <b>12,400 eV</b> (12.4 keV), enough to ionise.</p></div></details></li>
+    <li>An EM wave has B = 10<sup>&minus;8</sup> T. Find E. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>E = cB = 3 &times; 10<sup>8</sup> &times; 10<sup>&minus;8</sup> = <b>3 V/m</b>.</p></div></details></li>
+    <li>Find the proton Larmor frequency in a 1.5 T and a 3 T scanner. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>f = 42.58 &times; B: <b>63.9 MHz</b> and <b>127.7 MHz</b> (radio waves).</p></div></details></li>
+    <li>A gradient coil makes the field 1.500 T at the head and 1.501 T 10 cm lower. What is the difference in Larmor frequency? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&Delta;f = 42.58 MHz/T &times; 0.001 T = <b>42.6 kHz</b>. The scanner uses this difference to tell the two places apart.</p></div></details></li>
+    <li>Which of &alpha;, &beta;, &gamma; would be bent by a magnetic field, and which is most dangerous inside the body? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>&alpha; and &beta; are charged, so they bend (opposite ways); &gamma; does not. &alpha; is most dangerous inside the body because it ionises very strongly over a short distance.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 22 ===================== -->
+<section class="class" id="c22"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Class 22</span><h2>Review and Quiz 4: formula sheet</h2></div>
+  <div class="sheet">
+    <div><h4>Magnetic force</h4><p>F = qvB sin&theta;</p><p>F = BIL sin&theta;</p><p>r = mv/(qB)</p></div>
+    <div><h4>Fields</h4><p>B = &mu;<sub>0</sub>I/(2&pi;r)</p><p>&mu;<sub>0</sub> = 4&pi; &times; 10<sup>&minus;7</sup> T&middot;m/A</p><p>&tau; = &mu;B sin&theta; (compass, bacteria)</p></div>
+    <div><h4>EM waves</h4><p>f = 1/(2&pi;&radic;LC)</p><p>c = f&lambda; = 3 &times; 10<sup>8</sup> m/s</p><p>E = cB</p><p>E<sub>photon</sub> = hf = hc/&lambda;</p></div>
+    <div><h4>NMR</h4><p>f = (&gamma;/2&pi;)B</p><p>protons: 42.58 MHz/T</p><p>1 eV = 1.6 &times; 10<sup>&minus;19</sup> J</p></div>
+  </div>
+  <div class="pager"><a href="electricity.html"><small>&larr; Previous unit</small>Electricity</a><a href="optics.html"><small>Next unit</small>Optics &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
+<script src="assets/js/magnetism.js"></script>
+</body>
+</html>
