@@ -179,6 +179,12 @@
     <p class="sim-note"><b>What to notice:</b> balancing torques gives F<sub>biceps</sub> &times; d = W &times; x. With d = 4 cm and x = 32 cm the muscle pulls 8 times the weight. Moving the tendon outward a little makes holding much easier.</p>
   </div>
 
+  <div class="sim" id="sim-arm3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Your forearm as a lever, in 3D</h4></div>
+    <p class="sim-try"><b>Try:</b> change the dumbbell mass, where the tendon attaches, and the angle of the forearm. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> the biceps (red) pulls almost straight up close to the elbow, so its force is many times the weight. Lowering the forearm or raising it changes the lever arm of the load (x cos&theta;), so the muscle force changes too.</p>
+  </div>
+
   <div class="box ex"><span class="lbl">Worked example &middot; biceps force</span>
     <p>A 2.0 kg dumbbell is held 0.32 m from the elbow, forearm horizontal. The biceps attaches 0.04 m from the elbow and pulls straight up. Ignore the forearm's weight.</p>
     <p><span class="step">Step 1</span>Balance torques about the elbow: F<sub>b</sub>(0.04) = (2.0)(9.8)(0.32)</p>
@@ -220,6 +226,12 @@
     <div class="sim-head"><span class="tag">Simulation</span><h4>Same push, different spin</h4></div>
     <p class="sim-try"><b>Try:</b> both rotors get exactly the same torque. Slide the masses on rotor B outward and press <b>Restart</b>.</p>
     <p class="sim-note"><b>What to notice:</b> with the masses twice as far out, I is four times bigger and rotor B spins up four times more slowly. This is why a gymnast tucks in to spin fast and why a bent knee swings forward more easily than a straight leg.</p>
+  </div>
+
+  <div class="sim" id="sim-tuck3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Tuck in, spin faster</h4></div>
+    <p class="sim-try"><b>Try:</b> slide from spread out to tucked while the athlete spins about the grey axis. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> pulling the arms and legs close to the axis shrinks I, so the spin rate jumps up while L = I&omega; stays the same. Divers and figure skaters use exactly this.</p>
   </div>
 
   <h3><span class="n">3.2</span>Simple bodies</h3>
@@ -339,6 +351,12 @@
     <p class="sim-note"><b>What to notice:</b> RCF grows with rpm <b>squared</b>. Doubling the rpm makes the cells settle four times faster. Plasma (yellow) stays on top; red cells pack at the bottom.</p>
   </div>
 
+  <div class="sim" id="sim-centrifuge3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Inside a lab centrifuge</h4></div>
+    <p class="sim-try"><b>Try:</b> set the speed and watch the six blood tubes in a fixed-angle rotor. Press <b>Fresh blood samples</b> to start again. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> the tubes tilt outward, so cells are flung toward the outer bottom of each tube. At a few thousand &times; g the red cells pack into a pellet and clear yellow plasma is left on top.</p>
+  </div>
+
   <p><b>Molecular motors.</b> The bacterial flagellar motor spins the flagellum at around 100 revolutions per second, driven by ions flowing through the membrane. ATP synthase turns its central shaft in 120&deg; steps, making one ATP per step. Both obey &tau; = I&alpha; and W = &tau;&theta; just like a centrifuge, only at the nanometre scale.</p>
 
   <div class="box ex"><span class="lbl">Worked example &middot; energy in a rotor</span>
@@ -388,5 +406,6 @@
 
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/rotation.js"></script>
+<script src="assets/js/bio3d.js"></script>
 </body>
 </html>

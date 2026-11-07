@@ -158,6 +158,13 @@
     <p>The lipid bilayer (&kappa; &asymp; 7, d &asymp; 7 nm) is an insulator separating two salty conductors (cytoplasm and outside fluid). C per area = &kappa;&epsilon;<sub>0</sub>/d &asymp; 7 &times; 8.85 &times; 10<sup>&minus;12</sup>/7 &times; 10<sup>&minus;9</sup> &asymp; <b>0.9 &micro;F/cm&sup2;</b>. At a resting potential of &minus;70 mV, each cm&sup2; holds only about 6 &times; 10<sup>&minus;8</sup> C, a tiny layer of extra ions right at the membrane surface.</p>
   </div>
 
+  <div class="sim" id="sim-membrane3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>The membrane is a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> change the membrane potential from the resting &minus;70 mV up to +30 mV (as in a spike). Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> at rest, + ions (red) line the outside and &minus; ions (blue) the inside, with a strong field (purple) across the thin lipid layer. When the inside becomes positive the charges swap sides and the field reverses.</p>
+  </div>
+
+
   <h3>Practice problems</h3>
   <ol class="problems">
     <li>Find the potential 1 nm from a single proton. <span class="lvl easy">easy</span>
@@ -361,6 +368,13 @@
     <p><b>Myelin</b> wraps the axon in many insulating layers: R<sub>m</sub> goes up (less leak) and C<sub>m</sub> goes down (thicker insulator). The signal spreads quickly and far under the myelin and is regenerated only at the gaps (nodes of Ranvier): <b>saltatory conduction</b>. Myelinated fibres conduct at up to about 100 m/s; thin unmyelinated fibres at about 1 m/s. Diseases that destroy myelin, like multiple sclerosis, slow or block nerve signals.</p>
   </div>
 
+  <div class="sim" id="sim-axon3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A nerve impulse travelling along an axon</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Fire!</b> and watch the spike run from the cell body. Then switch to <b>Myelinated</b> and fire again. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> without myelin the spike creeps along continuously. With myelin (white sheaths) it jumps from gap to gap (nodes of Ranvier) and arrives much sooner: saltatory conduction.</p>
+  </div>
+
+
   <h3>Practice problems</h3>
   <ol class="problems">
     <li>The membrane goes from &minus;70 mV to +30 mV during a spike. What is the change in voltage? <span class="lvl easy">easy</span>
@@ -380,5 +394,6 @@
 
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/electricity.js"></script>
+<script src="assets/js/bio3d.js"></script>
 </body>
 </html>
