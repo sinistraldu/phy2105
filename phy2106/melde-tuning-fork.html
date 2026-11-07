@@ -190,6 +190,164 @@ footer.credit a{color:#fff}
   <p>Now the prong moves back and forth <b>along</b> the thread. It cannot push the thread up or down at all. All it can do is make the thread <b>tight</b> (prong moves away from the pulley) and then <b>slack</b> (prong moves toward the pulley). So in each fork vibration there is exactly <b>one tight pull</b>.</p>
   <p>A tight pull helps the swing only if it comes when the thread is bent the most, that is when it is at the very top or the very bottom of its swing. At that moment the pull straightens the thread hard and throws it back the other way, adding energy, just like the push on a swing.</p>
   <p>But in one complete swing the thread is at the top <b>once</b> and at the bottom <b>once</b>. So the thread needs <b>two</b> tight pulls for each of its own swings, one at the top and one at the bottom. The fork gives one pull per vibration, so it must vibrate <b>twice</b> while the thread swings once.</p>
+  <div class="slowmo">
+  <h4 style="margin:14px 0 6px;color:var(--navy)">Watch it in slow motion</h4>
+  <p class="note" style="margin:0 0 8px">The real fork vibrates about 100 times a second. Here time is slowed down by more than a hundred times and the prong's motion is exaggerated so you can follow it. The circle on the left magnifies the prong tip five times. Watch the red "tight pull" flash. It always comes when the thread is at its very top or very bottom.</p>
+  <canvas id="smCanvas" width="900" height="600" style="background:#fff"></canvas>
+  <div class="row" style="margin-top:10px;align-items:center">
+    <select id="smMode" style="padding:6px;border-radius:6px;border:1px solid var(--line)">
+      <option value="L">Longitudinal (prong moves along the thread)</option>
+      <option value="T">Transverse (prong moves across the thread)</option>
+    </select>
+    <select id="smP" style="padding:6px;border-radius:6px;border:1px solid var(--line)">
+      <option value="1">1 loop</option><option value="2" selected>2 loops</option><option value="3">3 loops</option>
+    </select>
+    <button class="btn" id="smPlay">Pause</button>
+    <button class="btn ghost" id="smStep">Step ⅛ fork cycle</button>
+    <button class="btn ghost" id="smReset">Reset counters</button>
+  </div>
+  <div class="ctrl" style="margin-top:10px">
+    <label>Slow motion, one thread swing takes <span class="val" id="smSpv"></span></label>
+    <input type="range" id="smSp" min="2" max="14" step="0.5" value="6">
+  </div>
+</div>
+<script>
+(() => {
+const cv=document.getElementById('smCanvas'),W=900,H=600,dpr=Math.max(1,window.devicePixelRatio||1);
+cv.width=W*dpr;cv.height=H*dpr;const c=cv.getContext('2d');c.setTransform(dpr,0,0,dpr,0,0);
+const st={mode:'L',p:2,Ts:6,t:0,play:true,t0:0};
+const NAVY='#1b2a4a',RED='#c62f4b',GREY='#8a93a6',TEAL='#1f8a8a';
+const Y0=175,XP=820;           /* thread level and pulley x */
+const ws=()=>2*Math.PI/st.Ts;   /* thread angular frequency (slow motion) */
+const phS=t=>ws()*t;            /* thread phase */
+const phF=t=>st.mode==='L'?2*phS(t):phS(t); /* fork phase */
+const thread=t=>Math.sin(phS(t));            /* +1 = top */
+const tight=t=>st.mode==='L'?(1-Math.cos(2*phS(t)))/2:0.5; /* 0 slack .. 1 tight */
+const prongOff=t=>st.mode==='L'?-9*(1-Math.cos(2*phS(t)))/2+4.5:9*Math.sin(phS(t)); /* px; L: negative = away from pulley */
+
+function arrow(x1,y1,x2,y2,col,w=2.5){c.strokeStyle=col;c.fillStyle=col;c.lineWidth=w;c.beginPath();c.moveTo(x1,y1);c.lineTo(x2,y2);c.stroke();
+  const a=Math.atan2(y2-y1,x2-x1);c.beginPath();c.moveTo(x2,y2);c.lineTo(x2-11*Math.cos(a-0.4),y2-11*Math.sin(a-0.4));c.lineTo(x2-11*Math.cos(a+0.4),y2-11*Math.sin(a+0.4));c.closePath();c.fill();}
+function mix(a,b,k){const h=s=>[1,3,5].map(i=>parseInt(s.slice(i,i+2),16));const A=h(a),B=h(b);return `rgb(${A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')})`;}
+
+function drawFork(t){const d=prongOff(t);c.fillStyle='#6b7280';
+  if(st.mode==='L'){ /* prongs vertical, separated along x, move apart/together along the thread */
+    c.fillRect(70,262,70,10);c.fillRect(100,272,10,60);c.fillRect(70,332,70,8);
+    c.fillRect(78-d,Y0-8,10,96);c.fillRect(122+d,Y0-8,10,96);
+    c.fillStyle='#9b3b30';c.fillRect(97,215,16,26);
+    return {x:132+d,y:Y0};}
+  c.fillRect(30,Y0-6,10,48);c.fillRect(10,Y0+12,22,10);   /* transverse: prongs horizontal, separated along y */
+  c.fillRect(38,Y0-6-d,94,10);c.fillRect(38,Y0+32+d,94,10);
+  c.fillStyle='#9b3b30';c.fillRect(80,Y0+8,18,16);
+  return {x:132,y:Y0-1-d};}
+
+function threadPts(t,att){const A=st.p===1?85:st.p===2?70:55,D=thread(t),L=XP-att.x,pts=[];
+  for(let i=0;i<=160;i++){const s=i/160;const x=att.x+s*L;const base=att.y*(1-s)+Y0*s;pts.push([x,base-A*D*Math.sin(st.p*Math.PI*s)]);}return pts;}
+
+function drawScene(t){
+  c.fillStyle='#d8c3a0';c.fillRect(0,340,W,14);
+  c.fillStyle='#fafbfd';c.fillRect(0,0,W,340);
+  /* pulley + pan */
+  c.fillStyle='#b8bec9';c.strokeStyle='#555';c.lineWidth=1.5;c.beginPath();c.arc(XP,Y0+12,12,0,7);c.fill();c.stroke();
+  c.strokeStyle='#333';c.lineWidth=2;c.beginPath();c.arc(XP,Y0+12,12,-Math.PI/2,0);c.lineTo(XP+12,300);c.stroke();
+  c.fillStyle='#555';c.fillRect(XP-6,300,36,6);c.fillStyle='#c69a3c';c.fillRect(XP,288,24,12);
+  c.fillStyle='#5b6475';c.font='12px system-ui';c.fillText('pulley',XP-20,Y0-20);c.fillText('weights',XP+30,298);
+  /* rest line */
+  c.setLineDash([4,5]);c.strokeStyle='#d2d8e3';c.lineWidth=1;c.beginPath();c.moveTo(130,Y0);c.lineTo(XP,Y0);c.stroke();c.setLineDash([]);
+  const att=drawFork(t),pts=threadPts(t,att),k=tight(t);
+  /* envelope (what the eye sees) */
+  const A=st.p===1?85:st.p===2?70:55;c.strokeStyle='rgba(27,42,74,.08)';c.lineWidth=1;
+  [1,-1].forEach(sg=>{c.beginPath();for(let i=0;i<=160;i++){const s=i/160,x=att.x+s*(XP-att.x);const y=Y0-sg*A*Math.abs(Math.sin(st.p*Math.PI*s));i?c.lineTo(x,y):c.moveTo(x,y);}c.stroke();});
+  /* thread coloured by tension */
+  c.strokeStyle=st.mode==='L'?mix('#b9c3d6',NAVY,k):NAVY;c.lineWidth=st.mode==='L'?1.8+3*k:3;
+  c.beginPath();pts.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.stroke();
+  /* nodes */
+  for(let j=0;j<=st.p;j++){const x=att.x+j*(XP-att.x)/st.p;c.fillStyle=RED;c.beginPath();c.arc(x,Y0,4,0,7);c.fill();}
+  /* labels */
+  c.font='600 15px system-ui';c.fillStyle=NAVY;
+  c.fillText(st.mode==='L'?'Longitudinal arrangement':'Transverse arrangement',300,26);
+  const D=thread(t);
+  if(st.mode==='L'){
+    const lab=k>0.6?'TIGHT':k<0.4?'SLACK':'';c.font='700 14px system-ui';c.fillStyle=k>0.6?NAVY:'#8a93a6';c.fillText(lab?('Thread '+lab):'',470,52);
+    /* tension meter */
+    c.fillStyle='#eef1f6';c.fillRect(300,40,160,10);c.fillStyle=mix('#b9c3d6',NAVY,k);c.fillRect(300,40,160*k,10);
+    c.fillStyle='#5b6475';c.font='11px system-ui';c.fillText('slack',300,63);c.fillText('tight',435,63);
+    if(k>0.85){ /* tight pull flash */
+      for(let j=0;j<st.p;j++){const s=(j+0.5)/st.p,x=att.x+s*(XP-att.x),sg=Math.sign(D)*(j%2?-1:1),y=Y0-A*D*(j%2?-1:1);
+        arrow(x,y-sg*6,x,y+sg*36,RED,3);}
+      c.font='700 15px system-ui';c.fillStyle=RED;c.fillText('TIGHT PULL!  Thread is at its '+(D>0?'TOP':'BOTTOM')+', the pull flings it back',250,320);
+    } else {c.font='13px system-ui';c.fillStyle='#5b6475';
+      c.fillText(k<0.2?'Prong moves toward the pulley, the thread goes slack and swings freely':'',250,320);}
+  } else {
+    c.font='13px system-ui';c.fillStyle='#5b6475';c.fillText('The prong lifts and lowers the thread directly. The thread simply copies the prong.',230,320);
+  }
+  drawMagnifier(t);
+}
+
+function drawMagnifier(t){const cx=200,cy=95,R=58;c.save();c.beginPath();c.arc(cx,cy,R,0,7);c.fillStyle='#fff';c.fill();c.clip();
+  const d=prongOff(t)*(st.mode==='L'?4:2.5);
+  c.strokeStyle='#d2d8e3';c.setLineDash([3,4]);c.lineWidth=1;
+  if(st.mode==='L'){c.beginPath();c.moveTo(cx,cy-60);c.lineTo(cx,cy+60);c.stroke();c.setLineDash([]);
+    c.fillStyle='#6b7280';c.fillRect(cx-14+d,cy-10,28,80);
+    c.strokeStyle=mix('#b9c3d6',NAVY,tight(t));c.lineWidth=4;c.beginPath();c.moveTo(cx+14+d,cy-2);c.lineTo(cx+70,cy-2);c.stroke();
+    const v=Math.sin(2*phS(t)); /* derivative sign of -cos -> velocity of tightening; prong moves left when tightening */
+    arrow(cx+d,cy-28,cx+d+(v>0?-24:24),cy-28,RED,2.5);
+  } else {c.beginPath();c.moveTo(cx-60,cy);c.lineTo(cx+60,cy);c.stroke();c.setLineDash([]);
+    c.fillStyle='#6b7280';c.fillRect(cx-70,cy-12-d,84,24);
+    c.strokeStyle=NAVY;c.lineWidth=4;c.beginPath();c.moveTo(cx+14,cy-d);c.lineTo(cx+70,cy-d*0.6);c.stroke();
+    const v=Math.cos(phS(t));arrow(cx-30,cy-d,cx-30,cy-d+(v>0?-24:24),TEAL,2.5);}
+  c.restore();c.strokeStyle=NAVY;c.lineWidth=2;c.beginPath();c.arc(cx,cy,R,0,7);c.stroke();
+  c.fillStyle=NAVY;c.font='600 12px system-ui';c.fillText('prong tip ×5',cx-36,cy+R+16);
+  c.font='11px system-ui';c.fillStyle='#5b6475';c.fillText(st.mode==='L'?'← away from pulley = tight':'up and down = pushes thread',cx-70,cy+R+30);
+}
+
+function drawTimeline(t){const x0=150,x1=860,top=372,rowH=88,Wt=2*st.Ts;
+  c.fillStyle='#fff';c.fillRect(0,356,W,H-356);
+  c.fillStyle=NAVY;c.font='600 13px system-ui';c.fillText('Timing graph (scrolls, newest on the right)',10,374);
+  const rows=[['Prong',st.mode==='L'?'tightness':'up and down',tt=>st.mode==='L'?-Math.cos(2*phS(tt)):Math.sin(phS(tt)),'#5b6475'],
+              ['Thread','up and down',tt=>thread(tt),st.mode==='L'?RED:NAVY]];
+  const X=tt=>x1-(t-tt)/Wt*(x1-x0);
+  /* fork cycle bands */
+  const fT=st.mode==='L'?st.Ts/2:st.Ts;let n0=Math.floor((t-Wt)/fT);
+  for(let n=n0;n*fT<=t;n++){const a=Math.max(x0,X(n*fT)),b=Math.min(x1,X((n+1)*fT));if(b<=a)continue;
+    c.fillStyle=n%2?'#f6f8fc':'#eef2f8';c.fillRect(a,top+10,b-a,2*rowH);
+    if(b-a>60){c.fillStyle='#8a93a6';c.font='11px system-ui';c.fillText('fork cycle',(a+b)/2-26,top+2*rowH+24);}}
+  rows.forEach(([nm,sub,f,col],r)=>{const yc=top+10+rowH*r+rowH/2;
+    c.fillStyle=NAVY;c.font='600 13px system-ui';c.fillText(nm,10,yc-2);c.fillStyle='#5b6475';c.font='11px system-ui';c.fillText(sub,10,yc+13);
+    c.strokeStyle='#d2d8e3';c.setLineDash([3,4]);c.beginPath();c.moveTo(x0,yc);c.lineTo(x1,yc);c.stroke();c.setLineDash([]);
+    c.strokeStyle=col;c.lineWidth=2.4;c.beginPath();for(let i=0;i<=300;i++){const tt=t-Wt+Wt*i/300;const y=yc-30*f(tt);i?c.lineTo(X(tt),y):c.moveTo(X(tt),y);}c.stroke();
+    c.fillStyle=col;c.beginPath();c.arc(x1,yc-30*f(t),5,0,7);c.fill();});
+  if(st.mode==='L'){ /* tight pull markers */
+    const P=st.Ts/2;for(let n=Math.ceil((t-Wt-P/2)/P);;n++){const tt=n*P+P/2;if(tt>t)break;const x=X(tt);if(x<x0)continue;
+      c.strokeStyle=RED;c.setLineDash([4,3]);c.lineWidth=1.2;c.beginPath();c.moveTo(x,top+14);c.lineTo(x,top+10+2*rowH);c.stroke();c.setLineDash([]);
+      const yc=top+10+rowH*1.5,D=thread(tt);c.fillStyle=RED;c.beginPath();c.arc(x,yc-30*D,5,0,7);c.fill();
+      c.font='11px system-ui';c.fillText(D>0?'top':'bottom',x+6,yc-30*D+(D>0?-6:14));
+      c.beginPath();c.arc(x,top+10+rowH/2-30,4,0,7);c.fill();}
+  }
+  c.strokeStyle=NAVY;c.lineWidth=1;c.beginPath();c.moveTo(x1,top+8);c.lineTo(x1,top+12+2*rowH);c.stroke();
+  c.fillStyle=NAVY;c.font='11px system-ui';c.fillText('now',x1-10,top+6);
+}
+
+function drawCounters(t){const tt=t-st.t0,fc=phF(tt)/(2*Math.PI),sc=phS(tt)/(2*Math.PI);
+  c.fillStyle='#f2f5fb';c.fillRect(720,12,170,74);c.strokeStyle='#dde2ec';c.strokeRect(720,12,170,74);
+  c.fillStyle=NAVY;c.font='12px system-ui';c.fillText('Fork vibrations',728,32);c.fillText('Thread swings',728,70);
+  c.font='700 18px ui-monospace,Menlo,monospace';c.fillText(fc.toFixed(2),830,33);c.fillStyle=st.mode==='L'?RED:NAVY;c.fillText(sc.toFixed(2),830,71);
+  c.fillStyle='#5b6475';c.font='11px system-ui';c.fillText(st.mode==='L'?'2 fork vibrations = 1 thread swing':'1 fork vibration = 1 thread swing',720,102);}
+
+let last=performance.now();
+function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;if(st.play)st.t+=dt;
+  c.clearRect(0,0,W,H);drawScene(st.t);drawTimeline(st.t);drawCounters(st.t);requestAnimationFrame(loop);}
+const $=id=>document.getElementById(id);
+$('smMode').onchange=e=>{st.mode=e.target.value;st.t0=st.t=0;};
+$('smP').onchange=e=>{st.p=+e.target.value;};
+$('smPlay').onclick=()=>{st.play=!st.play;$('smPlay').textContent=st.play?'Pause':'Play';};
+$('smStep').onclick=()=>{st.play=false;$('smPlay').textContent='Play';st.t+=(st.mode==='L'?st.Ts/2:st.Ts)/8;};
+$('smReset').onclick=()=>{st.t0=0;st.t=0;};
+const sp=()=>{const v=+$('smSp').value,fr=st.t/st.Ts;st.Ts=v;st.t=fr*v;st.t0=0;$('smSpv').textContent=v+' s';};
+$('smSp').oninput=sp;sp();
+requestAnimationFrame(loop);
+})();
+</script>
+
   <figure><svg viewBox="0 0 680 380" aria-label="timing of fork and string"><line x1="150.0" y1="22" x2="150.0" y2="360" stroke="#eef1f6"/><line x1="370.0" y1="22" x2="370.0" y2="360" stroke="#eef1f6"/><line x1="590.0" y1="22" x2="590.0" y2="360" stroke="#eef1f6"/><text x="260.0" y="18" font-size="12" text-anchor="middle" fill="#5b6475">fork cycle 1</text><text x="480.0" y="18" font-size="12" text-anchor="middle" fill="#5b6475">fork cycle 2</text><text x="10" y="44" font-size="13" font-weight="700" fill="#1b2a4a">Transverse</text><text x="10" y="76" font-size="13" font-weight="600" fill="#1b2a4a">Prong</text><text x="10" y="93" font-size="11.5" fill="#5b6475">up and down</text><line x1="150" y1="80" x2="590" y2="80" stroke="#c9d0de" stroke-dasharray="3 4"/><path d="M150.0,80.0 L152.2,78.6 L154.4,77.2 L156.6,75.9 L158.8,74.5 L161.0,73.2 L163.2,71.9 L165.4,70.6 L167.6,69.4 L169.8,68.2 L172.0,67.1 L174.2,66.0 L176.4,64.9 L178.6,64.0 L180.8,63.0 L183.0,62.2 L185.2,61.4 L187.4,60.7 L189.6,60.1 L191.8,59.5 L194.0,59.1 L196.2,58.7 L198.4,58.4 L200.6,58.2 L202.8,58.0 L205.0,58.0 L207.2,58.0 L209.4,58.2 L211.6,58.4 L213.8,58.7 L216.0,59.1 L218.2,59.5 L220.4,60.1 L222.6,60.7 L224.8,61.4 L227.0,62.2 L229.2,63.0 L231.4,64.0 L233.6,64.9 L235.8,66.0 L238.0,67.1 L240.2,68.2 L242.4,69.4 L244.6,70.6 L246.8,71.9 L249.0,73.2 L251.2,74.5 L253.4,75.9 L255.6,77.2 L257.8,78.6 L260.0,80.0 L262.2,81.4 L264.4,82.8 L266.6,84.1 L268.8,85.5 L271.0,86.8 L273.2,88.1 L275.4,89.4 L277.6,90.6 L279.8,91.8 L282.0,92.9 L284.2,94.0 L286.4,95.1 L288.6,96.0 L290.8,97.0 L293.0,97.8 L295.2,98.6 L297.4,99.3 L299.6,99.9 L301.8,100.5 L304.0,100.9 L306.2,101.3 L308.4,101.6 L310.6,101.8 L312.8,102.0 L315.0,102.0 L317.2,102.0 L319.4,101.8 L321.6,101.6 L323.8,101.3 L326.0,100.9 L328.2,100.5 L330.4,99.9 L332.6,99.3 L334.8,98.6 L337.0,97.8 L339.2,97.0 L341.4,96.0 L343.6,95.1 L345.8,94.0 L348.0,92.9 L350.2,91.8 L352.4,90.6 L354.6,89.4 L356.8,88.1 L359.0,86.8 L361.2,85.5 L363.4,84.1 L365.6,82.8 L367.8,81.4 L370.0,80.0 L372.2,78.6 L374.4,77.2 L376.6,75.9 L378.8,74.5 L381.0,73.2 L383.2,71.9 L385.4,70.6 L387.6,69.4 L389.8,68.2 L392.0,67.1 L394.2,66.0 L396.4,64.9 L398.6,64.0 L400.8,63.0 L403.0,62.2 L405.2,61.4 L407.4,60.7 L409.6,60.1 L411.8,59.5 L414.0,59.1 L416.2,58.7 L418.4,58.4 L420.6,58.2 L422.8,58.0 L425.0,58.0 L427.2,58.0 L429.4,58.2 L431.6,58.4 L433.8,58.7 L436.0,59.1 L438.2,59.5 L440.4,60.1 L442.6,60.7 L444.8,61.4 L447.0,62.2 L449.2,63.0 L451.4,64.0 L453.6,64.9 L455.8,66.0 L458.0,67.1 L460.2,68.2 L462.4,69.4 L464.6,70.6 L466.8,71.9 L469.0,73.2 L471.2,74.5 L473.4,75.9 L475.6,77.2 L477.8,78.6 L480.0,80.0 L482.2,81.4 L484.4,82.8 L486.6,84.1 L488.8,85.5 L491.0,86.8 L493.2,88.1 L495.4,89.4 L497.6,90.6 L499.8,91.8 L502.0,92.9 L504.2,94.0 L506.4,95.1 L508.6,96.0 L510.8,97.0 L513.0,97.8 L515.2,98.6 L517.4,99.3 L519.6,99.9 L521.8,100.5 L524.0,100.9 L526.2,101.3 L528.4,101.6 L530.6,101.8 L532.8,102.0 L535.0,102.0 L537.2,102.0 L539.4,101.8 L541.6,101.6 L543.8,101.3 L546.0,100.9 L548.2,100.5 L550.4,99.9 L552.6,99.3 L554.8,98.6 L557.0,97.8 L559.2,97.0 L561.4,96.0 L563.6,95.1 L565.8,94.0 L568.0,92.9 L570.2,91.8 L572.4,90.6 L574.6,89.4 L576.8,88.1 L579.0,86.8 L581.2,85.5 L583.4,84.1 L585.6,82.8 L587.8,81.4 L590.0,80.0" fill="none" stroke="#5b6475" stroke-width="2.4"/><text x="10" y="136" font-size="13" font-weight="600" fill="#1b2a4a">String</text><text x="10" y="153" font-size="11.5" fill="#5b6475">up and down</text><line x1="150" y1="140" x2="590" y2="140" stroke="#c9d0de" stroke-dasharray="3 4"/><path d="M150.0,140.0 L152.2,138.6 L154.4,137.2 L156.6,135.9 L158.8,134.5 L161.0,133.2 L163.2,131.9 L165.4,130.6 L167.6,129.4 L169.8,128.2 L172.0,127.1 L174.2,126.0 L176.4,124.9 L178.6,124.0 L180.8,123.0 L183.0,122.2 L185.2,121.4 L187.4,120.7 L189.6,120.1 L191.8,119.5 L194.0,119.1 L196.2,118.7 L198.4,118.4 L200.6,118.2 L202.8,118.0 L205.0,118.0 L207.2,118.0 L209.4,118.2 L211.6,118.4 L213.8,118.7 L216.0,119.1 L218.2,119.5 L220.4,120.1 L222.6,120.7 L224.8,121.4 L227.0,122.2 L229.2,123.0 L231.4,124.0 L233.6,124.9 L235.8,126.0 L238.0,127.1 L240.2,128.2 L242.4,129.4 L244.6,130.6 L246.8,131.9 L249.0,133.2 L251.2,134.5 L253.4,135.9 L255.6,137.2 L257.8,138.6 L260.0,140.0 L262.2,141.4 L264.4,142.8 L266.6,144.1 L268.8,145.5 L271.0,146.8 L273.2,148.1 L275.4,149.4 L277.6,150.6 L279.8,151.8 L282.0,152.9 L284.2,154.0 L286.4,155.1 L288.6,156.0 L290.8,157.0 L293.0,157.8 L295.2,158.6 L297.4,159.3 L299.6,159.9 L301.8,160.5 L304.0,160.9 L306.2,161.3 L308.4,161.6 L310.6,161.8 L312.8,162.0 L315.0,162.0 L317.2,162.0 L319.4,161.8 L321.6,161.6 L323.8,161.3 L326.0,160.9 L328.2,160.5 L330.4,159.9 L332.6,159.3 L334.8,158.6 L337.0,157.8 L339.2,157.0 L341.4,156.0 L343.6,155.1 L345.8,154.0 L348.0,152.9 L350.2,151.8 L352.4,150.6 L354.6,149.4 L356.8,148.1 L359.0,146.8 L361.2,145.5 L363.4,144.1 L365.6,142.8 L367.8,141.4 L370.0,140.0 L372.2,138.6 L374.4,137.2 L376.6,135.9 L378.8,134.5 L381.0,133.2 L383.2,131.9 L385.4,130.6 L387.6,129.4 L389.8,128.2 L392.0,127.1 L394.2,126.0 L396.4,124.9 L398.6,124.0 L400.8,123.0 L403.0,122.2 L405.2,121.4 L407.4,120.7 L409.6,120.1 L411.8,119.5 L414.0,119.1 L416.2,118.7 L418.4,118.4 L420.6,118.2 L422.8,118.0 L425.0,118.0 L427.2,118.0 L429.4,118.2 L431.6,118.4 L433.8,118.7 L436.0,119.1 L438.2,119.5 L440.4,120.1 L442.6,120.7 L444.8,121.4 L447.0,122.2 L449.2,123.0 L451.4,124.0 L453.6,124.9 L455.8,126.0 L458.0,127.1 L460.2,128.2 L462.4,129.4 L464.6,130.6 L466.8,131.9 L469.0,133.2 L471.2,134.5 L473.4,135.9 L475.6,137.2 L477.8,138.6 L480.0,140.0 L482.2,141.4 L484.4,142.8 L486.6,144.1 L488.8,145.5 L491.0,146.8 L493.2,148.1 L495.4,149.4 L497.6,150.6 L499.8,151.8 L502.0,152.9 L504.2,154.0 L506.4,155.1 L508.6,156.0 L510.8,157.0 L513.0,157.8 L515.2,158.6 L517.4,159.3 L519.6,159.9 L521.8,160.5 L524.0,160.9 L526.2,161.3 L528.4,161.6 L530.6,161.8 L532.8,162.0 L535.0,162.0 L537.2,162.0 L539.4,161.8 L541.6,161.6 L543.8,161.3 L546.0,160.9 L548.2,160.5 L550.4,159.9 L552.6,159.3 L554.8,158.6 L557.0,157.8 L559.2,157.0 L561.4,156.0 L563.6,155.1 L565.8,154.0 L568.0,152.9 L570.2,151.8 L572.4,150.6 L574.6,149.4 L576.8,148.1 L579.0,146.8 L581.2,145.5 L583.4,144.1 L585.6,142.8 L587.8,141.4 L590.0,140.0" fill="none" stroke="#1b2a4a" stroke-width="2.4"/><text x="598" y="144" font-size="12" fill="#1b2a4a">2 swings</text><text x="10" y="208" font-size="13" font-weight="700" fill="#c62f4b">Longitudinal</text><text x="10" y="246" font-size="13" font-weight="600" fill="#1b2a4a">Prong</text><text x="10" y="263" font-size="11.5" fill="#5b6475">pulls tight at peaks</text><line x1="150" y1="250" x2="590" y2="250" stroke="#c9d0de" stroke-dasharray="3 4"/><path d="M150.0,272.0 L152.2,272.0 L154.4,271.8 L156.6,271.6 L158.8,271.3 L161.0,270.9 L163.2,270.5 L165.4,269.9 L167.6,269.3 L169.8,268.6 L172.0,267.8 L174.2,267.0 L176.4,266.0 L178.6,265.1 L180.8,264.0 L183.0,262.9 L185.2,261.8 L187.4,260.6 L189.6,259.4 L191.8,258.1 L194.0,256.8 L196.2,255.5 L198.4,254.1 L200.6,252.8 L202.8,251.4 L205.0,250.0 L207.2,248.6 L209.4,247.2 L211.6,245.9 L213.8,244.5 L216.0,243.2 L218.2,241.9 L220.4,240.6 L222.6,239.4 L224.8,238.2 L227.0,237.1 L229.2,236.0 L231.4,234.9 L233.6,234.0 L235.8,233.0 L238.0,232.2 L240.2,231.4 L242.4,230.7 L244.6,230.1 L246.8,229.5 L249.0,229.1 L251.2,228.7 L253.4,228.4 L255.6,228.2 L257.8,228.0 L260.0,228.0 L262.2,228.0 L264.4,228.2 L266.6,228.4 L268.8,228.7 L271.0,229.1 L273.2,229.5 L275.4,230.1 L277.6,230.7 L279.8,231.4 L282.0,232.2 L284.2,233.0 L286.4,234.0 L288.6,234.9 L290.8,236.0 L293.0,237.1 L295.2,238.2 L297.4,239.4 L299.6,240.6 L301.8,241.9 L304.0,243.2 L306.2,244.5 L308.4,245.9 L310.6,247.2 L312.8,248.6 L315.0,250.0 L317.2,251.4 L319.4,252.8 L321.6,254.1 L323.8,255.5 L326.0,256.8 L328.2,258.1 L330.4,259.4 L332.6,260.6 L334.8,261.8 L337.0,262.9 L339.2,264.0 L341.4,265.1 L343.6,266.0 L345.8,267.0 L348.0,267.8 L350.2,268.6 L352.4,269.3 L354.6,269.9 L356.8,270.5 L359.0,270.9 L361.2,271.3 L363.4,271.6 L365.6,271.8 L367.8,272.0 L370.0,272.0 L372.2,272.0 L374.4,271.8 L376.6,271.6 L378.8,271.3 L381.0,270.9 L383.2,270.5 L385.4,269.9 L387.6,269.3 L389.8,268.6 L392.0,267.8 L394.2,267.0 L396.4,266.0 L398.6,265.1 L400.8,264.0 L403.0,262.9 L405.2,261.8 L407.4,260.6 L409.6,259.4 L411.8,258.1 L414.0,256.8 L416.2,255.5 L418.4,254.1 L420.6,252.8 L422.8,251.4 L425.0,250.0 L427.2,248.6 L429.4,247.2 L431.6,245.9 L433.8,244.5 L436.0,243.2 L438.2,241.9 L440.4,240.6 L442.6,239.4 L444.8,238.2 L447.0,237.1 L449.2,236.0 L451.4,234.9 L453.6,234.0 L455.8,233.0 L458.0,232.2 L460.2,231.4 L462.4,230.7 L464.6,230.1 L466.8,229.5 L469.0,229.1 L471.2,228.7 L473.4,228.4 L475.6,228.2 L477.8,228.0 L480.0,228.0 L482.2,228.0 L484.4,228.2 L486.6,228.4 L488.8,228.7 L491.0,229.1 L493.2,229.5 L495.4,230.1 L497.6,230.7 L499.8,231.4 L502.0,232.2 L504.2,233.0 L506.4,234.0 L508.6,234.9 L510.8,236.0 L513.0,237.1 L515.2,238.2 L517.4,239.4 L519.6,240.6 L521.8,241.9 L524.0,243.2 L526.2,244.5 L528.4,245.9 L530.6,247.2 L532.8,248.6 L535.0,250.0 L537.2,251.4 L539.4,252.8 L541.6,254.1 L543.8,255.5 L546.0,256.8 L548.2,258.1 L550.4,259.4 L552.6,260.6 L554.8,261.8 L557.0,262.9 L559.2,264.0 L561.4,265.1 L563.6,266.0 L565.8,267.0 L568.0,267.8 L570.2,268.6 L572.4,269.3 L574.6,269.9 L576.8,270.5 L579.0,270.9 L581.2,271.3 L583.4,271.6 L585.6,271.8 L587.8,272.0 L590.0,272.0" fill="none" stroke="#5b6475" stroke-width="2.4"/><text x="10" y="316" font-size="13" font-weight="600" fill="#1b2a4a">String</text><text x="10" y="333" font-size="11.5" fill="#5b6475">up and down</text><line x1="150" y1="320" x2="590" y2="320" stroke="#c9d0de" stroke-dasharray="3 4"/><path d="M150.0,320.0 L152.2,319.3 L154.4,318.6 L156.6,317.9 L158.8,317.2 L161.0,316.6 L163.2,315.9 L165.4,315.2 L167.6,314.5 L169.8,313.9 L172.0,313.2 L174.2,312.5 L176.4,311.9 L178.6,311.3 L180.8,310.6 L183.0,310.0 L185.2,309.4 L187.4,308.8 L189.6,308.2 L191.8,307.6 L194.0,307.1 L196.2,306.5 L198.4,306.0 L200.6,305.5 L202.8,304.9 L205.0,304.4 L207.2,304.0 L209.4,303.5 L211.6,303.0 L213.8,302.6 L216.0,302.2 L218.2,301.8 L220.4,301.4 L222.6,301.1 L224.8,300.7 L227.0,300.4 L229.2,300.1 L231.4,299.8 L233.6,299.5 L235.8,299.3 L238.0,299.1 L240.2,298.9 L242.4,298.7 L244.6,298.5 L246.8,298.4 L249.0,298.3 L251.2,298.2 L253.4,298.1 L255.6,298.0 L257.8,298.0 L260.0,298.0 L262.2,298.0 L264.4,298.0 L266.6,298.1 L268.8,298.2 L271.0,298.3 L273.2,298.4 L275.4,298.5 L277.6,298.7 L279.8,298.9 L282.0,299.1 L284.2,299.3 L286.4,299.5 L288.6,299.8 L290.8,300.1 L293.0,300.4 L295.2,300.7 L297.4,301.1 L299.6,301.4 L301.8,301.8 L304.0,302.2 L306.2,302.6 L308.4,303.0 L310.6,303.5 L312.8,304.0 L315.0,304.4 L317.2,304.9 L319.4,305.5 L321.6,306.0 L323.8,306.5 L326.0,307.1 L328.2,307.6 L330.4,308.2 L332.6,308.8 L334.8,309.4 L337.0,310.0 L339.2,310.6 L341.4,311.3 L343.6,311.9 L345.8,312.5 L348.0,313.2 L350.2,313.9 L352.4,314.5 L354.6,315.2 L356.8,315.9 L359.0,316.6 L361.2,317.2 L363.4,317.9 L365.6,318.6 L367.8,319.3 L370.0,320.0 L372.2,320.7 L374.4,321.4 L376.6,322.1 L378.8,322.8 L381.0,323.4 L383.2,324.1 L385.4,324.8 L387.6,325.5 L389.8,326.1 L392.0,326.8 L394.2,327.5 L396.4,328.1 L398.6,328.7 L400.8,329.4 L403.0,330.0 L405.2,330.6 L407.4,331.2 L409.6,331.8 L411.8,332.4 L414.0,332.9 L416.2,333.5 L418.4,334.0 L420.6,334.5 L422.8,335.1 L425.0,335.6 L427.2,336.0 L429.4,336.5 L431.6,337.0 L433.8,337.4 L436.0,337.8 L438.2,338.2 L440.4,338.6 L442.6,338.9 L444.8,339.3 L447.0,339.6 L449.2,339.9 L451.4,340.2 L453.6,340.5 L455.8,340.7 L458.0,340.9 L460.2,341.1 L462.4,341.3 L464.6,341.5 L466.8,341.6 L469.0,341.7 L471.2,341.8 L473.4,341.9 L475.6,342.0 L477.8,342.0 L480.0,342.0 L482.2,342.0 L484.4,342.0 L486.6,341.9 L488.8,341.8 L491.0,341.7 L493.2,341.6 L495.4,341.5 L497.6,341.3 L499.8,341.1 L502.0,340.9 L504.2,340.7 L506.4,340.5 L508.6,340.2 L510.8,339.9 L513.0,339.6 L515.2,339.3 L517.4,338.9 L519.6,338.6 L521.8,338.2 L524.0,337.8 L526.2,337.4 L528.4,337.0 L530.6,336.5 L532.8,336.0 L535.0,335.6 L537.2,335.1 L539.4,334.5 L541.6,334.0 L543.8,333.5 L546.0,332.9 L548.2,332.4 L550.4,331.8 L552.6,331.2 L554.8,330.6 L557.0,330.0 L559.2,329.4 L561.4,328.7 L563.6,328.1 L565.8,327.5 L568.0,326.8 L570.2,326.1 L572.4,325.5 L574.6,324.8 L576.8,324.1 L579.0,323.4 L581.2,322.8 L583.4,322.1 L585.6,321.4 L587.8,320.7 L590.0,320.0" fill="none" stroke="#c62f4b" stroke-width="2.4"/><text x="598" y="324" font-size="12" fill="#c62f4b">1 swing</text><line x1="260.0" y1="230" x2="260.0" y2="298" stroke="#c62f4b" stroke-width="1.3" stroke-dasharray="4 3"/><circle cx="260.0" cy="228" r="4" fill="#c62f4b"/><text x="266.0" y="224" font-size="11.5" fill="#c62f4b">tight pull</text><text x="266.0" y="292" font-size="11.5" fill="#c62f4b">string at top</text><line x1="480.0" y1="230" x2="480.0" y2="342" stroke="#c62f4b" stroke-width="1.3" stroke-dasharray="4 3"/><circle cx="480.0" cy="228" r="4" fill="#c62f4b"/><text x="486.0" y="224" font-size="11.5" fill="#c62f4b">tight pull</text><text x="486.0" y="352" font-size="11.5" fill="#c62f4b">string at bottom</text></svg>
     <figcaption>Top, transverse. The thread copies the prong, two swings in two fork cycles. Bottom, longitudinal. Two tight pulls (one when the thread is at the top, one when it is at the bottom) give only one thread swing.</figcaption></figure>
   $$\text{thread frequency} = \frac{n}{2}$$
