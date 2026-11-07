@@ -192,6 +192,12 @@
     <p class="sim-note"><b>What to notice:</b> a boundary 5 cm deep returns its echo after about 65 &micro;s. Without gel, the air gap reflects almost all the sound at the skin and the echo from the bone disappears.</p>
   </div>
 
+  <div class="sim" id="sim-ultrasound3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>An ultrasound scan builds a picture</h4></div>
+    <p class="sim-try"><b>Try:</b> watch the beam sweep across the fan and draw the image on the screen. Move the kidney deeper, then switch the gel off. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> each scan line records echoes at the depth of every boundary, so line by line the kidney outline appears. Deeper organs give longer echo times. Without gel the screen stays blank except for the skin echo.</p>
+  </div>
+
   <h3><span class="n">12.3</span>Intensity and decibels</h3>
   <div class="box key"><span class="lbl">Key concept</span>
     <div class="eq">I = <span class="fr"><span>P</span><span>A</span></span> &emsp;&emsp; &beta; = 10 log<sub>10</sub><span class="fr"><span>I</span><span>I<sub>0</sub></span></span> &emsp; (dB), &emsp; I<sub>0</sub> = 10<sup>&minus;12</sup> W/m<sup>2</sup></div>
@@ -205,6 +211,12 @@
     <div class="sim-head"><span class="tag">Simulation</span><h4>Decibels and a hearing aid</h4></div>
     <p class="sim-try"><b>Try:</b> pick a sound, then raise the hearing-aid gain until the patient (who needs at least 50 dB to hear) can hear it. Don't push the output into the danger zone.</p>
     <p class="sim-note"><b>What to notice:</b> 20 dB of gain multiplies the intensity by 100. Quiet speech needs the aid, but a loud sound plus gain quickly passes 85 dB, which is why good aids cap their output.</p>
+  </div>
+
+  <div class="sim" id="sim-soundsphere3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Sound spreads out in all directions</h4></div>
+    <p class="sim-try"><b>Try:</b> change the source power and move the listener away. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> the same power is spread over a sphere of area 4&pi;r&sup2;, so intensity falls as 1/r&sup2;. Each doubling of distance costs about 6 dB, which is why moving away from a loud machine protects your hearing.</p>
   </div>
 
   <h3><span class="n">12.5</span>Attenuation: depth vs detail</h3>
@@ -272,5 +284,6 @@
 
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/sound.js"></script>
+<script src="assets/js/bio3d.js"></script>
 </body>
 </html>

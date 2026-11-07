@@ -59,6 +59,12 @@
     <div class="eq"><span class="up">Field around a long straight wire:</span> B = <span class="fr"><span>&mu;<sub>0</sub> I</span><span>2&pi; r</span></span> &emsp; &mu;<sub>0</sub> = 4&pi; &times; 10<sup>&minus;7</sup> T&middot;m/A</div>
   </div>
 
+  <div class="sim" id="sim-wire3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>The field around a current-carrying wire</h4></div>
+    <p class="sim-try"><b>Try:</b> change the size and direction of the current and watch the compass needles. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> near the wire the needles follow circles around it (right-hand rule: thumb along I, fingers along B). Far away the weak wire field loses to Earth&rsquo;s field and the needles point north. B = &mu;<sub>0</sub>I/2&pi;r.</p>
+  </div>
+
   <h3><span class="n">20.2</span>Force on a moving charge</h3>
   <div class="box key"><span class="lbl">Key concept</span>
     <div class="eq">F = q v B sin&thinsp;&theta; &emsp;&emsp; <span class="up">on a wire:</span> F = B I L sin&thinsp;&theta;</div>
@@ -195,6 +201,13 @@
   <h3><span class="n">21.6</span>MRI basics</h3>
   <p>The body is mostly water, so it is full of protons. An MRI scanner has a strong main magnet (1.5&ndash;3 T), extra <b>gradient coils</b> that make the field slightly different at each place (so each place has its own Larmor frequency, which tells the computer where a signal came from), and RF coils that send pulses and pick up the signal. Tissues differ in water content and in their T<sub>1</sub> and T<sub>2</sub>, which gives contrast between fat, muscle, brain matter and fluid. MRI uses radio waves, not ionising radiation, so it is safe for repeated scans; but metal objects near the magnet are dangerous.</p>
 
+  <div class="sim" id="sim-mri3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>How MRI picks one slice of the body</h4></div>
+    <p class="sim-try"><b>Try:</b> set the gradient, then tune the radio frequency to light up different slices of the patient. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> the gradient makes the field (and so the Larmor frequency) slightly different along the body. A radio pulse at one frequency excites only the slice where it matches. With no gradient the whole body resonates at once and the scanner cannot tell where the signal came from.</p>
+  </div>
+
+
   <h3>Practice problems</h3>
   <ol class="problems">
     <li>Find the resonance (LC) frequency for L = 1 mH and C = 1 nF. <span class="lvl easy">easy</span>
@@ -229,5 +242,6 @@
 
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/magnetism.js"></script>
+<script src="assets/js/bio3d.js"></script>
 </body>
 </html>

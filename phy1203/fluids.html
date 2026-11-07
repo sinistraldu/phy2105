@@ -168,6 +168,13 @@
     <p class="sim-note"><b>What to notice:</b> a block with half the fluid's density floats half under. Exactly equal densities means it hovers anywhere (neutral buoyancy, like a fish with a tuned swim bladder).</p>
   </div>
 
+  <div class="sim" id="sim-fish3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A fish and its swim bladder</h4></div>
+    <p class="sim-try"><b>Try:</b> change the fish&rsquo;s average density by filling or emptying its swim bladder (the white bubble). Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> a fish slightly denser than water sinks; slightly less dense, it rises and floats. At exactly 1000 kg/m&sup3; the net force is zero and it hovers without swimming.</p>
+  </div>
+
+
   <h3>Practice problems</h3>
   <ol class="problems">
     <li>An IV bag is 1.5 m above a vein. Estimate the pressure due to the height (&rho; = 1000 kg/m&sup3;). <span class="lvl easy">easy</span>
@@ -215,6 +222,12 @@
     <p>Water flows from A<sub>1</sub> = 5.0 cm&sup2; to A<sub>2</sub> = 1.0 cm&sup2; with v<sub>1</sub> = 0.50 m/s.</p>
     <p><span class="step">Step 1</span>Continuity: v<sub>2</sub> = (A<sub>1</sub>/A<sub>2</sub>)v<sub>1</sub> = 5 &times; 0.50 = 2.5 m/s</p>
     <p><span class="step">Step 2</span>Bernoulli (same height): P<sub>1</sub> &minus; P<sub>2</sub> = &frac12;&rho;(v<sub>2</sub>&sup2; &minus; v<sub>1</sub>&sup2;) = &frac12;(1000)(6.25 &minus; 0.25) = <b>3.0 &times; 10<sup>3</sup> Pa</b></p>
+  </div>
+
+  <div class="sim" id="sim-artery3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A plaque narrows an artery</h4></div>
+    <p class="sim-try"><b>Try:</b> make the narrowing worse and follow the blood cells through the plaque (yellow). Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> cells speed up through the narrow part (they turn bright) because A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub>. Halving the area doubles the speed, and Bernoulli says the pressure there drops.</p>
   </div>
 
   <h3><span class="n">8.3</span>Laminar vs turbulent flow</h3>
@@ -303,6 +316,12 @@
     <p class="sim-note"><b>What to notice:</b> thicker liquids give slower falls (v<sub>t</sub> &prop; 1/&eta;). Doubling the ball radius makes it fall four times faster (v<sub>t</sub> &prop; r&sup2;). The same physics sets how fast cells settle in a test tube.</p>
   </div>
 
+  <div class="sim" id="sim-sediment3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Blood cells settling (the ESR test)</h4></div>
+    <p class="sim-try"><b>Try:</b> watch platelets, red cells and white cells sink in a tube of plasma. Raise the plasma viscosity, then press <b>Stir the tube</b>. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> terminal speed grows as r&sup2;, so big white cells sink fastest and tiny platelets barely move. Red cells fall a few mm per hour: that is the erythrocyte sedimentation rate (ESR) measured in hospitals. Thicker plasma slows everything (v &prop; 1/&eta;).</p>
+  </div>
+
   <h3><span class="n">9.3</span>Diffusion and the Einstein (Stokes&ndash;Einstein) relation</h3>
   <p>Molecules in a fluid are constantly kicked around by thermal motion. A drop of dye spreads out even in perfectly still water. This random spreading is <b>diffusion</b>, measured by the diffusion constant D (m&sup2;/s).</p>
   <div class="box key"><span class="lbl">Key concept</span>
@@ -317,6 +336,12 @@
     <div class="sim-head"><span class="tag">Simulation</span><h4>Small molecule vs big protein</h4></div>
     <p class="sim-try"><b>Try:</b> watch the two clouds spread from the centre. Change the size of the big particle and the temperature. Press <b>Restart</b> to begin again.</p>
     <p class="sim-note"><b>What to notice:</b> oxygen-sized particles (green) spread much faster than protein-sized ones (purple). D &prop; 1/r: a particle 25 times bigger diffuses 25 times more slowly. This is why cells use active transport for big cargo.</p>
+  </div>
+
+  <div class="sim" id="sim-diffuse3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Diffusion in three dimensions</h4></div>
+    <p class="sim-try"><b>Try:</b> watch both clouds spread through the 3D boxes, change the protein size, and restart. Drag the picture to look from any side.</p>
+    <p class="sim-note"><b>What to notice:</b> the small molecule fills its box quickly while the protein cloud stays near the middle. Spread grows only as &radic;(Dt), so a 25&times; smaller D gives a 5&times; smaller spread in the same time.</p>
   </div>
 
   <div class="box ex"><span class="lbl">Worked example &middot; oxygen vs albumin</span>
@@ -362,5 +387,6 @@
 
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/fluids.js"></script>
+<script src="assets/js/bio3d.js"></script>
 </body>
 </html>
