@@ -96,6 +96,8 @@ footer.credit a{color:#fff}
 .probs .prob p{margin:4px 0}
 .probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
 .probs details summary{font-weight:600}
+.tutor details.tutorbox{border:1px solid var(--navy);background:#fff;padding:10px 16px}
+.tutor details.tutorbox>summary{font-size:16px;padding:4px 0}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -536,6 +538,82 @@ requestAnimationFrame(loop);
   <details><summary>Q10. What are nodes and antinodes, and how far apart are two neighbouring nodes?</summary><p>Nodes are points that do not move and antinodes are points that move the most. Neighbouring nodes are half a wavelength apart.</p></details>
 </section>
 
+<section id="tutor" class="deriv tutor">
+  <h2>For the tutor: full derivations</h2>
+  <p class="note">This section is for instructors and curious students. It derives every formula used in this experiment from first principles. Students only need the "Why it works" section above.</p>
+  <details class="tutorbox"><summary>Show full derivations</summary>
+
+  <h3>D1. Wave equation for a stretched string</h3>
+  <p>Consider a small piece of string between x and x + dx, with mass m dx, where m is the mass per unit length. Let y(x, t) be its sideways displacement. The tension T is the same everywhere for small displacements. At each end the tension pulls along the string, at angles θ(x) and θ(x + dx) to the x axis.</p>
+  <p>The sideways components of the two tension forces do not cancel, because the string is curved</p>
+  $$F_y=T\sin\theta(x+dx)-T\sin\theta(x)\approx T\left[\frac{\partial y}{\partial x}\right]_{x+dx}-T\left[\frac{\partial y}{\partial x}\right]_{x}=T\,\frac{\partial^2y}{\partial x^2}\,dx .$$
+  <p>Here we used sin θ ≈ tan θ = ∂y/∂x for small slopes. Newton's second law for the piece is F<sub>y</sub> = (m dx) ∂²y/∂t², so</p>
+  $$\boxed{\;\frac{\partial^2y}{\partial x^2}=\frac{1}{v^2}\frac{\partial^2y}{\partial t^2},\qquad v=\sqrt{\frac{T}{m}}\;}$$
+  <p>This is the wave equation. Any function y = f(x − vt) or g(x + vt) satisfies it, so disturbances travel along the string with speed v = √(T/m).</p>
+
+  <h3>D2. Travelling waves and stationary waves</h3>
+  <p>Take the origin at a fixed end. A wave travelling one way and its reflection travelling back are</p>
+  $$y_1=a\sin(kx-\omega t),\qquad y_2=a\sin(kx+\omega t),\qquad k=\frac{2\pi}{\lambda},\quad \omega=2\pi f,\quad v=\frac{\omega}{k}=f\lambda .$$
+  <p>Their sum is zero at x = 0 for all t, as a fixed end requires. Using sin A + sin B = 2 sin((A + B)/2) cos((A − B)/2)</p>
+  $$y=y_1+y_2=2a\sin(kx)\cos(\omega t).$$
+  <p>Every point moves in step with amplitude 2a sin kx. The pattern does not travel, so it is a <b>stationary (standing) wave</b>.</p>
+  <ul>
+    <li><b>Nodes</b>, where sin kx = 0, at x = 0, λ/2, λ, 3λ/2, …, never move.</li>
+    <li><b>Antinodes</b>, where |sin kx| = 1, at x = λ/4, 3λ/4, …, have the largest amplitude.</li>
+  </ul>
+  <p>The distance between neighbouring nodes is λ/2. Each segment between two nodes is seen as one loop.</p>
+
+  <h3>D3. Normal modes of a string fixed at both ends</h3>
+  <p>Both ends are (very nearly) nodes, so y(0, t) = 0 and y(l, t) = 0. The second condition requires</p>
+  $$\sin(kl)=0\quad\Longrightarrow\quad kl=p\pi,\quad p=1,2,3,\ldots$$
+  $$\lambda_p=\frac{2l}{p},\qquad \boxed{\;f_p=\frac{v}{\lambda_p}=\frac{p}{2l}\sqrt{\frac{T}{m}}\;}$$
+  <p>A string of length l can only vibrate strongly at these frequencies, its <b>normal modes</b>. In mode p it shows p loops.</p>
+
+  <h3>D4. Why the loops are sharp only at resonance</h3>
+  <p>The fork end is not a perfect node. It moves with a small amplitude a, y(0, t) = a cos ωt, while the pulley end is fixed, y(l, t) = 0. A stationary solution of the wave equation that meets both conditions is</p>
+  $$y(x,t)=a\,\frac{\sin k(l-x)}{\sin kl}\,\cos\omega t .$$
+  <p>Check it. At x = 0 it gives a cos ωt, and at x = l it gives 0. The amplitude along the string is a/|sin kl| times a sine curve. When kl is close to pπ, sin kl → 0 and the amplitude becomes very large. That is <b>resonance</b>. A small push at the fork then builds up big, steady loops, and the fork end itself is almost a node.</p>
+  <p>Slightly away from resonance, sin kl is not small and the string only shivers. In a real string, damping keeps the amplitude finite, but the peak is still sharp. This is why the load or length must be fine adjusted.</p>
+
+  <h3>D5. Transverse arrangement</h3>
+  <p>The prongs vibrate at right angles to the string. Each time the prong moves up and down once, it pushes the string up and down once. So the string is driven at the fork frequency n, and the resonance condition of D3 gives</p>
+  $$f_{\text{string}}=n\quad\Longrightarrow\quad \boxed{\;n=\frac{p}{2l}\sqrt{\frac{T}{m}}\;}$$
+
+  <h3>D6. Longitudinal arrangement</h3>
+  <p>Now the prongs vibrate along the string. They do not push the string sideways. Instead the tension changes periodically</p>
+  $$T(t)=T_0+T_1\cos(2\pi nt).$$
+  <p>For one normal mode y = q(t) sin(pπx/l), the wave equation with this varying tension gives</p>
+  $$\ddot q+\omega_p^2\left[1+h\cos(2\pi nt)\right]q=0,\qquad \omega_p=\frac{p\pi}{l}\sqrt{\frac{T_0}{m}},\quad h=\frac{T_1}{T_0}.$$
+  <p>This is the Mathieu equation, which describes <b>parametric resonance</b>. A swing pumped by standing up and crouching works the same way. The motion grows most strongly when the tension changes <b>twice</b> per oscillation of the string, that is when</p>
+  $$2\pi n=2\,\omega_p\quad\Longrightarrow\quad f_{\text{string}}=\frac{\omega_p}{2\pi}=\frac{n}{2}.$$
+  <p>A simple picture helps. When the prong moves toward the pulley the string slackens and sags, and when it moves back the string is pulled tight. The tight pull straightens the string twice per string cycle, once at the top and once at the bottom of its swing, so the string completes one vibration for every two vibrations of the fork. So</p>
+  $$\frac{n}{2}=\frac{p}{2l}\sqrt{\frac{T}{m}}\quad\Longrightarrow\quad \boxed{\;n=\frac{p}{l}\sqrt{\frac{T}{m}}\;}$$
+
+  <h3>D7. Consequences that can be checked</h3>
+  <p><b>Loops at constant length.</b> For a fixed l and arrangement, the transverse formula gives</p>
+  $$p^2T=4n^2l^2m=\text{constant}.$$
+  <p>Doubling the tension reduces the number of loops by a factor √2. For the same T and l, the longitudinal arrangement gives half as many loops, since the string frequency is halved.</p>
+  <p><b>Straight-line graph.</b> Rearranging the two formulas</p>
+  $$\sqrt T=2n\sqrt m\left(\frac{l}{p}\right)\ \ \text{(transverse)},\qquad \sqrt T=n\sqrt m\left(\frac{l}{p}\right)\ \ \text{(longitudinal)}.$$
+  <p>A graph of √T against l/p is a straight line through the origin. The slope gives n = slope/(2√m) or n = slope/√m. The longitudinal line is half as steep as the transverse one.</p>
+
+  <h3>D8. Tension and mass per unit length</h3>
+  <p>The thread passes over a smooth pulley, so the tension equals the total hanging weight, including the pan</p>
+  $$T=(M+m_0)\,g .$$
+  <p>The mass per unit length is m = (mass of a long piece)/(its length). For example 2.10 g for 5.00 m gives m = 4.20 × 10⁻⁴ kg/m.</p>
+
+  <h3>D9. Worked example</h3>
+  <p>Transverse arrangement with M = 40.0 g, m₀ = 5.0 g, p = 5 loops and l = 1.125 m.</p>
+  $$T=(0.045)(9.8)=0.441\ \text{N},\qquad v=\sqrt{\frac{0.441}{4.20\times10^{-4}}}=32.4\ \text{m/s}$$
+  $$n=\frac{5}{2(1.125)}\times32.4=72.0\ \text{Hz}$$
+
+  <h3>D10. Error estimate</h3>
+  <p>From n = (p/2l)√(T/m), with p exact (it is counted)</p>
+  $$\frac{\delta n}{n}=\frac{\delta l}{l}+\frac12\frac{\delta T}{T}+\frac12\frac{\delta m}{m}.$$
+  <p>The largest error usually comes from judging exactly where the loops are sharpest, which shows up as an error in l. The error in m is reduced by weighing a long length of thread.</p>
+  </details>
+</section>
+
 </main>
 
 <script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
@@ -787,6 +865,6 @@ ui();refresh();requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems','tutor'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>

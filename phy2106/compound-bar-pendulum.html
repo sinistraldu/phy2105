@@ -96,6 +96,8 @@ footer.credit a{color:#fff}
 .probs .prob p{margin:4px 0}
 .probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
 .probs details summary{font-weight:600}
+.tutor details.tutorbox{border:1px solid var(--navy);background:#fff;padding:10px 16px}
+.tutor details.tutorbox>summary{font-size:16px;padding:4px 0}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -420,6 +422,93 @@ footer.credit a{color:#fff}
   <details><summary>Q10. Why is a compound pendulum often preferred to a simple pendulum for finding g?</summary><p>Its effective length is found accurately from the graph. There is no string that can stretch and no bob whose centre is hard to locate.</p></details>
 </section>
 
+<section id="tutor" class="deriv tutor">
+  <h2>For the tutor: full derivations</h2>
+  <p class="note">This section is for instructors and curious students. It derives every formula used in this experiment from first principles. Students only need the "Why it works" section above.</p>
+  <details class="tutorbox"><summary>Show full derivations</summary>
+
+  <h3>D1. Equation of motion of a compound pendulum</h3>
+  <p>A rigid body of mass m turns about a fixed horizontal axis S. Its centre of gravity G is a distance l from S. When the line SG makes an angle θ with the vertical, the weight mg acting at G has a perpendicular distance l sin θ from the axis. The torque about S is</p>
+  $$\tau=-mgl\sin\theta .$$
+  <p>The minus sign shows that the torque always acts to reduce θ. Newton's second law for rotation about a fixed axis is τ = Iα, where I is the moment of inertia about S and α = d²θ/dt². So</p>
+  $$I\,\ddot\theta=-mgl\sin\theta .$$
+  <p>For small swings, sin θ ≈ θ (the error is below 0.1% for θ &lt; 4.5°), and</p>
+  $$\ddot\theta+\omega^2\theta=0,\qquad \omega^2=\frac{mgl}{I}.$$
+
+  <h3>D2. Solving the equation (exponential method)</h3>
+  <p>Try \(\theta=e^{\lambda t}\). Then \(\ddot\theta=\lambda^2e^{\lambda t}\), and substituting gives the characteristic equation</p>
+  $$\lambda^2+\omega^2=0\quad\Longrightarrow\quad \lambda=\pm i\omega .$$
+  <p>The general solution is a combination of both roots</p>
+  $$\theta(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}.$$
+  <p>Because θ is real, C₂ is the complex conjugate of C₁. Writing \(C_1=\tfrac{\theta_0}{2}e^{i\varphi}\) and using Euler's formula \(e^{ix}=\cos x+i\sin x\)</p>
+  $$\theta(t)=\theta_0\cos(\omega t+\varphi).$$
+  <p>This is simple harmonic motion with period</p>
+  $$\boxed{\;T=\frac{2\pi}{\omega}=2\pi\sqrt{\frac{I}{mgl}}\;}$$
+
+  <h3>D3. Parallel axis theorem</h3>
+  <p>Take G as origin and let the axis S be at position vector <b>d</b> (with |<b>d</b>| = l) perpendicular to the axis direction. A mass element dm at position <b>r</b> from G is at <b>r</b> − <b>d</b> from S. Its contribution to I is dm|<b>r</b> − <b>d</b>|². So</p>
+  $$I=\int|\mathbf r-\mathbf d|^2dm=\int r^2dm-2\,\mathbf d\cdot\!\int\mathbf r\,dm+d^2\!\int dm .$$
+  <p>The first term is I<sub>G</sub>. The middle term is zero because ∫<b>r</b> dm = 0 when G is the origin (that is the definition of the centre of mass). The last term is ml². Therefore</p>
+  $$\boxed{\;I=I_G+ml^2=m(k^2+l^2)\;}$$
+  <p>where k is the radius of gyration about G, defined by I<sub>G</sub> = mk².</p>
+
+  <h3>D4. Moment of inertia of the bar about G</h3>
+  <p>Treat the bar as a thin rectangular plate of length ℓ, width b and mass m. The axis passes through G perpendicular to the plate. For a thin rod of length ℓ about its centre</p>
+  $$I_x=\int_{-\ell/2}^{\ell/2}\frac{m}{\ell}\,x^2\,dx=\frac{m}{\ell}\left[\frac{x^3}{3}\right]_{-\ell/2}^{\ell/2}=\frac{m\ell^2}{12}.$$
+  <p>By the same integral across the width, the moment about the other in-plane axis is mb²/12. The perpendicular axis theorem for a plane lamina adds the two</p>
+  $$I_G=\frac{m(\ell^2+b^2)}{12}\quad\Longrightarrow\quad \boxed{\;k=\sqrt{\frac{\ell^2+b^2}{12}}\;}$$
+  <p>For ℓ = 100 cm and b = 4 cm this gives k = 28.9 cm.</p>
+
+  <h3>D5. Equivalent length</h3>
+  <p>Put I = m(k² + l²) into the period from D2</p>
+  $$T=2\pi\sqrt{\frac{k^2+l^2}{gl}}=2\pi\sqrt{\frac{L}{g}},\qquad \boxed{\;L=l+\frac{k^2}{l}\;}$$
+  <p>A simple pendulum has T = 2π√(L/g), so the compound pendulum behaves exactly like a simple pendulum of length L. This L is the length of the equivalent simple pendulum. It is always longer than l, because k²/l is positive.</p>
+
+  <h3>D6. Two suspension points with the same period</h3>
+  <p>For a given T, L is fixed and L = l + k²/l becomes a quadratic in l</p>
+  $$l^2-Ll+k^2=0\quad\Longrightarrow\quad l=\frac{L\pm\sqrt{L^2-4k^2}}{2}.$$
+  <p>The two roots l₁ and l₂ are real when L ≥ 2k. From the relations between roots and coefficients of a quadratic</p>
+  $$\boxed{\;l_1+l_2=L,\qquad l_1l_2=k^2\;}$$
+  <p>So on each side of G there are two holes with the same period. Since the bar is symmetric, there are four such holes in total, which are the points A, B, C and D on the graph.</p>
+
+  <h3>D7. Centres of suspension and oscillation are interchangeable</h3>
+  <p>Hang the bar from S at distance l₁ from G. Mark the point O on the line SG, beyond G, at distance l₂ = k²/l₁ from G. Then SO = l₁ + l₂ = L. Now hang the bar from O instead. Its distance from G is l₂, and its equivalent length is</p>
+  $$L'=l_2+\frac{k^2}{l_2}=\frac{k^2}{l_1}+l_1=L .$$
+  <p>The period is unchanged. O is called the <b>centre of oscillation</b>, and S and O can be swapped. This is the principle of Kater's reversible pendulum.</p>
+
+  <h3>D8. Reading L and k from the graph</h3>
+  <p>With distances measured from end A, G is at the middle. A horizontal line at period T cuts the curves at four points. Their distances from G are</p>
+  $$A:\ -l_1,\qquad B:\ -l_2,\qquad C:\ +l_2,\qquad D:\ +l_1 .$$
+  <p>So</p>
+  $$AC=l_1+l_2=L,\quad BD=l_2+l_1=L,\quad AD=2l_1,\quad BC=2l_2 .$$
+  $$\boxed{\;g=\frac{4\pi^2L}{T^2},\qquad L=\frac{AC+BD}{2},\qquad k=\sqrt{\frac{AD}{2}\cdot\frac{BC}{2}}\;}$$
+
+  <h3>D9. Minimum period</h3>
+  <p>T is smallest when L(l) = l + k²/l is smallest. Differentiate and set the derivative to zero</p>
+  $$\frac{dL}{dl}=1-\frac{k^2}{l^2}=0\quad\Longrightarrow\quad l=k,\qquad L_{\min}=2k,\qquad \boxed{\;T_{\min}=2\pi\sqrt{\frac{2k}{g}}\;}$$
+  <p>The second derivative 2k²/l³ is positive, so this is a minimum. At this point l₁ = l₂ = k and the horizontal line just touches the curve. Near the minimum the curve is flat, so T hardly changes if the hole position has a small error. This makes the minimum region a good place to work.</p>
+  <p>As l → 0, L → ∞ and T → ∞, because the weight then passes through the axis and gives no torque. As l → ∞, L → l and the bar behaves like a simple pendulum.</p>
+
+  <h3>D10. A straight-line method from the same data</h3>
+  <p>Square the period and multiply by l</p>
+  $$T^2l=\frac{4\pi^2}{g}\,l^2+\frac{4\pi^2k^2}{g}.$$
+  <p>A graph of T²l against l² is a straight line with slope 4π²/g and intercept 4π²k²/g. So</p>
+  $$g=\frac{4\pi^2}{\text{slope}},\qquad k^2=\frac{\text{intercept}}{\text{slope}} .$$
+  <p>The results box in the observations section also calculates g and k this way, using all readings at once.</p>
+
+  <h3>D11. Correction for finite amplitude</h3>
+  <p>Without the small angle approximation, energy conservation gives ½Iθ̇² = mgl(cos θ − cos θ₀). Solving for dt and integrating over a quarter cycle</p>
+  $$T=4\sqrt{\frac{I}{2mgl}}\int_0^{\theta_0}\frac{d\theta}{\sqrt{\cos\theta-\cos\theta_0}}
+  =T_0\left(1+\frac{\theta_0^2}{16}+\frac{11\,\theta_0^4}{3072}+\cdots\right),$$
+  <p>with T₀ the small amplitude period and θ₀ in radians. At θ₀ = 5° the correction is only 0.05%, but at 20° it is 0.8%. This is why the amplitude is kept small.</p>
+
+  <h3>D12. Error estimate</h3>
+  <p>From g = 4π²L/T² the maximum fractional error is</p>
+  $$\frac{\delta g}{g}=\frac{\delta L}{L}+2\,\frac{\delta T}{T}.$$
+  <p>If the time t for N oscillations has an error δt (reaction time about 0.2 s), then T = t/N and δT = δt/N. For N = 20 and T ≈ 1.6 s, 2δT/T ≈ 2(0.01)/1.6 ≈ 1.2%. Reading L from the graph to ±0.5 cm out of 62 cm adds about 0.8%. Timing more oscillations reduces the first term.</p>
+  </details>
+</section>
+
 </main>
 
 <script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
@@ -649,6 +738,6 @@ ui();refresh();requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems','tutor'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>
