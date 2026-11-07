@@ -29,7 +29,8 @@ h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
 .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
 .frac>span:last-child{padding:0 4px}
-.sqrt{border-top:1.5px solid currentColor;padding:0 3px;margin-left:1px}
+.sqrt{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
+span:has(+ .sqrt){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
 .note{font-size:14px;color:var(--muted)}
 ul.app{columns:2;margin:6px 0}
 @media(max-width:600px){ul.app{columns:1}}
@@ -101,7 +102,7 @@ footer.credit a{color:#fff}
   <p>Theory, 3D illustration, a working virtual lab with stopwatch and graph, and the reasoning behind every step</p>
 </div></header>
 <nav><div class="wrap">
-  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#lab">3D virtual lab</a>
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#lab">3D virtual lab</a>
   <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
 </div></nav>
 <main>
@@ -186,87 +187,55 @@ footer.credit a{color:#fff}
 </section>
 
 <section id="derivations" class="deriv">
-  <h2>Detailed theory and derivations</h2>
+  <h2>Why it works, in simple words</h2>
+  <p class="note">The whole experiment rests on one idea. A swinging bar behaves exactly like a simple pendulum of some length L. Find L and the time period T, and g follows from the familiar pendulum formula.</p>
 
-  <h3>D1. Equation of motion of a compound pendulum</h3>
-  <p>A rigid body of mass m turns about a fixed horizontal axis S. Its centre of gravity G is a distance l from S. When the line SG makes an angle θ with the vertical, the weight mg acting at G has a perpendicular distance l sin θ from the axis. The torque about S is</p>
-  $$\tau=-mgl\sin\theta .$$
-  <p>The minus sign shows that the torque always acts to reduce θ. Newton's second law for rotation about a fixed axis is τ = Iα, where I is the moment of inertia about S and α = d²θ/dt². So</p>
-  $$I\,\ddot\theta=-mgl\sin\theta .$$
-  <p>For small swings, sin θ ≈ θ (the error is below 0.1% for θ &lt; 4.5°), and</p>
-  $$\ddot\theta+\omega^2\theta=0,\qquad \omega^2=\frac{mgl}{I}.$$
+  <h3>1. What pulls the bar back when it swings?</h3>
+  <p>The whole weight of the bar acts at its centre of gravity G. When the bar is tilted, G moves to one side of the knife edge. Its weight then tries to turn the bar back to vertical, like a door swinging shut. The bar overshoots, comes back, overshoots again, and so it swings.</p>
 
-  <h3>D2. Solving the equation (exponential method)</h3>
-  <p>Try \(\theta=e^{\lambda t}\). Then \(\ddot\theta=\lambda^2e^{\lambda t}\), and substituting gives the characteristic equation</p>
-  $$\lambda^2+\omega^2=0\quad\Longrightarrow\quad \lambda=\pm i\omega .$$
-  <p>The general solution is a combination of both roots</p>
-  $$\theta(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}.$$
-  <p>Because θ is real, C₂ is the complex conjugate of C₁. Writing \(C_1=\tfrac{\theta_0}{2}e^{i\varphi}\) and using Euler's formula \(e^{ix}=\cos x+i\sin x\)</p>
-  $$\theta(t)=\theta_0\cos(\omega t+\varphi).$$
-  <p>This is simple harmonic motion with period</p>
-  $$\boxed{\;T=\frac{2\pi}{\omega}=2\pi\sqrt{\frac{I}{mgl}}\;}$$
+  <h3>2. Why must the swing be small?</h3>
+  <p>For small tilts, the pull back is simply proportional to the tilt. Twice the tilt gives twice the pull. Then a big swing and a small swing take the same time, so T is a fixed number we can measure. For large swings this stops being true and the bar takes a little longer, so our formula would give a wrong g. Keep it under about 5°.</p>
 
-  <h3>D3. Parallel axis theorem</h3>
-  <p>Take G as origin and let the axis S be at position vector <b>d</b> (with |<b>d</b>| = l) perpendicular to the axis direction. A mass element dm at position <b>r</b> from G is at <b>r</b> − <b>d</b> from S. Its contribution to I is dm|<b>r</b> − <b>d</b>|². So</p>
-  $$I=\int|\mathbf r-\mathbf d|^2dm=\int r^2dm-2\,\mathbf d\cdot\!\int\mathbf r\,dm+d^2\!\int dm .$$
-  <p>The first term is I<sub>G</sub>. The middle term is zero because ∫<b>r</b> dm = 0 when G is the origin (that is the definition of the centre of mass). The last term is ml². Therefore</p>
-  $$\boxed{\;I=I_G+ml^2=m(k^2+l^2)\;}$$
-  <p>where k is the radius of gyration about G, defined by I<sub>G</sub> = mk².</p>
+  <h3>3. Why is a bar different from a simple pendulum?</h3>
+  <p>In a simple pendulum, all the mass is in one small bob. In a bar, the mass is spread out along its whole length. Some of it is above the knife edge, some close to it, some far below. Spread out mass is harder to turn, which slows the swing down.</p>
+  <p>Still, for every hole there is a simple pendulum of some length L that swings in exactly the same time as the bar. L is called the <b>equivalent length</b>. Turn on "show equivalent simple pendulum" in the 3D lab and you will see the red bob keeping perfect step with the bar.</p>
+  $$T=2\pi\sqrt{\frac{L}{g}}\qquad\Longrightarrow\qquad g=\frac{4\pi^2L}{T^2}$$
+  <p>For a hole at distance l from G, the equivalent length turns out to be</p>
+  $$L=l+\frac{k^2}{l}$$
+  <p>where k is the <b>radius of gyration</b>. It describes how spread out the mass is about G (for our 1 m bar, k ≈ 29 cm).</p>
 
-  <h3>D4. Moment of inertia of the bar about G</h3>
-  <p>Treat the bar as a thin rectangular plate of length ℓ, width b and mass m. The axis passes through G perpendicular to the plate. For a thin rod of length ℓ about its centre</p>
-  $$I_x=\int_{-\ell/2}^{\ell/2}\frac{m}{\ell}\,x^2\,dx=\frac{m}{\ell}\left[\frac{x^3}{3}\right]_{-\ell/2}^{\ell/2}=\frac{m\ell^2}{12}.$$
-  <p>By the same integral across the width, the moment about the other in-plane axis is mb²/12. The perpendicular axis theorem for a plane lamina adds the two</p>
-  $$I_G=\frac{m(\ell^2+b^2)}{12}\quad\Longrightarrow\quad \boxed{\;k=\sqrt{\frac{\ell^2+b^2}{12}}\;}$$
-  <p>For ℓ = 100 cm and b = 4 cm this gives k = 28.9 cm.</p>
+  <h3>4. Why does the bar swing very slowly when hung near its middle?</h3>
+  <p>If you hang the bar exactly at G, it balances like a see-saw. The weight passes straight through the knife edge, so there is no pull back at all and it does not swing. Close to G the pull back is very weak, so the swing is very slow and T becomes very large. That is why the graph shoots up near the middle.</p>
 
-  <h3>D5. Equivalent length</h3>
-  <p>Put I = m(k² + l²) into the period from D2</p>
-  $$T=2\pi\sqrt{\frac{k^2+l^2}{gl}}=2\pi\sqrt{\frac{L}{g}},\qquad \boxed{\;L=l+\frac{k^2}{l}\;}$$
-  <p>A simple pendulum has T = 2π√(L/g), so the compound pendulum behaves exactly like a simple pendulum of length L. This L is the length of the equivalent simple pendulum. It is always longer than l, because k²/l is positive.</p>
+  <h3>5. Why is there a smallest time period?</h3>
+  <p>Two effects compete as you move the hole away from G.</p>
+  <ul>
+    <li>The weight gets a longer "lever arm", so the pull back gets stronger. This makes the swing <b>faster</b>.</li>
+    <li>The bar has to swing around a farther point, which is like a longer pendulum. This makes the swing <b>slower</b>.</li>
+  </ul>
+  <p>Near G the first effect wins, far from G the second wins. In between there is a best point where T is smallest. It happens when the hole is a distance k from G. So the graph has a U shape on each side of G.</p>
 
-  <h3>D6. Two suspension points with the same period</h3>
-  <p>For a given T, L is fixed and L = l + k²/l becomes a quadratic in l</p>
-  $$l^2-Ll+k^2=0\quad\Longrightarrow\quad l=\frac{L\pm\sqrt{L^2-4k^2}}{2}.$$
-  <p>The two roots l₁ and l₂ are real when L ≥ 2k. From the relations between roots and coefficients of a quadratic</p>
-  $$\boxed{\;l_1+l_2=L,\qquad l_1l_2=k^2\;}$$
-  <p>So on each side of G there are two holes with the same period. Since the bar is symmetric, there are four such holes in total, which are the points A, B, C and D on the graph.</p>
+  <h3>6. Why do two holes on the same side give the same period?</h3>
+  <p>Because each side of the graph is U shaped, a horizontal line (one value of T) cuts it twice, once on the steep inner part and once on the gentle outer part. So for any period there is one hole close to G and one far from G that swing at the same rate. With both sides of the bar, the line cuts the graph at four points A, B, C, D.</p>
 
-  <h3>D7. Centres of suspension and oscillation are interchangeable</h3>
-  <p>Hang the bar from S at distance l₁ from G. Mark the point O on the line SG, beyond G, at distance l₂ = k²/l₁ from G. Then SO = l₁ + l₂ = L. Now hang the bar from O instead. Its distance from G is l₂, and its equivalent length is</p>
-  $$L'=l_2+\frac{k^2}{l_2}=\frac{k^2}{l_1}+l_1=L .$$
-  <p>The period is unchanged. O is called the <b>centre of oscillation</b>, and S and O can be swapped. This is the principle of Kater's reversible pendulum.</p>
+  <h3>7. Why is AC equal to L?</h3>
+  <p>It can be shown that the two holes with the same period, at distances l₁ and l₂ from G, always satisfy</p>
+  $$l_1+l_2=L$$
+  <p>A is the outer hole on one side (l₁ from G) and C is the inner hole on the other side (l₂ from G). Since G lies between them, the distance AC = l₁ + l₂ = L. The same is true for BD. So two lengths read off the graph each give L, and we average them.</p>
+  <p>This also means the bar has a pair of points, the <b>centre of suspension</b> and the <b>centre of oscillation</b>, a distance L apart. Hang the bar from either one and it swings with the same period.</p>
 
-  <h3>D8. Reading L and k from the graph</h3>
-  <p>With distances measured from end A, G is at the middle. A horizontal line at period T cuts the curves at four points. Their distances from G are</p>
-  $$A:\ -l_1,\qquad B:\ -l_2,\qquad C:\ +l_2,\qquad D:\ +l_1 .$$
-  <p>So</p>
-  $$AC=l_1+l_2=L,\quad BD=l_2+l_1=L,\quad AD=2l_1,\quad BC=2l_2 .$$
-  $$\boxed{\;g=\frac{4\pi^2L}{T^2},\qquad L=\frac{AC+BD}{2},\qquad k=\sqrt{\frac{AD}{2}\cdot\frac{BC}{2}}\;}$$
+  <h3>8. Why do we turn the bar upside down?</h3>
+  <p>The holes on the other half can only be used with the bar flipped, so that G stays below the knife edge. Since the bar is the same on both halves, the second curve should be a mirror image of the first. That gives the four crossing points and also checks the readings.</p>
 
-  <h3>D9. Minimum period</h3>
-  <p>T is smallest when L(l) = l + k²/l is smallest. Differentiate and set the derivative to zero</p>
-  $$\frac{dL}{dl}=1-\frac{k^2}{l^2}=0\quad\Longrightarrow\quad l=k,\qquad L_{\min}=2k,\qquad \boxed{\;T_{\min}=2\pi\sqrt{\frac{2k}{g}}\;}$$
-  <p>The second derivative 2k²/l³ is positive, so this is a minimum. At this point l₁ = l₂ = k and the horizontal line just touches the curve. Near the minimum the curve is flat, so T hardly changes if the hole position has a small error. This makes the minimum region a good place to work.</p>
-  <p>As l → 0, L → ∞ and T → ∞, because the weight then passes through the axis and gives no torque. As l → ∞, L → l and the bar behaves like a simple pendulum.</p>
+  <h3>9. Why a knife edge, and why level it?</h3>
+  <p>A sharp edge touches the bar along a thin line, so there is very little friction and the turning point is well defined. If the edge were tilted, the bar would wobble sideways or slide, and the period would change.</p>
 
-  <h3>D10. A straight-line method from the same data</h3>
-  <p>Square the period and multiply by l</p>
-  $$T^2l=\frac{4\pi^2}{g}\,l^2+\frac{4\pi^2k^2}{g}.$$
-  <p>A graph of T²l against l² is a straight line with slope 4π²/g and intercept 4π²k²/g. So</p>
-  $$g=\frac{4\pi^2}{\text{slope}},\qquad k^2=\frac{\text{intercept}}{\text{slope}} .$$
-  <p>The results box in the observations section also calculates g and k this way, using all readings at once.</p>
+  <h3>10. Why time 20 swings instead of one?</h3>
+  <p>Your hand starts and stops the watch late by about 0.2 s. On one swing of 1.6 s that is a big 12% error. On 20 swings (32 s) the same 0.2 s is shared out, so the error in one period becomes only 0.01 s. Start counting as the bar passes the vertical, where it moves fastest, so the moment is easy to judge.</p>
 
-  <h3>D11. Correction for finite amplitude</h3>
-  <p>Without the small angle approximation, energy conservation gives ½Iθ̇² = mgl(cos θ − cos θ₀). Solving for dt and integrating over a quarter cycle</p>
-  $$T=4\sqrt{\frac{I}{2mgl}}\int_0^{\theta_0}\frac{d\theta}{\sqrt{\cos\theta-\cos\theta_0}}
-  =T_0\left(1+\frac{\theta_0^2}{16}+\frac{11\,\theta_0^4}{3072}+\cdots\right),$$
-  <p>with T₀ the small amplitude period and θ₀ in radians. At θ₀ = 5° the correction is only 0.05%, but at 20° it is 0.8%. This is why the amplitude is kept small.</p>
-
-  <h3>D12. Error estimate</h3>
-  <p>From g = 4π²L/T² the maximum fractional error is</p>
-  $$\frac{\delta g}{g}=\frac{\delta L}{L}+2\,\frac{\delta T}{T}.$$
-  <p>If the time t for N oscillations has an error δt (reaction time about 0.2 s), then T = t/N and δT = δt/N. For N = 20 and T ≈ 1.6 s, 2δT/T ≈ 2(0.01)/1.6 ≈ 1.2%. Reading L from the graph to ±0.5 cm out of 62 cm adds about 0.8%. Timing more oscillations reduces the first term.</p>
+  <h3>Worked example</h3>
+  <p>A line at T = 1.580 s cuts the curves with AC = 61.6 cm and BD = 61.9 cm.</p>
+  $$L=\frac{61.6+61.9}{2}=61.75\text{ cm},\qquad g=\frac{4\pi^2(0.6175)}{(1.580)^2}=9.77\text{ m/s}^2$$
 </section>
 
 
@@ -620,7 +589,7 @@ function refresh(){
       k = √(AD/2 × BC/2) = <b>${(k*100).toFixed(1)} cm</b> &nbsp; (theory √((ℓ²+b²)/12) = ${(kTh*100).toFixed(1)} cm)`;}
   else $('res').textContent=rows.length? 'The line must cut both branches on both sides. Record more holes or move the line (try a T just above the lowest points).':'Record readings from both sides to calculate g.';
   const fp=linfit(rows.map(([d,T])=>{const l=Math.abs(sOf(d));return [l*l,T*T*l];}));
-  if(fp&&rows.length>=3){$('res').innerHTML+=`<br><br><span class="note">Straight-line method (D10), T²l against l² using all ${rows.length} readings</span><br>slope = ${fp.m.toFixed(4)} s²/m, intercept = ${fp.b.toFixed(5)} s²·m, &nbsp; g = 4π²/slope = <b>${(4*Math.PI*Math.PI/fp.m).toFixed(3)} m/s²</b>, &nbsp; k = √(intercept/slope) = <b>${(Math.sqrt(fp.b/fp.m)*100).toFixed(1)} cm</b>`;}
+  if(fp&&rows.length>=3){$('res').innerHTML+=`<br><br><span class="note">Straight-line check, T²l against l² using all ${rows.length} readings</span><br>slope = ${fp.m.toFixed(4)} s²/m, intercept = ${fp.b.toFixed(5)} s²·m, &nbsp; g = 4π²/slope = <b>${(4*Math.PI*Math.PI/fp.m).toFixed(3)} m/s²</b>, &nbsp; k = √(intercept/slope) = <b>${(Math.sqrt(fp.b/fp.m)*100).toFixed(1)} cm</b>`;}
 }
 ui();refresh();requestAnimationFrame(loop);
 })();

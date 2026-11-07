@@ -99,7 +99,7 @@ footer.credit a{color:#fff}
 </div></header>
 
 <nav><div class="wrap">
-  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#sim">Simulator</a>
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#sim">Simulator</a>
   <a href="#steps">Procedure</a><a href="#spher">Spherometer</a><a href="#calc">Observations</a>
   <a href="#prec">Precautions</a><a href="#viva">Viva</a>
 </div></nav>
@@ -214,89 +214,48 @@ footer.credit a{color:#fff}
 </section>
 
 <section id="derivations" class="deriv">
-  <h2>Detailed theory and derivations</h2>
-  <p class="note">Sign convention used throughout is the Cartesian convention. Distances are measured from the optical centre (or the pole), positive in the direction in which light travels and negative against it. Heights above the axis are positive. All angles are small (paraxial rays), so sin θ ≈ tan θ ≈ θ.</p>
+  <h2>Why it works, in simple words</h2>
+  <p class="note">The plan is simple. First find the focal length of the glass lens alone. Then trap a thin layer of liquid under it, which makes a second, weak lens, and find the new focal length. How much the focal length changes tells us how strongly the liquid bends light, which is its refractive index.</p>
 
-  <h3>D1. Refraction at a single spherical surface</h3>
-  <p>A ray from a point object O on the axis meets a spherical surface of radius R at a point P, a height h above the axis. The surface separates media of refractive index n₁ (incident side) and n₂. The refracted ray crosses the axis at the image I. Let the ray make angles α with the axis at O, β with the axis at I, and let the normal CP make angle γ with the axis.</p>
-  <p>Snell's law at P for small angles gives</p>
-  $$n_1 \sin i = n_2 \sin r \quad\Longrightarrow\quad n_1\, i \approx n_2\, r .$$
-  <p>From the triangles OPC and IPC, using the exterior angle theorem,</p>
-  $$i = \alpha + \gamma, \qquad r = \gamma - \beta .$$
-  <p>For small angles each angle equals the height h divided by the corresponding distance,</p>
-  $$\alpha \approx \frac{h}{-u}, \qquad \beta \approx \frac{h}{v}, \qquad \gamma \approx \frac{h}{R}.$$
-  <p>Substituting into n₁ i = n₂ r and cancelling h,</p>
-  $$n_1\left(\frac{1}{-u}+\frac{1}{R}\right) = n_2\left(\frac{1}{R}-\frac{1}{v}\right)
-  \quad\Longrightarrow\quad \boxed{\;\frac{n_2}{v}-\frac{n_1}{u}=\frac{n_2-n_1}{R}\;}$$
+  <h3>1. What does refractive index mean?</h3>
+  <p>Light travels more slowly in water or glass than in air. The refractive index μ tells you how many times slower. Because it slows down, light bends when it enters at an angle. A larger μ means more bending. For air μ = 1, for water about 1.33, for glass about 1.5.</p>
 
-  <h3>D2. Lens maker's formula</h3>
-  <p>A thin lens of index μ in air (index 1) has two surfaces of radii R₁ and R₂. Apply D1 twice. At the first surface (air to glass) the image of O is formed at v′</p>
-  $$\frac{\mu}{v'}-\frac{1}{u}=\frac{\mu-1}{R_1}.$$
-  <p>This image is the object for the second surface (glass to air). For a thin lens the thickness is negligible, so the object distance is the same v′</p>
-  $$\frac{1}{v}-\frac{\mu}{v'}=\frac{1-\mu}{R_2}.$$
-  <p>Adding the two equations removes v′</p>
-  $$\frac{1}{v}-\frac{1}{u}=(\mu-1)\left(\frac{1}{R_1}-\frac{1}{R_2}\right).$$
-  <p>For an object at infinity (u → −∞) the image is at the focus, v = f, which gives the lens maker's formula and the lens formula</p>
-  $$\boxed{\;\frac{1}{f}=(\mu-1)\left(\frac{1}{R_1}-\frac{1}{R_2}\right)\;},\qquad \boxed{\;\frac{1}{v}-\frac{1}{u}=\frac{1}{f}\;}$$
+  <h3>2. Why does the image land exactly on the pin at the focus?</h3>
+  <p>Rays that start at the focus of a convex lens come out of it <b>parallel</b>. Parallel vertical rays hit the flat mirror straight on, like a ball thrown straight at a wall. They bounce straight back along the same path, pass through the lens again and return to the very point they started from.</p>
+  <p>So when the pin is at the focus, its image is formed right on top of the pin. The distance from the pin to the lens is then the focal length. Above or below the focus, the returning rays meet higher or lower than the pin. You can watch this in the simulator.</p>
 
-  <h3>D3. The glass lens and the liquid lens</h3>
-  <p><b>Glass lens.</b> For an equiconvex lens of index μ<sub>g</sub>, the first surface has its centre on the far side (R₁ = +R) and the second has its centre on the near side (R₂ = −R)</p>
-  $$\frac{1}{f_1}=(\mu_g-1)\left(\frac{1}{R}+\frac{1}{R}\right)=\frac{2(\mu_g-1)}{R}.$$
-  <p>For μ<sub>g</sub> = 1.5 this gives f₁ = R, which is why a common equiconvex lens has a focal length close to its radius.</p>
-  <p><b>Liquid lens.</b> The liquid fills the space between the lower face of the glass lens and the mirror. Light going downward first meets the curved face of the liquid. That face bulges into the liquid, so its centre of curvature lies on the incoming side, R₁ = −R. The lower face lies on the flat mirror, R₂ = ∞. With liquid index μ</p>
-  $$\frac{1}{f_2}=(\mu-1)\left(\frac{1}{-R}-\frac{1}{\infty}\right)=-\frac{\mu-1}{R}
-  \quad\Longrightarrow\quad f_2=-\frac{R}{\mu-1}.$$
-  <p>f₂ is negative, so the liquid layer is a diverging (plano-concave) lens, as expected.</p>
+  <h3>3. Why is the image upside down?</h3>
+  <p>Rays from the head of the pin cross the axis on the way back, so they meet on the other side. The image of the head appears on the opposite side and the image pin points the other way. At the focus it is the same size as the pin, so the two tips touch.</p>
 
-  <h3>D4. Two thin lenses in contact</h3>
-  <p>Let the first lens form an image at v₁ of an object at u. That image is the object for the second lens, which is in contact, and forms the final image at v</p>
-  $$\frac{1}{v_1}-\frac{1}{u}=\frac{1}{f_1},\qquad \frac{1}{v}-\frac{1}{v_1}=\frac{1}{f_2}.$$
-  <p>Adding removes v₁, so the pair acts as one lens of focal length F with</p>
-  $$\frac{1}{v}-\frac{1}{u}=\frac{1}{f_1}+\frac{1}{f_2}\equiv\frac{1}{F}
-  \qquad\Longrightarrow\qquad \boxed{\;\frac{1}{F}=\frac{1}{f_1}+\frac{1}{f_2}\;}$$
-  <p>In terms of power P = 1/f, the powers simply add, P = P₁ + P₂. Since P₂ &lt; 0, the combination is weaker than the glass lens alone, and F &gt; f₁.</p>
+  <h3>4. What is parallax and why does "no parallax" mean the same place?</h3>
+  <p>Hold a finger near your eyes and look at a far tree. Move your head sideways and the finger seems to jump against the tree. That apparent shift is <b>parallax</b>, and it only happens because the finger and the tree are at different distances. If the pin and its image do not separate however you move your head, they must be at the same place. The object that seems to follow your eye is the one farther away.</p>
 
-  <h3>D5. Why the pin and image coincide only at the focus</h3>
-  <p>Light from the pin passes through the lens, reflects at the plane mirror and passes through the lens again. A plane mirror only reverses the direction of travel, so the system "lens + mirror + lens" has power</p>
-  $$P_{\text{sys}}=P+P=\frac{2}{F}.$$
-  <p>The system therefore behaves like a concave mirror of focal length F/2. Using the mirror formula with object and image both measured upward from the lens (real distances positive)</p>
-  $$\frac{1}{v}+\frac{1}{u}=\frac{2}{F}.$$
-  <p>The image falls on the pin when v = u. Then 2/u = 2/F, so</p>
-  $$\boxed{\;u=v=F\;},\qquad m=-\frac{v}{u}=-1 .$$
-  <p>The image is real, inverted and the same size, exactly what is seen tip to tip. If the pin is higher than F, then v &lt; u and the image lies below the pin. If it is lower than F (but above F/2), then v &gt; u and the image is above the pin. Only at u = F is there no parallax. The simulator above uses exactly this ray algebra.</p>
+  <h3>5. Why does the liquid make a lens?</h3>
+  <p>The liquid fills the gap between the curved bottom of the glass lens and the flat mirror. So its bottom is flat and its top is hollowed out by the lens. A lens that is thin in the middle and thick at the edges is a <b>concave</b> lens. This liquid lens spreads light out (diverging), the opposite of the convex glass lens.</p>
 
-  <h3>D6. Parallax rule</h3>
-  <p>Let the eye be at height E above the mirror and move sideways by a small distance e. A point at height y on the axis then appears at an angular position</p>
-  $$\phi(y)\approx\frac{-e}{E-y}.$$
-  <p>Two points at different heights y₁ &lt; y₂ appear to separate by</p>
-  $$\Delta\phi=\phi(y_2)-\phi(y_1)=-e\left(\frac{1}{E-y_2}-\frac{1}{E-y_1}\right)\neq 0 \quad\text{unless}\quad y_1=y_2 .$$
-  <p>The nearer point (larger y) shifts more against the eye, so the farther point appears to move <b>with</b> the eye. Parallax vanishes only when the pin and image are at the same height, which is the test used in the experiment.</p>
+  <h3>6. Why does the pin have to go higher after adding the liquid?</h3>
+  <p>The convex lens brings rays together. The liquid lens spreads them apart a little. Together they bring rays together less strongly, so the combined lens has a <b>longer</b> focal length F. Lens strengths (powers, P = 1/f) simply add, and the liquid's strength is negative</p>
+  $$\frac{1}{F}=\frac{1}{f_1}+\frac{1}{f_2}\qquad\Longrightarrow\qquad |f_2|=\frac{f_1F}{F-f_1}$$
 
-  <h3>D7. Spherometer formula</h3>
-  <p>The three legs of a spherometer form an equilateral triangle of side l. They sit on a circle of radius r through the three legs, where</p>
-  $$r=\frac{l}{\sqrt3}.$$
-  <p>The central screw rises by h above the plane of the legs when placed on a sphere of radius R. In the vertical section through the centre, the chord of half length r and the sagitta h satisfy the intersecting chords theorem</p>
-  $$r\cdot r = h\,(2R-h) \quad\Longrightarrow\quad R=\frac{r^2}{2h}+\frac{h}{2}=\boxed{\;\frac{l^2}{6h}+\frac{h}{2}\;}$$
-  <p>Here h is the difference between the reading on the lens and the reading on a flat glass plate.</p>
+  <h3>7. How does the liquid lens tell us μ?</h3>
+  <p>A liquid lens bends light more if the liquid bends light more (larger μ) and if its surface is more curved (smaller radius R). For a lens with one flat side this gives</p>
+  $$\frac{1}{|f_2|}=\frac{\mu-1}{R}\qquad\Longrightarrow\qquad \mu=1+\frac{R}{|f_2|}$$
+  <p><b>Why μ − 1 and not μ?</b> If the liquid had μ = 1, the same as air, light would not bend at all and there would be no lens. Only the amount by which μ exceeds 1 does the bending.</p>
 
-  <h3>D8. Final working formula</h3>
-  <p>From D4, the focal length of the liquid lens is</p>
-  $$\frac{1}{f_2}=\frac{1}{F}-\frac{1}{f_1}=\frac{f_1-F}{f_1F}\quad\Longrightarrow\quad |f_2|=\frac{f_1F}{F-f_1}.$$
-  <p>From D3, |f₂| = R/(μ − 1), so</p>
-  $$\boxed{\;\mu=1+\frac{R}{|f_2|}=1+R\,\frac{F-f_1}{f_1F}\;}$$
-  <p><b>Why (x₁ + x₂)/2.</b> The pin height is measured to the top of the lens (x₁) and to the mirror (x₂). The thin lens formula refers to the optical centre, which lies close to the middle of the lens, so the mean of the two is the correct distance.</p>
+  <h3>8. Why do we need R, and how does the spherometer find it?</h3>
+  <p>The same liquid makes a stronger lens if the curve is tighter, so we must know the curvature. A spherometer stands on three legs. On a flat glass plate its middle screw is level with the legs. On a curved lens the middle of the surface is higher, so the screw must be raised by a small height h. A tightly curved surface needs a big h, a gently curved one only a tiny h. Geometry of a circle turns h and the leg spacing l into the radius</p>
+  $$R=\frac{l^2}{6h}+\frac{h}{2}$$
 
-  <h3>D9. Worked example</h3>
-  <p>Typical readings for water are f₁ = 20.07 cm, F = 30.08 cm, l = 3.00 cm and h = 0.076 cm.</p>
-  $$R=\frac{(3.00)^2}{6(0.076)}+\frac{0.076}{2}=19.74+0.04=19.78\ \text{cm}$$
-  $$|f_2|=\frac{(20.07)(30.08)}{30.08-20.07}=60.31\ \text{cm},\qquad \mu=1+\frac{19.78}{60.31}=1.328$$
-  <p>This is close to the accepted value 1.333 for water.</p>
+  <h3>9. Why average the distances to the top of the lens and to the mirror?</h3>
+  <p>The lens has some thickness, and focal length is measured from its middle. The top of the lens is a little too close and the mirror a little too far, so their average gives the distance to the middle.</p>
 
-  <h3>D10. Error estimate</h3>
-  <p>Write μ − 1 = R(1/f₁ − 1/F). Taking logarithms and differentiating gives the maximum fractional error</p>
-  $$\frac{\delta(\mu-1)}{\mu-1}=\frac{\delta R}{R}+\frac{\dfrac{\delta f_1}{f_1^2}+\dfrac{\delta F}{F^2}}{\dfrac{1}{f_1}-\dfrac{1}{F}},
-  \qquad \frac{\delta R}{R}\approx\frac{2\,\delta l}{l}+\frac{\delta h}{h}.$$
-  <p>Since h is very small (under 1 mm), the δh/h term usually dominates. A spherometer with a good least count, and averaging several readings of h, matter most for accuracy.</p>
+  <h3>10. Why only a few drops, with no bubbles?</h3>
+  <p>Too much liquid spreads beyond the lens and changes the shape of the liquid lens. An air bubble is a tiny lens of its own and spoils the image.</p>
+
+  <h3>Worked example (water)</h3>
+  <p>f₁ = 20.07 cm, F = 30.08 cm, l = 3.00 cm, h = 0.076 cm.</p>
+  $$R=\frac{3.00^2}{6\times0.076}+\frac{0.076}{2}=19.78\text{ cm},\qquad |f_2|=\frac{20.07\times30.08}{30.08-20.07}=60.31\text{ cm}$$
+  $$\mu=1+\frac{19.78}{60.31}=1.328\qquad\text{(accepted value for water 1.333)}$$
 </section>
 
 

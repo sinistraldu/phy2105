@@ -29,7 +29,8 @@ h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
 .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
 .frac>span:last-child{padding:0 4px}
-.sqrt{border-top:1.5px solid currentColor;padding:0 3px;margin-left:1px}
+.sqrt{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
+span:has(+ .sqrt){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
 .note{font-size:14px;color:var(--muted)}
 ul.app{columns:2;margin:6px 0}
 @media(max-width:600px){ul.app{columns:1}}
@@ -101,7 +102,7 @@ footer.credit a{color:#fff}
   <p>Static method (Hooke's law) and dynamic method (oscillations), with a 3D virtual lab and live graphs</p>
 </div></header>
 <nav><div class="wrap">
-  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#lab">3D virtual lab</a>
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#lab">3D virtual lab</a>
   <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graphs</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
 </div></nav>
 <main>
@@ -164,79 +165,50 @@ footer.credit a{color:#fff}
 </section>
 
 <section id="derivations" class="deriv">
-  <h2>Detailed theory and derivations</h2>
+  <h2>Why it works, in simple words</h2>
+  <p class="note">We find the stiffness of the spring in two independent ways, by stretching it and by letting it bounce. If both give the same answer, we trust it. The bouncing method also tells us how much of the spring's own mass "rides along" with the load.</p>
 
-  <h3>D1. Hooke's law and elastic energy</h3>
-  <p>Within the elastic limit the restoring force of a spring is proportional to its extension x and opposite to it</p>
-  $$F=-kx .$$
-  <p>The work done in stretching it slowly from 0 to x is stored as elastic potential energy</p>
-  $$U=\int_0^x kx'\,dx'=\tfrac12kx^2 .$$
+  <h3>1. Why does each 50 g add the same stretch?</h3>
+  <p>When you hang a load, every coil of the spring twists a little. Double the load and each coil twists twice as much, so the whole spring stretches twice as much. This is <b>Hooke's law</b>, the stretch is proportional to the force (as long as you do not overstretch the spring).</p>
+  $$F=kx$$
 
-  <h3>D2. Static equilibrium</h3>
-  <p>A load M hangs at rest on a light spring. The spring force balances the weight</p>
-  $$kx_0=Mg\quad\Longrightarrow\quad \boxed{\;k=\frac{Mg}{x_0}\;}$$
-  <p>Adding a load ΔM increases the extension by Δx = ΔM g/k. So a graph of added load (as force ΔMg) against extra extension Δx is a straight line through the origin with slope k. Taking the reading with the hanger alone as zero means the hanger, pointer and the spring's own weight drop out.</p>
+  <h3>2. What does k mean?</h3>
+  <p>k is the <b>stiffness</b>. It tells you how many newtons you need to stretch the spring by one metre. A stiff car spring has a large k. A soft toy spring has a small k. On the load against extension graph, k is simply the slope.</p>
 
-  <h3>D3. Stretch of the spring under its own weight</h3>
-  <p>A uniform spring of mass m<sub>s</sub> and unstretched length ℓ₀ hangs vertically. A short piece at distance s from the top, of unstretched length ds, carries the weight of the spring below it, m<sub>s</sub>g(ℓ₀ − s)/ℓ₀. A piece of length ds has spring constant kℓ₀/ds (a shorter spring is stiffer). Its stretch is therefore</p>
-  $$d(\Delta)=\frac{m_sg(\ell_0-s)/\ell_0}{k\ell_0/ds}=\frac{m_sg}{k\ell_0^2}(\ell_0-s)\,ds .$$
-  $$\Delta=\frac{m_sg}{k\ell_0^2}\int_0^{\ell_0}(\ell_0-s)\,ds=\frac{m_sg}{2k}.$$
-  <p>So the spring stretches as though half of its weight hung at the bottom. This shifts the zero reading but not the slope of the static graph.</p>
+  <h3>3. Why is the reading with only the hanger taken as zero?</h3>
+  <p>Before we add any weights, the spring is already a bit stretched by the hanger and by its own weight. We only want to know how much <b>extra</b> stretch each <b>extra</b> load causes. So we start counting from the hanger-only reading.</p>
 
-  <h3>D4. Equation of motion (light spring)</h3>
-  <p>Measure y downward from the equilibrium position, so the total extension is x₀ + y. Newton's second law for the load is</p>
-  $$M\ddot y=Mg-k(x_0+y)=Mg-kx_0-ky=-ky ,$$
-  <p>because kx₀ = Mg. Gravity cancels exactly. It only fixes the centre of the motion. So</p>
-  $$\ddot y+\omega^2y=0,\qquad \omega^2=\frac{k}{M}.$$
+  <h3>4. Why read again while unloading?</h3>
+  <p>If the spring was not overstretched, it should come back to the same readings as you remove the weights. Matching readings show that the spring behaved elastically. Taking the average of loading and unloading also cancels small sticking effects.</p>
 
-  <h3>D5. Solving it with the exponential method</h3>
-  <p>Try \(y=e^{\lambda t}\). The characteristic equation is λ² + ω² = 0, so λ = ±iω and</p>
-  $$y(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}=A\cos(\omega t+\varphi),$$
-  <p>using \(C_2=C_1^{*}\) for a real solution and Euler's formula. A and φ are fixed by how far the load is pulled and when it is released. If it is pulled down by y₀ and released from rest, then y = y₀ cos ωt. The period is</p>
-  $$\boxed{\;T=2\pi\sqrt{\frac{M}{k}}\;}\qquad\text{(massless spring)}$$
-  <p>T does not depend on the amplitude or on g.</p>
+  <h3>5. Why does the load bounce up and down?</h3>
+  <p>At the rest position the spring's upward pull exactly balances the weight. Pull the load down and the spring pulls up harder than the weight, so the load is pushed back up. It overshoots past the rest position, where the spring is now weaker than the weight, so it falls back again. The further you displace it, the harder it is pushed back. This "push back in proportion" is what makes the motion <b>simple harmonic</b>, with a fixed time period.</p>
 
-  <h3>D6. Effective mass of the spring</h3>
-  <p>The top of the spring is fixed and the bottom moves with the load at speed v = ẏ. For a uniformly stretched spring, a coil at distance s from the top (total length ℓ) moves with speed</p>
-  $$u(s)=\frac{s}{\ell}\,v .$$
-  <p>The mass of a piece ds is (m<sub>s</sub>/ℓ) ds. Its kinetic energy added over the whole spring is</p>
-  $$K_{\text{spring}}=\int_0^{\ell}\frac12\,\frac{m_s}{\ell}\,ds\left(\frac{s\,v}{\ell}\right)^2=\frac{m_sv^2}{2\ell^3}\int_0^{\ell}s^2\,ds=\frac12\left(\frac{m_s}{3}\right)v^2 .$$
-  <p>The total energy of the oscillating system (load and spring, about equilibrium) is constant</p>
-  $$E=\frac12\left(M+\frac{m_s}{3}\right)\dot y^2+\frac12ky^2=\text{constant}.$$
-  <p>Differentiating with respect to time and dividing by ẏ</p>
-  $$\left(M+\frac{m_s}{3}\right)\ddot y+ky=0\quad\Longrightarrow\quad \omega^2=\frac{k}{M+m'},\qquad \boxed{\;m'=\frac{m_s}{3}\;}$$
-  $$\boxed{\;T=2\pi\sqrt{\frac{M+m'}{k}}\;}$$
-  <p>The spring adds one third of its own mass to the load. In a real spring the coils near the ends may not stretch evenly, so the measured m′ is often a little different from m<sub>s</sub>/3.</p>
+  <h3>6. Why doesn't gravity change the time period?</h3>
+  <p>Gravity only decides <b>where</b> the rest position is (a heavier load sits lower). Around that rest position, the extra push back for each centimetre of displacement depends only on k. So the bouncing rate depends on the spring and the mass, not on g. The same spring and load would bounce at the same rate on the Moon, just hanging at a different height.</p>
 
-  <h3>D7. Straight-line form and how the graph gives k and m′</h3>
-  <p>Squaring the period</p>
-  $$T^2=\frac{4\pi^2}{k}\,M+\frac{4\pi^2}{k}\,m' .$$
-  <p>This has the form y = (slope)x + c, with y = T² and x = M. So</p>
-  $$\text{slope}=\frac{4\pi^2}{k}\ \Longrightarrow\ \boxed{\;k=\frac{4\pi^2}{\text{slope}}\;},\qquad T^2=0\ \text{at}\ M=-m' .$$
-  <p>The line extended back cuts the M axis at −m′, so the size of that intercept is the effective mass. Equivalently m′ = c/slope, where c is the intercept on the T² axis.</p>
+  <h3>7. Why do heavier loads bounce more slowly?</h3>
+  <p>The spring's push is the same, but a heavier load is harder to speed up and slow down (more inertia). So it takes longer for each bounce. A stiffer spring pushes harder, so it bounces faster.</p>
+  $$T=2\pi\sqrt{\frac{M}{k}}\qquad\text{(if the spring had no mass)}$$
 
-  <h3>D8. Damping</h3>
-  <p>Air resistance adds a small force proportional to velocity, −bẏ. The equation becomes</p>
-  $$\ddot y+2\gamma\dot y+\omega_0^2y=0,\qquad \gamma=\frac{b}{2(M+m')},\quad \omega_0^2=\frac{k}{M+m'}.$$
-  <p>With \(y=e^{\lambda t}\), λ² + 2γλ + ω₀² = 0, so λ = −γ ± i√(ω₀² − γ²). For light damping (γ ≪ ω₀)</p>
-  $$y=Ae^{-\gamma t}\cos(\omega_d t+\varphi),\qquad \omega_d=\sqrt{\omega_0^2-\gamma^2}\approx\omega_0\left(1-\frac{\gamma^2}{2\omega_0^2}\right).$$
-  <p>The amplitude dies away slowly, but the period changes only by a term of order (γ/ω₀)², which is negligible here. So timing a slowly decaying oscillation still gives the correct T.</p>
+  <h3>8. Why does part of the spring's mass count, and why exactly one third?</h3>
+  <p>The spring itself moves too, but not all of it in the same way. The top coil is clamped and does not move. The bottom coil moves with the load. The coils in the middle move at in-between speeds, half way down moves at half the speed, and so on.</p>
+  <p>Moving energy depends on speed <b>squared</b>. Coils near the top move slowly and carry almost no energy, coils near the bottom carry a lot. When you average speed squared along the whole spring, you get exactly one third of the bottom speed squared. So the spring acts as if one third of its mass were riding along with the load. This is the <b>effective mass</b>.</p>
+  $$m'=\frac{m_s}{3},\qquad T=2\pi\sqrt{\frac{M+m'}{k}}$$
 
-  <h3>D9. Springs in series and parallel</h3>
-  <p>For two springs in series, the same force acts in each and the extensions add, x = F/k₁ + F/k₂, so</p>
-  $$\frac{1}{k_{\text{series}}}=\frac1{k_1}+\frac1{k_2}.$$
-  <p>For two springs side by side (parallel), the extensions are equal and the forces add, so k<sub>parallel</sub> = k₁ + k₂. Cutting a spring into two equal halves gives each half spring constant 2k.</p>
+  <h3>9. Why plot T² against M, and why does the line cross at a negative mass?</h3>
+  <p>Square the period formula and you get</p>
+  $$T^2=\frac{4\pi^2}{k}\,(M+m')$$
+  <p>T² grows in a straight line with M, and straight lines are easy to draw and read. The slope is 4π²/k, so k = 4π²/slope.</p>
+  <p>The line would reach T² = 0 only if M + m′ = 0, that is at M = −m′. You can never actually remove the spring's own mass, so this point is behind the origin. Extending the line back to the M axis and reading how far it is below zero gives the effective mass m′ directly.</p>
 
-  <h3>D10. Worked example</h3>
-  <p>Static readings rise by 2.45 cm for every 50 g added</p>
-  $$k=\frac{(0.050)(9.8)}{0.0245}=20.0\ \text{N/m}.$$
-  <p>Dynamic readings give a T² against M slope of 1.98 s²/kg and an intercept on the M axis of −17.7 g</p>
-  $$k=\frac{4\pi^2}{1.98}=19.9\ \text{N/m},\qquad m'=17.7\ \text{g}\ \ (\text{compare } m_s/3=54/3=18.0\ \text{g}).$$
+  <h3>10. Why small pulls and 20 oscillations?</h3>
+  <p>A small pull keeps the spring well inside its springy range and keeps the motion straight up and down. Swinging sideways would add pendulum motion. A spring bounces fast (about half a second each), so timing a single bounce is hopeless. Timing 20 spreads your reaction error over many bounces.</p>
 
-  <h3>D11. Error estimate</h3>
-  <p>For the static method k = Mg/x, so δk/k = δM/M + δx/x. The extension error is about the scale least count (0.1 cm) on each reading. For the dynamic method</p>
-  $$\frac{\delta k}{k}=\frac{\delta M}{M}+2\,\frac{\delta T}{T},\qquad \delta T=\frac{\delta t}{N}.$$
-  <p>Because T is short (about 0.5 s), a reaction error of 0.1 s over 20 oscillations already gives 2δT/T ≈ 2%. The intercept m′ is very sensitive to this. Timing more oscillations and repeating each timing improves it.</p>
+  <h3>Worked example</h3>
+  <p>Each 50 g stretches the spring by 2.45 cm. The T² against M graph has slope 1.98 s²/kg and crosses the M axis at −17.7 g.</p>
+  $$k_{\text{static}}=\frac{0.050\times9.8}{0.0245}=20.0\text{ N/m},\qquad k_{\text{dynamic}}=\frac{4\pi^2}{1.98}=19.9\text{ N/m}$$
+  $$m'=17.7\text{ g}\quad\text{compared with}\quad \frac{m_s}{3}=\frac{54}{3}=18.0\text{ g}$$
 </section>
 
 
