@@ -29,8 +29,8 @@ h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
 .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
 .frac>span:last-child{padding:0 4px}
-.sqrt{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
-span:has(+ .sqrt){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
+.eq .rad{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
+  .eq span:has(+ .rad){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
 .note{font-size:14px;color:var(--muted)}
 ul.app{columns:2;margin:6px 0}
 @media(max-width:600px){ul.app{columns:1}}
@@ -92,6 +92,10 @@ summary{cursor:pointer;font-weight:600;color:var(--navy)}
 .deriv .katex{font-size:1.08em}
 footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
 footer.credit a{color:#fff}
+.probs .prob{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#fcfdff}
+.probs .prob p{margin:4px 0}
+.probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
+.probs details summary{font-weight:600}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -103,7 +107,7 @@ footer.credit a{color:#fff}
 </div></header>
 <nav><div class="wrap">
   <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#lab">3D virtual lab</a>
-  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a><a href="#problems">Practice problems</a>
 </div></nav>
 <main>
 
@@ -131,7 +135,7 @@ footer.credit a{color:#fff}
       <p>If I is the moment of inertia about the knife edge, Newton's law for rotation gives</p>
       <div class="eq">I <span class="frac"><span>d²θ</span><span>dt²</span></span> = − m g l θ</div>
       <p>This is simple harmonic motion with ω² = mgl/I, so</p>
-      <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>I</span><span>m g l</span></span></span></div>
+      <div class="eq">T = 2π <span>√</span><span class="rad"><span class="frac"><span>I</span><span>m g l</span></span></span></div>
     </div>
     <figure>
       <svg viewBox="0 0 360 330" aria-label="torque diagram">
@@ -163,7 +167,7 @@ footer.credit a{color:#fff}
 
   <h3>2. Parallel axis theorem and the equivalent length</h3>
   <p>If the moment of inertia about G is I<sub>G</sub> = mk², where k is the radius of gyration, then by the parallel axis theorem I = m(k² + l²). Putting this in the period gives</p>
-  <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>k² + l²</span><span>g l</span></span></span> = 2π <span>√</span><span class="sqrt"><span class="frac"><span>L</span><span>g</span></span></span>
+  <div class="eq">T = 2π <span>√</span><span class="rad"><span class="frac"><span>k² + l²</span><span>g l</span></span></span> = 2π <span>√</span><span class="rad"><span class="frac"><span>L</span><span>g</span></span></span>
     &nbsp;&nbsp; with &nbsp; L = l + <span class="frac"><span>k²</span><span>l</span></span></div>
   <p>So the bar swings exactly like a <b>simple pendulum of length L</b>, the equivalent length. The virtual lab can draw this simple pendulum next to the bar so you can see that both keep perfect step.</p>
 
@@ -176,7 +180,7 @@ footer.credit a{color:#fff}
       <div class="eq">l₁ + l₂ = L &nbsp;&nbsp;&nbsp; l₁ l₂ = k²</div>
       <p>The point at distance l₂ on the other side of G from S is called the <b>centre of oscillation</b>. Suspension and oscillation points can be swapped without changing T.</p>
       <p>A graph of T against hole position gives two symmetric curves. A horizontal line at period T cuts them at A, B, C and D. Then AC = BD = L and AD·BC/4 = k², so</p>
-      <div class="eq">g = 4π² <span class="frac"><span>L</span><span>T²</span></span> &nbsp;&nbsp; L = <span class="frac"><span>AC + BD</span><span>2</span></span> &nbsp;&nbsp; k = <span>√</span><span class="sqrt"><span class="frac"><span>AD</span><span>2</span></span>·<span class="frac"><span>BC</span><span>2</span></span></span></div>
+      <div class="eq">g = 4π² <span class="frac"><span>L</span><span>T²</span></span> &nbsp;&nbsp; L = <span class="frac"><span>AC + BD</span><span>2</span></span> &nbsp;&nbsp; k = <span>√</span><span class="rad"><span class="frac"><span>AD</span><span>2</span></span>·<span class="frac"><span>BC</span><span>2</span></span></span></div>
       <p>The period is smallest when l = k, where T<sub>min</sub> = 2π√(2k/g). For a uniform bar of length ℓ and width b, theory gives k² = (ℓ² + b²)/12.</p>
     </div>
     <figure>
@@ -367,6 +371,55 @@ footer.credit a{color:#fff}
   <details><summary>At what point is the period minimum?</summary><p>When l = k. Then L = 2k and T<sub>min</sub> = 2π√(2k/g).</p></details>
   <details><summary>Why is the compound pendulum better than a simple pendulum?</summary><p>Its length L is found from the graph instead of measuring to an uncertain centre of a bob. The mass is distributed and real, there is no stretching string, and it does not twist easily.</p></details>
 </section>
+<section id="problems" class="deriv probs">
+  <h2>Practice problems for quiz and final exam</h2>
+  <p class="note">Try each problem first, then click to check the solution. Unless stated otherwise take g = 9.8 m/s².</p>
+
+  <h3>A. Easy numerical problems</h3>
+  <div class="prob"><p><b>N1.</b> A bar has radius of gyration k = 30 cm about G. It is hung from a hole 20 cm from G. Find the equivalent length L and the time period.</p>
+  <details><summary>Show solution</summary>
+  $$L=l+\frac{k^2}{l}=20+\frac{900}{20}=65\ \text{cm},\qquad T=2\pi\sqrt{\frac{0.65}{9.8}}=1.62\ \text{s}$$</details></div>
+
+  <div class="prob"><p><b>N2.</b> A bar makes 20 oscillations in 32.4 s. Its equivalent length is 65.0 cm. Find g.</p>
+  <details><summary>Show solution</summary>
+  $$T=\frac{32.4}{20}=1.62\ \text{s},\qquad g=\frac{4\pi^2L}{T^2}=\frac{39.48\times0.650}{(1.62)^2}=9.78\ \text{m/s}^2$$</details></div>
+
+  <div class="prob"><p><b>N3.</b> A uniform bar is 1.00 m long and 4.0 cm wide. Find its radius of gyration about G.</p>
+  <details><summary>Show solution</summary>
+  $$k=\sqrt{\frac{\ell^2+b^2}{12}}=\sqrt{\frac{1.00^2+0.04^2}{12}}=0.289\ \text{m}=28.9\ \text{cm}$$</details></div>
+
+  <div class="prob"><p><b>N4.</b> For the bar in N3, what is the smallest possible time period, and from which hole?</p>
+  <details><summary>Show solution</summary>
+  <p>T is smallest when the hole is a distance k = 28.9 cm from G. Then L = 2k.</p>
+  $$T_{\min}=2\pi\sqrt{\frac{2k}{g}}=2\pi\sqrt{\frac{2\times0.289}{9.8}}=1.53\ \text{s}$$</details></div>
+
+  <div class="prob"><p><b>N5.</b> A bar with k = 30 cm swings from a hole 60 cm from G. At what other distance from G (on the same side) will it have the same period?</p>
+  <details><summary>Show solution</summary>
+  <p>The two distances with the same period satisfy l₁ l₂ = k².</p>
+  $$l_2=\frac{k^2}{l_1}=\frac{900}{60}=15\ \text{cm},\qquad \text{check } L=60+15=75\ \text{cm for both}$$</details></div>
+
+  <div class="prob"><p><b>N6.</b> On the T against distance graph, a line at T = 1.58 s gives AC = 61.5 cm and BD = 62.1 cm. Find g.</p>
+  <details><summary>Show solution</summary>
+  $$L=\frac{61.5+62.1}{2}=61.8\ \text{cm},\qquad g=\frac{39.48\times0.618}{(1.58)^2}=9.77\ \text{m/s}^2$$</details></div>
+
+  <div class="prob"><p><b>N7.</b> Your stopwatch reaction error is 0.2 s and T ≈ 1.6 s. Estimate the percentage error in g if you time (a) 1 oscillation, (b) 20 oscillations.</p>
+  <details><summary>Show solution</summary>
+  <p>The error in g is about twice the percentage error in T, because g depends on T².</p>
+  $$\text{(a)}\ 2\times\frac{0.2}{1.6}=25\%\qquad \text{(b)}\ 2\times\frac{0.2}{32}=1.25\%$$</details></div>
+
+  <h3>B. Conceptual questions</h3>
+  <details><summary>Q1. What is the equivalent length of a compound pendulum?</summary><p>It is the length of a simple pendulum that has the same time period as the compound pendulum, L = l + k²/l.</p></details>
+  <details><summary>Q2. Why does the period become very large when the bar is hung close to G?</summary><p>Near G the weight passes almost through the pivot, so the pull back toward vertical is very weak. At G itself the bar balances and does not swing at all.</p></details>
+  <details><summary>Q3. Why is there a minimum on the T against distance graph?</summary><p>Moving away from G makes the pull back stronger (faster swing) but also makes the bar swing about a farther point (slower swing). The two effects balance at l = k, where T is smallest.</p></details>
+  <details><summary>Q4. Does the time period depend on the mass of the bar?</summary><p>No. Both the pull back and the difficulty of turning the bar grow in the same proportion with mass, so mass cancels.</p></details>
+  <details><summary>Q5. What are the centres of suspension and oscillation?</summary><p>Two points on opposite sides of G, a distance L apart, with the same time period. If you hang the bar from either one, it swings with the same period, so they are interchangeable.</p></details>
+  <details><summary>Q6. Why must the amplitude be small?</summary><p>Only for small swings is the pull back proportional to the angle, which gives a fixed period. Large swings take longer, which would make g come out too small.</p></details>
+  <details><summary>Q7. Why do we invert the bar to use the holes on the other side?</summary><p>So that G is below the knife edge. The bar is symmetric, so the second curve is a mirror image and gives the other two crossing points.</p></details>
+  <details><summary>Q8. If the experiment were done on the Moon (g six times smaller), how would the period change?</summary><p>T is proportional to 1/√g, so the period would be √6 ≈ 2.45 times longer.</p></details>
+  <details><summary>Q9. Why is the knife edge used and why must it be horizontal?</summary><p>A sharp edge gives a clear pivot line with very little friction. If it were tilted the bar would wobble or slide, changing the period.</p></details>
+  <details><summary>Q10. Why is a compound pendulum often preferred to a simple pendulum for finding g?</summary><p>Its effective length is found accurately from the graph. There is no string that can stretch and no bob whose centre is hard to locate.</p></details>
+</section>
+
 </main>
 
 <script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
@@ -596,6 +649,6 @@ ui();refresh();requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>

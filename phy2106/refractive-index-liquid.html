@@ -88,6 +88,10 @@
 .deriv .katex{font-size:1.08em}
 footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
 footer.credit a{color:#fff}
+.probs .prob{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#fcfdff}
+.probs .prob p{margin:4px 0}
+.probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
+.probs details summary{font-weight:600}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -101,7 +105,7 @@ footer.credit a{color:#fff}
 <nav><div class="wrap">
   <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#sim">Simulator</a>
   <a href="#steps">Procedure</a><a href="#spher">Spherometer</a><a href="#calc">Observations</a>
-  <a href="#prec">Precautions</a><a href="#viva">Viva</a>
+  <a href="#prec">Precautions</a><a href="#viva">Viva</a><a href="#problems">Practice problems</a>
 </div></nav>
 
 <main>
@@ -464,6 +468,55 @@ footer.credit a{color:#fff}
   <details><summary>Why do we take the mean of x₁ and x₂?</summary><p>The focal length is measured from the optical centre, which lies roughly midway between the top and bottom of the lens.</p></details>
 </section>
 
+<section id="problems" class="deriv probs">
+  <h2>Practice problems for quiz and final exam</h2>
+  <p class="note">Try each problem first, then click to check the solution.</p>
+
+  <h3>A. Easy numerical problems</h3>
+  <div class="prob"><p><b>N1.</b> At no parallax, the pin is 19.6 cm above the top of the lens and 20.4 cm above the mirror. Find the focal length of the lens.</p>
+  <details><summary>Show solution</summary>
+  $$f_1=\frac{x_1+x_2}{2}=\frac{19.6+20.4}{2}=20.0\ \text{cm}$$</details></div>
+
+  <div class="prob"><p><b>N2.</b> The lens alone has f₁ = 20 cm. With liquid underneath, the combination has F = 30 cm. Find the focal length of the liquid lens.</p>
+  <details><summary>Show solution</summary>
+  $$|f_2|=\frac{f_1F}{F-f_1}=\frac{20\times30}{30-20}=60\ \text{cm}$$
+  <p>It is a diverging lens, so f₂ = −60 cm.</p></details></div>
+
+  <div class="prob"><p><b>N3.</b> The lens surface touching the liquid in N2 has R = 20 cm. Find the refractive index of the liquid.</p>
+  <details><summary>Show solution</summary>
+  $$\mu=1+\frac{R}{|f_2|}=1+\frac{20}{60}=1.33\qquad\text{(probably water)}$$</details></div>
+
+  <div class="prob"><p><b>N4.</b> A spherometer has a mean leg distance of 3.0 cm. On the lens the central screw rises by 0.075 cm. Find R.</p>
+  <details><summary>Show solution</summary>
+  $$R=\frac{l^2}{6h}+\frac{h}{2}=\frac{9.0}{0.45}+0.04=20.0\ \text{cm}$$</details></div>
+
+  <div class="prob"><p><b>N5.</b> A lens has f₁ = 20 cm and R = 20 cm. Where should the no-parallax position be with glycerine (μ = 1.47) under it?</p>
+  <details><summary>Show solution</summary>
+  $$\frac{1}{f_2}=-\frac{0.47}{20},\qquad \frac{1}{F}=\frac{1}{20}-\frac{0.47}{20}=\frac{0.53}{20}\ \Longrightarrow\ F=37.7\ \text{cm}$$
+  <p>Glycerine bends light more than water, so the pin must go higher.</p></details></div>
+
+  <div class="prob"><p><b>N6.</b> An equiconvex glass lens (μ = 1.5, R = 20 cm, so f₁ = 20 cm) is used with a liquid that also has μ = 1.5. Find F and explain the answer.</p>
+  <details><summary>Show solution</summary>
+  $$\frac{1}{F}=\frac{1}{20}-\frac{0.5}{20}=\frac{1}{40}\ \Longrightarrow\ F=40\ \text{cm}=2f_1$$
+  <p>Light cannot tell the glass and liquid apart, so the lower curved face does no bending. Only the upper face works, so the lens is half as strong.</p></details></div>
+
+  <div class="prob"><p><b>N7.</b> For the lens in N6, above what refractive index does the method fail?</p>
+  <details><summary>Show solution</summary>
+  <p>The combination stops converging when 1/F = (2 − μ)/R becomes zero or negative, that is for μ ≥ 2. Then no real image forms and parallax cannot be removed.</p></details></div>
+
+  <h3>B. Conceptual questions</h3>
+  <details><summary>Q1. Why does the image of the pin coincide with the pin at the focus?</summary><p>Rays from the focus leave the lens parallel, hit the plane mirror straight on, and retrace their path back to the same point.</p></details>
+  <details><summary>Q2. Why is the image inverted and the same size?</summary><p>The returning rays cross the axis before meeting. At the focus the image distance equals the object distance, so the magnification is −1.</p></details>
+  <details><summary>Q3. What is parallax, and how do you know which way to move the pin?</summary><p>Parallax is the apparent relative shift of two objects at different distances when you move your eye. The one that moves with your eye is farther away. If the image follows your eye, lower the pin. If the pin follows your eye, raise it.</p></details>
+  <details><summary>Q4. What kind of lens does the liquid form and why?</summary><p>A plano-concave (diverging) lens, because its bottom is flat on the mirror and its top is hollowed by the convex glass lens.</p></details>
+  <details><summary>Q5. Why is F greater than f₁?</summary><p>A diverging liquid lens is added to the converging glass lens, so the combined lens is weaker and its focal length is longer.</p></details>
+  <details><summary>Q6. Why does the formula contain μ − 1?</summary><p>A liquid with μ = 1 (like air) would not bend light at all, so it would not act as a lens. Only the excess of μ above 1 causes bending.</p></details>
+  <details><summary>Q7. If water is replaced by a liquid of higher μ, will the no-parallax position go up or down?</summary><p>Up. The liquid lens becomes stronger (more diverging), so the combination becomes weaker and F increases.</p></details>
+  <details><summary>Q8. Why do we use the mean of the distances to the top of the lens and to the mirror?</summary><p>The focal length is measured from the middle of the lens, which lies roughly midway between those two points.</p></details>
+  <details><summary>Q9. Which surface's radius do we measure with the spherometer and why?</summary><p>The surface in contact with the liquid, because that curve forms the curved face of the liquid lens.</p></details>
+  <details><summary>Q10. What would an air bubble in the liquid do?</summary><p>A bubble is a small lens of its own. It distorts the liquid lens and blurs the image, giving a wrong F.</p></details>
+</section>
+
 </main>
 
 <script>
@@ -759,6 +812,6 @@ S.H = 40; requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>

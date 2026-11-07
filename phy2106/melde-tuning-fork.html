@@ -29,8 +29,8 @@ h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
 .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
 .frac>span:last-child{padding:0 4px}
-.sqrt{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
-span:has(+ .sqrt){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
+.eq .rad{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
+  .eq span:has(+ .rad){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
 .note{font-size:14px;color:var(--muted)}
 ul.app{columns:2;margin:6px 0}
 @media(max-width:600px){ul.app{columns:1}}
@@ -92,6 +92,10 @@ summary{cursor:pointer;font-weight:600;color:var(--navy)}
 .deriv .katex{font-size:1.08em}
 footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
 footer.credit a{color:#fff}
+.probs .prob{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#fcfdff}
+.probs .prob p{margin:4px 0}
+.probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
+.probs details summary{font-weight:600}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -103,7 +107,7 @@ footer.credit a{color:#fff}
 </div></header>
 <nav><div class="wrap">
   <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#lab">3D virtual lab</a>
-  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a><a href="#problems">Practice problems</a>
 </div></nav>
 <main>
 
@@ -124,14 +128,14 @@ footer.credit a{color:#fff}
   <h2>Theory</h2>
   <h3>1. Waves on a stretched string</h3>
   <p>A transverse wave on a string of mass per unit length m under tension T travels with speed</p>
-  <div class="eq">v = <span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+  <div class="eq">v = <span>√</span><span class="rad"><span class="frac"><span>T</span><span>m</span></span></span></div>
   <p>In Melde's experiment the tension is supplied by a pan of weights hanging over a pulley, so T = (M + m₀)g, where M is the load and m₀ is the pan mass.</p>
 
   <h3>2. Standing waves and loops</h3>
   <div class="grid2">
     <div>
       <p>Waves sent from the fork reflect at the pulley and travel back. The two waves add and form a <b>stationary wave</b>. Both ends behave as nodes, so the string can only resonate when its vibrating length l holds a whole number p of half wavelengths</p>
-      <div class="eq">l = p <span class="frac"><span>λ</span><span>2</span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; f<sub>string</sub> = <span class="frac"><span>v</span><span>λ</span></span> = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+      <div class="eq">l = p <span class="frac"><span>λ</span><span>2</span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; f<sub>string</sub> = <span class="frac"><span>v</span><span>λ</span></span> = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="rad"><span class="frac"><span>T</span><span>m</span></span></span></div>
       <p>Each half wavelength appears as one bright <b>loop</b>. When the condition is met exactly the loops are large and steady with sharp nodes. Slightly off resonance the string only shivers.</p>
     </div>
     <figure><svg id="svgLoops" viewBox="0 0 420 170"></svg>
@@ -148,11 +152,11 @@ footer.credit a{color:#fff}
   <div class="grid2">
     <div>
       <p><b>Transverse arrangement.</b> Each swing of the prong pushes the thread sideways once, so the string vibrates at the <b>same frequency</b> as the fork.</p>
-      <div class="eq">n = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+      <div class="eq">n = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="rad"><span class="frac"><span>T</span><span>m</span></span></span></div>
     </div>
     <div>
       <p><b>Longitudinal arrangement.</b> The prong only tightens and slackens the thread. The string bulges up during one fork cycle and down during the next, so it completes one vibration for every two vibrations of the fork. The string frequency is <b>n/2</b>.</p>
-      <div class="eq">n = <span class="frac"><span>p</span><span>l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+      <div class="eq">n = <span class="frac"><span>p</span><span>l</span></span><span>√</span><span class="rad"><span class="frac"><span>T</span><span>m</span></span></span></div>
     </div>
   </div>
   <p>For the same tension and length the longitudinal arrangement therefore gives <b>half as many loops</b>. Also, for a fixed length, T·p² stays constant in each arrangement, which is a quick check on your readings.</p>
@@ -326,6 +330,54 @@ footer.credit a{color:#fff}
   <details><summary>Why is the fork electrically maintained?</summary><p>An ordinary fork dies away in seconds. The electromagnet gives it a push each cycle, so the amplitude stays constant while the string is adjusted and observed.</p></details>
   <details><summary>What kind of wave is set up on the string?</summary><p>A transverse stationary wave formed by the superposition of incident and reflected waves.</p></details>
 </section>
+<section id="problems" class="deriv probs">
+  <h2>Practice problems for quiz and final exam</h2>
+  <p class="note">Try each problem first, then click to check the solution. Unless stated otherwise take g = 9.8 m/s².</p>
+
+  <h3>A. Easy numerical problems</h3>
+  <div class="prob"><p><b>N1.</b> A 5.00 m length of thread has a mass of 2.10 g. Find its mass per unit length in kg/m.</p>
+  <details><summary>Show solution</summary>
+  $$m=\frac{2.10\times10^{-3}\ \text{kg}}{5.00\ \text{m}}=4.20\times10^{-4}\ \text{kg/m}$$</details></div>
+
+  <div class="prob"><p><b>N2.</b> A pan of mass 5 g carries a load of 40 g. Find the tension in the thread and the speed of waves on it if m = 4.2 × 10⁻⁴ kg/m.</p>
+  <details><summary>Show solution</summary>
+  $$T=(0.040+0.005)(9.8)=0.441\ \text{N},\qquad v=\sqrt{\frac{T}{m}}=\sqrt{\frac{0.441}{4.2\times10^{-4}}}=32.4\ \text{m/s}$$</details></div>
+
+  <div class="prob"><p><b>N3.</b> In the transverse arrangement, the thread in N2 shows 5 loops in a length of 1.125 m. Find the frequency of the fork.</p>
+  <details><summary>Show solution</summary>
+  $$n=\frac{p}{2l}\,v=\frac{5}{2\times1.125}\times32.4=72\ \text{Hz}$$</details></div>
+
+  <div class="prob"><p><b>N4.</b> In the longitudinal arrangement a thread with m = 4.2 × 10⁻⁴ kg/m under a tension of 0.336 N shows 2 loops in 1.00 m. Find the frequency of the fork.</p>
+  <details><summary>Show solution</summary>
+  $$v=\sqrt{\frac{0.336}{4.2\times10^{-4}}}=28.3\ \text{m/s},\qquad n=\frac{p}{l}\,v=\frac{2}{1.00}\times28.3=56.6\ \text{Hz}$$
+  <p>Remember the longitudinal formula has p/l, not p/2l, because the thread vibrates at half the fork frequency.</p></details></div>
+
+  <div class="prob"><p><b>N5.</b> With a fixed length, a tension of 0.30 N gives 6 loops in the transverse arrangement. What tension gives 4 loops?</p>
+  <details><summary>Show solution</summary>
+  <p>For a fixed length and fork, T p² stays constant.</p>
+  $$T_2=T_1\frac{p_1^2}{p_2^2}=0.30\times\frac{36}{16}=0.675\ \text{N}$$</details></div>
+
+  <div class="prob"><p><b>N6.</b> A thread shows 8 loops. The load is made four times heavier (pan included) and the length is unchanged. How many loops now?</p>
+  <details><summary>Show solution</summary>
+  <p>p is proportional to 1/√T. Four times the tension means √4 = 2 times fewer loops, so <b>4 loops</b>.</p></details></div>
+
+  <div class="prob"><p><b>N7.</b> A fork of 80 Hz is used in the transverse arrangement and the thread shows 6 loops. Without changing the load or length, the fork is turned to the longitudinal arrangement. How many loops will appear?</p>
+  <details><summary>Show solution</summary>
+  <p>The thread now vibrates at 40 Hz, so each wave is twice as long and only half as many loops fit. <b>3 loops</b>. Notice that you do not need the value 80 Hz at all.</p></details></div>
+
+  <h3>B. Conceptual questions</h3>
+  <details><summary>Q1. Why does the thread form loops instead of a travelling wave?</summary><p>The wave from the fork reflects at the pulley. The going and returning waves overlap and form a standing wave. Points where they always cancel stay still (nodes), and the parts in between swing as loops.</p></details>
+  <details><summary>Q2. Why are clear loops seen only for certain loads or lengths?</summary><p>A whole number of half wavelengths must fit exactly between the two still ends. Only then does each reflected wave return in step with the new waves and build up a large, steady motion (resonance).</p></details>
+  <details><summary>Q3. Why does the thread vibrate at half the fork frequency in the longitudinal arrangement?</summary><p>The prong moves along the thread, so it can only tighten it once per fork cycle. A tight pull adds energy only when the thread is at the top or the bottom of its swing. One thread swing has one top and one bottom, so it needs two pulls, which takes two fork cycles.</p></details>
+  <details><summary>Q4. Why does the thread vibrate at the same frequency as the fork in the transverse arrangement?</summary><p>The prong moves across the thread, lifting it once and pulling it down once in every fork cycle. The thread simply follows the prong.</p></details>
+  <details><summary>Q5. What happens to the number of loops if the load is increased? Why?</summary><p>It decreases. A tighter thread carries faster waves, so each wavelength is longer and fewer loops fit in the same length.</p></details>
+  <details><summary>Q6. A thicker (heavier) thread is used with the same load. What happens to the loops?</summary><p>Waves move more slowly on a heavier thread, so wavelengths are shorter and more loops appear.</p></details>
+  <details><summary>Q7. Is the wave on the thread transverse or longitudinal in the "longitudinal arrangement"?</summary><p>It is still transverse. The thread moves up and down in both cases. The word "longitudinal" only describes the direction in which the prong moves.</p></details>
+  <details><summary>Q8. Why is the fork electrically maintained?</summary><p>An ordinary fork stops vibrating in a few seconds. The electromagnet gives it a small push in every cycle, so it keeps vibrating steadily while we adjust and observe.</p></details>
+  <details><summary>Q9. Why must the pan's mass be included and the pulley be smooth?</summary><p>The tension is the whole hanging weight, load plus pan. Friction in the pulley would hold back part of that weight and make the real tension smaller than we calculate.</p></details>
+  <details><summary>Q10. What are nodes and antinodes, and how far apart are two neighbouring nodes?</summary><p>Nodes are points that do not move and antinodes are points that move the most. Neighbouring nodes are half a wavelength apart.</p></details>
+</section>
+
 </main>
 
 <script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
@@ -577,6 +629,6 @@ ui();refresh();requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>

@@ -29,8 +29,8 @@ h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
 .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
 .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
 .frac>span:last-child{padding:0 4px}
-.sqrt{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
-span:has(+ .sqrt){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
+.eq .rad{display:inline-block;border-top:1.5px solid currentColor;padding:3px 4px 0 2px;margin-left:-2px;vertical-align:middle;line-height:1.25}
+  .eq span:has(+ .rad){font-size:2.1em;line-height:1;vertical-align:middle;font-weight:300}
 .note{font-size:14px;color:var(--muted)}
 ul.app{columns:2;margin:6px 0}
 @media(max-width:600px){ul.app{columns:1}}
@@ -92,6 +92,10 @@ summary{cursor:pointer;font-weight:600;color:var(--navy)}
 .deriv .katex{font-size:1.08em}
 footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
 footer.credit a{color:#fff}
+.probs .prob{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#fcfdff}
+.probs .prob p{margin:4px 0}
+.probs .prob details{border:0;background:#f2f5fb;margin:6px 0 2px}
+.probs details summary{font-weight:600}
 .backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
 </style>
 </head>
@@ -103,7 +107,7 @@ footer.credit a{color:#fff}
 </div></header>
 <nav><div class="wrap">
   <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Why it works</a><a href="#lab">3D virtual lab</a>
-  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graphs</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graphs</a><a href="#prec">Precautions</a><a href="#viva">Viva</a><a href="#problems">Practice problems</a>
 </div></nav>
 <main>
 
@@ -136,7 +140,7 @@ footer.credit a{color:#fff}
 
   <h3>2. Dynamic method, oscillations</h3>
   <p>Pull the load down by a small distance y below its rest position. The extra spring force is ky upward, so</p>
-  <div class="eq">M <span class="frac"><span>d²y</span><span>dt²</span></span> = − k y &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>M</span><span>k</span></span></span> &nbsp;&nbsp;(massless spring)</div>
+  <div class="eq">M <span class="frac"><span>d²y</span><span>dt²</span></span> = − k y &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T = 2π <span>√</span><span class="rad"><span class="frac"><span>M</span><span>k</span></span></span> &nbsp;&nbsp;(massless spring)</div>
   <p>The weight Mg does not appear because it is already balanced at the rest position. Gravity only shifts where the oscillation is centred.</p>
 
   <h3>3. Why the spring has an effective mass</h3>
@@ -147,7 +151,7 @@ footer.credit a{color:#fff}
       <p>A real spring of mass m<sub>s</sub> also moves. A small piece at distance s from the top of a spring of length ℓ moves with speed u = v·s/ℓ, where v is the speed of the load. Its kinetic energy added over the whole spring is</p>
       <div class="eq">KE = ∫₀<sup>ℓ</sup> ½ <span class="frac"><span>m<sub>s</sub></span><span>ℓ</span></span> ds <span>(</span><span class="frac"><span>v s</span><span>ℓ</span></span><span>)</span>² = ½ <span>(</span><span class="frac"><span>m<sub>s</sub></span><span>3</span></span><span>)</span> v²</div>
       <p>So the spring behaves as if a mass m′ ≈ m<sub>s</sub>/3 were added to the load. This is the <b>effective mass</b>.</p>
-      <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>M + m′</span><span>k</span></span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T² = <span class="frac"><span>4π²</span><span>k</span></span> M + <span class="frac"><span>4π²</span><span>k</span></span> m′</div>
+      <div class="eq">T = 2π <span>√</span><span class="rad"><span class="frac"><span>M + m′</span><span>k</span></span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T² = <span class="frac"><span>4π²</span><span>k</span></span> M + <span class="frac"><span>4π²</span><span>k</span></span> m′</div>
     </div>
   </div>
   <div class="grid2">
@@ -329,6 +333,55 @@ footer.credit a{color:#fff}
   <details><summary>If a spring is cut in half, what happens to k?</summary><p>It doubles. Each half stretches half as much under the same force.</p></details>
   <details><summary>What happens to T if the load is quadrupled?</summary><p>For a light spring T doubles, since T ∝ √M.</p></details>
 </section>
+<section id="problems" class="deriv probs">
+  <h2>Practice problems for quiz and final exam</h2>
+  <p class="note">Try each problem first, then click to check the solution. Unless stated otherwise take g = 9.8 m/s².</p>
+
+  <h3>A. Easy numerical problems</h3>
+  <div class="prob"><p><b>N1.</b> Adding 50 g to a spring stretches it by 2.45 cm. Find the spring constant.</p>
+  <details><summary>Show solution</summary>
+  $$k=\frac{F}{x}=\frac{0.050\times9.8}{0.0245}=20\ \text{N/m}$$</details></div>
+
+  <div class="prob"><p><b>N2.</b> A light spring with k = 20 N/m carries a load of 200 g. Find the period of oscillation.</p>
+  <details><summary>Show solution</summary>
+  $$T=2\pi\sqrt{\frac{M}{k}}=2\pi\sqrt{\frac{0.200}{20}}=0.628\ \text{s}$$</details></div>
+
+  <div class="prob"><p><b>N3.</b> Repeat N2 if the spring has a mass of 60 g.</p>
+  <details><summary>Show solution</summary>
+  $$m'=\frac{60}{3}=20\ \text{g},\qquad T=2\pi\sqrt{\frac{0.200+0.020}{20}}=0.659\ \text{s}$$
+  <p>The spring's own mass makes the oscillation a little slower.</p></details></div>
+
+  <div class="prob"><p><b>N4.</b> A 200 g load makes 20 oscillations in 13.2 s. The effective mass of the spring is 20 g. Find k.</p>
+  <details><summary>Show solution</summary>
+  $$T=\frac{13.2}{20}=0.66\ \text{s},\qquad k=\frac{4\pi^2(M+m')}{T^2}=\frac{39.48\times0.220}{(0.66)^2}=19.9\ \text{N/m}$$</details></div>
+
+  <div class="prob"><p><b>N5.</b> A T² against M graph has a slope of 2.0 s²/kg and cuts the T² axis at 0.036 s². Find k, the effective mass, and the expected mass of the spring.</p>
+  <details><summary>Show solution</summary>
+  $$k=\frac{4\pi^2}{\text{slope}}=\frac{39.48}{2.0}=19.7\ \text{N/m},\qquad m'=\frac{\text{intercept}}{\text{slope}}=\frac{0.036}{2.0}=0.018\ \text{kg}=18\ \text{g}$$
+  <p>Since m′ = m<sub>s</sub>/3, the spring's mass should be about 3 × 18 = 54 g.</p></details></div>
+
+  <div class="prob"><p><b>N6.</b> Two identical springs each with k = 20 N/m are joined (a) end to end, (b) side by side. Find the combined k and the period with a 200 g load (ignore spring mass).</p>
+  <details><summary>Show solution</summary>
+  $$\text{(a) series: } k=\frac{20}{2}=10\ \text{N/m},\quad T=2\pi\sqrt{\frac{0.2}{10}}=0.889\ \text{s}$$
+  $$\text{(b) parallel: } k=20+20=40\ \text{N/m},\quad T=2\pi\sqrt{\frac{0.2}{40}}=0.444\ \text{s}$$</details></div>
+
+  <div class="prob"><p><b>N7.</b> How much energy is stored in a spring of k = 20 N/m stretched by 5 cm?</p>
+  <details><summary>Show solution</summary>
+  $$U=\tfrac12kx^2=\tfrac12\times20\times(0.05)^2=0.025\ \text{J}$$</details></div>
+
+  <h3>B. Conceptual questions</h3>
+  <details><summary>Q1. What is the spring constant? What are its units?</summary><p>It is the force needed to stretch the spring by one metre, a measure of stiffness. Its unit is N/m.</p></details>
+  <details><summary>Q2. Why do we take the reading with the hanger alone as zero?</summary><p>The hanger and the spring's own weight already stretch the spring. We only want the extra stretch caused by each extra load.</p></details>
+  <details><summary>Q3. What does it mean if loading and unloading readings do not match?</summary><p>The spring may have been stretched beyond its elastic limit and become permanently longer, so Hooke's law no longer holds.</p></details>
+  <details><summary>Q4. Does the period depend on the amplitude? On g?</summary><p>On neither. For small pulls the period depends only on the mass and k. Gravity only changes where the load rests.</p></details>
+  <details><summary>Q5. Would a spring bounce faster, slower or the same on the Moon?</summary><p>The same. It would hang a little higher because the weight is smaller, but the period does not depend on g.</p></details>
+  <details><summary>Q6. Why does only one third of the spring's mass count?</summary><p>The top of the spring is still and the bottom moves with the load. The coils in between move at in-between speeds. Averaging the moving energy along the spring gives the same energy as one third of its mass moving with the load.</p></details>
+  <details><summary>Q7. Why do we plot T² against M rather than T against M?</summary><p>T² is proportional to M + m′, which gives a straight line. Its slope gives k and its intercept gives the effective mass.</p></details>
+  <details><summary>Q8. Why does the T² against M line cut the M axis at a negative value?</summary><p>T² would be zero only if M + m′ were zero, that is M = −m′. The spring's own effective mass is always present, so this point lies behind the origin.</p></details>
+  <details><summary>Q9. A spring is cut into two equal halves. What happens to k and to the period with the same load?</summary><p>Each half stretches half as much under the same force, so k doubles. The period becomes 1/√2 times, about 0.71 of the original.</p></details>
+  <details><summary>Q10. Why should the load move straight up and down?</summary><p>Sideways swinging adds a pendulum motion with a different period, which spoils the timing.</p></details>
+</section>
+
 </main>
 
 <script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
@@ -572,6 +625,6 @@ refresh();requestAnimationFrame(loop);
 </script>
 <footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
 <script defer src="assets/katex/katex.min.js"></script>
-<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="['derivations','problems'].forEach(id=>{const el=document.getElementById(id);if(el)renderMathInElement(el,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})})"></script>
 </body>
 </html>
