@@ -197,7 +197,7 @@
   var cells = [['platelets', 1.5, 0xf2c94c], ['red cells', 3.5, 0xc62828], ['white cells', 6, 0xe6e6e6]];
   function stir(S) { S.st.c = []; for (var i = 0; i < 45; i++) { var t = i % 3; S.st.c.push({ t: t, x: (Math.random() - 0.5) * 1.6, z: (Math.random() - 0.5) * 1.6, y: 3.6 - Math.random() * 2.5 }); } }
   Sim.make('sim-sediment3d', {
-    webgl: true, aspect: 0.6, maxH: 480, animate: true, camera: { th: 0.4, ph: 1.4, r: 19 },
+    webgl: true, aspect: 0.6, maxH: 480, animate: true, camera: { th: 0.4, ph: 1.4, r: 16 },
     controls: [{ k: 'eta', label: 'Plasma viscosity (&times; normal)', min: 1, max: 3, step: 0.1, v: 1 }],
     buttons: [{ label: 'Stir the tube', click: stir }],
     reads: [{ k: 'p', label: 'Platelets (r = 1.5 &micro;m)' }, { k: 'r', label: 'Red cells (r = 3.5 &micro;m)', big: true }, { k: 'w', label: 'White cells (r = 6 &micro;m)' }],
@@ -534,7 +534,7 @@
       for (var i = 0; i < 7; i++) for (var j = 0; j < 4; j++) for (var k = 0; k < 5; k++) { m4.makeTranslation(-3 + i, -j, -2 + k); st.atoms.setMatrixAt(n++, m4); }
       st.inB = add(S, cyl(0.08, 0x7c3aed)); st.outB = add(S, new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1, 12), new THREE.MeshPhongMaterial({ color: 0xffb300, transparent: true })));
       st.det = add(S, T.sphere(0.45, 0xffb300, { opacity: 1 }));
-      T.label(S.scene, 'X-rays in (λ = 0.154 nm)', '#7c3aed', 1.3).position.set(-3.2, 3.9, 0);
+      T.label(S.scene, 'X-rays in', '#7c3aed', 1.1).position.set(-3.2, 3.9, 0);
       T.label(S.scene, 'detector', '#56655b', 0.9).position.set(5, 4.2, 0);
       st.m4 = m4;
     },
