@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Refractive Index of a Liquid by Plane Mirror and Pin Method</title>
+<style>
+  :root{
+    --navy:#1b2a4a; --navy2:#2d4373; --ink:#1d2330; --muted:#5b6475;
+    --bg:#f6f7fb; --card:#ffffff; --line:#dde2ec;
+    --ray1:#c62f4b; --ray2:#1f8a8a; --liquid:#7cc3ec; --good:#1f7a4d; --warn:#a33a2a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{background:var(--navy);color:#fff;padding:34px 20px 28px}
+  header .wrap{max-width:1080px;margin:auto}
+  header h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(24px,3.4vw,36px);margin:0 0 6px;line-height:1.2}
+  header p{margin:0;opacity:.85}
+  nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+  nav .wrap{max-width:1080px;margin:auto;display:flex;gap:4px;overflow-x:auto;padding:6px 14px}
+  nav a{color:var(--navy);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;white-space:nowrap}
+  nav a:hover{background:#eef1f8}
+  main{max-width:1080px;margin:auto;padding:10px 16px 60px}
+  section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:22px 0}
+  h2{font-family:Georgia,serif;color:var(--navy);margin:0 0 12px;font-size:24px}
+  h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .eq{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 16px;margin:12px 0;font-family:"Cambria Math",Cambria,Georgia,serif;font-size:19px;overflow-x:auto;white-space:nowrap}
+  .eq small{font-family:system-ui,sans-serif;font-size:13px;color:var(--muted);margin-left:12px}
+  .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
+  .frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
+  .frac>span:last-child{padding:0 4px}
+  .note{font-size:14px;color:var(--muted)}
+  ul.app{columns:2;margin:6px 0}
+  @media(max-width:600px){ul.app{columns:1}}
+  figure{margin:8px 0}
+  figcaption{font-size:13.5px;color:var(--muted);text-align:center;margin-top:4px}
+  svg{max-width:100%;height:auto;display:block;margin:auto}
+
+  /* simulator */
+  .simwrap{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px}
+  @media(max-width:900px){.simwrap{grid-template-columns:1fr}}
+  canvas{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fbfcfe;touch-action:none}
+  .panel{display:flex;flex-direction:column;gap:12px}
+  .ctrl{background:#f5f7fb;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .ctrl label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+  .ctrl input[type=range]{width:100%}
+  .ctrl select{width:100%;padding:5px;border-radius:6px;border:1px solid var(--line);font-size:14px}
+  .val{float:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .btn{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-size:14px;cursor:pointer}
+  .btn:hover{background:var(--navy2)}
+  .btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .read{font-size:14px;font-variant-numeric:tabular-nums}
+  .read td{padding:2px 6px}
+  .read td:first-child{color:var(--muted)}
+  .status{padding:9px 12px;border-radius:8px;font-size:14px;font-weight:600}
+  .status.ok{background:#e4f4ea;color:var(--good)}
+  .status.bad{background:#fbe9e6;color:var(--warn)}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:6px}
+  .legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:5px}
+
+  /* steps */
+  .steps{counter-reset:s;display:grid;gap:12px}
+  .step{display:grid;grid-template-columns:44px 1fr;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fcfdff}
+  .step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .step h4{margin:2px 0 4px;color:var(--navy);font-size:16px}
+  .step p{margin:0 0 6px}
+  .step .btn{font-size:13px;padding:5px 10px}
+
+  /* tables */
+  table.obs{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+  table.obs th,table.obs td{border:1px solid var(--line);padding:5px 6px;text-align:center}
+  table.obs th{background:#eef1f8;color:var(--navy)}
+  table.obs input{width:72px;padding:3px;border:1px solid #c9d0de;border-radius:5px;text-align:center;font-size:14px}
+  .result{font-size:17px;background:#eef1f8;border-radius:10px;padding:12px 16px;margin-top:10px}
+  .result b{color:var(--navy)}
+  ol li,ul li{margin:3px 0}
+  details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;background:#fcfdff}
+  summary{cursor:pointer;font-weight:600;color:var(--navy)}
+</style>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<style>
+.deriv h3{border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:28px}
+.deriv p{margin:8px 0}
+.deriv .katex-display{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 14px;margin:12px 0;overflow-x:auto;overflow-y:hidden;border-radius:0 6px 6px 0}
+.deriv .katex{font-size:1.08em}
+footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
+footer.credit a{color:#fff}
+.backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="backlink" href="index.html">&larr; PHY 2106 experiments</a>
+  <h1>Refractive Index of a Liquid<br>by the Plane Mirror and Pin Method using a Convex Lens</h1>
+  <p>Theory, illustrations, a live ray simulator, step by step procedure and a data calculator</p>
+</div></header>
+
+<nav><div class="wrap">
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#sim">Simulator</a>
+  <a href="#steps">Procedure</a><a href="#spher">Spherometer</a><a href="#calc">Observations</a>
+  <a href="#prec">Precautions</a><a href="#viva">Viva</a>
+</div></nav>
+
+<main>
+
+<section id="aim">
+  <h2>Aim and apparatus</h2>
+  <p><b>Aim.</b> To find the refractive index μ of a given transparent liquid (for example water) using a convex lens, a plane mirror and a pin.</p>
+  <ul class="app">
+    <li>Convex lens (focal length about 15 to 25 cm)</li>
+    <li>Plane mirror (a polished, flat mirror strip)</li>
+    <li>Optical needle (pin)</li>
+    <li>Clamp stand with a horizontal arm</li>
+    <li>Plumb line and a metre scale</li>
+    <li>Spherometer and a flat glass plate</li>
+    <li>The given liquid and a dropper</li>
+    <li>Soft cloth for cleaning</li>
+  </ul>
+</section>
+
+<section id="theory">
+  <h2>Theory</h2>
+
+  <h3>1. Why the pin and its image coincide at the focus</h3>
+  <div class="grid2">
+    <div>
+      <p>The convex lens rests on a horizontal plane mirror. A pin is held horizontally above the lens with its tip on the principal axis (the vertical line through the optical centre).</p>
+      <p>If the pin tip is exactly at the <b>principal focus</b> of the lens, every ray from the tip leaves the lens <b>parallel to the axis</b>. Parallel vertical rays strike the horizontal mirror <b>normally</b> (at 90°), so they are reflected straight back along the same path. Passing through the lens again they converge back to the very point they started from.</p>
+      <p>So the image of the pin is formed <b>at the pin itself</b>. It is real, inverted and the same size. Looking down from above you see the pin tip and the image tip touching. When you move your eye sideways they do not separate. This condition is called <b>no parallax</b>.</p>
+      <p>The distance from the pin to the lens at that position is the focal length.</p>
+    </div>
+    <figure>
+      <svg viewBox="0 0 380 330" aria-label="rays retrace at focus">
+        <defs>
+          <marker id="ad" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#c62f4b"/></marker>
+          <marker id="au" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#1f8a8a"/></marker>
+        </defs>
+        <line x1="190" y1="20" x2="190" y2="290" stroke="#aab" stroke-dasharray="4 4"/>
+        <!-- pin -->
+        <line x1="120" y1="50" x2="190" y2="50" stroke="#222" stroke-width="3"/>
+        <circle cx="120" cy="50" r="6" fill="#1b2a4a"/>
+        <text x="200" y="45" font-size="13" fill="#1b2a4a">Pin tip at F</text>
+        <!-- rays down -->
+        <g stroke="#c62f4b" stroke-width="1.8" fill="none">
+          <line x1="190" y1="50" x2="110" y2="262" marker-mid="url(#ad)"/>
+          <line x1="190" y1="50" x2="150" y2="262"/>
+          <line x1="190" y1="50" x2="230" y2="262"/>
+          <line x1="190" y1="50" x2="270" y2="262"/>
+          <path d="M190,50 L150,156" marker-end="url(#ad)"/><path d="M190,50 L230,156" marker-end="url(#ad)"/>
+        </g>
+        <!-- parallel below lens -->
+        <g stroke="#c62f4b" stroke-width="1.8">
+          <line x1="110" y1="262" x2="110" y2="286"/><line x1="150" y1="262" x2="150" y2="286"/>
+          <line x1="230" y1="262" x2="230" y2="286"/><line x1="270" y1="262" x2="270" y2="286"/>
+        </g>
+        <g stroke="#1f8a8a" stroke-width="1.4" stroke-dasharray="5 4">
+          <line x1="114" y1="286" x2="114" y2="262"/><line x1="274" y1="286" x2="274" y2="262"/>
+        </g>
+        <!-- lens -->
+        <path d="M95,268 Q190,236 285,268 Q190,292 95,268Z" fill="#cfe3f5" stroke="#1b2a4a" stroke-width="1.5" opacity=".9"/>
+        <rect x="60" y="288" width="260" height="10" fill="#c9ced8" stroke="#555"/>
+        <text x="300" y="268" font-size="13" fill="#1b2a4a">lens</text>
+        <text x="235" y="318" font-size="13" fill="#1b2a4a">plane mirror</text>
+        <text x="20" y="200" font-size="12" fill="#c62f4b">rays go down</text>
+        <text x="20" y="216" font-size="12" fill="#1f8a8a">and retrace</text>
+        <text x="20" y="232" font-size="12" fill="#1f8a8a">their path</text>
+        <text x="200" y="180" font-size="13" fill="#555">f</text>
+        <line x1="330" y1="50" x2="330" y2="270" stroke="#555" marker-start="url(#au)" marker-end="url(#au)"/>
+        <text x="338" y="165" font-size="14" fill="#1b2a4a" font-style="italic">f</text>
+      </svg>
+      <figcaption>At the focus, rays become parallel, hit the mirror normally and come back on themselves.</figcaption>
+    </figure>
+  </div>
+
+  <h3>2. The liquid forms a plano-concave lens</h3>
+  <div class="grid2">
+    <figure>
+      <svg viewBox="0 0 380 210" aria-label="liquid lens">
+        <path d="M70,135 Q190,175 310,135 L330,150 L50,150Z" fill="#7cc3ec" opacity=".8"/>
+        <path d="M70,135 Q190,70 310,135 Q190,175 70,135Z" fill="#dbe9f6" stroke="#1b2a4a" stroke-width="1.6"/>
+        <rect x="30" y="150" width="320" height="12" fill="#c9ced8" stroke="#555"/>
+        <line x1="190" y1="30" x2="190" y2="150" stroke="#aab" stroke-dasharray="4 4"/>
+        <text x="200" y="104" font-size="13" fill="#1b2a4a">glass convex lens, f₁</text>
+        <line x1="268" y1="148" x2="300" y2="185" stroke="#1b2a4a"/>
+        <text x="225" y="200" font-size="13" fill="#1b2a4a">liquid plano-concave lens, f₂</text>
+        <text x="40" y="180" font-size="12" fill="#555">plane mirror</text>
+        <text x="40" y="128" font-size="12" fill="#1b2a4a">radius R</text>
+        <line x1="95" y1="130" x2="125" y2="150" stroke="#1b2a4a"/>
+      </svg>
+      <figcaption>The liquid trapped below the lens is flat at the bottom (mirror) and curved at the top (lens surface).</figcaption>
+    </figure>
+    <div>
+      <p>A few drops of liquid are put on the mirror and the lens is placed over them. The liquid spreads into the gap. Its lower face is flat (it touches the mirror) and its upper face takes the shape of the lens surface, which is curved inward into the liquid.</p>
+      <p>That thin layer is therefore a <b>plano-concave liquid lens</b>. It is diverging, so it has a negative focal length f₂.</p>
+      <p>The glass lens and the liquid lens are in contact, so they act as one combination of focal length F. Because a diverging lens is added, F is <b>longer</b> than f₁. You will find the no-parallax position higher up.</p>
+    </div>
+  </div>
+
+  <h3>3. Equations used</h3>
+  <p>Two lenses in contact</p>
+  <div class="eq"><span class="frac"><span>1</span><span>F</span></span> = <span class="frac"><span>1</span><span>f₁</span></span> + <span class="frac"><span>1</span><span>f₂</span></span>
+    &nbsp;&nbsp;⟹&nbsp;&nbsp; |f₂| = <span class="frac"><span>f₁ F</span><span>F − f₁</span></span></div>
+  <p>Lens maker's formula for the liquid lens with surfaces of radius R and ∞</p>
+  <div class="eq"><span class="frac"><span>1</span><span>|f₂|</span></span> = (μ − 1)<span class="frac"><span>1</span><span>R</span></span>
+    &nbsp;&nbsp;⟹&nbsp;&nbsp; <b>μ = 1 + <span class="frac"><span>R</span><span>|f₂|</span></span></b></div>
+  <p>Radius of curvature from the spherometer (l is the mean distance between the legs, h is the sagitta)</p>
+  <div class="eq">R = <span class="frac"><span>l²</span><span>6h</span></span> + <span class="frac"><span>h</span><span>2</span></span></div>
+  <p>Each focal length is the mean of two distances measured from the pin tip, x₁ to the top of the lens and x₂ to the mirror. This gives the distance to the middle of the lens.</p>
+  <div class="eq">f = <span class="frac"><span>x₁ + x₂</span><span>2</span></span></div>
+  <p class="note">Here R is the radius of the lens surface that touches the liquid (the lower face).</p>
+</section>
+
+<section id="derivations" class="deriv">
+  <h2>Detailed theory and derivations</h2>
+  <p class="note">Sign convention used throughout is the Cartesian convention. Distances are measured from the optical centre (or the pole), positive in the direction in which light travels and negative against it. Heights above the axis are positive. All angles are small (paraxial rays), so sin θ ≈ tan θ ≈ θ.</p>
+
+  <h3>D1. Refraction at a single spherical surface</h3>
+  <p>A ray from a point object O on the axis meets a spherical surface of radius R at a point P, a height h above the axis. The surface separates media of refractive index n₁ (incident side) and n₂. The refracted ray crosses the axis at the image I. Let the ray make angles α with the axis at O, β with the axis at I, and let the normal CP make angle γ with the axis.</p>
+  <p>Snell's law at P for small angles gives</p>
+  $$n_1 \sin i = n_2 \sin r \quad\Longrightarrow\quad n_1\, i \approx n_2\, r .$$
+  <p>From the triangles OPC and IPC, using the exterior angle theorem,</p>
+  $$i = \alpha + \gamma, \qquad r = \gamma - \beta .$$
+  <p>For small angles each angle equals the height h divided by the corresponding distance,</p>
+  $$\alpha \approx \frac{h}{-u}, \qquad \beta \approx \frac{h}{v}, \qquad \gamma \approx \frac{h}{R}.$$
+  <p>Substituting into n₁ i = n₂ r and cancelling h,</p>
+  $$n_1\left(\frac{1}{-u}+\frac{1}{R}\right) = n_2\left(\frac{1}{R}-\frac{1}{v}\right)
+  \quad\Longrightarrow\quad \boxed{\;\frac{n_2}{v}-\frac{n_1}{u}=\frac{n_2-n_1}{R}\;}$$
+
+  <h3>D2. Lens maker's formula</h3>
+  <p>A thin lens of index μ in air (index 1) has two surfaces of radii R₁ and R₂. Apply D1 twice. At the first surface (air to glass) the image of O is formed at v′</p>
+  $$\frac{\mu}{v'}-\frac{1}{u}=\frac{\mu-1}{R_1}.$$
+  <p>This image is the object for the second surface (glass to air). For a thin lens the thickness is negligible, so the object distance is the same v′</p>
+  $$\frac{1}{v}-\frac{\mu}{v'}=\frac{1-\mu}{R_2}.$$
+  <p>Adding the two equations removes v′</p>
+  $$\frac{1}{v}-\frac{1}{u}=(\mu-1)\left(\frac{1}{R_1}-\frac{1}{R_2}\right).$$
+  <p>For an object at infinity (u → −∞) the image is at the focus, v = f, which gives the lens maker's formula and the lens formula</p>
+  $$\boxed{\;\frac{1}{f}=(\mu-1)\left(\frac{1}{R_1}-\frac{1}{R_2}\right)\;},\qquad \boxed{\;\frac{1}{v}-\frac{1}{u}=\frac{1}{f}\;}$$
+
+  <h3>D3. The glass lens and the liquid lens</h3>
+  <p><b>Glass lens.</b> For an equiconvex lens of index μ<sub>g</sub>, the first surface has its centre on the far side (R₁ = +R) and the second has its centre on the near side (R₂ = −R)</p>
+  $$\frac{1}{f_1}=(\mu_g-1)\left(\frac{1}{R}+\frac{1}{R}\right)=\frac{2(\mu_g-1)}{R}.$$
+  <p>For μ<sub>g</sub> = 1.5 this gives f₁ = R, which is why a common equiconvex lens has a focal length close to its radius.</p>
+  <p><b>Liquid lens.</b> The liquid fills the space between the lower face of the glass lens and the mirror. Light going downward first meets the curved face of the liquid. That face bulges into the liquid, so its centre of curvature lies on the incoming side, R₁ = −R. The lower face lies on the flat mirror, R₂ = ∞. With liquid index μ</p>
+  $$\frac{1}{f_2}=(\mu-1)\left(\frac{1}{-R}-\frac{1}{\infty}\right)=-\frac{\mu-1}{R}
+  \quad\Longrightarrow\quad f_2=-\frac{R}{\mu-1}.$$
+  <p>f₂ is negative, so the liquid layer is a diverging (plano-concave) lens, as expected.</p>
+
+  <h3>D4. Two thin lenses in contact</h3>
+  <p>Let the first lens form an image at v₁ of an object at u. That image is the object for the second lens, which is in contact, and forms the final image at v</p>
+  $$\frac{1}{v_1}-\frac{1}{u}=\frac{1}{f_1},\qquad \frac{1}{v}-\frac{1}{v_1}=\frac{1}{f_2}.$$
+  <p>Adding removes v₁, so the pair acts as one lens of focal length F with</p>
+  $$\frac{1}{v}-\frac{1}{u}=\frac{1}{f_1}+\frac{1}{f_2}\equiv\frac{1}{F}
+  \qquad\Longrightarrow\qquad \boxed{\;\frac{1}{F}=\frac{1}{f_1}+\frac{1}{f_2}\;}$$
+  <p>In terms of power P = 1/f, the powers simply add, P = P₁ + P₂. Since P₂ &lt; 0, the combination is weaker than the glass lens alone, and F &gt; f₁.</p>
+
+  <h3>D5. Why the pin and image coincide only at the focus</h3>
+  <p>Light from the pin passes through the lens, reflects at the plane mirror and passes through the lens again. A plane mirror only reverses the direction of travel, so the system "lens + mirror + lens" has power</p>
+  $$P_{\text{sys}}=P+P=\frac{2}{F}.$$
+  <p>The system therefore behaves like a concave mirror of focal length F/2. Using the mirror formula with object and image both measured upward from the lens (real distances positive)</p>
+  $$\frac{1}{v}+\frac{1}{u}=\frac{2}{F}.$$
+  <p>The image falls on the pin when v = u. Then 2/u = 2/F, so</p>
+  $$\boxed{\;u=v=F\;},\qquad m=-\frac{v}{u}=-1 .$$
+  <p>The image is real, inverted and the same size, exactly what is seen tip to tip. If the pin is higher than F, then v &lt; u and the image lies below the pin. If it is lower than F (but above F/2), then v &gt; u and the image is above the pin. Only at u = F is there no parallax. The simulator above uses exactly this ray algebra.</p>
+
+  <h3>D6. Parallax rule</h3>
+  <p>Let the eye be at height E above the mirror and move sideways by a small distance e. A point at height y on the axis then appears at an angular position</p>
+  $$\phi(y)\approx\frac{-e}{E-y}.$$
+  <p>Two points at different heights y₁ &lt; y₂ appear to separate by</p>
+  $$\Delta\phi=\phi(y_2)-\phi(y_1)=-e\left(\frac{1}{E-y_2}-\frac{1}{E-y_1}\right)\neq 0 \quad\text{unless}\quad y_1=y_2 .$$
+  <p>The nearer point (larger y) shifts more against the eye, so the farther point appears to move <b>with</b> the eye. Parallax vanishes only when the pin and image are at the same height, which is the test used in the experiment.</p>
+
+  <h3>D7. Spherometer formula</h3>
+  <p>The three legs of a spherometer form an equilateral triangle of side l. They sit on a circle of radius r through the three legs, where</p>
+  $$r=\frac{l}{\sqrt3}.$$
+  <p>The central screw rises by h above the plane of the legs when placed on a sphere of radius R. In the vertical section through the centre, the chord of half length r and the sagitta h satisfy the intersecting chords theorem</p>
+  $$r\cdot r = h\,(2R-h) \quad\Longrightarrow\quad R=\frac{r^2}{2h}+\frac{h}{2}=\boxed{\;\frac{l^2}{6h}+\frac{h}{2}\;}$$
+  <p>Here h is the difference between the reading on the lens and the reading on a flat glass plate.</p>
+
+  <h3>D8. Final working formula</h3>
+  <p>From D4, the focal length of the liquid lens is</p>
+  $$\frac{1}{f_2}=\frac{1}{F}-\frac{1}{f_1}=\frac{f_1-F}{f_1F}\quad\Longrightarrow\quad |f_2|=\frac{f_1F}{F-f_1}.$$
+  <p>From D3, |f₂| = R/(μ − 1), so</p>
+  $$\boxed{\;\mu=1+\frac{R}{|f_2|}=1+R\,\frac{F-f_1}{f_1F}\;}$$
+  <p><b>Why (x₁ + x₂)/2.</b> The pin height is measured to the top of the lens (x₁) and to the mirror (x₂). The thin lens formula refers to the optical centre, which lies close to the middle of the lens, so the mean of the two is the correct distance.</p>
+
+  <h3>D9. Worked example</h3>
+  <p>Typical readings for water are f₁ = 20.07 cm, F = 30.08 cm, l = 3.00 cm and h = 0.076 cm.</p>
+  $$R=\frac{(3.00)^2}{6(0.076)}+\frac{0.076}{2}=19.74+0.04=19.78\ \text{cm}$$
+  $$|f_2|=\frac{(20.07)(30.08)}{30.08-20.07}=60.31\ \text{cm},\qquad \mu=1+\frac{19.78}{60.31}=1.328$$
+  <p>This is close to the accepted value 1.333 for water.</p>
+
+  <h3>D10. Error estimate</h3>
+  <p>Write μ − 1 = R(1/f₁ − 1/F). Taking logarithms and differentiating gives the maximum fractional error</p>
+  $$\frac{\delta(\mu-1)}{\mu-1}=\frac{\delta R}{R}+\frac{\dfrac{\delta f_1}{f_1^2}+\dfrac{\delta F}{F^2}}{\dfrac{1}{f_1}-\dfrac{1}{F}},
+  \qquad \frac{\delta R}{R}\approx\frac{2\,\delta l}{l}+\frac{\delta h}{h}.$$
+  <p>Since h is very small (under 1 mm), the δh/h term usually dominates. A spherometer with a good least count, and averaging several readings of h, matter most for accuracy.</p>
+</section>
+
+
+<section id="sim">
+  <h2>Live ray simulator</h2>
+  <p>Drag the pin up or down (or use the slider). Watch the returning rays and the image. When the image lands exactly on the pin, the rays retrace themselves and parallax disappears. Add liquid and see the no-parallax point move up.</p>
+  <div class="simwrap">
+    <div>
+      <canvas id="cv" width="760" height="620"></canvas>
+      <div class="legend">
+        <span><i style="background:var(--ray1)"></i>rays from pin tip</span>
+        <span><i style="background:var(--ray2)"></i>rays from pin head</span>
+        <span><i style="background:#8a93a6;height:2px"></i>virtual extension (dashed)</span>
+        <span>Horizontal scale is stretched so the rays are easy to see.</span>
+      </div>
+      <h3 style="margin-top:16px">What your eye sees from above</h3>
+      <canvas id="ev" width="760" height="150"></canvas>
+      <p class="note">The pin (dark) and its inverted image (red) as seen looking down. Move your eye left and right. If the tips separate there is parallax. The one that follows your eye is farther from you.</p>
+    </div>
+    <div class="panel">
+      <div class="ctrl">
+        <label>Pin height above mirror <span class="val" id="Hv"></span></label>
+        <input type="range" id="H" min="3" max="60" step="0.05">
+      </div>
+      <div class="ctrl">
+        <label>Between lens and mirror</label>
+        <select id="liq">
+          <option value="none">Nothing (air), lens alone</option>
+          <option value="1.333">Water, μ = 1.333</option>
+          <option value="1.39">Kerosene, μ = 1.39</option>
+          <option value="1.47">Turpentine, μ = 1.47</option>
+          <option value="1.473">Glycerine, μ = 1.473</option>
+          <option value="custom">Custom liquid</option>
+        </select>
+        <div id="custWrap" style="display:none;margin-top:8px">
+          <label>Custom μ <span class="val" id="muv"></span></label>
+          <input type="range" id="mu" min="1.30" max="1.60" step="0.005" value="1.40">
+        </div>
+      </div>
+      <div class="ctrl">
+        <label>Lens surface radius R <span class="val" id="Rv"></span></label>
+        <input type="range" id="R" min="12" max="24" step="0.5" value="20">
+        <span class="note">Equiconvex glass lens, μ<sub>glass</sub> = 1.5</span>
+      </div>
+      <div class="ctrl">
+        <label>Eye position (sideways) <span class="val" id="ev_v"></span></label>
+        <input type="range" id="eye" min="-3" max="3" step="0.05" value="0">
+        <label style="font-weight:400;margin-top:4px"><input type="checkbox" id="wig" checked> sway eye automatically</label>
+        <label style="font-weight:400"><input type="checkbox" id="head" checked> show rays from pin head</label>
+      </div>
+      <div class="row">
+        <button class="btn" id="find">Find no-parallax position</button>
+        <button class="btn ghost" id="reset">Reset</button>
+      </div>
+      <div class="status" id="status"></div>
+      <div class="ctrl">
+        <table class="read">
+          <tr><td>x₁ (pin to lens top)</td><td id="x1"></td></tr>
+          <tr><td>x₂ (pin to mirror)</td><td id="x2"></td></tr>
+          <tr><td>(x₁ + x₂)/2</td><td id="xm"></td></tr>
+          <tr><td>Image height</td><td id="yi"></td></tr>
+          <tr><td>Magnification</td><td id="mag"></td></tr>
+          <tr><td colspan="2" style="border-top:1px solid var(--line)"></td></tr>
+          <tr><td>Theory f₁ (glass)</td><td id="tf1"></td></tr>
+          <tr><td>Theory F (combo)</td><td id="tF"></td></tr>
+          <tr><td>Theory f₂ (liquid)</td><td id="tf2"></td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Procedure, step by step</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div>
+      <h4>Rough focal length</h4>
+      <p>Hold the lens in front of a wall and focus the image of a distant window or tree on it. The lens to wall distance is a rough value of f₁. This tells you roughly where to put the pin.</p></div></div>
+
+    <div class="step"><div class="n">2</div><div>
+      <h4>Set up the mirror and lens</h4>
+      <p>Clean and dry the mirror and the lens. Put the mirror on a horizontal table and place the lens on it. Fix the pin horizontally in the clamp so that its tip lies vertically above the optical centre of the lens (check with a plumb line).</p>
+      <button class="btn" data-go="setup">Show in simulator</button></div></div>
+
+    <div class="step"><div class="n">3</div><div>
+      <h4>Look for the inverted image</h4>
+      <p>Look vertically down from about 30 cm above the pin. You see the pin and, through the lens, an inverted image of it. Usually the two tips are not together and they slide apart when you move your eye.</p>
+      <button class="btn" data-go="above">Show in simulator</button></div></div>
+
+    <div class="step"><div class="n">4</div><div>
+      <h4>Remove parallax (lens alone)</h4>
+      <p>Move the pin up or down until the tips touch and stay together however you move your eye. If the image follows your eye, it is farther than the pin, so lower the pin. If the pin follows your eye, raise the pin.</p>
+      <button class="btn" data-go="f1">Show in simulator</button></div></div>
+
+    <div class="step"><div class="n">5</div><div>
+      <h4>Measure f₁</h4>
+      <p>With the plumb line and metre scale measure x₁ (pin tip to top of lens) and x₂ (pin tip to mirror). Then f₁ = (x₁ + x₂)/2. Disturb the pin, find the position again and repeat for at least three readings.</p></div></div>
+
+    <div class="step"><div class="n">6</div><div>
+      <h4>Introduce the liquid</h4>
+      <p>Lift the lens, put a few drops of liquid on the mirror and replace the lens gently. Avoid air bubbles. The liquid now forms a plano-concave lens. With the pin left where it was, you will see parallax again because the focal length has changed.</p>
+      <button class="btn" data-go="liquid">Show in simulator</button></div></div>
+
+    <div class="step"><div class="n">7</div><div>
+      <h4>Remove parallax again and measure F</h4>
+      <p>Raise the pin until parallax disappears once more. Measure x₁ and x₂ again and find F = (x₁ + x₂)/2. Take three readings.</p>
+      <button class="btn" data-go="F">Show in simulator</button></div></div>
+
+    <div class="step"><div class="n">8</div><div>
+      <h4>Measure R with the spherometer</h4>
+      <p>Remove the lens, wipe off the liquid. Find the spherometer reading on a flat glass plate and then on the lens surface that touched the liquid. The difference is h. Press the spherometer on paper to get the three leg marks and measure the mean leg distance l. Calculate R.</p>
+      <button class="btn ghost" data-go="spher">Go to spherometer</button></div></div>
+
+    <div class="step"><div class="n">9</div><div>
+      <h4>Calculate μ</h4>
+      <p>Find |f₂| = f₁F/(F − f₁) and then μ = 1 + R/|f₂|. Use the calculator below with your own readings.</p>
+      <button class="btn ghost" data-go="calc">Go to calculator</button></div></div>
+  </div>
+</section>
+
+<section id="spher">
+  <h2>Spherometer, finding R</h2>
+  <div class="grid2">
+    <figure>
+      <svg viewBox="0 0 400 260" aria-label="spherometer">
+        <path d="M30,200 Q200,150 370,200" fill="none" stroke="#1b2a4a" stroke-width="2"/>
+        <path d="M30,200 Q200,150 370,200 L370,215 L30,215Z" fill="#dbe9f6" opacity=".7"/>
+        <!-- spherometer body -->
+        <rect x="80" y="70" width="240" height="12" rx="3" fill="#888"/>
+        <line x1="100" y1="82" x2="100" y2="186" stroke="#333" stroke-width="3"/>
+        <line x1="300" y1="82" x2="300" y2="186" stroke="#333" stroke-width="3"/>
+        <line x1="200" y1="40" x2="200" y2="175" stroke="#1b2a4a" stroke-width="4"/>
+        <ellipse cx="200" cy="40" rx="55" ry="8" fill="#b9c0cc" stroke="#555"/>
+        <line x1="100" y1="186" x2="300" y2="186" stroke="#c62f4b" stroke-dasharray="4 3"/>
+        <line x1="335" y1="175" x2="335" y2="186" stroke="#c62f4b"/>
+        <line x1="210" y1="175.5" x2="340" y2="175.5" stroke="#c62f4b" stroke-width=".8"/>
+        <text x="342" y="185" font-size="14" fill="#c62f4b" font-style="italic">h</text>
+        <text x="20" y="245" font-size="13" fill="#1b2a4a">lens surface (radius R)</text>
+        <text x="215" y="60" font-size="12" fill="#333">central screw</text>
+        <text x="60" y="140" font-size="12" fill="#333">fixed legs</text>
+      </svg>
+      <figcaption>h is how much the central screw rises above the plane of the three legs.</figcaption>
+    </figure>
+    <div>
+      <figure>
+        <svg viewBox="0 0 220 170" aria-label="leg triangle">
+          <polygon points="110,20 30,150 190,150" fill="none" stroke="#1b2a4a" stroke-width="1.6"/>
+          <circle cx="110" cy="20" r="5" fill="#1b2a4a"/><circle cx="30" cy="150" r="5" fill="#1b2a4a"/><circle cx="190" cy="150" r="5" fill="#1b2a4a"/>
+          <circle cx="110" cy="107" r="4" fill="#c62f4b"/>
+          <text x="98" y="166" font-size="13" font-style="italic">l</text><text x="50" y="80" font-size="13" font-style="italic">l</text><text x="160" y="80" font-size="13" font-style="italic">l</text>
+        </svg>
+        <figcaption>Leg marks on paper. l is the mean side of the triangle.</figcaption>
+      </figure>
+      <p>Geometry of a sphere gives R = l²/6h + h/2. Since h is usually below 1 mm the second term is tiny.</p>
+      <div class="ctrl">
+        <label>Try it, mean leg distance l <span class="val" id="slv"></span></label>
+        <input type="range" id="sl" min="2" max="5" step="0.05" value="3">
+        <label style="margin-top:6px">Sagitta h <span class="val" id="shv"></span></label>
+        <input type="range" id="sh" min="0.02" max="0.3" step="0.001" value="0.076">
+        <div class="result" style="margin-top:8px">R = <b id="sR"></b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="calc">
+  <h2>Observation tables and calculator</h2>
+  <p>The sample values below are typical for water. Replace them with your own readings and everything updates.</p>
+  <h3>Table 1. Focal length of the convex lens (f₁)</h3>
+  <table class="obs" id="t1"><tr><th>No.</th><th>x₁ (cm)</th><th>x₂ (cm)</th><th>f₁ = (x₁+x₂)/2 (cm)</th></tr></table>
+  <h3>Table 2. Focal length of the combination (F)</h3>
+  <table class="obs" id="t2"><tr><th>No.</th><th>x₁ (cm)</th><th>x₂ (cm)</th><th>F = (x₁+x₂)/2 (cm)</th></tr></table>
+  <h3>Table 3. Spherometer</h3>
+  <table class="obs"><tr><th>Mean leg distance l (cm)</th><th>Reading on plane glass (cm)</th><th>Reading on lens (cm)</th><th>h (cm)</th><th>R (cm)</th></tr>
+    <tr><td><input id="cl" value="3.00"></td><td><input id="cz" value="0.000"></td><td><input id="cr" value="0.076"></td><td id="ch"></td><td id="cR"></td></tr></table>
+  <div class="result" id="cres"></div>
+</section>
+
+<section id="prec">
+  <h2>Precautions and sources of error</h2>
+  <div class="grid2">
+    <ul>
+      <li>The mirror and lens must be clean, and dry for the first part.</li>
+      <li>Use only a few drops of liquid so that it does not spread beyond the lens.</li>
+      <li>No air bubbles should be trapped in the liquid layer.</li>
+      <li>The pin tip must be on the principal axis, checked with a plumb line.</li>
+      <li>Keep the eye at least 30 cm above the pin so the view is clear.</li>
+    </ul>
+    <ul>
+      <li>Parallax must be removed tip to tip, slowly and carefully.</li>
+      <li>Find R for the face that was in contact with the liquid.</li>
+      <li>Avoid backlash error in the spherometer by turning the screw in one direction only.</li>
+      <li>A thin lens is assumed. Thickness of the lens is taken care of by averaging x₁ and x₂.</li>
+      <li>Liquid should not be volatile, or readings must be taken quickly.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="viva">
+  <h2>Quick viva questions</h2>
+  <details><summary>Why is the image formed at the pin itself when the pin is at the focus?</summary><p>Rays from the focus come out of the lens parallel, fall normally on the mirror and retrace their path, so they meet again at the focus.</p></details>
+  <details><summary>What kind of lens does the liquid form?</summary><p>A plano-concave lens, which is diverging and has negative focal length.</p></details>
+  <details><summary>Why is F greater than f₁?</summary><p>A diverging lens is added to a converging one, so the total power decreases and the focal length increases.</p></details>
+  <details><summary>What happens if the liquid has the same μ as the glass?</summary><p>The liquid lens then cancels one surface of the glass lens, leaving a plano-convex glass lens, and F becomes 2f₁ for an equiconvex lens with μ = 1.5 glass.</p></details>
+  <details><summary>Can this method be used for a liquid with μ greater than that of the glass?</summary><p>Yes, as long as the combination is still converging. If μ is large enough the combination becomes diverging and no real image forms, so the method fails.</p></details>
+  <details><summary>Why do we take the mean of x₁ and x₂?</summary><p>The focal length is measured from the optical centre, which lies roughly midway between the top and bottom of the lens.</p></details>
+</section>
+
+</main>
+
+<script>
+(() => {
+/* ---------- state ---------- */
+const S = {H:40, liq:'none', mu:1.40, R:20, mug:1.5, eye:0, wig:true, head:true, t:0};
+const cv = document.getElementById('cv'), cx_ = cv.getContext('2d');
+const ev = document.getElementById('ev'), ex_ = ev.getContext('2d');
+const W = 760, Hc = 620, dpr = Math.max(1, window.devicePixelRatio||1);
+[ [cv,620],[ev,150] ].forEach(([c,h]) => { c.width = W*dpr; c.height = h*dpr; c.getContext('2d').setTransform(dpr,0,0,dpr,0,0); });
+
+const yM = 570;               // mirror top (px)
+const sy = (yM-20)/62;        // px per cm vertical
+const sx = 30;                // px per cm horizontal (stretched)
+const CX = 440;               // axis x
+const a = 2.5;                // lens aperture radius (cm)
+const pinLen = 2.0;           // cm
+const lensT = 16;             // drawn lens centre thickness px
+const Ld = (lensT/2)/sy;      // lens mid-plane height (cm)
+const X = r => CX + r*sx, Y = h => yM - h*sy;
+
+const muLiq = () => S.liq==='none' ? null : (S.liq==='custom' ? S.mu : parseFloat(S.liq));
+function power(){ let P = (S.mug-1)*2/S.R; const m = muLiq(); if(m) P -= (m-1)/S.R; return P; }
+function theory(){ const f1 = 1/((S.mug-1)*2/S.R); const m = muLiq(); return {f1, F:1/power(), f2: m? -S.R/(m-1): null}; }
+
+/* matrix optics, (r, theta) along unfolded path */
+const mul = (A,B) => [A[0]*B[0]+A[1]*B[2], A[0]*B[1]+A[1]*B[3], A[2]*B[0]+A[3]*B[2], A[2]*B[1]+A[3]*B[3]];
+const T = d => [1,d,0,1], L = P => [1,0,-P,1];
+function system(H){
+  const P = power(), u = H - Ld;
+  let M = T(u); M = mul(L(P),M); M = mul(T(2*Ld),M); M = mul(L(P),M);
+  const [A,B,C,D] = M;
+  if (Math.abs(D) < 1e-9) return {inf:true};
+  const v = -B/D, m = A + v*C;
+  return {inf:false, v, yImg: Ld+v, m};
+}
+function trace(r0, th0, H){
+  const P = power(), u = H - Ld;
+  const r1 = r0 + th0*u, th1 = th0 - P*r1;
+  const r2 = r1 + th1*Ld, r3 = r2 + th1*Ld, th3 = th1 - P*r3;
+  return {pts:[[r0,H],[r1,Ld],[r2,0],[r3,Ld]], r3, th3};
+}
+
+/* ---------- drawing the side view ---------- */
+function drawSide(){
+  const c = cx_; c.clearRect(0,0,W,Hc);
+  const P = power(), th = theory(), sys = system(S.H), m = muLiq();
+  // table
+  c.fillStyle = '#e9e2d6'; c.fillRect(0, yM+12, W, Hc-yM-12);
+  c.strokeStyle='#cbbfa9'; c.beginPath(); c.moveTo(0,yM+12); c.lineTo(W,yM+12); c.stroke();
+  // axis
+  c.setLineDash([4,5]); c.strokeStyle='#b7bfcf'; c.lineWidth=1;
+  c.beginPath(); c.moveTo(CX,10); c.lineTo(CX,yM); c.stroke(); c.setLineDash([]);
+  // scale (metre scale)
+  const sxp = 700; c.fillStyle='#f7efd7'; c.fillRect(sxp-14, Y(60), 28, yM-Y(60));
+  c.strokeStyle='#a89565'; c.strokeRect(sxp-14, Y(60), 28, yM-Y(60));
+  c.fillStyle='#5b5236'; c.font='10px system-ui'; c.textAlign='right';
+  for(let k=0;k<=60;k++){ const yy=Y(k); c.beginPath(); c.moveTo(sxp-14,yy); c.lineTo(sxp-14+(k%5?5:(k%10?8:12)),yy); c.stroke(); if(k%10===0&&k) c.fillText(k, sxp+12, yy+3); }
+  c.textAlign='left';
+  // marker on scale
+  c.strokeStyle='#1b2a4a'; c.setLineDash([2,3]); c.beginPath(); c.moveTo(CX+90,Y(S.H)); c.lineTo(sxp-14,Y(S.H)); c.stroke(); c.setLineDash([]);
+  // mirror
+  const g = c.createLinearGradient(0,yM,0,yM+12); g.addColorStop(0,'#f4f6f9'); g.addColorStop(1,'#a8afbb');
+  c.fillStyle=g; c.fillRect(CX-200,yM,400,12); c.strokeStyle='#6b7280'; c.strokeRect(CX-200,yM,400,12);
+  c.strokeStyle='#8a8f99'; for(let x=CX-196;x<CX+200;x+=8){c.beginPath();c.moveTo(x,yM+12);c.lineTo(x-6,yM+18);c.stroke();}
+  c.fillStyle='#555'; c.font='12px system-ui'; c.fillText('plane mirror', CX+130, yM+30);
+  // liquid
+  const half = a*sx, edgeB = 7;
+  if(m){
+    c.fillStyle = 'rgba(124,195,236,.85)';
+    c.beginPath(); c.moveTo(X(-a)-10, yM); c.quadraticCurveTo(X(-a)-4, yM-edgeB, X(-a), yM-edgeB);
+    c.quadraticCurveTo(CX, yM+edgeB, X(a), yM-edgeB); c.quadraticCurveTo(X(a)+4, yM-edgeB, X(a)+10, yM); c.closePath(); c.fill();
+  }
+  // lens
+  c.fillStyle='rgba(205,225,245,.9)'; c.strokeStyle='#1b2a4a'; c.lineWidth=1.5;
+  c.beginPath(); c.moveTo(X(-a), yM-edgeB);
+  c.quadraticCurveTo(CX, yM-lensT*2+edgeB+2, X(a), yM-edgeB-2);
+  c.lineTo(X(a), yM-edgeB);
+  c.quadraticCurveTo(CX, yM+edgeB, X(-a), yM-edgeB); c.closePath(); c.fill(); c.stroke();
+  c.fillStyle='#1b2a4a'; c.font='12px system-ui';
+  c.fillText(m? 'lens + liquid layer':'convex lens', X(a)+14, yM-14);
+
+  // clamp stand
+  c.fillStyle='#4b5563'; c.fillRect(60, yM-4, 90, 16); c.fillRect(96, 30, 8, yM-26);
+  const yp = Y(S.H);
+  c.fillStyle='#6b7280'; c.fillRect(90, yp-8, 20, 16);
+  c.strokeStyle='#6b7280'; c.lineWidth=4; c.beginPath(); c.moveTo(110, yp); c.lineTo(X(-pinLen)-6, yp); c.stroke();
+
+  // rays
+  const yTop = (yM-12)/sy;
+  const dash = [9,7], off = -S.t*40;
+  function ray(r0, th0, col){
+    const tr = trace(r0, th0, S.H);
+    const rTop = tr.r3 + tr.th3*(yTop - Ld);
+    c.strokeStyle = col; c.lineWidth = 1.6; c.setLineDash(dash); c.lineDashOffset = off;
+    c.beginPath(); tr.pts.forEach(([r,h],i)=> i? c.lineTo(X(r),Y(h)) : c.moveTo(X(r),Y(h)));
+    c.lineTo(X(rTop), Y(yTop)); c.stroke();
+    c.setLineDash([]);
+    // faint solid underlay
+    c.globalAlpha = .18; c.lineWidth=1.2; c.beginPath(); tr.pts.forEach(([r,h],i)=> i? c.lineTo(X(r),Y(h)) : c.moveTo(X(r),Y(h))); c.lineTo(X(rTop),Y(yTop)); c.stroke(); c.globalAlpha=1;
+    // virtual extension
+    if(!sys.inf && sys.yImg < Ld){
+      const rI = tr.r3 + tr.th3*(sys.yImg - Ld);
+      c.strokeStyle='#8a93a6'; c.lineWidth=1; c.setLineDash([3,4]);
+      c.beginPath(); c.moveTo(X(tr.r3),Y(Ld)); c.lineTo(X(rI),Y(sys.yImg)); c.stroke(); c.setLineDash([]);
+    }
+  }
+  const u = S.H - Ld, hits = [-0.85,-0.45,0.45,0.85];
+  hits.forEach(k => ray(0, (k*a)/u, '#c62f4b'));
+  if(S.head) [-0.7,0.7].forEach(k => ray(-pinLen, (k*a + pinLen)/u, '#1f8a8a'));
+
+  // pin
+  drawPin(c, X(-pinLen), X(0), yp, '#1d2330', 1);
+  c.fillStyle='#1d2330'; c.font='12px system-ui'; c.fillText('pin', X(-pinLen)-34, yp-8);
+
+  // image
+  if(!sys.inf){
+    const yi = Y(sys.yImg), xh = X(-pinLen*sys.m);
+    if(yi > 5 && yi < Hc-5 && Math.abs(xh-CX) < 700){
+      c.globalAlpha = sys.yImg < Ld ? .55 : .85;
+      drawPin(c, xh, X(0), yi, '#c62f4b', 0.9, sys.yImg < Ld);
+      c.globalAlpha = 1;
+      c.fillStyle='#c62f4b'; c.font='12px system-ui';
+      const lab = sys.yImg < Ld ? 'virtual, erect image' : 'real, inverted image';
+      c.fillText(lab, Math.max(xh, X(0))+10, yi + (Math.abs(yi-yp)<14 ? 16 : 4));
+    }
+  }
+  // dimension arrows x1, x2
+  const xa = CX+105, xb = CX+135;
+  arrow(c, xa, yp, xa, Y(2*Ld), 'x₁'); arrow(c, xb, yp, xb, yM, 'x₂');
+
+  // eye
+  const exx = CX + S.eye*sx*1.2, eyy = 26;
+  c.save(); c.translate(exx, eyy);
+  c.fillStyle='#fff'; c.strokeStyle='#1b2a4a'; c.lineWidth=1.5;
+  c.beginPath(); c.ellipse(0,0,18,9,0,0,Math.PI*2); c.fill(); c.stroke();
+  c.fillStyle='#1b2a4a'; c.beginPath(); c.arc(0,2,5,0,Math.PI*2); c.fill(); c.restore();
+  c.fillStyle='#1b2a4a'; c.font='12px system-ui'; c.fillText('eye', exx+24, eyy+4);
+}
+function drawPin(c, xHead, xTip, y, col, alpha, dashed){
+  c.strokeStyle=col; c.fillStyle=col; c.lineWidth=3; if(dashed) c.setLineDash([5,3]);
+  c.beginPath(); c.moveTo(xHead,y); c.lineTo(xTip,y); c.stroke(); c.setLineDash([]);
+  c.beginPath(); c.arc(xHead,y,5,0,Math.PI*2); c.fill();
+  const dir = Math.sign(xTip-xHead)||1;
+  c.beginPath(); c.moveTo(xTip+dir*6,y); c.lineTo(xTip-dir*2,y-3); c.lineTo(xTip-dir*2,y+3); c.closePath(); c.fill();
+}
+function arrow(c,x1,y1,x2,y2,lab){
+  c.strokeStyle='#1b2a4a'; c.fillStyle='#1b2a4a'; c.lineWidth=1;
+  c.beginPath(); c.moveTo(x1,y1); c.lineTo(x2,y2); c.stroke();
+  [[x1,y1,1],[x2,y2,-1]].forEach(([x,y,s])=>{ c.beginPath(); c.moveTo(x,y); c.lineTo(x-4,y+s*8); c.lineTo(x+4,y+s*8); c.closePath(); c.fill(); });
+  c.font='italic 13px Georgia'; c.fillText(lab, x1+5, (y1+y2)/2);
+}
+
+/* ---------- eye view ---------- */
+function drawEye(){
+  const c = ex_, H2 = 150; c.clearRect(0,0,W,H2);
+  c.fillStyle='#eef2f8'; c.fillRect(0,0,W,H2);
+  const sys = system(S.H), E = S.H + 30, e = S.eye, K = 1800, cx = W/2, cy = 78;
+  const px = (x,y) => cx + K*(x - e)/(E - y);
+  // lens disc seen from above
+  const lr = K*a/(E - Ld);
+  c.fillStyle='rgba(205,225,245,.7)'; c.strokeStyle='#9fb3cc';
+  c.beginPath(); c.arc(px(0,Ld), cy, Math.min(lr,70), 0, Math.PI*2); c.fill(); c.stroke();
+  // image
+  let txt = '';
+  if(!sys.inf && E - sys.yImg > 1){
+    const xt = px(0, sys.yImg), xh = px(-pinLen*sys.m, sys.yImg);
+    c.globalAlpha=.8; drawPin(c, xh, xt, cy, '#c62f4b', 1, sys.yImg<Ld); c.globalAlpha=1;
+  }
+  drawPin(c, px(-pinLen,S.H), px(0,S.H), cy, '#1d2330', 1);
+  // status text
+  const gap = (!sys.inf) ? Math.abs(px(0,S.H) - px(0,sys.yImg)) : 999;
+  c.font='13px system-ui'; c.fillStyle='#1b2a4a';
+  c.fillText('eye shift ' + e.toFixed(2) + ' cm', 12, 20);
+  c.fillStyle = gap < 1.5 ? '#1f7a4d' : '#a33a2a';
+  c.fillText(gap < 1.5 ? 'tips stay together, no parallax' : 'tip gap ' + gap.toFixed(1) + ' px, parallax present', 12, 140);
+}
+
+/* ---------- readouts ---------- */
+const $ = id => document.getElementById(id);
+function readouts(){
+  const th = theory(), sys = system(S.H);
+  $('Hv').textContent = S.H.toFixed(2) + ' cm'; $('H').value = S.H;
+  $('Rv').textContent = S.R.toFixed(1) + ' cm'; $('muv').textContent = S.mu.toFixed(3);
+  $('ev_v').textContent = S.eye.toFixed(2) + ' cm';
+  const x1 = S.H - 2*Ld, x2 = S.H;
+  $('x1').textContent = x1.toFixed(2)+' cm'; $('x2').textContent = x2.toFixed(2)+' cm';
+  $('xm').textContent = ((x1+x2)/2).toFixed(2)+' cm';
+  $('tf1').textContent = th.f1.toFixed(2)+' cm';
+  $('tF').textContent = th.F > 0 ? th.F.toFixed(2)+' cm' : 'diverging';
+  $('tf2').textContent = th.f2 ? th.f2.toFixed(2)+' cm' : '(no liquid)';
+  const st = $('status');
+  if(sys.inf){ $('yi').textContent='at infinity'; $('mag').textContent='∞'; st.className='status bad'; st.textContent='Image at infinity. Raise the pin.'; return; }
+  $('yi').textContent = sys.yImg.toFixed(2)+' cm'; $('mag').textContent = sys.m.toFixed(2);
+  const d = sys.yImg - S.H;
+  if(Math.abs(d) < 0.12){ st.className='status ok'; st.textContent = 'No parallax. Pin is at the focus. Reading (x₁+x₂)/2 = ' + ((x1+x2)/2).toFixed(2) + ' cm'; }
+  else if(sys.yImg < Ld){ st.className='status bad'; st.textContent='Image is virtual (pin too close to lens). Raise the pin a lot.'; }
+  else if(d < 0){ st.className='status bad'; st.textContent='Image is below the pin and follows your eye. Lower the pin.'; }
+  else { st.className='status bad'; st.textContent='Image is above the pin, the pin follows your eye. Raise the pin.'; }
+}
+
+/* ---------- no-parallax solver + animation ---------- */
+function solveH(){
+  const F = theory().F; if(!(F>0)) return null;
+  const g = H => { const s = system(H); return s.inf ? 1e9 : s.yImg - H; };
+  let lo = 0.75*F, hi = Math.min(2*F, 200);
+  if(g(lo) < 0 || g(hi) > 0) return F + Ld;
+  for(let i=0;i<60;i++){ const mid=(lo+hi)/2; g(mid) > 0 ? lo = mid : hi = mid; }
+  return (lo+hi)/2;
+}
+let anim = null;
+function animateH(target){
+  if(target==null) return; target = Math.min(60, Math.max(3, target));
+  const start = S.H, t0 = performance.now(), dur = 1300;
+  anim = now => { const k = Math.min(1,(now-t0)/dur), e = k<.5? 2*k*k : 1-Math.pow(-2*k+2,2)/2; S.H = start + (target-start)*e; if(k>=1) anim=null; };
+}
+
+/* ---------- loop ---------- */
+let last = performance.now();
+function loop(now){
+  const dt = (now-last)/1000; last = now; S.t += dt;
+  if(anim) anim(now);
+  if(S.wig){ S.eye = 2.5*Math.sin(S.t*1.3); $('eye').value = S.eye; }
+  drawSide(); drawEye(); readouts();
+  requestAnimationFrame(loop);
+}
+
+/* ---------- controls ---------- */
+$('H').addEventListener('input', e => { anim=null; S.H = +e.target.value; });
+$('R').addEventListener('input', e => S.R = +e.target.value);
+$('mu').addEventListener('input', e => S.mu = +e.target.value);
+$('liq').addEventListener('change', e => { S.liq = e.target.value; $('custWrap').style.display = S.liq==='custom'?'block':'none'; });
+$('eye').addEventListener('input', e => { S.eye = +e.target.value; S.wig=false; $('wig').checked=false; });
+$('wig').addEventListener('change', e => S.wig = e.target.checked);
+$('head').addEventListener('change', e => S.head = e.target.checked);
+$('find').addEventListener('click', () => animateH(solveH()));
+$('reset').addEventListener('click', () => { S.liq='none'; $('liq').value='none'; $('custWrap').style.display='none'; S.R=20; $('R').value=20; animateH(40); });
+
+// drag pin
+let drag = false;
+function evY(e){ const r = cv.getBoundingClientRect(); return { x:(e.clientX-r.left)*W/r.width, y:(e.clientY-r.top)*Hc/r.height }; }
+cv.addEventListener('pointerdown', e => { const p = evY(e); if(Math.abs(p.y - Y(S.H)) < 18 && p.x > 90 && p.x < CX+30){ drag=true; anim=null; cv.setPointerCapture(e.pointerId);} });
+cv.addEventListener('pointermove', e => { const p = evY(e);
+  cv.style.cursor = (Math.abs(p.y - Y(S.H)) < 18 && p.x > 90 && p.x < CX+30) || drag ? 'ns-resize' : 'default';
+  if(drag) S.H = Math.min(60, Math.max(3, (yM - p.y)/sy)); });
+cv.addEventListener('pointerup', () => drag=false);
+
+// procedure buttons
+function setLiquid(v){ S.liq=v; $('liq').value=v; $('custWrap').style.display='none'; }
+document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
+  const g = b.dataset.go;
+  if(g==='spher' || g==='calc'){ document.getElementById(g).scrollIntoView({behavior:'smooth'}); return; }
+  document.getElementById('sim').scrollIntoView({behavior:'smooth'});
+  if(g==='setup'){ setLiquid('none'); animateH(45); }
+  if(g==='above'){ setLiquid('none'); animateH(26); }
+  if(g==='f1'){ setLiquid('none'); animateH(solveH()); }
+  if(g==='liquid'){ setLiquid('none'); S.H = solveH(); setLiquid('1.333'); }
+  if(g==='F'){ setLiquid('1.333'); animateH(solveH()); }
+}));
+
+/* ---------- spherometer mini ---------- */
+function spher(){ const l=+$('sl').value, h=+$('sh').value; $('slv').textContent=l.toFixed(2)+' cm'; $('shv').textContent=h.toFixed(3)+' cm';
+  $('sR').textContent = (l*l/(6*h) + h/2).toFixed(2) + ' cm'; }
+$('sl').addEventListener('input', spher); $('sh').addEventListener('input', spher); spher();
+
+/* ---------- calculator ---------- */
+const d1 = [[19.55,20.70],[19.40,20.55],[19.65,20.80]], d2 = [[29.50,30.65],[29.70,30.80],[29.45,30.60]];
+function build(id, data, key){
+  const t = $(id);
+  data.forEach((r,i) => { const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${i+1}</td><td><input data-k="${key}" data-i="${i}" data-j="0" value="${r[0].toFixed(2)}"></td><td><input data-k="${key}" data-i="${i}" data-j="1" value="${r[1].toFixed(2)}"></td><td id="${key}m${i}"></td>`;
+    t.appendChild(tr); });
+  const tr = document.createElement('tr'); tr.innerHTML = `<td colspan="3" style="text-align:right"><b>Mean</b></td><td id="${key}mean"></td>`; t.appendChild(tr);
+}
+build('t1', d1, 'a'); build('t2', d2, 'b');
+function calc(){
+  const mean = key => { let s=0,n=0; for(let i=0;i<3;i++){ const v0=parseFloat(document.querySelector(`[data-k=${key}][data-i="${i}"][data-j="0"]`).value), v1=parseFloat(document.querySelector(`[data-k=${key}][data-i="${i}"][data-j="1"]`).value);
+      const f=(v0+v1)/2; $(key+'m'+i).textContent = isFinite(f)? f.toFixed(2):'?'; if(isFinite(f)){s+=f;n++;} } const m=s/n; $(key+'mean').innerHTML = isFinite(m)? '<b>'+m.toFixed(2)+'</b>':'?'; return m; };
+  const f1 = mean('a'), F = mean('b');
+  const l = parseFloat($('cl').value), h = parseFloat($('cr').value) - parseFloat($('cz').value);
+  const R = l*l/(6*h) + h/2;
+  $('ch').textContent = isFinite(h)? h.toFixed(3):'?'; $('cR').textContent = isFinite(R)? R.toFixed(2):'?';
+  const f2 = f1*F/(F-f1), mu = 1 + R/f2;
+  $('cres').innerHTML = (F>f1 && h>0) ?
+    `f₁ = <b>${f1.toFixed(2)} cm</b>, &nbsp; F = <b>${F.toFixed(2)} cm</b>, &nbsp; |f₂| = f₁F/(F − f₁) = <b>${f2.toFixed(2)} cm</b>, &nbsp; R = <b>${R.toFixed(2)} cm</b><br>
+     μ = 1 + R/|f₂| = 1 + ${R.toFixed(2)}/${f2.toFixed(2)} = <b style="font-size:20px">${mu.toFixed(3)}</b>`
+    : 'Check the readings. F must be larger than f₁ and h must be positive.';
+}
+document.querySelectorAll('#calc input').forEach(i => i.addEventListener('input', calc)); calc();
+
+S.H = 40; requestAnimationFrame(loop);
+})();
+</script>
+<footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+</body>
+</html>

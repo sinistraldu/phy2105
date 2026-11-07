@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acceleration due to Gravity by Compound Bar Pendulum</title>
+<style>:root{
+  --navy:#1b2a4a; --navy2:#2d4373; --ink:#1d2330; --muted:#5b6475;
+  --bg:#f6f7fb; --card:#ffffff; --line:#dde2ec;
+  --ray1:#c62f4b; --ray2:#1f8a8a; --good:#1f7a4d; --warn:#a33a2a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:34px 20px 28px}
+header .wrap{max-width:1120px;margin:auto}
+header h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(24px,3.4vw,36px);margin:0 0 6px;line-height:1.2}
+header p{margin:0;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+nav .wrap{max-width:1120px;margin:auto;display:flex;gap:4px;overflow-x:auto;padding:6px 14px}
+nav a{color:var(--navy);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;white-space:nowrap}
+nav a:hover{background:#eef1f8}
+main{max-width:1120px;margin:auto;padding:10px 16px 60px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:22px 0}
+h2{font-family:Georgia,serif;color:var(--navy);margin:0 0 12px;font-size:24px}
+h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.eq{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 16px;margin:12px 0;font-family:"Cambria Math",Cambria,Georgia,serif;font-size:19px;overflow-x:auto;white-space:nowrap}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
+.frac>span:last-child{padding:0 4px}
+.sqrt{border-top:1.5px solid currentColor;padding:0 3px;margin-left:1px}
+.note{font-size:14px;color:var(--muted)}
+ul.app{columns:2;margin:6px 0}
+@media(max-width:600px){ul.app{columns:1}}
+figure{margin:8px 0}
+figcaption{font-size:13.5px;color:var(--muted);text-align:center;margin-top:4px}
+svg{max-width:100%;height:auto;display:block;margin:auto}
+.simwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+@media(max-width:920px){.simwrap{grid-template-columns:1fr}}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fbfcfe}
+canvas.c3d{cursor:grab;touch-action:none}
+canvas.c3d:active{cursor:grabbing}
+.panel{display:flex;flex-direction:column;gap:12px}
+.ctrl{background:#f5f7fb;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ctrl label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ctrl label.plain{font-weight:400}
+.ctrl input[type=range]{width:100%}
+.ctrl select{width:100%;padding:5px;border-radius:6px;border:1px solid var(--line);font-size:14px}
+.val{float:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-size:14px;cursor:pointer}
+.btn:hover{background:var(--navy2)}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.read{font-size:14px;font-variant-numeric:tabular-nums;width:100%}
+.read td{padding:2px 4px}
+.read td:first-child{color:var(--muted)}
+.read td:last-child{text-align:right}
+.status{padding:9px 12px;border-radius:8px;font-size:14px;font-weight:600}
+.status.ok{background:#e4f4ea;color:var(--good)}
+.status.bad{background:#fbe9e6;color:var(--warn)}
+.status.info{background:#eef1f8;color:var(--navy)}
+.watch{font:600 28px/1.1 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);text-align:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px}
+.watch small{display:block;font:13px system-ui;color:var(--muted);margin-top:3px}
+.steps{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fcfdff}
+.step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.step h4{margin:2px 0 4px;color:var(--navy);font-size:16.5px}
+.step p{margin:0 0 6px}
+.step .why{background:#f2f5fb;border-left:3px solid var(--navy);padding:7px 11px;margin:8px 0;font-size:14.5px;border-radius:0 6px 6px 0}
+.step .why b{color:var(--navy)}
+.step .btn{font-size:13px;padding:5px 10px}
+table.obs{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;font-variant-numeric:tabular-nums}
+table.obs th,table.obs td{border:1px solid var(--line);padding:5px 6px;text-align:center}
+table.obs th{background:#eef1f8;color:var(--navy)}
+.tablewrap{overflow-x:auto}
+.result{font-size:16px;background:#eef1f8;border-radius:10px;padding:12px 16px;margin-top:10px;line-height:1.8}
+.result b{color:var(--navy)}
+ol li,ul li{margin:3px 0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;background:#fcfdff}
+summary{cursor:pointer;font-weight:600;color:var(--navy)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:5px}
+</style>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<style>
+.deriv h3{border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:28px}
+.deriv p{margin:8px 0}
+.deriv .katex-display{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 14px;margin:12px 0;overflow-x:auto;overflow-y:hidden;border-radius:0 6px 6px 0}
+.deriv .katex{font-size:1.08em}
+footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
+footer.credit a{color:#fff}
+.backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="backlink" href="index.html">&larr; PHY 2106 experiments</a>
+  <h1>Determination of g with a Compound Bar Pendulum</h1>
+  <p>Theory, 3D illustration, a working virtual lab with stopwatch and graph, and the reasoning behind every step</p>
+</div></header>
+<nav><div class="wrap">
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#lab">3D virtual lab</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+</div></nav>
+<main>
+
+<section id="aim">
+  <h2>Aim and apparatus</h2>
+  <p><b>Aim.</b> To determine the acceleration due to gravity g and the radius of gyration k of a bar about its centre of gravity, using the bar as a compound (physical) pendulum.</p>
+  <ul class="app">
+    <li>Compound bar pendulum (a uniform metal bar about 1 m long with a row of equally spaced holes)</li>
+    <li>Knife edge fixed on a rigid wall bracket</li>
+    <li>Spirit level</li>
+    <li>Stopwatch</li>
+    <li>Metre scale</li>
+    <li>Graph paper</li>
+  </ul>
+</section>
+
+<section id="theory">
+  <h2>Theory</h2>
+  <div class="grid2">
+    <div>
+      <h3 style="margin-top:0">1. A rigid body swinging about a fixed axis</h3>
+      <p>A <b>compound pendulum</b> is any rigid body that swings about a horizontal axis that does not pass through its centre of gravity G. Let the axis (the knife edge S) be a distance l from G.</p>
+      <p>When the bar is turned through a small angle θ, its weight mg acts at G and produces a restoring torque</p>
+      <div class="eq">τ = − m g l sin θ ≈ − m g l θ</div>
+      <p>If I is the moment of inertia about the knife edge, Newton's law for rotation gives</p>
+      <div class="eq">I <span class="frac"><span>d²θ</span><span>dt²</span></span> = − m g l θ</div>
+      <p>This is simple harmonic motion with ω² = mgl/I, so</p>
+      <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>I</span><span>m g l</span></span></span></div>
+    </div>
+    <figure>
+      <svg viewBox="0 0 360 330" aria-label="torque diagram">
+        <line x1="180" y1="40" x2="180" y2="315" stroke="#9aa3b5" stroke-dasharray="5 4"/>
+        <g transform="rotate(15 180 40)">
+          <rect x="166" y="8" width="28" height="300" rx="3" fill="#d9bf8f" stroke="#7a5d2c"/>
+          <g fill="#5a4a2e">
+            <circle cx="180" cy="22" r="3"/><circle cx="180" cy="40" r="4"/><circle cx="180" cy="62" r="3"/><circle cx="180" cy="84" r="3"/><circle cx="180" cy="106" r="3"/>
+            <circle cx="180" cy="236" r="3"/><circle cx="180" cy="258" r="3"/><circle cx="180" cy="280" r="3"/>
+          </g>
+          <circle cx="180" cy="190" r="5" fill="#c62f4b"/>
+          <line x1="198" y1="40" x2="198" y2="190" stroke="#1b2a4a" stroke-width="1.2"/>
+          <text x="203" y="120" font-size="15" font-style="italic" fill="#1b2a4a">l</text>
+        </g>
+        <polygon points="180,40 172,52 188,52" fill="#333"/>
+        <text x="190" y="36" font-size="13" fill="#1b2a4a">S (knife edge)</text>
+        <path d="M180,95 A55,55 0 0 1 165.8,93.1" fill="none" stroke="#1b2a4a"/>
+        <text x="160" y="112" font-size="14" font-style="italic" fill="#1b2a4a">θ</text>
+        <text x="118" y="190" font-size="14" fill="#c62f4b" font-weight="600">G</text>
+        <line x1="141" y1="185" x2="141" y2="268" stroke="#c62f4b" stroke-width="2.2"/>
+        <polygon points="141,276 135,264 147,264" fill="#c62f4b"/>
+        <text x="148" y="272" font-size="14" fill="#c62f4b" font-style="italic">mg</text>
+        <line x1="141" y1="185" x2="180" y2="185" stroke="#1f8a8a" stroke-width="1.6"/>
+        <text x="122" y="208" font-size="12" fill="#1f8a8a">l sin θ</text>
+      </svg>
+      <figcaption>The weight at G gives a torque mg·l sin θ that pulls the bar back to the vertical.</figcaption>
+    </figure>
+  </div>
+
+  <h3>2. Parallel axis theorem and the equivalent length</h3>
+  <p>If the moment of inertia about G is I<sub>G</sub> = mk², where k is the radius of gyration, then by the parallel axis theorem I = m(k² + l²). Putting this in the period gives</p>
+  <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>k² + l²</span><span>g l</span></span></span> = 2π <span>√</span><span class="sqrt"><span class="frac"><span>L</span><span>g</span></span></span>
+    &nbsp;&nbsp; with &nbsp; L = l + <span class="frac"><span>k²</span><span>l</span></span></div>
+  <p>So the bar swings exactly like a <b>simple pendulum of length L</b>, the equivalent length. The virtual lab can draw this simple pendulum next to the bar so you can see that both keep perfect step.</p>
+
+  <h3>3. Two points with the same period</h3>
+  <div class="grid2">
+    <div>
+      <p>Rearranging L = l + k²/l gives a quadratic in l</p>
+      <div class="eq">l² − L l + k² = 0</div>
+      <p>For one value of T (and so of L) there are two distances l₁ and l₂ from G on <b>each</b> side, with</p>
+      <div class="eq">l₁ + l₂ = L &nbsp;&nbsp;&nbsp; l₁ l₂ = k²</div>
+      <p>The point at distance l₂ on the other side of G from S is called the <b>centre of oscillation</b>. Suspension and oscillation points can be swapped without changing T.</p>
+      <p>A graph of T against hole position gives two symmetric curves. A horizontal line at period T cuts them at A, B, C and D. Then AC = BD = L and AD·BC/4 = k², so</p>
+      <div class="eq">g = 4π² <span class="frac"><span>L</span><span>T²</span></span> &nbsp;&nbsp; L = <span class="frac"><span>AC + BD</span><span>2</span></span> &nbsp;&nbsp; k = <span>√</span><span class="sqrt"><span class="frac"><span>AD</span><span>2</span></span>·<span class="frac"><span>BC</span><span>2</span></span></span></div>
+      <p>The period is smallest when l = k, where T<sub>min</sub> = 2π√(2k/g). For a uniform bar of length ℓ and width b, theory gives k² = (ℓ² + b²)/12.</p>
+    </div>
+    <figure>
+      <canvas id="thgraph" width="520" height="340"></canvas>
+      <figcaption>Theoretical T against hole position for a 1 m bar. The horizontal line cuts at A, B, C, D.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="derivations" class="deriv">
+  <h2>Detailed theory and derivations</h2>
+
+  <h3>D1. Equation of motion of a compound pendulum</h3>
+  <p>A rigid body of mass m turns about a fixed horizontal axis S. Its centre of gravity G is a distance l from S. When the line SG makes an angle θ with the vertical, the weight mg acting at G has a perpendicular distance l sin θ from the axis. The torque about S is</p>
+  $$\tau=-mgl\sin\theta .$$
+  <p>The minus sign shows that the torque always acts to reduce θ. Newton's second law for rotation about a fixed axis is τ = Iα, where I is the moment of inertia about S and α = d²θ/dt². So</p>
+  $$I\,\ddot\theta=-mgl\sin\theta .$$
+  <p>For small swings, sin θ ≈ θ (the error is below 0.1% for θ &lt; 4.5°), and</p>
+  $$\ddot\theta+\omega^2\theta=0,\qquad \omega^2=\frac{mgl}{I}.$$
+
+  <h3>D2. Solving the equation (exponential method)</h3>
+  <p>Try \(\theta=e^{\lambda t}\). Then \(\ddot\theta=\lambda^2e^{\lambda t}\), and substituting gives the characteristic equation</p>
+  $$\lambda^2+\omega^2=0\quad\Longrightarrow\quad \lambda=\pm i\omega .$$
+  <p>The general solution is a combination of both roots</p>
+  $$\theta(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}.$$
+  <p>Because θ is real, C₂ is the complex conjugate of C₁. Writing \(C_1=\tfrac{\theta_0}{2}e^{i\varphi}\) and using Euler's formula \(e^{ix}=\cos x+i\sin x\)</p>
+  $$\theta(t)=\theta_0\cos(\omega t+\varphi).$$
+  <p>This is simple harmonic motion with period</p>
+  $$\boxed{\;T=\frac{2\pi}{\omega}=2\pi\sqrt{\frac{I}{mgl}}\;}$$
+
+  <h3>D3. Parallel axis theorem</h3>
+  <p>Take G as origin and let the axis S be at position vector <b>d</b> (with |<b>d</b>| = l) perpendicular to the axis direction. A mass element dm at position <b>r</b> from G is at <b>r</b> − <b>d</b> from S. Its contribution to I is dm|<b>r</b> − <b>d</b>|². So</p>
+  $$I=\int|\mathbf r-\mathbf d|^2dm=\int r^2dm-2\,\mathbf d\cdot\!\int\mathbf r\,dm+d^2\!\int dm .$$
+  <p>The first term is I<sub>G</sub>. The middle term is zero because ∫<b>r</b> dm = 0 when G is the origin (that is the definition of the centre of mass). The last term is ml². Therefore</p>
+  $$\boxed{\;I=I_G+ml^2=m(k^2+l^2)\;}$$
+  <p>where k is the radius of gyration about G, defined by I<sub>G</sub> = mk².</p>
+
+  <h3>D4. Moment of inertia of the bar about G</h3>
+  <p>Treat the bar as a thin rectangular plate of length ℓ, width b and mass m. The axis passes through G perpendicular to the plate. For a thin rod of length ℓ about its centre</p>
+  $$I_x=\int_{-\ell/2}^{\ell/2}\frac{m}{\ell}\,x^2\,dx=\frac{m}{\ell}\left[\frac{x^3}{3}\right]_{-\ell/2}^{\ell/2}=\frac{m\ell^2}{12}.$$
+  <p>By the same integral across the width, the moment about the other in-plane axis is mb²/12. The perpendicular axis theorem for a plane lamina adds the two</p>
+  $$I_G=\frac{m(\ell^2+b^2)}{12}\quad\Longrightarrow\quad \boxed{\;k=\sqrt{\frac{\ell^2+b^2}{12}}\;}$$
+  <p>For ℓ = 100 cm and b = 4 cm this gives k = 28.9 cm.</p>
+
+  <h3>D5. Equivalent length</h3>
+  <p>Put I = m(k² + l²) into the period from D2</p>
+  $$T=2\pi\sqrt{\frac{k^2+l^2}{gl}}=2\pi\sqrt{\frac{L}{g}},\qquad \boxed{\;L=l+\frac{k^2}{l}\;}$$
+  <p>A simple pendulum has T = 2π√(L/g), so the compound pendulum behaves exactly like a simple pendulum of length L. This L is the length of the equivalent simple pendulum. It is always longer than l, because k²/l is positive.</p>
+
+  <h3>D6. Two suspension points with the same period</h3>
+  <p>For a given T, L is fixed and L = l + k²/l becomes a quadratic in l</p>
+  $$l^2-Ll+k^2=0\quad\Longrightarrow\quad l=\frac{L\pm\sqrt{L^2-4k^2}}{2}.$$
+  <p>The two roots l₁ and l₂ are real when L ≥ 2k. From the relations between roots and coefficients of a quadratic</p>
+  $$\boxed{\;l_1+l_2=L,\qquad l_1l_2=k^2\;}$$
+  <p>So on each side of G there are two holes with the same period. Since the bar is symmetric, there are four such holes in total, which are the points A, B, C and D on the graph.</p>
+
+  <h3>D7. Centres of suspension and oscillation are interchangeable</h3>
+  <p>Hang the bar from S at distance l₁ from G. Mark the point O on the line SG, beyond G, at distance l₂ = k²/l₁ from G. Then SO = l₁ + l₂ = L. Now hang the bar from O instead. Its distance from G is l₂, and its equivalent length is</p>
+  $$L'=l_2+\frac{k^2}{l_2}=\frac{k^2}{l_1}+l_1=L .$$
+  <p>The period is unchanged. O is called the <b>centre of oscillation</b>, and S and O can be swapped. This is the principle of Kater's reversible pendulum.</p>
+
+  <h3>D8. Reading L and k from the graph</h3>
+  <p>With distances measured from end A, G is at the middle. A horizontal line at period T cuts the curves at four points. Their distances from G are</p>
+  $$A:\ -l_1,\qquad B:\ -l_2,\qquad C:\ +l_2,\qquad D:\ +l_1 .$$
+  <p>So</p>
+  $$AC=l_1+l_2=L,\quad BD=l_2+l_1=L,\quad AD=2l_1,\quad BC=2l_2 .$$
+  $$\boxed{\;g=\frac{4\pi^2L}{T^2},\qquad L=\frac{AC+BD}{2},\qquad k=\sqrt{\frac{AD}{2}\cdot\frac{BC}{2}}\;}$$
+
+  <h3>D9. Minimum period</h3>
+  <p>T is smallest when L(l) = l + k²/l is smallest. Differentiate and set the derivative to zero</p>
+  $$\frac{dL}{dl}=1-\frac{k^2}{l^2}=0\quad\Longrightarrow\quad l=k,\qquad L_{\min}=2k,\qquad \boxed{\;T_{\min}=2\pi\sqrt{\frac{2k}{g}}\;}$$
+  <p>The second derivative 2k²/l³ is positive, so this is a minimum. At this point l₁ = l₂ = k and the horizontal line just touches the curve. Near the minimum the curve is flat, so T hardly changes if the hole position has a small error. This makes the minimum region a good place to work.</p>
+  <p>As l → 0, L → ∞ and T → ∞, because the weight then passes through the axis and gives no torque. As l → ∞, L → l and the bar behaves like a simple pendulum.</p>
+
+  <h3>D10. A straight-line method from the same data</h3>
+  <p>Square the period and multiply by l</p>
+  $$T^2l=\frac{4\pi^2}{g}\,l^2+\frac{4\pi^2k^2}{g}.$$
+  <p>A graph of T²l against l² is a straight line with slope 4π²/g and intercept 4π²k²/g. So</p>
+  $$g=\frac{4\pi^2}{\text{slope}},\qquad k^2=\frac{\text{intercept}}{\text{slope}} .$$
+  <p>The results box in the observations section also calculates g and k this way, using all readings at once.</p>
+
+  <h3>D11. Correction for finite amplitude</h3>
+  <p>Without the small angle approximation, energy conservation gives ½Iθ̇² = mgl(cos θ − cos θ₀). Solving for dt and integrating over a quarter cycle</p>
+  $$T=4\sqrt{\frac{I}{2mgl}}\int_0^{\theta_0}\frac{d\theta}{\sqrt{\cos\theta-\cos\theta_0}}
+  =T_0\left(1+\frac{\theta_0^2}{16}+\frac{11\,\theta_0^4}{3072}+\cdots\right),$$
+  <p>with T₀ the small amplitude period and θ₀ in radians. At θ₀ = 5° the correction is only 0.05%, but at 20° it is 0.8%. This is why the amplitude is kept small.</p>
+
+  <h3>D12. Error estimate</h3>
+  <p>From g = 4π²L/T² the maximum fractional error is</p>
+  $$\frac{\delta g}{g}=\frac{\delta L}{L}+2\,\frac{\delta T}{T}.$$
+  <p>If the time t for N oscillations has an error δt (reaction time about 0.2 s), then T = t/N and δT = δt/N. For N = 20 and T ≈ 1.6 s, 2δT/T ≈ 2(0.01)/1.6 ≈ 1.2%. Reading L from the graph to ±0.5 cm out of 62 cm adds about 0.8%. Timing more oscillations reduces the first term.</p>
+</section>
+
+
+<section id="lab">
+  <h2>3D virtual lab</h2>
+  <p>Pick a hole, start the swing, time 20 oscillations and record the reading. Do this for holes on both sides of G and the graph below builds itself. Rotate the view to see the knife edge passing through the hole.</p>
+  <div class="simwrap">
+    <div>
+      <canvas id="c3d" width="760" height="600"></canvas>
+      <div class="legend"><span><i style="background:#c62f4b"></i>G, centre of gravity</span><span><i style="background:#1f8a8a"></i>O, centre of oscillation</span><span><i style="background:#c62f4b;height:2px"></i>equivalent simple pendulum</span></div>
+    </div>
+    <div class="panel">
+      <div class="ctrl">
+        <label>Suspension hole <span class="val" id="holev"></span></label>
+        <input type="range" id="hole" min="0" max="23" step="1" value="0">
+        <div class="note" id="holeinfo"></div>
+      </div>
+      <div class="ctrl">
+        <label>Amplitude <span class="val" id="ampv"></span></label>
+        <input type="range" id="amp" min="1" max="20" step="0.5" value="4">
+        <label style="margin-top:6px">Simulation speed <span class="val" id="spv"></span></label>
+        <input type="range" id="sp" min="0.25" max="8" step="0.25" value="1">
+        <label class="plain" style="margin-top:4px"><input type="checkbox" id="eq"> show equivalent simple pendulum</label>
+      </div>
+      <div class="watch" id="watch">0.00 s<small>oscillations 0 / 20</small></div>
+      <div class="row">
+        <button class="btn" id="start">Start timing 20 osc.</button>
+        <button class="btn ghost" id="rec">Record</button>
+      </div>
+      <div class="row">
+        <button class="btn ghost" id="auto">Record all holes</button>
+        <button class="btn ghost" id="clear">Clear data</button>
+      </div>
+      <div class="status info" id="msg">Choose a hole and press Start timing.</div>
+      <div class="ctrl"><table class="read">
+        <tr><td>Distance of hole from G, l</td><td id="rl"></td></tr>
+        <tr><td>True period (hidden in a real lab)</td><td id="rT"></td></tr>
+        <tr><td>Equivalent length L = l + k²/l</td><td id="rL"></td></tr>
+      </table></div>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Procedure, with the theory behind each step</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div>
+      <h4>Locate the centre of gravity G</h4>
+      <p>Balance the bar horizontally on a knife edge (or a sharp wedge). Mark the balance point G. On a uniform bar it is the midpoint.</p>
+      <div class="why"><b>Why.</b> Every distance l in the formula is measured from G, because the parallel axis theorem I = I<sub>G</sub> + ml² refers to the axis through G.</div></div></div>
+    <div class="step"><div class="n">2</div><div>
+      <h4>Level the knife edge and hang the bar</h4>
+      <p>Check with a spirit level that the knife edge is horizontal. Hang the bar from the hole nearest end A, with the knife edge resting at the top of the hole. The bar should hang vertically, close to the wall but not touching it.</p>
+      <div class="why"><b>Why.</b> The theory assumes rotation about a fixed horizontal axis. A tilted or loose edge makes the bar wobble or slide, adding friction and changing the period.</div>
+      <button class="btn" data-go="h0">Show in 3D lab</button></div></div>
+    <div class="step"><div class="n">3</div><div>
+      <h4>Set it swinging through a small angle</h4>
+      <p>Pull the lower end aside by about 3° to 5° and release it gently. Make sure it swings in one plane, parallel to the wall, with no twisting.</p>
+      <div class="why"><b>Why.</b> The equation of motion is SHM only when sin θ ≈ θ. At larger angles T grows by a factor of about (1 + θ₀²/16), so a large swing gives a period that is too long.</div>
+      <button class="btn" data-go="amp">Show small and large swing</button></div></div>
+    <div class="step"><div class="n">4</div><div>
+      <h4>Time 20 oscillations</h4>
+      <p>Start the stopwatch as the bar passes the mean (vertical) position and count 20 complete oscillations. Repeat the timing and take the mean. Then T = t/20.</p>
+      <div class="why"><b>Why.</b> Your reaction time error (about 0.2 s) is spread over 20 swings, so the error in T falls to about 0.01 s. Starting at the mean position is best because the bar moves fastest there and the instant is easy to judge.</div>
+      <button class="btn" data-go="time">Time it in the 3D lab</button></div></div>
+    <div class="step"><div class="n">5</div><div>
+      <h4>Measure the hole position</h4>
+      <p>Measure the distance of the knife edge (top of the hole) from end A with the metre scale. The distance from G is l = 50 cm minus this, for a 1 m bar.</p>
+      <div class="why"><b>Why.</b> The graph needs T for each position. Measuring from one fixed end for all holes keeps the x axis consistent for both halves.</div></div></div>
+    <div class="step"><div class="n">6</div><div>
+      <h4>Repeat for all holes on side A</h4>
+      <p>Move the bar to each hole in turn up to the hole nearest G and repeat steps 3 to 5.</p>
+      <div class="why"><b>Why.</b> As l falls from the end toward G, T first decreases, reaches a minimum at l = k, and then rises steeply (T → ∞ as l → 0 because the torque vanishes). This gives one full branch of the curve.</div></div></div>
+    <div class="step"><div class="n">7</div><div>
+      <h4>Invert the bar and repeat for side B</h4>
+      <p>Turn the bar upside down and suspend it from the holes on the other half, again measuring all distances from end A.</p>
+      <div class="why"><b>Why.</b> The bar is symmetric about G, so the second branch is a mirror image. Having both branches lets a horizontal line cut the graph at four points.</div>
+      <button class="btn" data-go="h20">Show side B</button></div></div>
+    <div class="step"><div class="n">8</div><div>
+      <h4>Plot T against distance from end A and find L</h4>
+      <p>Draw smooth curves through the points. Draw a horizontal line at a chosen period T cutting the curves at A, B, C, D. Measure AC and BD and take L = (AC + BD)/2. Then g = 4π²L/T². Draw two or three such lines and average.</p>
+      <div class="why"><b>Why.</b> A and C are a pair with l₁ and l₂ on opposite sides of G, so AC = l₁ + l₂ = L. The same holds for B and D.</div>
+      <button class="btn ghost" data-go="graph">Go to graph</button></div></div>
+    <div class="step"><div class="n">9</div><div>
+      <h4>Find k and compare with theory</h4>
+      <p>From the same line, k = √(AD/2 × BC/2). Compare with k = √((ℓ² + b²)/12) for the bar.</p>
+      <div class="why"><b>Why.</b> AD/2 = l₁ and BC/2 = l₂, and the quadratic gives l₁ l₂ = k². The lowest point of each curve should also be at a distance k from G.</div></div></div>
+  </div>
+</section>
+
+<section id="obs">
+  <h2>Observations and graph</h2>
+  <p>Readings recorded in the virtual lab appear here. The timings include a small random reaction error, just like a real stopwatch.</p>
+  <div class="tablewrap"><table class="obs" id="tab"><thead><tr><th>Hole</th><th>Side</th><th>Distance from end A (cm)</th><th>Distance from G, l (cm)</th><th>Time for 20 osc. (s)</th><th>T (s)</th></tr></thead><tbody></tbody></table></div>
+  <h3>T against distance from end A</h3>
+  <canvas id="graph" width="900" height="420"></canvas>
+  <div class="ctrl" style="margin-top:10px">
+    <label>Horizontal line at T <span class="val" id="T0v"></span></label>
+    <input type="range" id="T0" min="1.53" max="1.80" step="0.002" value="1.58">
+    <label class="plain"><input type="checkbox" id="theo"> show theoretical curve</label>
+  </div>
+  <div class="result" id="res">Record readings from both sides to calculate g.</div>
+</section>
+
+<section id="prec">
+  <h2>Precautions and sources of error</h2>
+  <div class="grid2">
+    <ul>
+      <li>The knife edge must be horizontal and sharp, and the bar must rest on it at the top of the hole.</li>
+      <li>Amplitude must stay small, below about 5°.</li>
+      <li>The bar should swing in a vertical plane parallel to the wall, without twisting or touching the wall.</li>
+      <li>Count oscillations carefully, starting the count from zero.</li>
+    </ul>
+    <ul>
+      <li>Measure all distances from the same end and to the knife edge.</li>
+      <li>Draw smooth curves, not straight joins, through the points.</li>
+      <li>Air resistance and friction at the knife edge slightly increase T.</li>
+      <li>The holes reduce the mass of the bar slightly, so k from theory is approximate.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="viva">
+  <h2>Quick viva questions</h2>
+  <details><summary>What is a compound pendulum?</summary><p>A rigid body of any shape free to swing about a horizontal axis that does not pass through its centre of gravity.</p></details>
+  <details><summary>What is the equivalent length of a simple pendulum?</summary><p>L = l + k²/l. A simple pendulum of this length has the same period as the compound pendulum.</p></details>
+  <details><summary>What are centres of suspension and oscillation, and why are they interchangeable?</summary><p>They are two points on opposite sides of G at distances l₁ and l₂ with l₁ l₂ = k². Since the period depends on l + k²/l, which is the same for l₁ and l₂, swapping them leaves T unchanged.</p></details>
+  <details><summary>Why is the period infinite when the axis passes through G?</summary><p>With l = 0 the weight acts through the axis and gives no restoring torque, so there is no oscillation.</p></details>
+  <details><summary>At what point is the period minimum?</summary><p>When l = k. Then L = 2k and T<sub>min</sub> = 2π√(2k/g).</p></details>
+  <details><summary>Why is the compound pendulum better than a simple pendulum?</summary><p>Its length L is found from the graph instead of measuring to an uncertain centre of a bob. The mass is distributed and real, there is no stretching string, and it does not twist easily.</p></details>
+</section>
+</main>
+
+<script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
+const v3={add:(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],mul:(a,s)=>[a[0]*s,a[1]*s,a[2]*s],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  norm:a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]}};
+const rgb=(c,k=1,a=1)=>`rgba(${Math.min(255,Math.round(c[0]*k))},${Math.min(255,Math.round(c[1]*k))},${Math.min(255,Math.round(c[2]*k))},${a})`;
+function setupCanvas(cv){const W=+cv.getAttribute('width'),H=+cv.getAttribute('height'),dpr=Math.max(1,window.devicePixelRatio||1);
+  cv.width=W*dpr;cv.height=H*dpr;const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,W,H};}
+function Scene3D(canvas,o={}){
+  const {ctx,W,H}=setupCanvas(canvas);
+  const S={ctx,W,H,yaw:o.yaw??-0.5,pitch:o.pitch??0.25,dist:o.dist??4,target:o.target||[0,0,0],f:o.f||H*1.25,items:[],labels:[],light:v3.norm([-0.45,0.85,0.75])};
+  const home={yaw:S.yaw,pitch:S.pitch,dist:S.dist};
+  let cy=1,sy=0,cp=1,sp=0,cam=[0,0,0];
+  S.begin=()=>{cy=Math.cos(S.yaw);sy=Math.sin(S.yaw);cp=Math.cos(S.pitch);sp=Math.sin(S.pitch);
+    cam=v3.add(S.target,[-S.dist*cp*sy,S.dist*sp,S.dist*cp*cy]);S.items.length=0;S.labels.length=0;};
+  S.proj=p=>{const x=p[0]-S.target[0],y=p[1]-S.target[1],z=p[2]-S.target[2];
+    const x1=x*cy+z*sy,z1=-x*sy+z*cy,y2=y*cp-z1*sp,z2=y*sp+z1*cp,d=S.dist-z2;
+    return [S.W/2+S.f*x1/d,S.H/2-S.f*y2/d,d];};
+  S.poly=(pts,col,op={})=>{const P=pts.map(S.proj);for(const q of P)if(q[2]<0.05)return;
+    let c=[0,0,0];pts.forEach(p=>{c[0]+=p[0];c[1]+=p[1];c[2]+=p[2]});c=v3.mul(c,1/pts.length);
+    let n=v3.norm(v3.cross(v3.sub(pts[1],pts[0]),v3.sub(pts[2],pts[0])));const toCam=v3.sub(cam,c);
+    if(op.center){if(v3.dot(n,v3.sub(c,op.center))<0)n=v3.mul(n,-1);if(v3.dot(n,toCam)<0&&!op.twoSided)return;}
+    else if(v3.dot(n,toCam)<0)n=v3.mul(n,-1);
+    const l=op.flat?1:0.58+0.5*Math.max(0,v3.dot(n,S.light));
+    const d=P.reduce((s,q)=>s+q[2],0)/P.length+(op.bias||0);
+    const fill=typeof col==='string'?col:rgb(col,l,op.alpha??1);
+    S.items.push({d,f:()=>{ctx.beginPath();P.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.closePath();
+      ctx.fillStyle=fill;ctx.fill();if(op.stroke){ctx.strokeStyle=op.stroke;ctx.lineWidth=op.lw||1;ctx.stroke();}}});};
+  S.line=(a,b,col,w=1.5,op={})=>{const A=S.proj(a),B=S.proj(b);if(A[2]<0.05||B[2]<0.05)return;const d=(A[2]+B[2])/2+(op.bias||0);
+    const lw=op.world?Math.max(0.7,w*S.f/d):w;
+    S.items.push({d,f:()=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineCap='round';if(op.dash)ctx.setLineDash(op.dash);
+      ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke();ctx.setLineDash([]);}});};
+  S.path=(pts,col,w,op={})=>{for(let i=1;i<pts.length;i++)S.line(pts[i-1],pts[i],col,w,op);};
+  S.sphere=(c,r,col,op={})=>{const P=S.proj(c);if(P[2]<0.05)return;const R=r*S.f/P[2];
+    S.items.push({d:P[2]+(op.bias||0),f:()=>{const g=ctx.createRadialGradient(P[0]-R*.35,P[1]-R*.35,R*.1,P[0],P[1],R);
+      g.addColorStop(0,rgb(col,1.35));g.addColorStop(1,rgb(col,0.6));ctx.fillStyle=g;ctx.beginPath();ctx.arc(P[0],P[1],R,0,7);ctx.fill();}});};
+  S.label=(p,t,op={})=>{S.labels.push({P:S.proj(p),t,op});};
+  S.box=(T,s,col,op={})=>{const a=s[0]/2,b=s[1]/2,c=s[2]/2;
+    const L=[[-a,-b,-c],[a,-b,-c],[a,b,-c],[-a,b,-c],[-a,-b,c],[a,-b,c],[a,b,c],[-a,b,c]].map(T);const C=T([0,0,0]);
+    [[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[1,2,6,5],[0,3,7,4]].forEach(f=>S.poly(f.map(i=>L[i]),col,{...op,center:C}));};
+  S.boxAt=(c,s,col,op)=>S.box(p=>v3.add(p,c),s,col,op);
+  S.cyl=(a,b,r,col,n=18,op={})=>{const u=v3.norm(v3.sub(b,a));const e1=v3.norm(v3.cross(u,Math.abs(u[1])<0.9?[0,1,0]:[1,0,0]));const e2=v3.cross(u,e1);
+    const C=v3.mul(v3.add(a,b),.5);
+    const ring=(p,rr)=>{const R=[];for(let i=0;i<n;i++){const t=i/n*Math.PI*2;R.push(v3.add(p,v3.add(v3.mul(e1,Math.cos(t)*rr),v3.mul(e2,Math.sin(t)*rr))));}return R;};
+    const A=ring(a,r),B=ring(b,op.r2??r);
+    for(let i=0;i<n;i++){const j=(i+1)%n;S.poly([A[i],A[j],B[j],B[i]],col,{...op,center:C});}
+    if(!op.open){S.poly(A,col,{...op,center:C});S.poly(B,col,{...op,center:C});}};
+  S.render=()=>{ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#f1f4fa');g.addColorStop(1,'#dfe5ef');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    S.items.sort((p,q)=>q.d-p.d);for(const it of S.items)it.f();
+    for(const {P,t,op} of S.labels){if(P[2]<0.05)continue;ctx.font=op.font||'600 12px system-ui';ctx.textAlign=op.align||'left';
+      if(op.halo!==false){ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.85)';ctx.strokeText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+      ctx.fillStyle=op.color||'#1b2a4a';ctx.fillText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+    ctx.textAlign='left';ctx.fillStyle='rgba(27,42,74,.6)';ctx.font='11px system-ui';
+    ctx.fillText('3D view. Drag to rotate, scroll to zoom, double-click to reset',10,H-10);};
+  let drag=null;
+  canvas.classList.add('c3d');
+  canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,yaw:S.yaw,pitch:S.pitch};canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;S.yaw=drag.yaw+(e.clientX-drag.x)*0.008;
+    S.pitch=Math.max(-0.35,Math.min(1.45,drag.pitch+(e.clientY-drag.y)*0.006));});
+  canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);
+  canvas.addEventListener('wheel',e=>{e.preventDefault();S.dist=Math.max(o.minDist||0.4,Math.min(o.maxDist||20,S.dist*Math.exp(e.deltaY*0.001)));},{passive:false});
+  canvas.addEventListener('dblclick',()=>Object.assign(S,home));
+  S.setView=v=>{Object.assign(S,v);};
+  return S;
+}
+
+/* ---- 2D plotting helper ---- */
+function niceStep(range,n){const r=range/n,p=Math.pow(10,Math.floor(Math.log10(r))),m=r/p;return (m<1.5?1:m<3?2:m<7?5:10)*p;}
+function linfit(pts){const n=pts.length;if(n<2)return null;let sx=0,sy=0,sxx=0,sxy=0;
+  pts.forEach(([x,y])=>{sx+=x;sy+=y;sxx+=x*x;sxy+=x*y});const d=n*sxx-sx*sx;if(!d)return null;const m=(n*sxy-sx*sy)/d;return {m,b:(sy-m*sx)/n};}
+function Plot(cv){
+  const {ctx,W,H}=setupCanvas(cv);
+  return function(d){
+    const L=62,R=18,T=16,B=46;
+    const X=x=>L+(x-d.xmin)/(d.xmax-d.xmin)*(W-L-R),Y=y=>H-B-(y-d.ymin)/(d.ymax-d.ymin)*(H-T-B);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+    const xs=niceStep(d.xmax-d.xmin,8),ys=niceStep(d.ymax-d.ymin,6);
+    ctx.font='11px system-ui';ctx.fillStyle='#5b6475';ctx.strokeStyle='#e7ebf2';ctx.lineWidth=1;
+    for(let x=Math.ceil(d.xmin/xs)*xs;x<=d.xmax+1e-9;x+=xs){ctx.beginPath();ctx.moveTo(X(x),T);ctx.lineTo(X(x),H-B);ctx.stroke();
+      ctx.textAlign='center';ctx.fillText(+x.toFixed(6)+'',X(x),H-B+15);}
+    for(let y=Math.ceil(d.ymin/ys)*ys;y<=d.ymax+1e-9;y+=ys){ctx.beginPath();ctx.moveTo(L,Y(y));ctx.lineTo(W-R,Y(y));ctx.stroke();
+      ctx.textAlign='right';ctx.fillText(+y.toFixed(6)+'',L-6,Y(y)+4);}
+    ctx.strokeStyle='#1b2a4a';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,H-B);ctx.lineTo(W-R,H-B);ctx.stroke();
+    if(d.ymin<0&&d.ymax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(L,Y(0));ctx.lineTo(W-R,Y(0));ctx.stroke();}
+    if(d.xmin<0&&d.xmax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(X(0),T);ctx.lineTo(X(0),H-B);ctx.stroke();}
+    ctx.fillStyle='#1b2a4a';ctx.font='600 12.5px system-ui';ctx.textAlign='center';ctx.fillText(d.xlabel||'',(L+W-R)/2,H-10);
+    ctx.save();ctx.translate(15,(T+H-B)/2);ctx.rotate(-Math.PI/2);ctx.fillText(d.ylabel||'',0,0);ctx.restore();
+    ctx.save();ctx.beginPath();ctx.rect(L,T,W-L-R,H-T-B);ctx.clip();
+    (d.lines||[]).forEach(s=>{ctx.strokeStyle=s.color||'#1b2a4a';ctx.lineWidth=s.w||1.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();
+      s.pts.forEach(([x,y],i)=>i?ctx.lineTo(X(x),Y(y)):ctx.moveTo(X(x),Y(y)));ctx.stroke();ctx.setLineDash([]);});
+    (d.series||[]).forEach(s=>{ctx.fillStyle=s.color||'#1b2a4a';s.pts.forEach(([x,y])=>{ctx.beginPath();ctx.arc(X(x),Y(y),s.r||4,0,7);ctx.fill();});});
+    (d.marks||[]).forEach(m=>{ctx.fillStyle=m.color||'#c62f4b';ctx.beginPath();ctx.arc(X(m.x),Y(m.y),5,0,7);ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.font='700 13px system-ui';ctx.textAlign='center';
+      ctx.fillStyle=m.color||'#c62f4b';ctx.fillText(m.label,X(m.x)+(m.dx||0),Y(m.y)+(m.dy??-10));});
+    ctx.restore();
+    if(d.legend){ctx.textAlign='left';ctx.font='12px system-ui';let yy=T+14;d.legend.forEach(([c,t])=>{ctx.fillStyle=c;ctx.fillRect(W-R-170,yy-8,14,4);
+      ctx.fillStyle='#1d2330';ctx.fillText(t,W-R-150,yy-3);yy+=17;});}
+    return {X,Y};
+  };
+}
+const fmt=(x,n=2)=>isFinite(x)?x.toFixed(n):'–';
+</script>
+<script>
+(() => {
+const $=id=>document.getElementById(id);
+const g0=9.79, Lbar=1.0, bw=0.04, bt=0.012, kTh=Math.sqrt((Lbar*Lbar+bw*bw)/12);
+const holes=[]; for(let d=2;d<=46;d+=4) holes.push(d); for(let d=54;d<=98;d+=4) holes.push(d);
+const st={hi:0,amp:4,speed:1,t:0,eq:false,sw:{state:'idle',t0:0,N:20,res:0},data:{}};
+const sOf=d=>0.5-d/100;  /* signed position of hole from G in m, + toward A */
+const Tof=(d,amp)=>{const l=Math.abs(sOf(d)),th=(amp??st.amp)*Math.PI/180;return 2*Math.PI*Math.sqrt((kTh*kTh+l*l)/(g0*l))*(1+th*th/16);};
+
+/* theory figure */
+(function(){const P=Plot($('thgraph'));const pts=[];for(let x=0.5;x<=99.5;x+=0.5){if(Math.abs(x-50)<1.2)continue;pts.push([x,Tof(x,0)]);}
+  const left=pts.filter(p=>p[0]<50),right=pts.filter(p=>p[0]>50),T0=1.62;
+  const cross=arr=>{const o=[];for(let i=1;i<arr.length;i++){const a=arr[i-1],b=arr[i];if((a[1]-T0)*(b[1]-T0)<0)o.push(a[0]+(T0-a[1])*(b[0]-a[0])/(b[1]-a[1]));}return o;};
+  const xs=[...cross(left),...cross(right)];
+  P({xmin:0,xmax:100,ymin:1.4,ymax:3.0,xlabel:'distance of knife edge from end A (cm)',ylabel:'T (s)',
+    lines:[{pts:left,color:'#1b2a4a',w:2},{pts:right,color:'#1b2a4a',w:2},{pts:[[0,T0],[100,T0]],color:'#c62f4b',dash:[6,4]},{pts:[[50,1.4],[50,3]],color:'#9aa3b5',dash:[3,4],w:1}],
+    marks:xs.map((x,i)=>({x,y:T0,label:'ABCD'[i],dy:18}))});
+})();
+
+/* 3D scene */
+const S=Scene3D($('c3d'),{yaw:-0.5,pitch:0.1,dist:1.55,target:[0.02,-0.45,0],f:640});
+function theta(){const T=Tof(holes[st.hi]);return st.amp*Math.PI/180*Math.cos(2*Math.PI*st.t/T);}
+function draw(){
+  S.begin();
+  const wallZ=-0.25;
+  S.poly([[-1,-1.25,wallZ],[1,-1.25,wallZ],[1,0.45,wallZ],[-1,0.45,wallZ]],[231,235,242],{bias:60,flat:true});
+  S.poly([[-1,-1.25,wallZ],[1,-1.25,wallZ],[1,-1.25,0.9],[-1,-1.25,0.9]],[214,206,192],{bias:70,flat:true});
+  for(let a=-14;a<=14;a+=2){const ang=a*Math.PI/180,r1=1.0,r2=a%10?1.025:1.05;
+    S.line([r1*Math.sin(ang),-r1*Math.cos(ang),wallZ+0.002],[r2*Math.sin(ang),-r2*Math.cos(ang),wallZ+0.002],'#6f7b91',1.2,{bias:40});}
+  S.label([0,-1.1,wallZ],'angle scale',{align:'center',color:'#6f7b91',font:'11px system-ui'});
+  /* bracket + knife edge */
+  S.boxAt([0,-0.012,(wallZ-0.03)/2],[0.07,0.03,Math.abs(wallZ)-0.03],[118,126,140]);
+  S.boxAt([0,0.06,wallZ+0.01],[0.22,0.16,0.02],[100,108,122]);
+  const kc=[0,-0.006,0],tri=z=>[[0,0,z],[-0.008,-0.012,z],[0.008,-0.012,z]];
+  const A=tri(-0.03),B=tri(0.03);
+  [[0,1],[0,2],[1,2]].forEach(([i,j])=>S.poly([A[i],A[j],B[j],B[i]],[70,74,84],{center:kc,bias:-0.002}));
+  S.poly(B,[70,74,84],{center:kc,bias:-0.002});
+  S.label([0.05,0.015,0.03],'knife edge S',{font:'12px system-ui',dx:6});
+  /* bar */
+  const d=holes[st.hi],sh=sOf(d),sg=Math.sign(sh),th=theta(),c=Math.cos(th),s=Math.sin(th);
+  const T=p=>{const x=p[0]*sg,y=sg*(p[1]-sh);return [x*c-y*s,x*s+y*c,p[2]];};
+  S.box(T,[bw,Lbar,bt],[196,160,98]);
+  const disc=(sl,r,col,b)=>{[1,-1].forEach(side=>{const z=side*(bt/2+0.0007),pts=[];
+      for(let i=0;i<14;i++){const a=i/14*Math.PI*2;pts.push(T([r*Math.cos(a),sl+r*Math.sin(a),z]));}
+      S.poly(pts,col,{center:T([0,sl,0]),flat:true,bias:b});});};
+  holes.forEach(dd=>disc(sOf(dd),0.0055,[46,40,34],-0.003));
+  disc(0,0.007,[198,47,75],-0.004);
+  S.label(T([0.03,0,bt]),'G',{color:'#c62f4b',font:'700 13px system-ui'});
+  S.label(T([-0.035,0.5+0.01,0]),'A',{align:'center',font:'700 14px system-ui'});
+  S.label(T([0,-0.5-0.045,0]),'B',{align:'center',font:'700 14px system-ui'});
+  const l=Math.abs(sh),Leq=l+kTh*kTh/l;
+  const oS=sh-sg*Leq;  /* local s of centre of oscillation */
+  if(Math.abs(oS)<=0.5){disc(oS,0.007,[31,138,138],-0.004);S.label(T([0.03,oS,bt]),'O',{color:'#1f8a8a',font:'700 13px system-ui'});}
+  if(st.eq){const bob=[Leq*s,-Leq*c,0.09];S.line([0,0,0.09],bob,'#c62f4b',1.3);S.line([0,0,0],[0,0,0.09],'#888',1);
+    S.sphere(bob,0.025,[198,47,75]);S.label(v3.add(bob,[0.04,0,0]),'L = '+(Leq*100).toFixed(1)+' cm',{color:'#c62f4b'});}
+  S.line([0,0,0.007],[0,-1.15,0.007],'rgba(27,42,74,.35)',1,{dash:[4,5],bias:-0.01});
+  S.render();
+}
+
+/* stopwatch + loop */
+function updWatch(){const w=st.sw,T=Tof(holes[st.hi]);let t=0,n=0;
+  if(w.state==='running'){t=st.t-w.t0;n=Math.min(w.N,Math.floor(t/T));if(n>=w.N){w.state='done';w.res=w.N*T+(Math.random()-0.5)*0.36;
+      $('msg').className='status ok';$('msg').textContent='Done. Press Record to save this reading.';}}
+  if(w.state==='done'){t=w.res;n=w.N;}
+  $('watch').innerHTML=t.toFixed(2)+' s<small>oscillations '+n+' / '+w.N+'</small>';}
+let last=performance.now();
+function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;st.t+=dt*st.speed;updWatch();draw();requestAnimationFrame(loop);}
+
+function ui(){const d=holes[st.hi],l=Math.abs(sOf(d));
+  $('holev').textContent=(st.hi+1)+' of 24';
+  $('holeinfo').textContent=d+' cm from end A, side '+(d<50?'A (bar upright)':'B (bar inverted)');
+  $('ampv').textContent=st.amp.toFixed(1)+'°';$('spv').textContent=st.speed+'×';
+  $('rl').textContent=(l*100).toFixed(1)+' cm';$('rT').textContent=Tof(d).toFixed(3)+' s';$('rL').textContent=((l+kTh*kTh/l)*100).toFixed(1)+' cm';}
+function resetWatch(){st.sw={state:'idle',t0:0,N:20,res:0};$('msg').className='status info';$('msg').textContent='Press Start timing to count 20 oscillations.';}
+$('hole').addEventListener('input',e=>{st.hi=+e.target.value;st.t=0;resetWatch();ui();});
+$('amp').addEventListener('input',e=>{st.amp=+e.target.value;ui();if(st.amp>6){$('msg').className='status bad';$('msg').textContent='Amplitude is large. SHM formula needs a small swing (below about 5°).';}});
+$('sp').addEventListener('input',e=>{st.speed=+e.target.value;ui();});
+$('eq').addEventListener('change',e=>st.eq=e.target.checked);
+$('start').addEventListener('click',()=>{st.sw={state:'running',t0:st.t,N:20,res:0};$('msg').className='status info';$('msg').textContent='Counting. Increase the speed slider to finish faster.';});
+$('rec').addEventListener('click',()=>{if(st.sw.state!=='done'){$('msg').className='status bad';$('msg').textContent='Time 20 oscillations first.';return;}
+  st.data[holes[st.hi]]={t20:st.sw.res};$('msg').className='status ok';$('msg').textContent='Saved hole '+(st.hi+1)+'. Choose the next hole.';refresh();});
+$('auto').addEventListener('click',()=>{holes.forEach(d=>{st.data[d]={t20:20*Tof(d,4)+(Math.random()-0.5)*0.36};});refresh();
+  $('msg').className='status ok';$('msg').textContent='All 24 holes recorded with realistic timing errors.';});
+$('clear').addEventListener('click',()=>{st.data={};refresh();});
+$('T0').addEventListener('input',refresh);$('theo').addEventListener('change',refresh);
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.go;
+  if(g==='graph'){$('obs').scrollIntoView({behavior:'smooth'});return;}
+  $('lab').scrollIntoView({behavior:'smooth'});
+  if(g==='h0'){st.hi=0;st.amp=4;}
+  if(g==='amp'){st.amp=st.amp>6?4:15;}
+  if(g==='time'){st.sw={state:'running',t0:st.t,N:20,res:0};st.speed=4;}
+  if(g==='h20'){st.hi=20;st.amp=4;resetWatch();}
+  $('hole').value=st.hi;$('amp').value=st.amp;$('sp').value=st.speed;ui();}));
+
+/* table + graph */
+const plot=Plot($('graph'));
+function refresh(){
+  const tb=$('tab').querySelector('tbody');tb.innerHTML='';
+  const rows=holes.filter(d=>st.data[d]).map(d=>[d,st.data[d].t20/20]);
+  holes.forEach((d,i)=>{if(!st.data[d])return;const r=st.data[d];
+    tb.insertAdjacentHTML('beforeend',`<tr><td>${i+1}</td><td>${d<50?'A':'B'}</td><td>${d.toFixed(1)}</td><td>${(Math.abs(sOf(d))*100).toFixed(1)}</td><td>${r.t20.toFixed(2)}</td><td>${(r.t20/20).toFixed(3)}</td></tr>`);});
+  if(!rows.length)tb.innerHTML='<tr><td colspan="6" class="note">No readings yet</td></tr>';
+  const T0=+$('T0').value;$('T0v').textContent=T0.toFixed(3)+' s';
+  const left=rows.filter(r=>r[0]<50),right=rows.filter(r=>r[0]>50);
+  const cross=arr=>{const o=[];for(let i=1;i<arr.length;i++){const a=arr[i-1],b=arr[i];if((a[1]-T0)*(b[1]-T0)<0)o.push(a[0]+(T0-a[1])*(b[0]-a[0])/(b[1]-a[1]));}return o;};
+  const xs=[...cross(left),...cross(right)];
+  const lines=[{pts:left,color:'#1b2a4a',w:1.6},{pts:right,color:'#1b2a4a',w:1.6},{pts:[[0,T0],[100,T0]],color:'#c62f4b',dash:[6,4]}];
+  if($('theo').checked){const tl=[],tr=[];for(let x=0.5;x<=99.5;x+=0.5){if(Math.abs(x-50)<1.5)continue;(x<50?tl:tr).push([x,Tof(x,0)]);}
+    lines.push({pts:tl,color:'#1f8a8a',dash:[3,3],w:1.2},{pts:tr,color:'#1f8a8a',dash:[3,3],w:1.2});}
+  plot({xmin:0,xmax:100,ymin:1.4,ymax:3.1,xlabel:'distance of knife edge from end A (cm)',ylabel:'period T (s)',lines,
+    series:[{pts:rows,color:'#1b2a4a',r:4}],marks:xs.length===4?xs.map((x,i)=>({x,y:T0,label:'ABCD'[i],dy:20})):[]});
+  if(xs.length===4){const [A,B,C,D]=xs,AC=C-A,BD=D-B,L=(AC+BD)/200,g=4*Math.PI*Math.PI*L/(T0*T0),k=Math.sqrt((D-A)/2*(C-B)/2)/100;
+    $('res').innerHTML=`Line at T = <b>${T0.toFixed(3)} s</b> cuts the curves at A = ${A.toFixed(1)}, B = ${B.toFixed(1)}, C = ${C.toFixed(1)}, D = ${D.toFixed(1)} cm<br>
+      AC = ${AC.toFixed(1)} cm, &nbsp; BD = ${BD.toFixed(1)} cm, &nbsp; L = (AC + BD)/2 = <b>${(L*100).toFixed(1)} cm</b><br>
+      g = 4π²L/T² = 4π² × ${L.toFixed(4)} / ${T0.toFixed(3)}² = <b style="font-size:19px">${g.toFixed(3)} m/s²</b> &nbsp; (standard value near Dhaka about 9.79 m/s², error ${(Math.abs(g-g0)/g0*100).toFixed(2)}%)<br>
+      k = √(AD/2 × BC/2) = <b>${(k*100).toFixed(1)} cm</b> &nbsp; (theory √((ℓ²+b²)/12) = ${(kTh*100).toFixed(1)} cm)`;}
+  else $('res').textContent=rows.length? 'The line must cut both branches on both sides. Record more holes or move the line (try a T just above the lowest points).':'Record readings from both sides to calculate g.';
+  const fp=linfit(rows.map(([d,T])=>{const l=Math.abs(sOf(d));return [l*l,T*T*l];}));
+  if(fp&&rows.length>=3){$('res').innerHTML+=`<br><br><span class="note">Straight-line method (D10), T²l against l² using all ${rows.length} readings</span><br>slope = ${fp.m.toFixed(4)} s²/m, intercept = ${fp.b.toFixed(5)} s²·m, &nbsp; g = 4π²/slope = <b>${(4*Math.PI*Math.PI/fp.m).toFixed(3)} m/s²</b>, &nbsp; k = √(intercept/slope) = <b>${(Math.sqrt(fp.b/fp.m)*100).toFixed(1)} cm</b>`;}
+}
+ui();refresh();requestAnimationFrame(loop);
+})();
+</script>
+<footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+</body>
+</html>

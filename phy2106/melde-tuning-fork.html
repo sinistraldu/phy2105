@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frequency of a Tuning Fork by Melde's Experiment</title>
+<style>:root{
+  --navy:#1b2a4a; --navy2:#2d4373; --ink:#1d2330; --muted:#5b6475;
+  --bg:#f6f7fb; --card:#ffffff; --line:#dde2ec;
+  --ray1:#c62f4b; --ray2:#1f8a8a; --good:#1f7a4d; --warn:#a33a2a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:34px 20px 28px}
+header .wrap{max-width:1120px;margin:auto}
+header h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(24px,3.4vw,36px);margin:0 0 6px;line-height:1.2}
+header p{margin:0;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+nav .wrap{max-width:1120px;margin:auto;display:flex;gap:4px;overflow-x:auto;padding:6px 14px}
+nav a{color:var(--navy);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;white-space:nowrap}
+nav a:hover{background:#eef1f8}
+main{max-width:1120px;margin:auto;padding:10px 16px 60px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:22px 0}
+h2{font-family:Georgia,serif;color:var(--navy);margin:0 0 12px;font-size:24px}
+h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.eq{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 16px;margin:12px 0;font-family:"Cambria Math",Cambria,Georgia,serif;font-size:19px;overflow-x:auto;white-space:nowrap}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
+.frac>span:last-child{padding:0 4px}
+.sqrt{border-top:1.5px solid currentColor;padding:0 3px;margin-left:1px}
+.note{font-size:14px;color:var(--muted)}
+ul.app{columns:2;margin:6px 0}
+@media(max-width:600px){ul.app{columns:1}}
+figure{margin:8px 0}
+figcaption{font-size:13.5px;color:var(--muted);text-align:center;margin-top:4px}
+svg{max-width:100%;height:auto;display:block;margin:auto}
+.simwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+@media(max-width:920px){.simwrap{grid-template-columns:1fr}}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fbfcfe}
+canvas.c3d{cursor:grab;touch-action:none}
+canvas.c3d:active{cursor:grabbing}
+.panel{display:flex;flex-direction:column;gap:12px}
+.ctrl{background:#f5f7fb;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ctrl label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ctrl label.plain{font-weight:400}
+.ctrl input[type=range]{width:100%}
+.ctrl select{width:100%;padding:5px;border-radius:6px;border:1px solid var(--line);font-size:14px}
+.val{float:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-size:14px;cursor:pointer}
+.btn:hover{background:var(--navy2)}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.read{font-size:14px;font-variant-numeric:tabular-nums;width:100%}
+.read td{padding:2px 4px}
+.read td:first-child{color:var(--muted)}
+.read td:last-child{text-align:right}
+.status{padding:9px 12px;border-radius:8px;font-size:14px;font-weight:600}
+.status.ok{background:#e4f4ea;color:var(--good)}
+.status.bad{background:#fbe9e6;color:var(--warn)}
+.status.info{background:#eef1f8;color:var(--navy)}
+.watch{font:600 28px/1.1 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);text-align:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px}
+.watch small{display:block;font:13px system-ui;color:var(--muted);margin-top:3px}
+.steps{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fcfdff}
+.step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.step h4{margin:2px 0 4px;color:var(--navy);font-size:16.5px}
+.step p{margin:0 0 6px}
+.step .why{background:#f2f5fb;border-left:3px solid var(--navy);padding:7px 11px;margin:8px 0;font-size:14.5px;border-radius:0 6px 6px 0}
+.step .why b{color:var(--navy)}
+.step .btn{font-size:13px;padding:5px 10px}
+table.obs{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;font-variant-numeric:tabular-nums}
+table.obs th,table.obs td{border:1px solid var(--line);padding:5px 6px;text-align:center}
+table.obs th{background:#eef1f8;color:var(--navy)}
+.tablewrap{overflow-x:auto}
+.result{font-size:16px;background:#eef1f8;border-radius:10px;padding:12px 16px;margin-top:10px;line-height:1.8}
+.result b{color:var(--navy)}
+ol li,ul li{margin:3px 0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;background:#fcfdff}
+summary{cursor:pointer;font-weight:600;color:var(--navy)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:5px}
+</style>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<style>
+.deriv h3{border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:28px}
+.deriv p{margin:8px 0}
+.deriv .katex-display{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 14px;margin:12px 0;overflow-x:auto;overflow-y:hidden;border-radius:0 6px 6px 0}
+.deriv .katex{font-size:1.08em}
+footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
+footer.credit a{color:#fff}
+.backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="backlink" href="index.html">&larr; PHY 2106 experiments</a>
+  <h1>Determination of the Frequency of a Tuning Fork by Melde's Experiment</h1>
+  <p>Standing waves on a string driven by an electrically maintained fork, in transverse and longitudinal arrangements</p>
+</div></header>
+<nav><div class="wrap">
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#lab">3D virtual lab</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graph</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+</div></nav>
+<main>
+
+<section id="aim">
+  <h2>Aim and apparatus</h2>
+  <p><b>Aim.</b> To determine the frequency n of an electrically maintained tuning fork by Melde's method, using both the transverse and the longitudinal arrangement.</p>
+  <ul class="app">
+    <li>Electrically maintained tuning fork on a stand</li>
+    <li>Battery or low voltage supply, key and connecting wires</li>
+    <li>Light, uniform, inextensible thread (2 to 3 m)</li>
+    <li>Smooth pulley clamped to the table edge</li>
+    <li>Light scale pan and a set of small weights</li>
+    <li>Metre scale and a physical balance</li>
+  </ul>
+</section>
+
+<section id="theory">
+  <h2>Theory</h2>
+  <h3>1. Waves on a stretched string</h3>
+  <p>A transverse wave on a string of mass per unit length m under tension T travels with speed</p>
+  <div class="eq">v = <span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+  <p>In Melde's experiment the tension is supplied by a pan of weights hanging over a pulley, so T = (M + m₀)g, where M is the load and m₀ is the pan mass.</p>
+
+  <h3>2. Standing waves and loops</h3>
+  <div class="grid2">
+    <div>
+      <p>Waves sent from the fork reflect at the pulley and travel back. The two waves add and form a <b>stationary wave</b>. Both ends behave as nodes, so the string can only resonate when its vibrating length l holds a whole number p of half wavelengths</p>
+      <div class="eq">l = p <span class="frac"><span>λ</span><span>2</span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; f<sub>string</sub> = <span class="frac"><span>v</span><span>λ</span></span> = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+      <p>Each half wavelength appears as one bright <b>loop</b>. When the condition is met exactly the loops are large and steady with sharp nodes. Slightly off resonance the string only shivers.</p>
+    </div>
+    <figure><svg id="svgLoops" viewBox="0 0 420 170"></svg>
+      <figcaption>p = 4 loops. Nodes (N) stay still, antinodes (A) swing most. Each loop is λ/2 long.</figcaption></figure>
+  </div>
+
+  <h3>3. The two arrangements</h3>
+  <div class="grid2">
+    <figure><svg id="svgTrans" viewBox="0 0 420 200"></svg>
+      <figcaption>Transverse arrangement. The prongs move perpendicular to the thread.</figcaption></figure>
+    <figure><svg id="svgLong" viewBox="0 0 420 200"></svg>
+      <figcaption>Longitudinal arrangement. The prongs move along the thread.</figcaption></figure>
+  </div>
+  <div class="grid2">
+    <div>
+      <p><b>Transverse arrangement.</b> Each swing of the prong pushes the thread sideways once, so the string vibrates at the <b>same frequency</b> as the fork.</p>
+      <div class="eq">n = <span class="frac"><span>p</span><span>2l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+    </div>
+    <div>
+      <p><b>Longitudinal arrangement.</b> The prong only tightens and slackens the thread. The string bulges up during one fork cycle and down during the next, so it completes one vibration for every two vibrations of the fork. The string frequency is <b>n/2</b>.</p>
+      <div class="eq">n = <span class="frac"><span>p</span><span>l</span></span><span>√</span><span class="sqrt"><span class="frac"><span>T</span><span>m</span></span></span></div>
+    </div>
+  </div>
+  <p>For the same tension and length the longitudinal arrangement therefore gives <b>half as many loops</b>. Also, for a fixed length, T·p² stays constant in each arrangement, which is a quick check on your readings.</p>
+</section>
+
+<section id="derivations" class="deriv">
+  <h2>Detailed theory and derivations</h2>
+
+  <h3>D1. Wave equation for a stretched string</h3>
+  <p>Consider a small piece of string between x and x + dx, with mass m dx, where m is the mass per unit length. Let y(x, t) be its sideways displacement. The tension T is the same everywhere for small displacements. At each end the tension pulls along the string, at angles θ(x) and θ(x + dx) to the x axis.</p>
+  <p>The sideways components of the two tension forces do not cancel, because the string is curved</p>
+  $$F_y=T\sin\theta(x+dx)-T\sin\theta(x)\approx T\left[\frac{\partial y}{\partial x}\right]_{x+dx}-T\left[\frac{\partial y}{\partial x}\right]_{x}=T\,\frac{\partial^2y}{\partial x^2}\,dx .$$
+  <p>Here we used sin θ ≈ tan θ = ∂y/∂x for small slopes. Newton's second law for the piece is F<sub>y</sub> = (m dx) ∂²y/∂t², so</p>
+  $$\boxed{\;\frac{\partial^2y}{\partial x^2}=\frac{1}{v^2}\frac{\partial^2y}{\partial t^2},\qquad v=\sqrt{\frac{T}{m}}\;}$$
+  <p>This is the wave equation. Any function y = f(x − vt) or g(x + vt) satisfies it, so disturbances travel along the string with speed v = √(T/m).</p>
+
+  <h3>D2. Travelling waves and stationary waves</h3>
+  <p>Take the origin at a fixed end. A wave travelling one way and its reflection travelling back are</p>
+  $$y_1=a\sin(kx-\omega t),\qquad y_2=a\sin(kx+\omega t),\qquad k=\frac{2\pi}{\lambda},\quad \omega=2\pi f,\quad v=\frac{\omega}{k}=f\lambda .$$
+  <p>Their sum is zero at x = 0 for all t, as a fixed end requires. Using sin A + sin B = 2 sin((A + B)/2) cos((A − B)/2)</p>
+  $$y=y_1+y_2=2a\sin(kx)\cos(\omega t).$$
+  <p>Every point moves in step with amplitude 2a sin kx. The pattern does not travel, so it is a <b>stationary (standing) wave</b>.</p>
+  <ul>
+    <li><b>Nodes</b>, where sin kx = 0, at x = 0, λ/2, λ, 3λ/2, …, never move.</li>
+    <li><b>Antinodes</b>, where |sin kx| = 1, at x = λ/4, 3λ/4, …, have the largest amplitude.</li>
+  </ul>
+  <p>The distance between neighbouring nodes is λ/2. Each segment between two nodes is seen as one loop.</p>
+
+  <h3>D3. Normal modes of a string fixed at both ends</h3>
+  <p>Both ends are (very nearly) nodes, so y(0, t) = 0 and y(l, t) = 0. The second condition requires</p>
+  $$\sin(kl)=0\quad\Longrightarrow\quad kl=p\pi,\quad p=1,2,3,\ldots$$
+  $$\lambda_p=\frac{2l}{p},\qquad \boxed{\;f_p=\frac{v}{\lambda_p}=\frac{p}{2l}\sqrt{\frac{T}{m}}\;}$$
+  <p>A string of length l can only vibrate strongly at these frequencies, its <b>normal modes</b>. In mode p it shows p loops.</p>
+
+  <h3>D4. Why the loops are sharp only at resonance</h3>
+  <p>The fork end is not a perfect node. It moves with a small amplitude a, y(0, t) = a cos ωt, while the pulley end is fixed, y(l, t) = 0. A stationary solution of the wave equation that meets both conditions is</p>
+  $$y(x,t)=a\,\frac{\sin k(l-x)}{\sin kl}\,\cos\omega t .$$
+  <p>Check it. At x = 0 it gives a cos ωt, and at x = l it gives 0. The amplitude along the string is a/|sin kl| times a sine curve. When kl is close to pπ, sin kl → 0 and the amplitude becomes very large. That is <b>resonance</b>. A small push at the fork then builds up big, steady loops, and the fork end itself is almost a node.</p>
+  <p>Slightly away from resonance, sin kl is not small and the string only shivers. In a real string, damping keeps the amplitude finite, but the peak is still sharp. This is why the load or length must be fine adjusted.</p>
+
+  <h3>D5. Transverse arrangement</h3>
+  <p>The prongs vibrate at right angles to the string. Each time the prong moves up and down once, it pushes the string up and down once. So the string is driven at the fork frequency n, and the resonance condition of D3 gives</p>
+  $$f_{\text{string}}=n\quad\Longrightarrow\quad \boxed{\;n=\frac{p}{2l}\sqrt{\frac{T}{m}}\;}$$
+
+  <h3>D6. Longitudinal arrangement</h3>
+  <p>Now the prongs vibrate along the string. They do not push the string sideways. Instead the tension changes periodically</p>
+  $$T(t)=T_0+T_1\cos(2\pi nt).$$
+  <p>For one normal mode y = q(t) sin(pπx/l), the wave equation with this varying tension gives</p>
+  $$\ddot q+\omega_p^2\left[1+h\cos(2\pi nt)\right]q=0,\qquad \omega_p=\frac{p\pi}{l}\sqrt{\frac{T_0}{m}},\quad h=\frac{T_1}{T_0}.$$
+  <p>This is the Mathieu equation, which describes <b>parametric resonance</b>. A swing pumped by standing up and crouching works the same way. The motion grows most strongly when the tension changes <b>twice</b> per oscillation of the string, that is when</p>
+  $$2\pi n=2\,\omega_p\quad\Longrightarrow\quad f_{\text{string}}=\frac{\omega_p}{2\pi}=\frac{n}{2}.$$
+  <p>A simple picture helps. When the prong moves toward the pulley the string slackens and sags, and when it moves back the string is pulled tight. The tight pull straightens the string twice per string cycle, once at the top and once at the bottom of its swing, so the string completes one vibration for every two vibrations of the fork. So</p>
+  $$\frac{n}{2}=\frac{p}{2l}\sqrt{\frac{T}{m}}\quad\Longrightarrow\quad \boxed{\;n=\frac{p}{l}\sqrt{\frac{T}{m}}\;}$$
+
+  <h3>D7. Consequences that can be checked</h3>
+  <p><b>Loops at constant length.</b> For a fixed l and arrangement, the transverse formula gives</p>
+  $$p^2T=4n^2l^2m=\text{constant}.$$
+  <p>Doubling the tension reduces the number of loops by a factor √2. For the same T and l, the longitudinal arrangement gives half as many loops, since the string frequency is halved.</p>
+  <p><b>Straight-line graph.</b> Rearranging the two formulas</p>
+  $$\sqrt T=2n\sqrt m\left(\frac{l}{p}\right)\ \ \text{(transverse)},\qquad \sqrt T=n\sqrt m\left(\frac{l}{p}\right)\ \ \text{(longitudinal)}.$$
+  <p>A graph of √T against l/p is a straight line through the origin. The slope gives n = slope/(2√m) or n = slope/√m. The longitudinal line is half as steep as the transverse one.</p>
+
+  <h3>D8. Tension and mass per unit length</h3>
+  <p>The thread passes over a smooth pulley, so the tension equals the total hanging weight, including the pan</p>
+  $$T=(M+m_0)\,g .$$
+  <p>The mass per unit length is m = (mass of a long piece)/(its length). For example 2.10 g for 5.00 m gives m = 4.20 × 10⁻⁴ kg/m.</p>
+
+  <h3>D9. Worked example</h3>
+  <p>Transverse arrangement with M = 40.0 g, m₀ = 5.0 g, p = 5 loops and l = 1.125 m.</p>
+  $$T=(0.045)(9.8)=0.441\ \text{N},\qquad v=\sqrt{\frac{0.441}{4.20\times10^{-4}}}=32.4\ \text{m/s}$$
+  $$n=\frac{5}{2(1.125)}\times32.4=72.0\ \text{Hz}$$
+
+  <h3>D10. Error estimate</h3>
+  <p>From n = (p/2l)√(T/m), with p exact (it is counted)</p>
+  $$\frac{\delta n}{n}=\frac{\delta l}{l}+\frac12\frac{\delta T}{T}+\frac12\frac{\delta m}{m}.$$
+  <p>The largest error usually comes from judging exactly where the loops are sharpest, which shows up as an error in l. The error in m is reduced by weighing a long length of thread.</p>
+</section>
+
+
+<section id="lab">
+  <h2>3D virtual lab</h2>
+  <p>The fork frequency is hidden, as in a real lab. Adjust the load or the length until the loops become large and steady, then record. The animation is slowed down so you can follow the motion, and the pale band shows the blur your eye sees.</p>
+  <div class="simwrap">
+    <div><canvas id="c3d" width="780" height="560"></canvas></div>
+    <div class="panel">
+      <div class="ctrl">
+        <label>Arrangement</label>
+        <select id="mode"><option value="T">Transverse (prongs ⟂ thread)</option><option value="L">Longitudinal (prongs ∥ thread)</option></select>
+        <label style="margin-top:8px">Tuning fork</label>
+        <select id="fork"><option value="A">Fork A (unknown)</option><option value="B">Fork B (unknown)</option><option value="C">Fork C (unknown)</option></select>
+      </div>
+      <div class="ctrl">
+        <label>Load on pan M <span class="val" id="Mv"></span></label>
+        <input type="range" id="M" min="10" max="150" step="0.5" value="40">
+        <div class="row" style="margin-top:4px"><button class="btn ghost" data-dm="-1">−1 g</button><button class="btn ghost" data-dm="-0.5">−0.5 g</button><button class="btn ghost" data-dm="0.5">+0.5 g</button><button class="btn ghost" data-dm="1">+1 g</button></div>
+        <label style="margin-top:8px">Vibrating length l <span class="val" id="lv"></span></label>
+        <input type="range" id="l" min="0.5" max="2.0" step="0.001" value="1.5">
+        <span class="note">Move the fork stand to change l</span>
+      </div>
+      <div class="ctrl">
+        <label>Resonance</label>
+        <div style="height:12px;background:#e3e7ef;border-radius:6px;overflow:hidden"><div id="meter" style="height:100%;width:0;background:#1b2a4a"></div></div>
+        <div class="note" id="loopinfo" style="margin-top:4px"></div>
+      </div>
+      <div class="row"><button class="btn" id="rec">Record reading</button><button class="btn ghost" id="tune">Fine tune length</button></div>
+      <div class="status info" id="msg">Adjust M or l until the loops are sharp.</div>
+      <div class="ctrl"><table class="read">
+        <tr><td>Tension T = (M + m₀)g</td><td id="rT"></td></tr>
+        <tr><td>Wave speed v</td><td id="rv"></td></tr>
+        <tr><td>Mass per length m</td><td>0.420 g/m</td></tr>
+        <tr><td>Pan mass m₀</td><td>5.0 g</td></tr>
+      </table></div>
+      <button class="btn ghost" id="reveal">Reveal true fork frequency</button>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Procedure, with the theory behind each step</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div>
+      <h4>Find the mass per unit length of the thread</h4>
+      <p>Weigh a long, measured length of the same thread (for example 5.00 m) on a sensitive balance. Then m = mass ÷ length. Example 2.10 g ÷ 5.00 m = 0.420 g/m = 4.20 × 10⁻⁴ kg/m.</p>
+      <div class="why"><b>Why.</b> The wave speed v = √(T/m) depends on m. A long piece is weighed because a short piece is too light to weigh accurately.</div></div></div>
+    <div class="step"><div class="n">2</div><div>
+      <h4>Set up the transverse arrangement</h4>
+      <p>Tie one end of the thread to a prong of the fork. Pass the thread over the pulley and tie the pan to the other end. Turn the fork so that its prongs vibrate at right angles to the thread. Connect the battery and key.</p>
+      <div class="why"><b>Why.</b> With the prong moving across the thread, the thread is pushed sideways once in every fork cycle, so the string is driven at the fork frequency n.</div>
+      <button class="btn" data-go="T">Show in 3D lab</button></div></div>
+    <div class="step"><div class="n">3</div><div>
+      <h4>Start the fork and adjust for sharp loops</h4>
+      <p>Close the key so the fork vibrates. Add or remove small weights, or slide the fork stand, until the thread vibrates in a number of well defined, steady loops with sharp nodes.</p>
+      <div class="why"><b>Why.</b> Resonance needs l = pλ/2 exactly. Changing T changes v and so λ, and changing l changes how many half waves fit. When the condition is met the amplitude builds up and the loops are clear.</div>
+      <button class="btn" data-go="tune">Find a resonance</button></div></div>
+    <div class="step"><div class="n">4</div><div>
+      <h4>Count loops and measure the length</h4>
+      <p>Count the number of loops p. Measure the length l from the first node near the prong to the point where the thread leaves the pulley. Note the load M on the pan and the pan mass m₀.</p>
+      <div class="why"><b>Why.</b> These three quantities, with m, are all that the formula n = (p/2l)√(T/m) needs. Measuring between nodes avoids error from the small motion at the prong end.</div></div></div>
+    <div class="step"><div class="n">5</div><div>
+      <h4>Repeat for different loads</h4>
+      <p>Change the load to get a different number of loops and repeat steps 3 and 4. Take at least four sets.</p>
+      <div class="why"><b>Why.</b> Several independent sets reduce random error. Heavier loads give faster waves, longer λ and so fewer loops for the same length. For a fixed l, T·p² should stay nearly constant.</div>
+      <button class="btn" data-go="heavy">Try a heavier load</button></div></div>
+    <div class="step"><div class="n">6</div><div>
+      <h4>Change to the longitudinal arrangement</h4>
+      <p>Turn the fork through 90° so that the prongs vibrate along the length of the thread. Repeat steps 3 to 5.</p>
+      <div class="why"><b>Why.</b> Now the prong only changes the tension, once per fork cycle. The string vibrates at n/2, so for the same T and l you see half as many loops, and the formula becomes n = (p/l)√(T/m).</div>
+      <button class="btn" data-go="L">Show in 3D lab</button></div></div>
+    <div class="step"><div class="n">7</div><div>
+      <h4>Calculate n and plot a graph</h4>
+      <p>Work out n for every reading and take the mean. As a graphical check, plot √T against l/p. Both arrangements give straight lines through the origin with slopes 2n√m (transverse) and n√m (longitudinal).</p>
+      <div class="why"><b>Why.</b> Rearranging the two formulas gives √T = 2n√m·(l/p) and √T = n√m·(l/p). A straight line confirms the theory and the slope gives n from all readings together.</div>
+      <button class="btn ghost" data-go="graph">Go to graph</button></div></div>
+  </div>
+</section>
+
+<section id="obs">
+  <h2>Observations and graph</h2>
+  <p>m = 4.20 × 10⁻⁴ kg/m, &nbsp; m₀ = 5.0 g, &nbsp; g = 9.8 m/s²</p>
+  <div class="tablewrap"><table class="obs" id="tab"><thead><tr><th>No.</th><th>Arrangement</th><th>Loops p</th><th>Length l (m)</th><th>Load M (g)</th><th>T = (M+m₀)g (N)</th><th>T·p² (N)</th><th>n (Hz)</th></tr></thead><tbody></tbody></table></div>
+  <div class="row"><button class="btn ghost" id="clear">Clear data</button></div>
+  <h3>√T against l/p</h3>
+  <canvas id="graph" width="900" height="400"></canvas>
+  <div class="result" id="res">Record a few readings to see the result.</div>
+</section>
+
+<section id="prec">
+  <h2>Precautions and sources of error</h2>
+  <div class="grid2">
+    <ul>
+      <li>The thread should be light, uniform and nearly inextensible.</li>
+      <li>The thread between fork and pulley must be horizontal.</li>
+      <li>The pulley must be smooth and frictionless so the full weight sets the tension.</li>
+      <li>Include the mass of the pan in the load.</li>
+    </ul>
+    <ul>
+      <li>Adjust until the loops are sharp and steady before taking a reading.</li>
+      <li>Measure l between nodes, not to the prong itself.</li>
+      <li>The fork's prong should not touch the electromagnet. Keep the current steady.</li>
+      <li>Air currents and a sagging thread change the effective length.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="viva">
+  <h2>Quick viva questions</h2>
+  <details><summary>Why are fewer loops seen in the longitudinal arrangement?</summary><p>The string vibrates at half the fork frequency, so λ is twice as long for the same tension, giving half as many loops in the same length.</p></details>
+  <details><summary>What are nodes and antinodes?</summary><p>Nodes are points of zero displacement. Antinodes are points of maximum displacement, halfway between nodes.</p></details>
+  <details><summary>What happens to the number of loops if the tension is increased?</summary><p>v and λ increase, so fewer half wavelengths fit in the length and p decreases. p is proportional to 1/√T.</p></details>
+  <details><summary>Why is the fork electrically maintained?</summary><p>An ordinary fork dies away in seconds. The electromagnet gives it a push each cycle, so the amplitude stays constant while the string is adjusted and observed.</p></details>
+  <details><summary>What kind of wave is set up on the string?</summary><p>A transverse stationary wave formed by the superposition of incident and reflected waves.</p></details>
+</section>
+</main>
+
+<script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
+const v3={add:(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],mul:(a,s)=>[a[0]*s,a[1]*s,a[2]*s],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  norm:a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]}};
+const rgb=(c,k=1,a=1)=>`rgba(${Math.min(255,Math.round(c[0]*k))},${Math.min(255,Math.round(c[1]*k))},${Math.min(255,Math.round(c[2]*k))},${a})`;
+function setupCanvas(cv){const W=+cv.getAttribute('width'),H=+cv.getAttribute('height'),dpr=Math.max(1,window.devicePixelRatio||1);
+  cv.width=W*dpr;cv.height=H*dpr;const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,W,H};}
+function Scene3D(canvas,o={}){
+  const {ctx,W,H}=setupCanvas(canvas);
+  const S={ctx,W,H,yaw:o.yaw??-0.5,pitch:o.pitch??0.25,dist:o.dist??4,target:o.target||[0,0,0],f:o.f||H*1.25,items:[],labels:[],light:v3.norm([-0.45,0.85,0.75])};
+  const home={yaw:S.yaw,pitch:S.pitch,dist:S.dist};
+  let cy=1,sy=0,cp=1,sp=0,cam=[0,0,0];
+  S.begin=()=>{cy=Math.cos(S.yaw);sy=Math.sin(S.yaw);cp=Math.cos(S.pitch);sp=Math.sin(S.pitch);
+    cam=v3.add(S.target,[-S.dist*cp*sy,S.dist*sp,S.dist*cp*cy]);S.items.length=0;S.labels.length=0;};
+  S.proj=p=>{const x=p[0]-S.target[0],y=p[1]-S.target[1],z=p[2]-S.target[2];
+    const x1=x*cy+z*sy,z1=-x*sy+z*cy,y2=y*cp-z1*sp,z2=y*sp+z1*cp,d=S.dist-z2;
+    return [S.W/2+S.f*x1/d,S.H/2-S.f*y2/d,d];};
+  S.poly=(pts,col,op={})=>{const P=pts.map(S.proj);for(const q of P)if(q[2]<0.05)return;
+    let c=[0,0,0];pts.forEach(p=>{c[0]+=p[0];c[1]+=p[1];c[2]+=p[2]});c=v3.mul(c,1/pts.length);
+    let n=v3.norm(v3.cross(v3.sub(pts[1],pts[0]),v3.sub(pts[2],pts[0])));const toCam=v3.sub(cam,c);
+    if(op.center){if(v3.dot(n,v3.sub(c,op.center))<0)n=v3.mul(n,-1);if(v3.dot(n,toCam)<0&&!op.twoSided)return;}
+    else if(v3.dot(n,toCam)<0)n=v3.mul(n,-1);
+    const l=op.flat?1:0.58+0.5*Math.max(0,v3.dot(n,S.light));
+    const d=P.reduce((s,q)=>s+q[2],0)/P.length+(op.bias||0);
+    const fill=typeof col==='string'?col:rgb(col,l,op.alpha??1);
+    S.items.push({d,f:()=>{ctx.beginPath();P.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.closePath();
+      ctx.fillStyle=fill;ctx.fill();if(op.stroke){ctx.strokeStyle=op.stroke;ctx.lineWidth=op.lw||1;ctx.stroke();}}});};
+  S.line=(a,b,col,w=1.5,op={})=>{const A=S.proj(a),B=S.proj(b);if(A[2]<0.05||B[2]<0.05)return;const d=(A[2]+B[2])/2+(op.bias||0);
+    const lw=op.world?Math.max(0.7,w*S.f/d):w;
+    S.items.push({d,f:()=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineCap='round';if(op.dash)ctx.setLineDash(op.dash);
+      ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke();ctx.setLineDash([]);}});};
+  S.path=(pts,col,w,op={})=>{for(let i=1;i<pts.length;i++)S.line(pts[i-1],pts[i],col,w,op);};
+  S.sphere=(c,r,col,op={})=>{const P=S.proj(c);if(P[2]<0.05)return;const R=r*S.f/P[2];
+    S.items.push({d:P[2]+(op.bias||0),f:()=>{const g=ctx.createRadialGradient(P[0]-R*.35,P[1]-R*.35,R*.1,P[0],P[1],R);
+      g.addColorStop(0,rgb(col,1.35));g.addColorStop(1,rgb(col,0.6));ctx.fillStyle=g;ctx.beginPath();ctx.arc(P[0],P[1],R,0,7);ctx.fill();}});};
+  S.label=(p,t,op={})=>{S.labels.push({P:S.proj(p),t,op});};
+  S.box=(T,s,col,op={})=>{const a=s[0]/2,b=s[1]/2,c=s[2]/2;
+    const L=[[-a,-b,-c],[a,-b,-c],[a,b,-c],[-a,b,-c],[-a,-b,c],[a,-b,c],[a,b,c],[-a,b,c]].map(T);const C=T([0,0,0]);
+    [[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[1,2,6,5],[0,3,7,4]].forEach(f=>S.poly(f.map(i=>L[i]),col,{...op,center:C}));};
+  S.boxAt=(c,s,col,op)=>S.box(p=>v3.add(p,c),s,col,op);
+  S.cyl=(a,b,r,col,n=18,op={})=>{const u=v3.norm(v3.sub(b,a));const e1=v3.norm(v3.cross(u,Math.abs(u[1])<0.9?[0,1,0]:[1,0,0]));const e2=v3.cross(u,e1);
+    const C=v3.mul(v3.add(a,b),.5);
+    const ring=(p,rr)=>{const R=[];for(let i=0;i<n;i++){const t=i/n*Math.PI*2;R.push(v3.add(p,v3.add(v3.mul(e1,Math.cos(t)*rr),v3.mul(e2,Math.sin(t)*rr))));}return R;};
+    const A=ring(a,r),B=ring(b,op.r2??r);
+    for(let i=0;i<n;i++){const j=(i+1)%n;S.poly([A[i],A[j],B[j],B[i]],col,{...op,center:C});}
+    if(!op.open){S.poly(A,col,{...op,center:C});S.poly(B,col,{...op,center:C});}};
+  S.render=()=>{ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#f1f4fa');g.addColorStop(1,'#dfe5ef');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    S.items.sort((p,q)=>q.d-p.d);for(const it of S.items)it.f();
+    for(const {P,t,op} of S.labels){if(P[2]<0.05)continue;ctx.font=op.font||'600 12px system-ui';ctx.textAlign=op.align||'left';
+      if(op.halo!==false){ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.85)';ctx.strokeText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+      ctx.fillStyle=op.color||'#1b2a4a';ctx.fillText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+    ctx.textAlign='left';ctx.fillStyle='rgba(27,42,74,.6)';ctx.font='11px system-ui';
+    ctx.fillText('3D view. Drag to rotate, scroll to zoom, double-click to reset',10,H-10);};
+  let drag=null;
+  canvas.classList.add('c3d');
+  canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,yaw:S.yaw,pitch:S.pitch};canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;S.yaw=drag.yaw+(e.clientX-drag.x)*0.008;
+    S.pitch=Math.max(-0.35,Math.min(1.45,drag.pitch+(e.clientY-drag.y)*0.006));});
+  canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);
+  canvas.addEventListener('wheel',e=>{e.preventDefault();S.dist=Math.max(o.minDist||0.4,Math.min(o.maxDist||20,S.dist*Math.exp(e.deltaY*0.001)));},{passive:false});
+  canvas.addEventListener('dblclick',()=>Object.assign(S,home));
+  S.setView=v=>{Object.assign(S,v);};
+  return S;
+}
+
+/* ---- 2D plotting helper ---- */
+function niceStep(range,n){const r=range/n,p=Math.pow(10,Math.floor(Math.log10(r))),m=r/p;return (m<1.5?1:m<3?2:m<7?5:10)*p;}
+function linfit(pts){const n=pts.length;if(n<2)return null;let sx=0,sy=0,sxx=0,sxy=0;
+  pts.forEach(([x,y])=>{sx+=x;sy+=y;sxx+=x*x;sxy+=x*y});const d=n*sxx-sx*sx;if(!d)return null;const m=(n*sxy-sx*sy)/d;return {m,b:(sy-m*sx)/n};}
+function Plot(cv){
+  const {ctx,W,H}=setupCanvas(cv);
+  return function(d){
+    const L=62,R=18,T=16,B=46;
+    const X=x=>L+(x-d.xmin)/(d.xmax-d.xmin)*(W-L-R),Y=y=>H-B-(y-d.ymin)/(d.ymax-d.ymin)*(H-T-B);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+    const xs=niceStep(d.xmax-d.xmin,8),ys=niceStep(d.ymax-d.ymin,6);
+    ctx.font='11px system-ui';ctx.fillStyle='#5b6475';ctx.strokeStyle='#e7ebf2';ctx.lineWidth=1;
+    for(let x=Math.ceil(d.xmin/xs)*xs;x<=d.xmax+1e-9;x+=xs){ctx.beginPath();ctx.moveTo(X(x),T);ctx.lineTo(X(x),H-B);ctx.stroke();
+      ctx.textAlign='center';ctx.fillText(+x.toFixed(6)+'',X(x),H-B+15);}
+    for(let y=Math.ceil(d.ymin/ys)*ys;y<=d.ymax+1e-9;y+=ys){ctx.beginPath();ctx.moveTo(L,Y(y));ctx.lineTo(W-R,Y(y));ctx.stroke();
+      ctx.textAlign='right';ctx.fillText(+y.toFixed(6)+'',L-6,Y(y)+4);}
+    ctx.strokeStyle='#1b2a4a';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,H-B);ctx.lineTo(W-R,H-B);ctx.stroke();
+    if(d.ymin<0&&d.ymax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(L,Y(0));ctx.lineTo(W-R,Y(0));ctx.stroke();}
+    if(d.xmin<0&&d.xmax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(X(0),T);ctx.lineTo(X(0),H-B);ctx.stroke();}
+    ctx.fillStyle='#1b2a4a';ctx.font='600 12.5px system-ui';ctx.textAlign='center';ctx.fillText(d.xlabel||'',(L+W-R)/2,H-10);
+    ctx.save();ctx.translate(15,(T+H-B)/2);ctx.rotate(-Math.PI/2);ctx.fillText(d.ylabel||'',0,0);ctx.restore();
+    ctx.save();ctx.beginPath();ctx.rect(L,T,W-L-R,H-T-B);ctx.clip();
+    (d.lines||[]).forEach(s=>{ctx.strokeStyle=s.color||'#1b2a4a';ctx.lineWidth=s.w||1.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();
+      s.pts.forEach(([x,y],i)=>i?ctx.lineTo(X(x),Y(y)):ctx.moveTo(X(x),Y(y)));ctx.stroke();ctx.setLineDash([]);});
+    (d.series||[]).forEach(s=>{ctx.fillStyle=s.color||'#1b2a4a';s.pts.forEach(([x,y])=>{ctx.beginPath();ctx.arc(X(x),Y(y),s.r||4,0,7);ctx.fill();});});
+    (d.marks||[]).forEach(m=>{ctx.fillStyle=m.color||'#c62f4b';ctx.beginPath();ctx.arc(X(m.x),Y(m.y),5,0,7);ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.font='700 13px system-ui';ctx.textAlign='center';
+      ctx.fillStyle=m.color||'#c62f4b';ctx.fillText(m.label,X(m.x)+(m.dx||0),Y(m.y)+(m.dy??-10));});
+    ctx.restore();
+    if(d.legend){ctx.textAlign='left';ctx.font='12px system-ui';let yy=T+14;d.legend.forEach(([c,t])=>{ctx.fillStyle=c;ctx.fillRect(W-R-170,yy-8,14,4);
+      ctx.fillStyle='#1d2330';ctx.fillText(t,W-R-150,yy-3);yy+=17;});}
+    return {X,Y};
+  };
+}
+const fmt=(x,n=2)=>isFinite(x)?x.toFixed(n):'–';
+</script>
+<script>
+(() => {
+const $=id=>document.getElementById(id);
+const forks={A:72,B:96,C:56}, mLin=4.2e-4, pan=5, gg=9.8;
+const st={fork:'A',mode:'T',M:40,l:1.5,t:0,data:[],show:false};
+const xp=1.25, h0=0.14, rp=0.03;
+
+/* --- theory SVGs --- */
+function loopsSVG(x0,y0,len,p,amp,col){let up='',dn='';const w=len/p;
+  for(let i=0;i<p;i++){const a=x0+i*w,b=a+w,m=(a+b)/2;up+=`M${a},${y0} Q${m},${y0-2*amp} ${b},${y0} `;dn+=`M${a},${y0} Q${m},${y0+2*amp} ${b},${y0} `;}
+  return `<path d="${up}" fill="none" stroke="${col}" stroke-width="2"/><path d="${dn}" fill="none" stroke="${col}" stroke-width="2" opacity=".55"/>`;}
+(function(){
+  let s=`<line x1="20" y1="85" x2="400" y2="85" stroke="#c4cbd8" stroke-dasharray="3 4"/>`+loopsSVG(30,85,360,4,26,'#1b2a4a');
+  for(let i=0;i<=4;i++){const x=30+i*90;s+=`<circle cx="${x}" cy="85" r="4" fill="#c62f4b"/><text x="${x}" y="${i%2?150:150}" font-size="13" text-anchor="middle" fill="#c62f4b">N</text>`;}
+  for(let i=0;i<4;i++){const x=75+i*90;s+=`<text x="${x}" y="40" font-size="13" text-anchor="middle" fill="#1f8a8a">A</text>`;}
+  s+=`<line x1="30" y1="125" x2="120" y2="125" stroke="#1b2a4a"/><text x="75" y="140" font-size="12" text-anchor="middle">λ/2</text>`;
+  s+=`<line x1="30" y1="160" x2="390" y2="160" stroke="#1b2a4a"/><text x="210" y="170" font-size="12" text-anchor="middle" fill="#1b2a4a">l = p λ/2</text>`;
+  $('svgLoops').innerHTML=s;
+  const setup=(id,longi)=>{let s='';
+    s+=`<rect x="10" y="150" width="400" height="10" fill="#d8c3a0"/>`;
+    s+=`<circle cx="370" cy="88" r="12" fill="#b8bec9" stroke="#555"/><line x1="370" y1="88" x2="370" y2="150" stroke="#777" stroke-width="3"/>`;
+    s+=`<line x1="382" y1="88" x2="382" y2="175" stroke="#333"/><rect x="368" y="175" width="28" height="6" fill="#555"/><text x="352" y="196" font-size="11">pan</text>`;
+    if(!longi){
+      s+=`<rect x="20" y="58" width="40" height="8" fill="#6b7280"/><rect x="20" y="88" width="40" height="8" fill="#6b7280"/><rect x="14" y="58" width="8" height="38" fill="#6b7280"/>`;
+      s+=`<path d="M60,50 L60,40 M55,45 L60,38 L65,45 M60,104 L60,114 M55,109 L60,116 L65,109" stroke="#c62f4b" stroke-width="2" fill="none"/>`;
+      s+=loopsSVG(62,76,308,4,16,'#1b2a4a');s+=`<text x="150" y="130" font-size="13" fill="#1b2a4a">p loops, string frequency n</text>`;
+      s+=`<line x1="60" y1="76" x2="62" y2="76" stroke="#1b2a4a" stroke-width="2"/>`;
+    } else {
+      s+=`<rect x="20" y="40" width="8" height="40" fill="#6b7280"/><rect x="48" y="40" width="8" height="40" fill="#6b7280"/><rect x="20" y="78" width="36" height="8" fill="#6b7280"/>`;
+      s+=`<path d="M38,30 L74,30 M68,25 L76,30 L68,35 M44,25 L36,30 L44,35" stroke="#c62f4b" stroke-width="2" fill="none"/>`;
+      s+=loopsSVG(56,76,314,2,16,'#1b2a4a');s+=`<text x="120" y="130" font-size="13" fill="#1b2a4a">p/2 loops, string frequency n/2</text>`;
+    }
+    s+=`<text x="12" y="20" font-size="12" fill="#555">fork</text><text x="345" y="66" font-size="11" fill="#555">pulley</text>`;
+    $(id).innerHTML=s;};
+  setup('svgTrans',false);setup('svgLong',true);
+})();
+
+/* --- physics --- */
+function calc(){const n=forks[st.fork],T=(st.M+pan)/1000*gg,v=Math.sqrt(T/mLin),fs=st.mode==='T'?n:n/2,lam=v/fs,pr=2*st.l/lam;
+  const p=Math.max(1,Math.round(pr)),dl=pr-p,res=1/Math.sqrt(1+Math.pow(dl*16,2));return {n,T,v,fs,lam,pr,p,dl,res,sharp:Math.abs(dl)<0.045};}
+
+/* --- 3D --- */
+const S=Scene3D($('c3d'),{yaw:-0.4,pitch:0.34,dist:1.9,target:[0.4,0.02,0],f:660});
+const wood=[190,150,104],metal=[150,156,168],dark=[70,76,88];
+function draw(){
+  S.begin();const c=calc(),xf=xp-st.l,t=st.t;
+  /* table */
+  S.boxAt([0.15,-0.025,0],[2.3,0.05,0.8],wood,{bias:5});
+  [[-0.95,-0.35],[-0.95,0.35],[1.25,-0.35],[1.25,0.35]].forEach(([x,z])=>S.boxAt([x,-0.4,z],[0.05,0.7,0.05],[150,115,78],{bias:3}));
+  /* fork */
+  const dv=st.mode==='T'?[0,1,0]:[1,0,0], vis=2*Math.PI*1.2, vib=0.004*Math.sin(vis*t);
+  const attach=[xf,h0,0], fc=v3.sub(attach,v3.mul(dv,0.014));
+  [1,-1].forEach(sg=>S.boxAt(v3.add(v3.add(fc,v3.mul(dv,sg*(0.014+vib*sg*sg))),[0,0,-0.055]),[0.008,0.008,0.11],metal));
+  S.boxAt(v3.add(fc,[0,0,-0.114]),st.mode==='T'?[0.008,0.036,0.012]:[0.036,0.008,0.012],metal);
+  S.cyl(v3.add(fc,[0,0,-0.12]),v3.add(fc,[0,0,-0.17]),0.006,metal,12);
+  S.cyl([fc[0],0,-0.17],[fc[0],fc[1],-0.17],0.007,dark,12);
+  S.boxAt([fc[0],0.01,-0.17],[0.12,0.02,0.12],dark);
+  S.boxAt(v3.add(fc,[0,0,-0.06]),st.mode==='T'?[0.012,0.01,0.02]:[0.01,0.012,0.02],[150,50,40]);
+  S.boxAt([fc[0]-0.25,0.03,-0.28],[0.1,0.06,0.07],[40,44,52]);
+  S.path([v3.add(fc,[0,0,-0.07]),[fc[0]-0.05,0.005,-0.2],[fc[0]-0.2,0.06,-0.28]],'#b0322a',1.5);
+  S.label(v3.add(fc,[0,0.06,-0.04]),'tuning fork',{align:'center'});
+  S.label([fc[0]-0.25,0.0,-0.28],'battery',{align:'center',font:'11px system-ui',dy:16});
+  /* string */
+  const N=220, pts=[], up=[], dn=[], A=0.035*c.res, w=Math.cos(vis*(st.mode==='T'?1:0.5)*t);
+  const at=v3.add(attach,v3.mul(dv,vib));
+  for(let i=0;i<=N;i++){const s=i/N*st.l, sh=Math.sin(c.p*Math.PI*s/st.l), jit=0.004*(1-c.res)*Math.sin(41*s+7*t)*Math.cos(3.3*t)*Math.exp(-s*1.5);
+    const end=(1-s/st.l);
+    const base=[xf+s+(st.mode==='L'?vib*end:0),h0+(st.mode==='T'?vib*end:0),0];
+    pts.push(v3.add(base,[0,A*sh*w+jit,0]));up.push(v3.add(base,[0,A*Math.abs(sh),0]));dn.push(v3.add(base,[0,-A*Math.abs(sh),0]));}
+  S.path(up,'rgba(27,42,74,.22)',2.4,{bias:0.01});S.path(dn,'rgba(27,42,74,.22)',2.4,{bias:0.01});
+  S.path(pts,'#1b2a4a',2);
+  if(c.sharp) for(let j=0;j<=c.p;j++){const x=xf+j*st.l/c.p;S.sphere([x,h0,0],0.006,[198,47,75]);if(j<c.p&&c.p<=10)S.label([x+st.l/c.p/2,h0+0.06,0],'A',{align:'center',color:'#1f8a8a',font:'11px system-ui'});}
+  /* pulley */
+  S.cyl([xp,h0-rp,-0.007],[xp,h0-rp,0.007],rp,[175,180,190],22);
+  S.boxAt([xp+0.005,(h0-rp)/2-0.02,-0.02],[0.02,h0-rp+0.04,0.012],dark);
+  S.boxAt([xp+0.04,-0.025,-0.02],[0.08,0.07,0.06],dark);
+  const arc=[];for(let a=90;a>=0;a-=10){const r=a*Math.PI/180;arc.push([xp+rp*Math.cos(r),h0-rp+rp*Math.sin(r),0]);}
+  S.path(arc,'#1b2a4a',2,{bias:-0.01});
+  const xr=xp+rp, yp=-0.4;
+  S.line([xr,h0-rp,0],[xr,yp+0.07,0],'#1b2a4a',2);
+  for(let i=0;i<3;i++){const a=i/3*Math.PI*2;S.line([xr,yp+0.07,0],[xr+0.042*Math.cos(a),yp,0.042*Math.sin(a)],'#555',1);}
+  S.cyl([xr,yp,0],[xr,yp-0.005,0],0.045,[120,124,132],20);
+  const nd=Math.round(st.M/10);for(let i=0;i<nd;i++)S.cyl([xr,yp+i*0.0055,0],[xr,yp+(i+1)*0.0055-0.0007,0],0.032,i%2?[200,160,70]:[180,140,55],16);
+  S.label([xr-0.07,yp,0],'pan + '+st.M.toFixed(1)+' g',{align:'right'});
+  S.label([xp,h0+0.02,0.03],'pulley',{align:'center',font:'11px system-ui'});
+  /* length marker */
+  const ym=h0-0.075;S.line([xf,ym,0.05],[xp,ym,0.05],'#c62f4b',1.2);S.line([xf,ym-0.01,0.05],[xf,ym+0.01,0.05],'#c62f4b',1.2);S.line([xp,ym-0.01,0.05],[xp,ym+0.01,0.05],'#c62f4b',1.2);
+  S.label([(xf+xp)/2,ym-0.012,0.05],'l = '+(st.l*100).toFixed(1)+' cm',{align:'center',color:'#c62f4b',dy:14});
+  S.render();
+}
+
+/* --- ui --- */
+function ui(){const c=calc();$('Mv').textContent=st.M.toFixed(1)+' g';$('lv').textContent=(st.l*100).toFixed(1)+' cm';
+  $('M').value=st.M;$('l').value=st.l;$('mode').value=st.mode;$('fork').value=st.fork;
+  $('rT').textContent=c.T.toFixed(4)+' N';$('rv').textContent=c.v.toFixed(2)+' m/s';
+  $('meter').style.width=(c.res*100).toFixed(0)+'%';$('meter').style.background=c.sharp?'#1f7a4d':'#1b2a4a';
+  $('loopinfo').textContent=c.sharp?('Sharp, steady loops. p = '+c.p):(c.res>0.35?'Loops forming but blurred, fine adjust':'String only shivers, far from resonance');
+  $('reveal').textContent=st.show?('Fork '+st.fork+' frequency is '+c.n+' Hz'):'Reveal true fork frequency';}
+$('M').addEventListener('input',e=>{st.M=+e.target.value;ui();});
+$('l').addEventListener('input',e=>{st.l=+e.target.value;ui();});
+$('mode').addEventListener('change',e=>{st.mode=e.target.value;ui();});
+$('fork').addEventListener('change',e=>{st.fork=e.target.value;st.show=false;ui();});
+document.querySelectorAll('[data-dm]').forEach(b=>b.addEventListener('click',()=>{st.M=Math.max(10,Math.min(150,st.M+ +b.dataset.dm));ui();}));
+$('reveal').addEventListener('click',()=>{st.show=!st.show;ui();});
+function tune(){const c=calc();let p=c.p;const lt=p*c.lam/2;
+  if(lt<0.5||lt>2.0){p=Math.max(1,Math.round(1.4*2/c.lam));}
+  st.l=Math.min(2,Math.max(0.5,p*c.lam/2));ui();}
+$('tune').addEventListener('click',()=>{tune();$('msg').className='status ok';$('msg').textContent='Length adjusted to the nearest resonance. Record it.';});
+$('rec').addEventListener('click',()=>{const c=calc();if(!c.sharp){$('msg').className='status bad';$('msg').textContent='Loops are not sharp yet. Adjust M or l first.';return;}
+  const l=Math.round(st.l*1000+(Math.random()-0.5)*4)/1000;
+  st.data.push({mode:st.mode,p:c.p,l,M:st.M,T:c.T});$('msg').className='status ok';$('msg').textContent='Reading saved. Change the load and find another resonance.';refresh();});
+$('clear').addEventListener('click',()=>{st.data=[];refresh();});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.go;
+  if(g==='graph'){$('obs').scrollIntoView({behavior:'smooth'});return;}
+  $('lab').scrollIntoView({behavior:'smooth'});
+  if(g==='T'){st.mode='T';st.M=40;st.l=1.45;}
+  if(g==='tune'){tune();}
+  if(g==='heavy'){st.M=Math.min(150,st.M+40);tune();}
+  if(g==='L'){st.mode='L';tune();}
+  ui();}));
+
+const plot=Plot($('graph'));
+function refresh(){const tb=$('tab').querySelector('tbody');tb.innerHTML='';const sm=Math.sqrt(mLin);
+  const nT=[],nL=[];
+  st.data.forEach((r,i)=>{const n=(r.mode==='T'?r.p/(2*r.l):r.p/r.l)*Math.sqrt(r.T/mLin);(r.mode==='T'?nT:nL).push(n);r.n=n;
+    tb.insertAdjacentHTML('beforeend',`<tr><td>${i+1}</td><td>${r.mode==='T'?'Transverse':'Longitudinal'}</td><td>${r.p}</td><td>${r.l.toFixed(3)}</td><td>${r.M.toFixed(1)}</td><td>${r.T.toFixed(4)}</td><td>${(r.T*r.p*r.p).toFixed(3)}</td><td>${r.n.toFixed(2)}</td></tr>`);});
+  if(!st.data.length)tb.innerHTML='<tr><td colspan="8" class="note">No readings yet</td></tr>';
+  const pT=st.data.filter(r=>r.mode==='T').map(r=>[r.l/r.p,Math.sqrt(r.T)]),pL=st.data.filter(r=>r.mode==='L').map(r=>[r.l/r.p,Math.sqrt(r.T)]);
+  const all=[...pT,...pL],xmax=Math.max(0.5,...all.map(p=>p[0]))*1.15,ymax=Math.max(0.6,...all.map(p=>p[1]))*1.15;
+  const thru=pts=>{if(!pts.length)return null;let a=0,b=0;pts.forEach(([x,y])=>{a+=x*y;b+=x*x;});return a/b;};
+  const sT=thru(pT),sL=thru(pL),lines=[];
+  if(sT)lines.push({pts:[[0,0],[xmax,sT*xmax]],color:'#1b2a4a'});if(sL)lines.push({pts:[[0,0],[xmax,sL*xmax]],color:'#c62f4b'});
+  plot({xmin:0,xmax,ymin:0,ymax,xlabel:'l / p (m)',ylabel:'√T (√N)',lines,series:[{pts:pT,color:'#1b2a4a'},{pts:pL,color:'#c62f4b'}],
+    legend:[['#1b2a4a','transverse'],['#c62f4b','longitudinal']]});
+  const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;let h='';
+  if(nT.length)h+=`Transverse: mean n = <b>${mean(nT).toFixed(2)} Hz</b> from ${nT.length} reading(s). Graph slope = ${sT.toFixed(3)} gives n = slope/(2√m) = <b>${(sT/(2*sm)).toFixed(2)} Hz</b><br>`;
+  if(nL.length)h+=`Longitudinal: mean n = <b>${mean(nL).toFixed(2)} Hz</b> from ${nL.length} reading(s). Graph slope = ${sL.toFixed(3)} gives n = slope/√m = <b>${(sL/sm).toFixed(2)} Hz</b><br>`;
+  if(nT.length||nL.length)h+=`Overall mean frequency n = <b style="font-size:19px">${mean([...nT,...nL]).toFixed(2)} Hz</b>`;
+  $('res').innerHTML=h||'Record a few readings to see the result.';}
+
+let last=performance.now();
+function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;st.t+=dt;draw();requestAnimationFrame(loop);}
+ui();refresh();requestAnimationFrame(loop);
+})();
+</script>
+<footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+</body>
+</html>

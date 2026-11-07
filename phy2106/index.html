@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHY 2106 Physics Laboratory</title>
+<style>
+  :root{--navy:#1b2a4a;--navy2:#2d4373;--ink:#1d2330;--muted:#5b6475;--bg:#f6f7fb;--line:#dde2ec}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{background:var(--navy);color:#fff;padding:40px 20px 34px}
+  .wrap{max-width:1040px;margin:auto}
+  h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(26px,4vw,40px);margin:0 0 6px}
+  header p{margin:0;opacity:.85}
+  main{max-width:1040px;margin:auto;padding:26px 16px 60px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  a.card{display:block;background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px 22px;text-decoration:none;color:inherit;transition:box-shadow .15s,transform .15s}
+  a.card:hover{box-shadow:0 6px 20px rgba(27,42,74,.12);transform:translateY(-2px)}
+  .num{display:inline-flex;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#fff;align-items:center;justify-content:center;font-weight:700;margin-bottom:10px}
+  h2{font-family:Georgia,serif;color:var(--navy);font-size:19px;margin:0 0 8px;line-height:1.3}
+  .card p{margin:0;color:var(--muted);font-size:14.5px}
+  .intro{margin:0 0 22px;color:var(--muted)}
+  footer{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>PHY 2106 Physics Laboratory</h1>
+  <p>Interactive experiment guides with theory, full derivations and 3D virtual labs</p>
+</div></header>
+<main>
+  <p class="intro">Each guide explains the theory, derives every formula step by step, walks through the procedure with the reason behind each step, and includes a virtual lab where you can take readings, draw the graph and calculate the result. Use it before the lab session to prepare and after it to check your calculations.</p>
+  <div class="grid">
+    <a class="card" href="refractive-index-liquid.html"><span class="num">1</span>
+      <h2>Refractive index of a liquid by plane mirror and pin method</h2>
+      <p>Convex lens on a plane mirror, liquid lens, parallax, spherometer. Live ray tracing.</p></a>
+    <a class="card" href="compound-bar-pendulum.html"><span class="num">2</span>
+      <h2>Acceleration due to gravity by compound bar pendulum</h2>
+      <p>Equivalent length, centres of suspension and oscillation, T against distance graph. 3D swinging bar.</p></a>
+    <a class="card" href="melde-tuning-fork.html"><span class="num">3</span>
+      <h2>Frequency of a tuning fork by Melde's experiment</h2>
+      <p>Standing waves, transverse and longitudinal arrangements, resonance. 3D string and fork.</p></a>
+    <a class="card" href="spiral-spring.html"><span class="num">4</span>
+      <h2>Spring constant and effective mass of a spiral spring</h2>
+      <p>Hooke's law, oscillations, effective mass m<sub>s</sub>/3, T² against M graph. 3D spring.</p></a>
+  </div>
+</main>
+<footer>PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
+</body>
+</html>

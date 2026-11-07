@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spring Constant and Effective Mass of a Spiral Spring</title>
+<style>:root{
+  --navy:#1b2a4a; --navy2:#2d4373; --ink:#1d2330; --muted:#5b6475;
+  --bg:#f6f7fb; --card:#ffffff; --line:#dde2ec;
+  --ray1:#c62f4b; --ray2:#1f8a8a; --good:#1f7a4d; --warn:#a33a2a;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{background:var(--navy);color:#fff;padding:34px 20px 28px}
+header .wrap{max-width:1120px;margin:auto}
+header h1{font-family:Georgia,serif;font-weight:600;font-size:clamp(24px,3.4vw,36px);margin:0 0 6px;line-height:1.2}
+header p{margin:0;opacity:.85}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+nav .wrap{max-width:1120px;margin:auto;display:flex;gap:4px;overflow-x:auto;padding:6px 14px}
+nav a{color:var(--navy);text-decoration:none;padding:6px 12px;border-radius:6px;font-size:14px;white-space:nowrap}
+nav a:hover{background:#eef1f8}
+main{max-width:1120px;margin:auto;padding:10px 16px 60px}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 24px;margin:22px 0}
+h2{font-family:Georgia,serif;color:var(--navy);margin:0 0 12px;font-size:24px}
+h3{color:var(--navy2);margin:22px 0 8px;font-size:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+@media(max-width:820px){.grid2{grid-template-columns:1fr}}
+.eq{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 16px;margin:12px 0;font-family:"Cambria Math",Cambria,Georgia,serif;font-size:19px;overflow-x:auto;white-space:nowrap}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 3px}
+.frac>span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px}
+.frac>span:last-child{padding:0 4px}
+.sqrt{border-top:1.5px solid currentColor;padding:0 3px;margin-left:1px}
+.note{font-size:14px;color:var(--muted)}
+ul.app{columns:2;margin:6px 0}
+@media(max-width:600px){ul.app{columns:1}}
+figure{margin:8px 0}
+figcaption{font-size:13.5px;color:var(--muted);text-align:center;margin-top:4px}
+svg{max-width:100%;height:auto;display:block;margin:auto}
+.simwrap{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px}
+@media(max-width:920px){.simwrap{grid-template-columns:1fr}}
+canvas{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fbfcfe}
+canvas.c3d{cursor:grab;touch-action:none}
+canvas.c3d:active{cursor:grabbing}
+.panel{display:flex;flex-direction:column;gap:12px}
+.ctrl{background:#f5f7fb;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.ctrl label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px}
+.ctrl label.plain{font-weight:400}
+.ctrl input[type=range]{width:100%}
+.ctrl select{width:100%;padding:5px;border-radius:6px;border:1px solid var(--line);font-size:14px}
+.val{float:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:7px;padding:8px 12px;font-size:14px;cursor:pointer}
+.btn:hover{background:var(--navy2)}
+.btn.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.read{font-size:14px;font-variant-numeric:tabular-nums;width:100%}
+.read td{padding:2px 4px}
+.read td:first-child{color:var(--muted)}
+.read td:last-child{text-align:right}
+.status{padding:9px 12px;border-radius:8px;font-size:14px;font-weight:600}
+.status.ok{background:#e4f4ea;color:var(--good)}
+.status.bad{background:#fbe9e6;color:var(--warn)}
+.status.info{background:#eef1f8;color:var(--navy)}
+.watch{font:600 28px/1.1 ui-monospace,Menlo,Consolas,monospace;color:var(--navy);text-align:center;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px}
+.watch small{display:block;font:13px system-ui;color:var(--muted);margin-top:3px}
+.steps{display:grid;gap:12px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:12px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fcfdff}
+.step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+.step h4{margin:2px 0 4px;color:var(--navy);font-size:16.5px}
+.step p{margin:0 0 6px}
+.step .why{background:#f2f5fb;border-left:3px solid var(--navy);padding:7px 11px;margin:8px 0;font-size:14.5px;border-radius:0 6px 6px 0}
+.step .why b{color:var(--navy)}
+.step .btn{font-size:13px;padding:5px 10px}
+table.obs{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0;font-variant-numeric:tabular-nums}
+table.obs th,table.obs td{border:1px solid var(--line);padding:5px 6px;text-align:center}
+table.obs th{background:#eef1f8;color:var(--navy)}
+.tablewrap{overflow-x:auto}
+.result{font-size:16px;background:#eef1f8;border-radius:10px;padding:12px 16px;margin-top:10px;line-height:1.8}
+.result b{color:var(--navy)}
+ol li,ul li{margin:3px 0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 12px;margin:6px 0;background:#fcfdff}
+summary{cursor:pointer;font-weight:600;color:var(--navy)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:6px}
+.legend i{display:inline-block;width:22px;height:3px;vertical-align:middle;margin-right:5px}
+</style>
+<link rel="stylesheet" href="assets/katex/katex.min.css">
+<style>
+.deriv h3{border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:28px}
+.deriv p{margin:8px 0}
+.deriv .katex-display{background:#f2f5fb;border-left:4px solid var(--navy);padding:10px 14px;margin:12px 0;overflow-x:auto;overflow-y:hidden;border-radius:0 6px 6px 0}
+.deriv .katex{font-size:1.08em}
+footer.credit{background:var(--navy);color:#dfe5f2;font-size:14px;padding:18px 20px;text-align:center;line-height:1.6}
+footer.credit a{color:#fff}
+.backlink{color:#fff;opacity:.85;font-size:14px;text-decoration:none;display:inline-block;margin-bottom:10px}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="backlink" href="index.html">&larr; PHY 2106 experiments</a>
+  <h1>Determination of the Spring Constant and Effective Mass of a Spiral Spring</h1>
+  <p>Static method (Hooke's law) and dynamic method (oscillations), with a 3D virtual lab and live graphs</p>
+</div></header>
+<nav><div class="wrap">
+  <a href="#aim">Aim and apparatus</a><a href="#theory">Theory</a><a href="#derivations">Derivations</a><a href="#lab">3D virtual lab</a>
+  <a href="#steps">Procedure with theory</a><a href="#obs">Observations and graphs</a><a href="#prec">Precautions</a><a href="#viva">Viva</a>
+</div></nav>
+<main>
+
+<section id="aim">
+  <h2>Aim and apparatus</h2>
+  <p><b>Aim.</b> To determine the spring constant k of a spiral spring by the static and dynamic methods, and to find its effective mass m′.</p>
+  <ul class="app">
+    <li>Spiral (helical) spring with a pointer</li>
+    <li>Rigid clamp stand</li>
+    <li>Hanger and slotted weights (50 g each)</li>
+    <li>Vertical metre scale</li>
+    <li>Stopwatch</li>
+    <li>Physical balance to weigh the spring</li>
+  </ul>
+</section>
+
+<section id="theory">
+  <h2>Theory</h2>
+  <h3>1. Static method, Hooke's law</h3>
+  <div class="grid2">
+    <div>
+      <p>Within the elastic limit, the extension x of a spring is proportional to the stretching force. A load M hanging at rest stretches the spring until the spring force balances the weight</p>
+      <div class="eq">k x = M g &nbsp;&nbsp; ⟹ &nbsp;&nbsp; k = <span class="frac"><span>M g</span><span>x</span></span></div>
+      <p>k is the <b>spring constant</b>, the force needed per unit extension (N/m). A graph of load (as force Mg) against extension is a straight line whose slope is k.</p>
+      <p>The hanger and the spring's own weight already stretch the spring a little. So the reading with the hanger alone is taken as the zero, and only the extra loads and extra extensions are used.</p>
+    </div>
+    <figure><svg id="svgStatic" viewBox="0 0 420 300"></svg>
+      <figcaption>A load M stretches the spring by x. The pointer moves down the scale by the same amount.</figcaption></figure>
+  </div>
+
+  <h3>2. Dynamic method, oscillations</h3>
+  <p>Pull the load down by a small distance y below its rest position. The extra spring force is ky upward, so</p>
+  <div class="eq">M <span class="frac"><span>d²y</span><span>dt²</span></span> = − k y &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>M</span><span>k</span></span></span> &nbsp;&nbsp;(massless spring)</div>
+  <p>The weight Mg does not appear because it is already balanced at the rest position. Gravity only shifts where the oscillation is centred.</p>
+
+  <h3>3. Why the spring has an effective mass</h3>
+  <div class="grid2">
+    <figure><svg id="svgEff" viewBox="0 0 420 300"></svg>
+      <figcaption>The top of the spring is still, the bottom moves with the load. The speed of each coil grows in proportion to its distance from the top.</figcaption></figure>
+    <div>
+      <p>A real spring of mass m<sub>s</sub> also moves. A small piece at distance s from the top of a spring of length ℓ moves with speed u = v·s/ℓ, where v is the speed of the load. Its kinetic energy added over the whole spring is</p>
+      <div class="eq">KE = ∫₀<sup>ℓ</sup> ½ <span class="frac"><span>m<sub>s</sub></span><span>ℓ</span></span> ds <span>(</span><span class="frac"><span>v s</span><span>ℓ</span></span><span>)</span>² = ½ <span>(</span><span class="frac"><span>m<sub>s</sub></span><span>3</span></span><span>)</span> v²</div>
+      <p>So the spring behaves as if a mass m′ ≈ m<sub>s</sub>/3 were added to the load. This is the <b>effective mass</b>.</p>
+      <div class="eq">T = 2π <span>√</span><span class="sqrt"><span class="frac"><span>M + m′</span><span>k</span></span></span> &nbsp;&nbsp; ⟹ &nbsp;&nbsp; T² = <span class="frac"><span>4π²</span><span>k</span></span> M + <span class="frac"><span>4π²</span><span>k</span></span> m′</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div>
+      <p>A graph of T² against M is a straight line.</p>
+      <ul>
+        <li>Its slope is 4π²/k, so <b>k = 4π² / slope</b>.</li>
+        <li>Extended backward, it cuts the M axis at M = −m′. The size of that intercept is the <b>effective mass</b>.</li>
+      </ul>
+      <p>Comparing k from both methods and m′ with m<sub>s</sub>/3 checks the whole theory.</p>
+    </div>
+    <figure><canvas id="thgraph" width="520" height="320"></canvas>
+      <figcaption>T² against M. The line extended back meets the M axis at −m′.</figcaption></figure>
+  </div>
+</section>
+
+<section id="derivations" class="deriv">
+  <h2>Detailed theory and derivations</h2>
+
+  <h3>D1. Hooke's law and elastic energy</h3>
+  <p>Within the elastic limit the restoring force of a spring is proportional to its extension x and opposite to it</p>
+  $$F=-kx .$$
+  <p>The work done in stretching it slowly from 0 to x is stored as elastic potential energy</p>
+  $$U=\int_0^x kx'\,dx'=\tfrac12kx^2 .$$
+
+  <h3>D2. Static equilibrium</h3>
+  <p>A load M hangs at rest on a light spring. The spring force balances the weight</p>
+  $$kx_0=Mg\quad\Longrightarrow\quad \boxed{\;k=\frac{Mg}{x_0}\;}$$
+  <p>Adding a load ΔM increases the extension by Δx = ΔM g/k. So a graph of added load (as force ΔMg) against extra extension Δx is a straight line through the origin with slope k. Taking the reading with the hanger alone as zero means the hanger, pointer and the spring's own weight drop out.</p>
+
+  <h3>D3. Stretch of the spring under its own weight</h3>
+  <p>A uniform spring of mass m<sub>s</sub> and unstretched length ℓ₀ hangs vertically. A short piece at distance s from the top, of unstretched length ds, carries the weight of the spring below it, m<sub>s</sub>g(ℓ₀ − s)/ℓ₀. A piece of length ds has spring constant kℓ₀/ds (a shorter spring is stiffer). Its stretch is therefore</p>
+  $$d(\Delta)=\frac{m_sg(\ell_0-s)/\ell_0}{k\ell_0/ds}=\frac{m_sg}{k\ell_0^2}(\ell_0-s)\,ds .$$
+  $$\Delta=\frac{m_sg}{k\ell_0^2}\int_0^{\ell_0}(\ell_0-s)\,ds=\frac{m_sg}{2k}.$$
+  <p>So the spring stretches as though half of its weight hung at the bottom. This shifts the zero reading but not the slope of the static graph.</p>
+
+  <h3>D4. Equation of motion (light spring)</h3>
+  <p>Measure y downward from the equilibrium position, so the total extension is x₀ + y. Newton's second law for the load is</p>
+  $$M\ddot y=Mg-k(x_0+y)=Mg-kx_0-ky=-ky ,$$
+  <p>because kx₀ = Mg. Gravity cancels exactly. It only fixes the centre of the motion. So</p>
+  $$\ddot y+\omega^2y=0,\qquad \omega^2=\frac{k}{M}.$$
+
+  <h3>D5. Solving it with the exponential method</h3>
+  <p>Try \(y=e^{\lambda t}\). The characteristic equation is λ² + ω² = 0, so λ = ±iω and</p>
+  $$y(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}=A\cos(\omega t+\varphi),$$
+  <p>using \(C_2=C_1^{*}\) for a real solution and Euler's formula. A and φ are fixed by how far the load is pulled and when it is released. If it is pulled down by y₀ and released from rest, then y = y₀ cos ωt. The period is</p>
+  $$\boxed{\;T=2\pi\sqrt{\frac{M}{k}}\;}\qquad\text{(massless spring)}$$
+  <p>T does not depend on the amplitude or on g.</p>
+
+  <h3>D6. Effective mass of the spring</h3>
+  <p>The top of the spring is fixed and the bottom moves with the load at speed v = ẏ. For a uniformly stretched spring, a coil at distance s from the top (total length ℓ) moves with speed</p>
+  $$u(s)=\frac{s}{\ell}\,v .$$
+  <p>The mass of a piece ds is (m<sub>s</sub>/ℓ) ds. Its kinetic energy added over the whole spring is</p>
+  $$K_{\text{spring}}=\int_0^{\ell}\frac12\,\frac{m_s}{\ell}\,ds\left(\frac{s\,v}{\ell}\right)^2=\frac{m_sv^2}{2\ell^3}\int_0^{\ell}s^2\,ds=\frac12\left(\frac{m_s}{3}\right)v^2 .$$
+  <p>The total energy of the oscillating system (load and spring, about equilibrium) is constant</p>
+  $$E=\frac12\left(M+\frac{m_s}{3}\right)\dot y^2+\frac12ky^2=\text{constant}.$$
+  <p>Differentiating with respect to time and dividing by ẏ</p>
+  $$\left(M+\frac{m_s}{3}\right)\ddot y+ky=0\quad\Longrightarrow\quad \omega^2=\frac{k}{M+m'},\qquad \boxed{\;m'=\frac{m_s}{3}\;}$$
+  $$\boxed{\;T=2\pi\sqrt{\frac{M+m'}{k}}\;}$$
+  <p>The spring adds one third of its own mass to the load. In a real spring the coils near the ends may not stretch evenly, so the measured m′ is often a little different from m<sub>s</sub>/3.</p>
+
+  <h3>D7. Straight-line form and how the graph gives k and m′</h3>
+  <p>Squaring the period</p>
+  $$T^2=\frac{4\pi^2}{k}\,M+\frac{4\pi^2}{k}\,m' .$$
+  <p>This has the form y = (slope)x + c, with y = T² and x = M. So</p>
+  $$\text{slope}=\frac{4\pi^2}{k}\ \Longrightarrow\ \boxed{\;k=\frac{4\pi^2}{\text{slope}}\;},\qquad T^2=0\ \text{at}\ M=-m' .$$
+  <p>The line extended back cuts the M axis at −m′, so the size of that intercept is the effective mass. Equivalently m′ = c/slope, where c is the intercept on the T² axis.</p>
+
+  <h3>D8. Damping</h3>
+  <p>Air resistance adds a small force proportional to velocity, −bẏ. The equation becomes</p>
+  $$\ddot y+2\gamma\dot y+\omega_0^2y=0,\qquad \gamma=\frac{b}{2(M+m')},\quad \omega_0^2=\frac{k}{M+m'}.$$
+  <p>With \(y=e^{\lambda t}\), λ² + 2γλ + ω₀² = 0, so λ = −γ ± i√(ω₀² − γ²). For light damping (γ ≪ ω₀)</p>
+  $$y=Ae^{-\gamma t}\cos(\omega_d t+\varphi),\qquad \omega_d=\sqrt{\omega_0^2-\gamma^2}\approx\omega_0\left(1-\frac{\gamma^2}{2\omega_0^2}\right).$$
+  <p>The amplitude dies away slowly, but the period changes only by a term of order (γ/ω₀)², which is negligible here. So timing a slowly decaying oscillation still gives the correct T.</p>
+
+  <h3>D9. Springs in series and parallel</h3>
+  <p>For two springs in series, the same force acts in each and the extensions add, x = F/k₁ + F/k₂, so</p>
+  $$\frac{1}{k_{\text{series}}}=\frac1{k_1}+\frac1{k_2}.$$
+  <p>For two springs side by side (parallel), the extensions are equal and the forces add, so k<sub>parallel</sub> = k₁ + k₂. Cutting a spring into two equal halves gives each half spring constant 2k.</p>
+
+  <h3>D10. Worked example</h3>
+  <p>Static readings rise by 2.45 cm for every 50 g added</p>
+  $$k=\frac{(0.050)(9.8)}{0.0245}=20.0\ \text{N/m}.$$
+  <p>Dynamic readings give a T² against M slope of 1.98 s²/kg and an intercept on the M axis of −17.7 g</p>
+  $$k=\frac{4\pi^2}{1.98}=19.9\ \text{N/m},\qquad m'=17.7\ \text{g}\ \ (\text{compare } m_s/3=54/3=18.0\ \text{g}).$$
+
+  <h3>D11. Error estimate</h3>
+  <p>For the static method k = Mg/x, so δk/k = δM/M + δx/x. The extension error is about the scale least count (0.1 cm) on each reading. For the dynamic method</p>
+  $$\frac{\delta k}{k}=\frac{\delta M}{M}+2\,\frac{\delta T}{T},\qquad \delta T=\frac{\delta t}{N}.$$
+  <p>Because T is short (about 0.5 s), a reaction error of 0.1 s over 20 oscillations already gives 2δT/T ≈ 2%. The intercept m′ is very sensitive to this. Timing more oscillations and repeating each timing improves it.</p>
+</section>
+
+
+<section id="lab">
+  <h2>3D virtual lab</h2>
+  <p>Add slotted weights and read the pointer for the static method. Then pull the load down, release it and time 20 oscillations for the dynamic method. Everything you record goes into the tables and graphs below.</p>
+  <div class="simwrap">
+    <div><canvas id="c3d" width="760" height="640"></canvas></div>
+    <div class="panel">
+      <div class="ctrl">
+        <label>Spring</label>
+        <select id="spr"><option value="S1">Spring 1 (unknown k)</option><option value="S2">Spring 2 (unknown k)</option></select>
+        <div class="note" id="msinfo"></div>
+      </div>
+      <div class="ctrl">
+        <label>Slotted weights on hanger <span class="val" id="nv"></span></label>
+        <div class="row"><button class="btn" id="add">Add 50 g</button><button class="btn ghost" id="rem">Remove 50 g</button></div>
+        <div class="note" style="margin-top:6px">Hanger mass 50 g</div>
+      </div>
+      <div class="ctrl"><table class="read">
+        <tr><td>Pointer reading</td><td id="rd"></td></tr>
+        <tr><td>Total suspended mass M</td><td id="rM"></td></tr>
+      </table>
+      <button class="btn ghost" id="recS" style="margin-top:6px;width:100%">Record static reading</button></div>
+      <div class="ctrl">
+        <label>Dynamic method</label>
+        <div class="row"><button class="btn" id="pull">Pull 3 cm and release</button></div>
+        <label style="margin-top:6px">Simulation speed <span class="val" id="spv"></span></label>
+        <input type="range" id="sp" min="0.25" max="8" step="0.25" value="1">
+      </div>
+      <div class="watch" id="watch">0.00 s<small>oscillations 0 / 20</small></div>
+      <div class="row"><button class="btn" id="start">Start timing 20 osc.</button><button class="btn ghost" id="recD">Record</button></div>
+      <div class="row"><button class="btn ghost" id="auto">Fill both tables</button><button class="btn ghost" id="clear">Clear data</button></div>
+      <div class="status info" id="msg">Start with the hanger alone and record the zero reading.</div>
+    </div>
+  </div>
+</section>
+
+<section id="steps">
+  <h2>Procedure, with the theory behind each step</h2>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><div>
+      <h4>Weigh the spring</h4>
+      <p>Find the mass m<sub>s</sub> of the spring on a balance before hanging it.</p>
+      <div class="why"><b>Why.</b> The effective mass found from the graph will be compared with m<sub>s</sub>/3.</div></div></div>
+    <div class="step"><div class="n">2</div><div>
+      <h4>Suspend the spring and set the scale</h4>
+      <p>Hang the spring from a rigid clamp. Attach the hanger and pointer at its lower end. Fix the metre scale vertically so the pointer moves just in front of it without touching. Note the reading with the hanger only.</p>
+      <div class="why"><b>Why.</b> A rigid support ensures that only the spring stretches. The hanger and the spring's own weight produce an initial extension, so this reading is the zero for measuring extra extensions.</div>
+      <button class="btn" data-go="zero">Show in 3D lab</button></div></div>
+    <div class="step"><div class="n">3</div><div>
+      <h4>Load the spring step by step</h4>
+      <p>Add 50 g at a time. After each addition, wait until the pointer is at rest and note the reading. Go up to about 300 g.</p>
+      <div class="why"><b>Why.</b> At rest the spring force equals the weight, kx = Mg. Equal load steps should give equal extension steps if Hooke's law holds.</div>
+      <button class="btn" data-go="load">Add a weight</button></div></div>
+    <div class="step"><div class="n">4</div><div>
+      <h4>Unload step by step</h4>
+      <p>Remove the weights one at a time and note the reading again for each load. Take the mean of loading and unloading readings.</p>
+      <div class="why"><b>Why.</b> If the readings return to the same values, the spring was not stretched beyond its elastic limit. Averaging cancels small lag and friction effects.</div></div></div>
+    <div class="step"><div class="n">5</div><div>
+      <h4>Plot load against extension (static k)</h4>
+      <p>Plot Mg (N) against extension x (m). Draw the best straight line. Its slope is k.</p>
+      <div class="why"><b>Why.</b> From kx = Mg the graph should be a straight line through the origin with slope k. Using the slope uses every reading at once.</div>
+      <button class="btn ghost" data-go="graph">Go to graphs</button></div></div>
+    <div class="step"><div class="n">6</div><div>
+      <h4>Set the load oscillating</h4>
+      <p>With a load M on the hanger, pull it down by 2 to 3 cm and release. It should move straight up and down without swinging sideways.</p>
+      <div class="why"><b>Why.</b> A small pull keeps the spring in its elastic range so the restoring force stays ky, which gives simple harmonic motion. Sideways swinging adds a pendulum motion with a different period.</div>
+      <button class="btn" data-go="pull">Pull and release</button></div></div>
+    <div class="step"><div class="n">7</div><div>
+      <h4>Time 20 oscillations for each load</h4>
+      <p>Start the stopwatch as the pointer passes the rest position and count 20 oscillations. Repeat and take the mean. T = t/20. Do this for every load.</p>
+      <div class="why"><b>Why.</b> Timing many oscillations spreads the reaction error. Starting at the rest position is best because the motion is fastest there.</div>
+      <button class="btn" data-go="time">Time it in the 3D lab</button></div></div>
+    <div class="step"><div class="n">8</div><div>
+      <h4>Plot T² against M (dynamic k and m′)</h4>
+      <p>Draw the best straight line and extend it back until it meets the M axis. Then k = 4π²/slope and m′ is the size of the negative intercept on the M axis.</p>
+      <div class="why"><b>Why.</b> T² = (4π²/k)(M + m′). T² becomes zero when M = −m′, which is where the line crosses the M axis.</div></div></div>
+    <div class="step"><div class="n">9</div><div>
+      <h4>Compare</h4>
+      <p>Compare k from the two methods. Compare m′ with m<sub>s</sub>/3.</p>
+      <div class="why"><b>Why.</b> Agreement confirms Hooke's law, SHM and the energy argument for the effective mass together.</div></div></div>
+  </div>
+</section>
+
+<section id="obs">
+  <h2>Observations and graphs</h2>
+  <h3>Table 1. Static method (zero reading with hanger alone)</h3>
+  <div class="tablewrap"><table class="obs" id="tabS"><thead><tr><th>Added load (g)</th><th>Force Mg (N)</th><th>Reading, loading (cm)</th><th>Reading, unloading (cm)</th><th>Mean (cm)</th><th>Extension x (cm)</th></tr></thead><tbody></tbody></table></div>
+  <canvas id="gS" width="900" height="360"></canvas>
+  <h3>Table 2. Dynamic method</h3>
+  <div class="tablewrap"><table class="obs" id="tabD"><thead><tr><th>Total mass M (g)</th><th>Time for 20 osc. (s)</th><th>T (s)</th><th>T² (s²)</th></tr></thead><tbody></tbody></table></div>
+  <canvas id="gD" width="900" height="380"></canvas>
+  <div class="result" id="res">Record readings to see the results.</div>
+</section>
+
+<section id="prec">
+  <h2>Precautions and sources of error</h2>
+  <div class="grid2">
+    <ul>
+      <li>The support must be rigid and the scale vertical.</li>
+      <li>Do not load beyond the elastic limit. Readings on unloading should return to the loading values.</li>
+      <li>Take readings only when the pointer is at rest, with the eye level with the pointer to avoid parallax.</li>
+    </ul>
+    <ul>
+      <li>Keep the amplitude small and the motion vertical.</li>
+      <li>Time at least 20 oscillations, counting from zero.</li>
+      <li>The effective mass m<sub>s</sub>/3 assumes a uniform spring that stretches evenly.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="viva">
+  <h2>Quick viva questions</h2>
+  <details><summary>What is the spring constant?</summary><p>The force required to produce unit extension in the spring, k = F/x, measured in N/m.</p></details>
+  <details><summary>Why does the period not depend on g?</summary><p>Gravity only changes the rest position. The restoring force about that position is ky, which does not involve g.</p></details>
+  <details><summary>What is effective mass and why is it m<sub>s</sub>/3?</summary><p>It is the part of the spring's mass that effectively moves with the load. Since the speed of the coils grows linearly from top to bottom, the total kinetic energy equals that of mass m<sub>s</sub>/3 moving with the load.</p></details>
+  <details><summary>If a spring is cut in half, what happens to k?</summary><p>It doubles. Each half stretches half as much under the same force.</p></details>
+  <details><summary>What happens to T if the load is quadrupled?</summary><p>For a light spring T doubles, since T ∝ √M.</p></details>
+</section>
+</main>
+
+<script>/* ---- tiny 3D engine on canvas 2D (painter's algorithm) ---- */
+const v3={add:(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]],sub:(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]],mul:(a,s)=>[a[0]*s,a[1]*s,a[2]*s],
+  dot:(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2],cross:(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],
+  norm:a=>{const l=Math.hypot(a[0],a[1],a[2])||1;return [a[0]/l,a[1]/l,a[2]/l]}};
+const rgb=(c,k=1,a=1)=>`rgba(${Math.min(255,Math.round(c[0]*k))},${Math.min(255,Math.round(c[1]*k))},${Math.min(255,Math.round(c[2]*k))},${a})`;
+function setupCanvas(cv){const W=+cv.getAttribute('width'),H=+cv.getAttribute('height'),dpr=Math.max(1,window.devicePixelRatio||1);
+  cv.width=W*dpr;cv.height=H*dpr;const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,W,H};}
+function Scene3D(canvas,o={}){
+  const {ctx,W,H}=setupCanvas(canvas);
+  const S={ctx,W,H,yaw:o.yaw??-0.5,pitch:o.pitch??0.25,dist:o.dist??4,target:o.target||[0,0,0],f:o.f||H*1.25,items:[],labels:[],light:v3.norm([-0.45,0.85,0.75])};
+  const home={yaw:S.yaw,pitch:S.pitch,dist:S.dist};
+  let cy=1,sy=0,cp=1,sp=0,cam=[0,0,0];
+  S.begin=()=>{cy=Math.cos(S.yaw);sy=Math.sin(S.yaw);cp=Math.cos(S.pitch);sp=Math.sin(S.pitch);
+    cam=v3.add(S.target,[-S.dist*cp*sy,S.dist*sp,S.dist*cp*cy]);S.items.length=0;S.labels.length=0;};
+  S.proj=p=>{const x=p[0]-S.target[0],y=p[1]-S.target[1],z=p[2]-S.target[2];
+    const x1=x*cy+z*sy,z1=-x*sy+z*cy,y2=y*cp-z1*sp,z2=y*sp+z1*cp,d=S.dist-z2;
+    return [S.W/2+S.f*x1/d,S.H/2-S.f*y2/d,d];};
+  S.poly=(pts,col,op={})=>{const P=pts.map(S.proj);for(const q of P)if(q[2]<0.05)return;
+    let c=[0,0,0];pts.forEach(p=>{c[0]+=p[0];c[1]+=p[1];c[2]+=p[2]});c=v3.mul(c,1/pts.length);
+    let n=v3.norm(v3.cross(v3.sub(pts[1],pts[0]),v3.sub(pts[2],pts[0])));const toCam=v3.sub(cam,c);
+    if(op.center){if(v3.dot(n,v3.sub(c,op.center))<0)n=v3.mul(n,-1);if(v3.dot(n,toCam)<0&&!op.twoSided)return;}
+    else if(v3.dot(n,toCam)<0)n=v3.mul(n,-1);
+    const l=op.flat?1:0.58+0.5*Math.max(0,v3.dot(n,S.light));
+    const d=P.reduce((s,q)=>s+q[2],0)/P.length+(op.bias||0);
+    const fill=typeof col==='string'?col:rgb(col,l,op.alpha??1);
+    S.items.push({d,f:()=>{ctx.beginPath();P.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]));ctx.closePath();
+      ctx.fillStyle=fill;ctx.fill();if(op.stroke){ctx.strokeStyle=op.stroke;ctx.lineWidth=op.lw||1;ctx.stroke();}}});};
+  S.line=(a,b,col,w=1.5,op={})=>{const A=S.proj(a),B=S.proj(b);if(A[2]<0.05||B[2]<0.05)return;const d=(A[2]+B[2])/2+(op.bias||0);
+    const lw=op.world?Math.max(0.7,w*S.f/d):w;
+    S.items.push({d,f:()=>{ctx.strokeStyle=col;ctx.lineWidth=lw;ctx.lineCap='round';if(op.dash)ctx.setLineDash(op.dash);
+      ctx.beginPath();ctx.moveTo(A[0],A[1]);ctx.lineTo(B[0],B[1]);ctx.stroke();ctx.setLineDash([]);}});};
+  S.path=(pts,col,w,op={})=>{for(let i=1;i<pts.length;i++)S.line(pts[i-1],pts[i],col,w,op);};
+  S.sphere=(c,r,col,op={})=>{const P=S.proj(c);if(P[2]<0.05)return;const R=r*S.f/P[2];
+    S.items.push({d:P[2]+(op.bias||0),f:()=>{const g=ctx.createRadialGradient(P[0]-R*.35,P[1]-R*.35,R*.1,P[0],P[1],R);
+      g.addColorStop(0,rgb(col,1.35));g.addColorStop(1,rgb(col,0.6));ctx.fillStyle=g;ctx.beginPath();ctx.arc(P[0],P[1],R,0,7);ctx.fill();}});};
+  S.label=(p,t,op={})=>{S.labels.push({P:S.proj(p),t,op});};
+  S.box=(T,s,col,op={})=>{const a=s[0]/2,b=s[1]/2,c=s[2]/2;
+    const L=[[-a,-b,-c],[a,-b,-c],[a,b,-c],[-a,b,-c],[-a,-b,c],[a,-b,c],[a,b,c],[-a,b,c]].map(T);const C=T([0,0,0]);
+    [[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[1,2,6,5],[0,3,7,4]].forEach(f=>S.poly(f.map(i=>L[i]),col,{...op,center:C}));};
+  S.boxAt=(c,s,col,op)=>S.box(p=>v3.add(p,c),s,col,op);
+  S.cyl=(a,b,r,col,n=18,op={})=>{const u=v3.norm(v3.sub(b,a));const e1=v3.norm(v3.cross(u,Math.abs(u[1])<0.9?[0,1,0]:[1,0,0]));const e2=v3.cross(u,e1);
+    const C=v3.mul(v3.add(a,b),.5);
+    const ring=(p,rr)=>{const R=[];for(let i=0;i<n;i++){const t=i/n*Math.PI*2;R.push(v3.add(p,v3.add(v3.mul(e1,Math.cos(t)*rr),v3.mul(e2,Math.sin(t)*rr))));}return R;};
+    const A=ring(a,r),B=ring(b,op.r2??r);
+    for(let i=0;i<n;i++){const j=(i+1)%n;S.poly([A[i],A[j],B[j],B[i]],col,{...op,center:C});}
+    if(!op.open){S.poly(A,col,{...op,center:C});S.poly(B,col,{...op,center:C});}};
+  S.render=()=>{ctx.clearRect(0,0,W,H);const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#f1f4fa');g.addColorStop(1,'#dfe5ef');
+    ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    S.items.sort((p,q)=>q.d-p.d);for(const it of S.items)it.f();
+    for(const {P,t,op} of S.labels){if(P[2]<0.05)continue;ctx.font=op.font||'600 12px system-ui';ctx.textAlign=op.align||'left';
+      if(op.halo!==false){ctx.lineWidth=3;ctx.strokeStyle='rgba(255,255,255,.85)';ctx.strokeText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+      ctx.fillStyle=op.color||'#1b2a4a';ctx.fillText(t,P[0]+(op.dx||0),P[1]+(op.dy||0));}
+    ctx.textAlign='left';ctx.fillStyle='rgba(27,42,74,.6)';ctx.font='11px system-ui';
+    ctx.fillText('3D view. Drag to rotate, scroll to zoom, double-click to reset',10,H-10);};
+  let drag=null;
+  canvas.classList.add('c3d');
+  canvas.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY,yaw:S.yaw,pitch:S.pitch};canvas.setPointerCapture(e.pointerId);});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;S.yaw=drag.yaw+(e.clientX-drag.x)*0.008;
+    S.pitch=Math.max(-0.35,Math.min(1.45,drag.pitch+(e.clientY-drag.y)*0.006));});
+  canvas.addEventListener('pointerup',()=>drag=null);canvas.addEventListener('pointercancel',()=>drag=null);
+  canvas.addEventListener('wheel',e=>{e.preventDefault();S.dist=Math.max(o.minDist||0.4,Math.min(o.maxDist||20,S.dist*Math.exp(e.deltaY*0.001)));},{passive:false});
+  canvas.addEventListener('dblclick',()=>Object.assign(S,home));
+  S.setView=v=>{Object.assign(S,v);};
+  return S;
+}
+
+/* ---- 2D plotting helper ---- */
+function niceStep(range,n){const r=range/n,p=Math.pow(10,Math.floor(Math.log10(r))),m=r/p;return (m<1.5?1:m<3?2:m<7?5:10)*p;}
+function linfit(pts){const n=pts.length;if(n<2)return null;let sx=0,sy=0,sxx=0,sxy=0;
+  pts.forEach(([x,y])=>{sx+=x;sy+=y;sxx+=x*x;sxy+=x*y});const d=n*sxx-sx*sx;if(!d)return null;const m=(n*sxy-sx*sy)/d;return {m,b:(sy-m*sx)/n};}
+function Plot(cv){
+  const {ctx,W,H}=setupCanvas(cv);
+  return function(d){
+    const L=62,R=18,T=16,B=46;
+    const X=x=>L+(x-d.xmin)/(d.xmax-d.xmin)*(W-L-R),Y=y=>H-B-(y-d.ymin)/(d.ymax-d.ymin)*(H-T-B);
+    ctx.clearRect(0,0,W,H);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+    const xs=niceStep(d.xmax-d.xmin,8),ys=niceStep(d.ymax-d.ymin,6);
+    ctx.font='11px system-ui';ctx.fillStyle='#5b6475';ctx.strokeStyle='#e7ebf2';ctx.lineWidth=1;
+    for(let x=Math.ceil(d.xmin/xs)*xs;x<=d.xmax+1e-9;x+=xs){ctx.beginPath();ctx.moveTo(X(x),T);ctx.lineTo(X(x),H-B);ctx.stroke();
+      ctx.textAlign='center';ctx.fillText(+x.toFixed(6)+'',X(x),H-B+15);}
+    for(let y=Math.ceil(d.ymin/ys)*ys;y<=d.ymax+1e-9;y+=ys){ctx.beginPath();ctx.moveTo(L,Y(y));ctx.lineTo(W-R,Y(y));ctx.stroke();
+      ctx.textAlign='right';ctx.fillText(+y.toFixed(6)+'',L-6,Y(y)+4);}
+    ctx.strokeStyle='#1b2a4a';ctx.lineWidth=1.3;ctx.beginPath();ctx.moveTo(L,T);ctx.lineTo(L,H-B);ctx.lineTo(W-R,H-B);ctx.stroke();
+    if(d.ymin<0&&d.ymax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(L,Y(0));ctx.lineTo(W-R,Y(0));ctx.stroke();}
+    if(d.xmin<0&&d.xmax>0){ctx.strokeStyle='#8893a8';ctx.beginPath();ctx.moveTo(X(0),T);ctx.lineTo(X(0),H-B);ctx.stroke();}
+    ctx.fillStyle='#1b2a4a';ctx.font='600 12.5px system-ui';ctx.textAlign='center';ctx.fillText(d.xlabel||'',(L+W-R)/2,H-10);
+    ctx.save();ctx.translate(15,(T+H-B)/2);ctx.rotate(-Math.PI/2);ctx.fillText(d.ylabel||'',0,0);ctx.restore();
+    ctx.save();ctx.beginPath();ctx.rect(L,T,W-L-R,H-T-B);ctx.clip();
+    (d.lines||[]).forEach(s=>{ctx.strokeStyle=s.color||'#1b2a4a';ctx.lineWidth=s.w||1.5;ctx.setLineDash(s.dash||[]);ctx.beginPath();
+      s.pts.forEach(([x,y],i)=>i?ctx.lineTo(X(x),Y(y)):ctx.moveTo(X(x),Y(y)));ctx.stroke();ctx.setLineDash([]);});
+    (d.series||[]).forEach(s=>{ctx.fillStyle=s.color||'#1b2a4a';s.pts.forEach(([x,y])=>{ctx.beginPath();ctx.arc(X(x),Y(y),s.r||4,0,7);ctx.fill();});});
+    (d.marks||[]).forEach(m=>{ctx.fillStyle=m.color||'#c62f4b';ctx.beginPath();ctx.arc(X(m.x),Y(m.y),5,0,7);ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.5;ctx.stroke();ctx.font='700 13px system-ui';ctx.textAlign='center';
+      ctx.fillStyle=m.color||'#c62f4b';ctx.fillText(m.label,X(m.x)+(m.dx||0),Y(m.y)+(m.dy??-10));});
+    ctx.restore();
+    if(d.legend){ctx.textAlign='left';ctx.font='12px system-ui';let yy=T+14;d.legend.forEach(([c,t])=>{ctx.fillStyle=c;ctx.fillRect(W-R-170,yy-8,14,4);
+      ctx.fillStyle='#1d2330';ctx.fillText(t,W-R-150,yy-3);yy+=17;});}
+    return {X,Y};
+  };
+}
+const fmt=(x,n=2)=>isFinite(x)?x.toFixed(n):'–';
+</script>
+<script>
+(() => {
+const $=id=>document.getElementById(id);
+const springs={S1:{k:20.0,ms:0.054},S2:{k:12.5,ms:0.036}}, hanger=0.05, slot=0.05, L0=0.12, gg=9.8, yTop=0.99, scaleTop=0.95, nMax=6;
+const st={sp:'S1',n:0,last:'add',A:0,tRel:0,t:0,speed:1,sw:{state:'idle',t0:0,N:20,res:0},stat:{},dyn:{}};
+const sp=()=>springs[st.sp], Mtot=()=>hanger+st.n*slot;
+const eqLen=n=>{const s=sp(),M=hanger+(n??st.n)*slot;return L0+(M*gg+s.ms*gg/2)/s.k;};
+const omega=n=>{const s=sp(),M=hanger+(n??st.n)*slot;return Math.sqrt(s.k/(M+s.ms/3));};
+const disp=()=>st.A*Math.exp(-0.04*(st.t-st.tRel))*Math.cos(omega()*(st.t-st.tRel));
+const reading=n=>(scaleTop-(yTop-eqLen(n)))*100;
+
+/* --- theory figures --- */
+function zig(x,y1,y2,coils,w){let d=`M${x},${y1} L${x},${y1+8}`;const h=(y2-y1-16)/coils;
+  for(let i=0;i<coils;i++){const y=y1+8+i*h;d+=` L${x+w},${y+h/4} L${x-w},${y+3*h/4} L${x},${y+h}`;}return d+` L${x},${y2}`;}
+(function(){let s=`<rect x="20" y="10" width="380" height="12" fill="#6b7280"/>`;
+  s+=`<rect x="340" y="30" width="26" height="250" fill="#f7efd7" stroke="#a89565"/>`;
+  for(let i=0;i<=24;i++){const y=34+i*10;s+=`<line x1="340" y1="${y}" x2="${340+(i%5?6:12)}" y2="${y}" stroke="#7a6a3a"/>`;}
+  const sp=(x,len,lab,load)=>{let o=`<path d="${zig(x,22,22+len,10,12)}" fill="none" stroke="#1b2a4a" stroke-width="2"/>`;
+    o+=`<line x1="${x}" y1="${22+len}" x2="${x}" y2="${32+len}" stroke="#333" stroke-width="2"/><rect x="${x-14}" y="${32+len}" width="28" height="5" fill="#555"/>`;
+    for(let i=0;i<load;i++)o+=`<rect x="${x-12}" y="${26+len-i*7}" width="24" height="6" fill="#c69a3c" stroke="#8a6a20"/>`;
+    o+=`<line x1="${x}" y1="${22+len}" x2="340" y2="${22+len}" stroke="#c62f4b" stroke-dasharray="3 3"/>`;
+    o+=`<text x="${x}" y="${65+len}" text-anchor="middle" font-size="12" fill="#1b2a4a">${lab}</text>`;return o;};
+  s+=sp(70,90,'hanger only',0)+sp(170,130,'load M₁',2)+sp(265,170,'load M₂',4);
+  s+=`<line x1="378" y1="112" x2="378" y2="192" stroke="#c62f4b"/><polygon points="378,196 374,186 382,186" fill="#c62f4b"/><text x="384" y="156" font-size="14" font-style="italic" fill="#c62f4b">x</text>`;
+  $('svgStatic').innerHTML=s;
+  let e=`<rect x="40" y="10" width="140" height="12" fill="#6b7280"/><path d="${zig(110,22,230,12,16)}" fill="none" stroke="#1b2a4a" stroke-width="2"/>`;
+  e+=`<rect x="88" y="232" width="44" height="40" fill="#c69a3c" stroke="#8a6a20"/><text x="110" y="257" text-anchor="middle" font-size="13">M</text>`;
+  for(let i=1;i<=5;i++){const y=22+i*42,len=i*14;e+=`<line x1="150" y1="${y}" x2="150" y2="${y+len}" stroke="#c62f4b" stroke-width="2.2"/><polygon points="150,${y+len+5} 145,${y+len-4} 155,${y+len-4}" fill="#c62f4b"/>`;}
+  e+=`<text x="168" y="70" font-size="13" fill="#c62f4b">speed of coil</text><text x="168" y="88" font-size="13" fill="#c62f4b">u = v s / ℓ</text>`;
+  e+=`<line x1="250" y1="22" x2="250" y2="230" stroke="#1b2a4a"/><text x="258" y="128" font-size="13" font-style="italic">ℓ</text>`;
+  e+=`<line x1="290" y1="22" x2="290" y2="140" stroke="#1f8a8a"/><text x="298" y="86" font-size="13" font-style="italic" fill="#1f8a8a">s</text>`;
+  e+=`<text x="196" y="250" font-size="13" fill="#1b2a4a">load moves at v</text><text x="196" y="40" font-size="13" fill="#555">top fixed, u = 0</text>`;
+  $('svgEff').innerHTML=e;
+  const P=Plot($('thgraph')),k=20,m=0.02,f=M=>4*Math.PI*Math.PI*(M/1000+m)/k;
+  P({xmin:-40,xmax:400,ymin:0,ymax:f(400)*1.08,xlabel:'M (g)',ylabel:'T² (s²)',lines:[{pts:[[-20,0],[400,f(400)]],color:'#1b2a4a',w:2},{pts:[[-20,0],[50,f(50)]],color:'#c62f4b',dash:[5,4],w:2}],
+    series:[{pts:[50,100,150,200,250,300,350].map(M=>[M,f(M)])}],marks:[{x:-20,y:0,label:'−m′',dy:-12,color:'#c62f4b'}]});
+})();
+
+/* --- 3D --- */
+const S=Scene3D($('c3d'),{yaw:-0.45,pitch:0.12,dist:1.25,target:[0.0,0.72,0],f:720});
+function draw(){S.begin();
+  S.poly([[-0.6,0,-0.5],[0.6,0,-0.5],[0.6,0,0.5],[-0.6,0,0.5]],[214,206,192],{bias:30,flat:true});
+  S.poly([[-0.6,0,-0.5],[0.6,0,-0.5],[0.6,1.3,-0.5],[-0.6,1.3,-0.5]],[232,236,243],{bias:40,flat:true});
+  const dark=[64,70,82],metal=[160,166,178];
+  S.boxAt([-0.12,0.015,0],[0.36,0.03,0.24],dark);
+  S.cyl([-0.24,0.03,0],[-0.24,1.08,0],0.011,metal,14);
+  S.boxAt([-0.24,1.0,0],[0.05,0.05,0.05],dark);
+  S.boxAt([-0.11,1.0,0],[0.26,0.02,0.025],metal);
+  /* scale */
+  const sx=0.095,yb0=scaleTop-0.5;
+  S.boxAt([sx+0.015,(scaleTop+yb0)/2,0],[0.035,0.52,0.006],[244,234,205]);
+  S.cyl([sx+0.015,yb0-0.01,0],[sx+0.015,0.03,0],0.006,metal,10);
+  S.boxAt([sx+0.015,0.015,0],[0.08,0.03,0.08],dark);
+  for(let i=0;i<=50;i++){const y=scaleTop-i/100,len=i%10===0?0.016:i%5===0?0.012:0.007;
+    S.line([sx,y,0.0035],[sx+len,y,0.0035],'#5b4f2c',i%5?0.8:1.3,{bias:-0.01});
+    if(i%5===0)S.label([sx+0.034,y,0.004],String(i),{font:'10px system-ui',color:'#5b4f2c',dy:3,halo:false});}
+  /* spring */
+  const Ls=eqLen()+disp(),N=16,R=0.022,yt=yTop-0.012,yb=yt-Ls,pts=[];
+  pts.push([0,yTop-0.002,0],[0,yt,0],[R,yt,0]);
+  const coil=Ls-0.02;
+  for(let i=0;i<=N*20;i++){const ph=i/20*2*Math.PI;pts.push([R*Math.cos(ph),yt-0.005-coil*i/(N*20),R*Math.sin(ph)]);}
+  pts.push([0,yb,0]);
+  S.path(pts,'#3d4660',1.7);
+  /* pointer */
+  S.boxAt([sx/2,yb-0.004,0],[sx-0.004,0.003,0.003],[198,47,75]);
+  S.poly([[sx-0.006,yb-0.009,0.002],[sx,yb-0.004,0.002],[sx-0.006,yb+0.001,0.002]],[198,47,75],{flat:true,bias:-0.01});
+  /* hanger + weights */
+  S.line([0,yb,0],[0,yb-0.02,0],'#333',2);
+  S.cyl([0,yb-0.02,0],[0,yb-0.16,0],0.003,[90,90,96],8);
+  S.cyl([0,yb-0.16,0],[0,yb-0.166,0],0.032,[110,112,120],20);
+  for(let i=0;i<st.n;i++){const y=yb-0.166+0.0005+i*0.013;S.cyl([0,y,0],[0,y+0.012,0],0.029,i%2?[205,165,70]:[185,145,55],20);}
+  S.label([-0.045,yb-0.12,0.03],'M = '+(Mtot()*1000).toFixed(0)+' g',{align:'right'});
+  S.label([-0.06,yb+Ls/2,0],'spring',{align:'right'});
+  S.label([sx+0.015,scaleTop+0.03,0],'scale (cm)',{align:'center',font:'11px system-ui'});
+  S.render();}
+
+/* --- stopwatch --- */
+function updWatch(){const w=st.sw,T=2*Math.PI/omega();let t=0,n=0;
+  if(w.state==='running'){t=st.t-w.t0;n=Math.min(w.N,Math.floor(t/T));if(n>=w.N){w.state='done';w.res=w.N*T+(Math.random()-0.5)*0.12;msg('ok','Done. Press Record to save this timing.');}}
+  if(w.state==='done'){t=w.res;n=w.N;}
+  $('watch').innerHTML=t.toFixed(2)+' s<small>oscillations '+n+' / '+w.N+'</small>';}
+const msg=(c,t)=>{$('msg').className='status '+c;$('msg').textContent=t;};
+function ui(){$('nv').textContent=(st.n*50)+' g';$('rM').textContent=(Mtot()*1000).toFixed(0)+' g';
+  $('rd').textContent=(reading()+disp()*100).toFixed(2)+' cm'+(Math.abs(disp())>0.0005?' (moving)':'');
+  $('msinfo').textContent='Mass of spring m_s = '+(sp().ms*1000).toFixed(0)+' g';$('spv').textContent=st.speed+'×';}
+const resetW=()=>{st.sw={state:'idle',t0:0,N:20,res:0};};
+function setN(n,act){st.n=Math.max(0,Math.min(nMax,n));st.last=act;st.A=0;resetW();}
+$('add').addEventListener('click',()=>{if(st.n>=nMax){msg('bad','Maximum load reached. Going further could pass the elastic limit.');return;}setN(st.n+1,'add');msg('info','Pointer at rest. Record the loading reading.');});
+$('rem').addEventListener('click',()=>{if(st.n<=0)return;setN(st.n-1,'rem');msg('info','Pointer at rest. Record the unloading reading.');});
+$('spr').addEventListener('change',e=>{st.sp=e.target.value;st.stat={};st.dyn={};setN(0,'add');refresh();});
+$('recS').addEventListener('click',()=>{if(Math.abs(disp())>0.0005){msg('bad','Wait until the pointer is at rest.');return;}
+  const r=st.stat[st.n]||{};const v=reading()+(Math.random()-0.5)*0.06;
+  if(st.last==='rem')r.u=v+0.03;else r.l=v;
+  st.stat[st.n]=r;msg('ok','Saved reading for '+(st.n*50)+' g added ('+(st.last==='rem'?'unloading':'loading')+').');refresh();});
+$('pull').addEventListener('click',()=>{st.A=0.03;st.tRel=st.t;resetW();msg('info','Oscillating. Press Start timing as it passes the rest position.');});
+$('sp').addEventListener('input',e=>{st.speed=+e.target.value;});
+$('start').addEventListener('click',()=>{if(Math.abs(st.A)<0.001){msg('bad','Pull the load and release it first.');return;}st.sw={state:'running',t0:st.t,N:20,res:0};});
+$('recD').addEventListener('click',()=>{if(st.sw.state!=='done'){msg('bad','Time 20 oscillations first.');return;}st.dyn[st.n]={t20:st.sw.res};msg('ok','Saved. Change the load and repeat.');refresh();});
+$('auto').addEventListener('click',()=>{for(let n=0;n<=nMax;n++){st.stat[n]={l:reading(n)+(Math.random()-0.5)*0.06,u:reading(n)+0.03+(Math.random()-0.5)*0.06};
+  st.dyn[n]={t20:20*2*Math.PI/omega(n)+(Math.random()-0.5)*0.12};}refresh();msg('ok','Both tables filled with realistic readings.');});
+$('clear').addEventListener('click',()=>{st.stat={};st.dyn={};refresh();});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{const g=b.dataset.go;
+  if(g==='graph'){$('obs').scrollIntoView({behavior:'smooth'});return;}
+  $('lab').scrollIntoView({behavior:'smooth'});
+  if(g==='zero')setN(0,'add');if(g==='load')setN(st.n+1,'add');
+  if(g==='pull'){if(st.n===0)setN(3,'add');st.A=0.03;st.tRel=st.t;}
+  if(g==='time'){if(st.n===0)setN(3,'add');st.A=0.03;st.tRel=st.t;st.speed=4;$('sp').value=4;st.sw={state:'running',t0:st.t,N:20,res:0};}}));
+
+/* --- tables & graphs --- */
+const pS=Plot($('gS')),pD=Plot($('gD'));
+function refresh(){
+  const tb=$('tabS').querySelector('tbody');tb.innerHTML='';const z=st.stat[0];
+  const mean=r=>r.l!=null&&r.u!=null?(r.l+r.u)/2:(r.l??r.u);const z0=z?mean(z):null;const ptsS=[];
+  for(let n=0;n<=nMax;n++){const r=st.stat[n];if(!r)continue;const m=mean(r),x=z0!=null?m-z0:NaN;if(isFinite(x))ptsS.push([x,n*slot*gg]);
+    tb.insertAdjacentHTML('beforeend',`<tr><td>${n*50}</td><td>${(n*slot*gg).toFixed(3)}</td><td>${r.l!=null?r.l.toFixed(2):'–'}</td><td>${r.u!=null?r.u.toFixed(2):'–'}</td><td>${fmt(m)}</td><td>${fmt(x)}</td></tr>`);}
+  if(!tb.children.length)tb.innerHTML='<tr><td colspan="6" class="note">No readings yet</td></tr>';
+  const fS=linfit(ptsS),xmS=Math.max(5,...ptsS.map(p=>p[0]))*1.1;
+  pS({xmin:0,xmax:xmS,ymin:0,ymax:Math.max(1,...ptsS.map(p=>p[1]))*1.12,xlabel:'extension x (cm)',ylabel:'load Mg (N)',
+    series:[{pts:ptsS}],lines:fS?[{pts:[[0,fS.b],[xmS,fS.b+fS.m*xmS]],color:'#c62f4b'}]:[]});
+  const td=$('tabD').querySelector('tbody');td.innerHTML='';const ptsD=[];
+  for(let n=0;n<=nMax;n++){const r=st.dyn[n];if(!r)continue;const M=(hanger+n*slot)*1000,T=r.t20/20;ptsD.push([M,T*T]);
+    td.insertAdjacentHTML('beforeend',`<tr><td>${M.toFixed(0)}</td><td>${r.t20.toFixed(2)}</td><td>${T.toFixed(3)}</td><td>${(T*T).toFixed(4)}</td></tr>`);}
+  if(!td.children.length)td.innerHTML='<tr><td colspan="4" class="note">No readings yet</td></tr>';
+  const fD=linfit(ptsD),xmaxD=400;let xint=fD?-fD.b/fD.m:0;
+  pD({xmin:-60,xmax:xmaxD,ymin:0,ymax:Math.max(0.5,...ptsD.map(p=>p[1]))*1.12,xlabel:'total suspended mass M (g)',ylabel:'T² (s²)',
+    series:[{pts:ptsD}],lines:fD?[{pts:[[xint,0],[xmaxD,fD.b+fD.m*xmaxD]],color:'#c62f4b'}]:[],marks:fD?[{x:xint,y:0,label:'−m′ (m′ = '+(-xint).toFixed(1)+' g)',dy:-12}]:[]});
+  let h='';const ms=sp().ms*1000;
+  if(fS)h+=`Static method: slope of load against extension = ${fS.m.toFixed(4)} N/cm, so <b>k = ${(fS.m*100).toFixed(2)} N/m</b><br>`;
+  if(fD&&ptsD.length>=2){const kD=4*Math.PI*Math.PI/(fD.m*1000);h+=`Dynamic method: slope of T² against M = ${(fD.m*1000).toFixed(4)} s²/kg, so <b>k = 4π²/slope = ${kD.toFixed(2)} N/m</b><br>
+    Intercept on the M axis = ${xint.toFixed(1)} g, so the effective mass <b>m′ = ${(-xint).toFixed(1)} g</b> &nbsp; (m<sub>s</sub>/3 = ${(ms/3).toFixed(1)} g, ratio m′/m<sub>s</sub> = ${(-xint/ms).toFixed(2)})`;}
+  $('res').innerHTML=h||'Record readings to see the results.';}
+
+let last=performance.now();
+function loop(now){const dt=Math.min(0.05,(now-last)/1000);last=now;st.t+=dt*st.speed;updWatch();draw();ui();requestAnimationFrame(loop);}
+refresh();requestAnimationFrame(loop);
+})();
+</script>
+<footer class="credit">PHY 2106 Physics Laboratory &middot; United International University<br>3D simulations &copy; Arafat Rahman, Lecturer, Institute of Natural Sciences, United International University</footer>
+<script defer src="assets/katex/katex.min.js"></script>
+<script defer src="assets/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.getElementById('derivations'),{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}],throwOnError:false})"></script>
+</body>
+</html>
