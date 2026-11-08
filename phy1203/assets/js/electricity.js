@@ -85,28 +85,6 @@
     }
   });
 
-  /* 3. 3D field */
-  Sim.make('sim-field3d', {
-    webgl: true, aspect: 0.55, camera: { th: 0.6, ph: 1.15, r: 11 },
-    buttons: [{ label: 'Single + charge', group: 'q', on: true, click: function (S) { S.st.mode = 0; S.st.dirty = true; } }, { label: 'Dipole (+ and −)', group: 'q', click: function (S) { S.st.mode = 1; S.st.dirty = true; } }],
-    init: function (S) {
-      var T = Sim.T3; S.st.mode = 0; S.st.dirty = true; S.st.arrows = [];
-      for (var i = 0; i < 125; i++) S.st.arrows.push(T.arrow(S.scene, '#2d6a3e'));
-      S.st.qp = T.sphere(0.32, 0xc62828); S.st.qn = T.sphere(0.32, 0x1565c0); S.scene.add(S.st.qp); S.scene.add(S.st.qn);
-    },
-    draw: function (S) {
-      if (!S.st.dirty) return; S.st.dirty = false;
-      var T = Sim.T3, qs = S.st.mode ? [[-1.2, 0, 0, 1], [1.2, 0, 0, -1]] : [[0, 0, 0, 1]], n = 0;
-      S.st.qp.position.set(qs[0][0], 0, 0); S.st.qn.visible = !!S.st.mode; if (S.st.mode) S.st.qn.position.set(1.2, 0, 0);
-      for (var a = -2; a <= 2; a++) for (var b = -2; b <= 2; b++) for (var d = -2; d <= 2; d++) {
-        var x = a * 1.3, y = b * 1.3, z = d * 1.3, E = [0, 0, 0], near = false;
-        qs.forEach(function (q) { var dx = x - q[0], dy = y - q[1], dz = z - q[2], r = Math.sqrt(dx * dx + dy * dy + dz * dz); if (r < 0.6) near = true; var s = q[3] / (r * r * r + 1e-6); E[0] += s * dx; E[1] += s * dy; E[2] += s * dz; });
-        var m = Math.sqrt(E[0] * E[0] + E[1] * E[1] + E[2] * E[2]), L = near ? 0 : Math.min(1.1, 0.25 + 0.9 * Math.pow(m, 0.5));
-        T.setArrow(S.st.arrows[n++], [x - E[0] / (m || 1) * L / 2, y - E[1] / (m || 1) * L / 2, z - E[2] / (m || 1) * L / 2], [E[0] / (m || 1) * L, E[1] / (m || 1) * L, E[2] / (m || 1) * L], 0.22);
-      }
-    }
-  });
-
   /* 4. Capacitor */
   Sim.make('sim-capacitor', {
     aspect: 0.45,

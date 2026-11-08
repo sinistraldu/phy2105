@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuclear Physics | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 23 and 24: nuclear properties, mass defect, binding energy, radioactivity, decay law, half-life, mean life, alpha, beta and gamma rays, fission, fusion and chain reactions.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html" aria-current="page">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 7 &middot; Classes 23&ndash;24 &middot; Nuclear physics</span>
+  <h1>Nuclear Physics</h1>
+  <p class="lead">The nucleus is tiny, dense and held together by the strong force. Its mass is <em>less</em> than the mass of its parts, and that missing mass is the energy that powers the Sun, nuclear reactors and radioactive decay. This unit ends with a review of the whole course.</p>
+  <ul class="toc">
+    <li><a href="#c23"><span>Class 23</span>Nucleus, binding energy, radioactivity, fission and fusion</a></li>
+    <li><a href="#c24"><span>Class 24</span>Course review and formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 23 ===================== -->
+<section class="class" id="c23"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 23</span>
+    <h2>Properties of the nucleus, binding energy, radioactivity, decay law, chain reactions, fission and fusion</h2>
+    <p class="goals"><b>By the end you can:</b> find the size and density of a nucleus; calculate mass defect and binding energy; read the B/A curve; derive and use the decay law, half-life and mean life; describe radioactive series and &alpha;, &beta;, &gamma; radiation; explain chain reactions, fission and fusion.</p>
+  </div>
+
+  <h3><span class="n">23.1</span>Properties of the nucleus</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>A nucleus ${}^{A}_{Z}X$ has $Z$ protons and $N = A - Z$ neutrons (together: <b>nucleons</b>). Isotopes have the same $Z$, different $N$. Nucleons are packed like marbles in a bag, so the volume is proportional to $A$:</p>
+    <div class="eq">$$R = R_0A^{1/3}, \qquad R_0 \approx 1.2\ \text{fm} = 1.2\times10^{-15}\ \text{m}$$</div>
+    <p>Then the density $\rho = \dfrac{Am_u}{\tfrac43\pi R_0^3A} = \dfrac{3m_u}{4\pi R_0^3} \approx 2.3\times10^{17}$ kg/m&sup3; is the <b>same for every nucleus</b> (a teaspoon would weigh about a billion tonnes). The nucleus is held together by the <b>strong nuclear force</b>: very strong, attractive between all nucleons, but short range (about 2 fm). Protons also repel each other electrically; this is why heavy nuclei need extra neutrons.</p>
+  </div>
+
+  <div class="sim" id="sim-nucleus3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Build a nucleus from protons and neutrons</h4></div>
+    <p class="sim-try"><b>Try:</b> change the number of protons and neutrons, or press a nucleus button. Drag to rotate; increase the jiggle to show nucleons moving.</p>
+    <p class="sim-note"><b>What to notice:</b> the radius grows only as $A^{1/3}$ (eight times the nucleons gives twice the radius), so the density never changes. Light stable nuclei have $N \approx Z$; heavy ones need many more neutrons than protons. Too many of either makes the nucleus unstable.</p>
+  </div>
+
+  <h3><span class="n">23.2</span>Mass defect and binding energy</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Measure the mass $M$ of a nucleus. It is always <b>less</b> than the total mass of its separate protons and neutrons. The difference is the <b>mass defect</b>:</p>
+    <div class="eq">$$\Delta m = Zm_p + Nm_n - M_{\text{nucleus}} \;\approx\; Zm_{\text{H}} + Nm_n - M_{\text{atom}}$$</div>
+    <p>(using atomic masses, the $Z$ electron masses cancel because $m_{\text{H}}$ includes one electron).</p>
+    <p><span class="step">Step 2</span>To pull the nucleus apart we must supply energy. By $E = mc^2$, this energy appears as the extra mass of the separated parts. So the <b>binding energy</b> is</p>
+    <div class="eq">$$B = \Delta m\,c^2, \qquad 1\ \text{u}\times c^2 = 931.5\ \text{MeV}$$</div>
+    <p><span class="step">Step 3</span>The useful measure of stability is the <b>binding energy per nucleon</b> $B/A$. It rises quickly for light nuclei, peaks at about 8.8 MeV near ${}^{56}$Fe, and falls slowly for heavy nuclei (proton repulsion grows).</p>
+    <p><span class="step">Step 4</span>Any reaction that moves nuclei <b>towards the peak</b> releases energy: <b>fusion</b> of light nuclei, or <b>fission</b> of heavy ones.</p>
+  </div>
+
+  <div class="sim" id="sim-binding">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Binding energy per nucleon and the mass defect calculator</h4></div>
+    <p class="sim-try"><b>Try:</b> press a nucleus button to calculate its mass defect from its measured mass. Or drag the slider to move along the curve (calculated from the liquid-drop formula).</p>
+    <p class="sim-note"><b>What to notice:</b> ${}^4$He sits far above its neighbours (very tightly bound: this is why $\alpha$ particles are emitted as a unit). Iron is at the top. Going from uranium (7.6 MeV) to two middle nuclei (about 8.5 MeV) gains about 0.9 MeV per nucleon: roughly 200 MeV per fission.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example: helium-4</span>
+    <p>$M({}^4\text{He}) = 4.002603$ u, $m_{\text{H}} = 1.007825$ u, $m_n = 1.008665$ u.</p>
+    <p>$\Delta m = 2(1.007825) + 2(1.008665) - 4.002603 = 0.030377$ u.</p>
+    <p>$B = 0.030377\times931.5 = 28.3$ MeV, so $B/A = 7.07$ MeV per nucleon.</p>
+  </div>
+
+  <h3><span class="n">23.3</span>Radioactivity and the decay law</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Each unstable nucleus has the same chance $\lambda\,dt$ of decaying in the next short time $dt$, regardless of its age. $\lambda$ is the <b>decay constant</b>.</p>
+    <p><span class="step">Step 2</span>With $N$ nuclei, the number decaying in $dt$ is $-dN = \lambda N\,dt$, so</p>
+    <div class="eq">$$\frac{dN}{N} = -\lambda\,dt \;\Rightarrow\; \ln\frac{N}{N_0} = -\lambda t \;\Rightarrow\; N = N_0e^{-\lambda t}$$</div>
+    <p><span class="step">Step 3</span><b>Activity</b> (decays per second) $A = -\dfrac{dN}{dt} = \lambda N = A_0e^{-\lambda t}$. Unit: becquerel (1 Bq = 1 decay/s); 1 curie = $3.7\times10^{10}$ Bq.</p>
+    <p><span class="step">Step 4</span><b>Half-life</b>: set $N = N_0/2$: $\tfrac12 = e^{-\lambda T_{1/2}}$, so</p>
+    <div class="eq">$$T_{1/2} = \frac{\ln 2}{\lambda} = \frac{0.693}{\lambda}, \qquad N = N_0\left(\tfrac12\right)^{t/T_{1/2}}$$</div>
+    <p><span class="step">Step 5</span><b>Mean life</b> (average lifetime of a nucleus): $\tau = \dfrac{\int_0^\infty t\,\lambda N\,dt}{N_0} = \lambda\int_0^\infty te^{-\lambda t}dt = \dfrac1\lambda = 1.443\,T_{1/2}$.</p>
+  </div>
+
+  <div class="sim" id="sim-decay">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Random decay of many nuclei</h4></div>
+    <p class="sim-try"><b>Try:</b> change the number of nuclei and the half-life, then press <b>Restart</b>. Compare the counted curve with the theory curve.</p>
+    <p class="sim-note"><b>What to notice:</b> you cannot predict <em>which</em> nucleus decays next (they flash red at random), but the total follows $N_0e^{-\lambda t}$, halving every $T_{1/2}$. With fewer nuclei the count is noisier: decay is a statistical law.</p>
+  </div>
+
+  <h3><span class="n">23.4</span>Radioactive series</h3>
+  <div class="box der"><span class="lbl">Parent &rarr; daughter &rarr; stable</span>
+    <p>Heavy nuclei decay in a chain (for example ${}^{238}$U &rarr; &hellip; &rarr; ${}^{206}$Pb in 14 steps). The four natural series are the thorium ($4n$), neptunium ($4n+1$), uranium ($4n+2$) and actinium ($4n+3$) series. For A &rarr; B &rarr; C:</p>
+    <div class="eq">$$\frac{dN_A}{dt} = -\lambda_AN_A, \qquad \frac{dN_B}{dt} = \lambda_AN_A - \lambda_BN_B$$</div>
+    <p>Solving with $N_B(0) = 0$:</p>
+    <div class="eq">$$N_B = N_0\frac{\lambda_A}{\lambda_B-\lambda_A}\left(e^{-\lambda_At} - e^{-\lambda_Bt}\right), \qquad t_m = \frac{\ln(\lambda_B/\lambda_A)}{\lambda_B-\lambda_A}$$</div>
+    <p>If the parent lives much longer ($\lambda_A \ll \lambda_B$), the daughter reaches <b>secular equilibrium</b>: $\lambda_AN_A = \lambda_BN_B$ (equal activities).</p>
+  </div>
+
+  <div class="sim" id="sim-series">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Parent, daughter and stable product</h4></div>
+    <p class="sim-try"><b>Try:</b> change the two half-lives. Watch the bars and the moving cursor.</p>
+    <p class="sim-note"><b>What to notice:</b> the daughter builds up, reaches a maximum at $t_m$, then falls. When the parent lives much longer, the daughter follows the parent&rsquo;s curve (equilibrium). The stable product C only ever grows.</p>
+  </div>
+
+  <h3><span class="n">23.5</span>Alpha, beta and gamma radiation</h3>
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th></th><th>&alpha;</th><th>&beta;<sup>&minus;</sup> (and &beta;<sup>+</sup>)</th><th>&gamma;</th></tr></thead>
+    <tbody>
+      <tr><td>What it is</td><td>${}^4_2$He nucleus</td><td>electron (positron)</td><td>high-energy photon</td></tr>
+      <tr><td>Charge</td><td>$+2e$</td><td>$-e$ ($+e$)</td><td>0</td></tr>
+      <tr><td>Change in nucleus</td><td>$A\to A-4,\ Z\to Z-2$</td><td>$Z\to Z+1$ ($Z-1$), $A$ same</td><td>none (energy only)</td></tr>
+      <tr><td>Speed</td><td>~5% of $c$</td><td>up to 99% of $c$</td><td>$c$</td></tr>
+      <tr><td>Ionising power</td><td>very high</td><td>medium</td><td>low</td></tr>
+      <tr><td>Stopped by</td><td>paper, a few cm of air</td><td>a few mm of aluminium</td><td>reduced by cm of lead or m of concrete</td></tr>
+      <tr><td>In a magnetic field</td><td>bends slightly</td><td>bends strongly, opposite way</td><td>not bent</td></tr>
+    </tbody>
+  </table></div>
+  <p>Example reactions: ${}^{238}_{92}\text{U}\to{}^{234}_{90}\text{Th}+{}^4_2\text{He}$; ${}^{14}_{6}\text{C}\to{}^{14}_{7}\text{N}+e^-+\bar\nu$; in $\beta$ decay a neutron becomes a proton ($n\to p+e^-+\bar\nu$). The antineutrino carries off part of the energy, which is why $\beta$ particles have a spread of energies.</p>
+
+  <div class="sim" id="sim-abg">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Alpha, beta and gamma in a magnetic field and through absorbers</h4></div>
+    <p class="sim-try"><b>Try:</b> change the magnetic field, then put paper, aluminium or lead in the way.</p>
+    <p class="sim-note"><b>What to notice:</b> $\alpha$ and $\beta^-$ bend in opposite directions (opposite charges); $\beta$ bends far more because it is about 7000 times lighter ($r = mv/qB$). $\gamma$ carries no charge and goes straight. Paper stops $\alpha$, aluminium stops $\beta$, and lead only reduces $\gamma$.</p>
+  </div>
+
+  <h3><span class="n">23.6</span>Nuclear fission, chain reactions and fusion</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <p><b>Fission</b>: a slow neutron is absorbed by ${}^{235}$U, which splits into two medium nuclei plus 2 or 3 neutrons:</p>
+    <div class="eq">$${}^1_0n + {}^{235}_{92}\text{U}\to{}^{236}_{92}\text{U}^*\to{}^{141}_{56}\text{Ba}+{}^{92}_{36}\text{Kr}+3\,{}^1_0n + Q, \qquad Q\approx200\ \text{MeV}$$</div>
+    <p><b>Chain reaction</b>: the released neutrons cause further fissions. The <b>multiplication factor</b> $k$ is the average number of neutrons from one fission that go on to cause another fission. After $g$ generations the number of fissions per generation is $k^g$.</p>
+    <ul>
+      <li>$k &lt; 1$: subcritical, the reaction dies out;</li>
+      <li>$k = 1$: critical, a steady power output (nuclear reactor: control rods absorb neutrons to keep $k=1$; a moderator slows them);</li>
+      <li>$k &gt; 1$: supercritical, it grows exponentially (atomic bomb).</li>
+    </ul>
+    <p><b>Fusion</b>: light nuclei join, for example ${}^2_1\text{H}+{}^3_1\text{H}\to{}^4_2\text{He}+{}^1_0n+17.6$ MeV. It needs temperatures of about $10^7$&ndash;$10^8$ K so the nuclei can overcome their electric repulsion. Fusion powers the Sun (proton&ndash;proton chain, net $4\,{}^1\text{H}\to{}^4\text{He}+26.7$ MeV).</p>
+  </div>
+
+  <div class="sim" id="sim-chain3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Chain reaction in a sphere of uranium</h4></div>
+    <p class="sim-try"><b>Try:</b> set the multiplication factor $k$ and press <b>Send one neutron</b>. Press <b>Reset fuel</b> and try a different $k$. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> with $k &lt; 1$ the chain usually stops after a few fissions. Near $k = 1$ it carries on slowly. With $k &gt; 1$ the number of neutrons in flight grows each generation and the fuel is used up very quickly. Each orange flash releases about 200 MeV.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example: energy from 1 kg of uranium-235</span>
+    <p>Number of nuclei: $N = \dfrac{1000}{235}\times6.02\times10^{23} = 2.56\times10^{24}$.</p>
+    <p>Energy: $2.56\times10^{24}\times200\ \text{MeV}\times1.6\times10^{-13}\ \text{J/MeV} = 8.2\times10^{13}$ J, about the same as burning 2700 tonnes of coal.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the radius and density of a ${}^{64}$Cu nucleus. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$R = 1.2\times64^{1/3} = 4.8$ fm; $\rho = 64(1.66\times10^{-27})/(\tfrac43\pi(4.8\times10^{-15})^3) \approx 2.3\times10^{17}$ kg/m&sup3;.</p></div></details></li>
+    <li>$M({}^{56}\text{Fe}) = 55.934936$ u. Find the mass defect, binding energy and $B/A$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta m = 26(1.007825)+30(1.008665)-55.934936 = 0.528464$ u; $B = 492$ MeV; $B/A = 8.79$ MeV.</p></div></details></li>
+    <li>A source has half-life 8 days and initial activity 800 Bq. Find $\lambda$, $\tau$ and the activity after 24 days. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda = 0.693/8 = 0.0866$ day$^{-1}$; $\tau = 11.5$ days; $A = 800/2^3 = 100$ Bq.</p></div></details></li>
+    <li>What fraction of a sample remains after 3 mean lives? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$e^{-3} = 0.0498$, about 5%.</p></div></details></li>
+    <li>Carbon-14 ($T_{1/2} = 5730$ y) in an old bone is 25% of that in living bone. How old is it? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>25% = two half-lives, so 11 460 years.</p></div></details></li>
+    <li>${}^{226}_{88}$Ra emits an $\alpha$, then the product emits a $\beta^-$. Write the final nucleus. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\alpha$: ${}^{222}_{86}$Rn; then $\beta^-$: ${}^{222}_{87}$Fr.</p></div></details></li>
+    <li>A reactor produces 1000 MW of heat from fission of ${}^{235}$U. How many fissions per second, and how much uranium is used per day? <span class="lvl hard">hard</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$10^9/(200\times1.6\times10^{-13}) = 3.1\times10^{19}$ fissions/s; per day $2.7\times10^{24}$ nuclei $\approx 1.05$ kg.</p></div></details></li>
+    <li>For D + T &rarr; He-4 + n, use $m_D = 2.014102$, $m_T = 3.016049$, $m_{He} = 4.002603$, $m_n = 1.008665$ u to find $Q$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta m = 5.030151 - 5.011268 = 0.018883$ u; $Q = 17.6$ MeV.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 24 ===================== -->
+<section class="class" id="c24"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 24</span>
+    <h2>Course review</h2>
+    <p class="goals"><b>Use this page to revise:</b> each row lists the key formulas of one unit with a link to the full derivations and simulations.</p>
+  </div>
+
+  <div class="table-wrap"><table class="data">
+    <thead><tr><th>Unit</th><th>Key formulas</th></tr></thead>
+    <tbody>
+      <tr><td><a href="electrostatics.html">Electrostatics</a></td><td>$F = \dfrac{kq_1q_2}{r^2}$; $\oint\vec E\cdot d\vec A = \dfrac{q_{\text{enc}}}{\varepsilon_0}$; $V = \dfrac{kq}{r}$, $\vec E = -\nabla V$; $C = \dfrac{\kappa\varepsilon_0A}{d}$, $U = \tfrac12CV^2$</td></tr>
+      <tr><td><a href="current.html">Current</a></td><td>$\nabla^2V = -\rho/\varepsilon_0$; $I = nqv_dA$; $\vec J = \sigma\vec E$; $\rho = \dfrac{m}{ne^2\tau}$; $V = \varepsilon - Ir$</td></tr>
+      <tr><td><a href="magnetism.html">Magnetism</a></td><td>$\vec F = q(\vec E + \vec v\times\vec B)$; $r = \dfrac{mv}{qB}$; $V_H = \dfrac{IB}{nqt}$; $\tau = NIAB\sin\theta$; $dB = \dfrac{\mu_0}{4\pi}\dfrac{I\,d\vec l\times\hat r}{r^2}$; $\varepsilon = -\dfrac{d\Phi}{dt}$; $\tau_L = L/R$</td></tr>
+      <tr><td><a href="heat.html">Heat &amp; gases</a></td><td>$PV = nRT$; $P = \tfrac13\rho\overline{v^2}$; $\tfrac12m\overline{v^2} = \tfrac32kT$; $\lambda = \dfrac{1}{\sqrt2\pi d^2n}$; $\left(P+\dfrac{a}{V^2}\right)(V-b) = RT$</td></tr>
+      <tr><td><a href="thermo.html">Thermodynamics</a></td><td>$\Delta U = Q - W$; $PV^\gamma = $ const; $\eta = 1 - \dfrac{T_C}{T_H}$; $\text{COP} = \dfrac{T_C}{T_H-T_C}$; $\Delta S = \int\dfrac{dQ}{T}$; $\dfrac{dP}{dT} = \dfrac{L}{T\Delta V}$</td></tr>
+      <tr><td><a href="quantum.html">Quantum</a></td><td>$E = hf$; $hf = \phi + K_{\max}$; $\Delta\lambda = \dfrac{h}{m_ec}(1-\cos\theta)$; $\lambda = h/p$; $2d\sin\theta = n\lambda$; $\Delta x\Delta p\ge\hbar/2$</td></tr>
+      <tr><td><a href="#c23">Nuclear</a></td><td>$R = R_0A^{1/3}$; $B = \Delta mc^2$; $N = N_0e^{-\lambda t}$; $T_{1/2} = \dfrac{0.693}{\lambda}$; $\tau = 1/\lambda$; $A = \lambda N$</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="box"><span class="lbl">Exam tips</span>
+    <ul>
+      <li>Write the formula first, then substitute with units. Convert to SI (cm &rarr; m, mA &rarr; A, eV &rarr; J) before calculating.</li>
+      <li>For Gauss&rsquo;s and Amp&egrave;re&rsquo;s laws, draw the surface or loop and state why the field is constant on it.</li>
+      <li>In thermodynamics, keep the sign convention: $W$ is work done <em>by</em> the gas; $Q$ is heat <em>into</em> it.</li>
+      <li>Check the size of your answer against the simulations: a nucleus is a few fm, a photon of visible light is a few eV, a fission is about 200 MeV.</li>
+    </ul>
+  </div>
+  <div class="pager"><a href="quantum.html"><small>&larr; Previous unit</small>Quantum physics</a><a href="index.html"><small>Back to</small>Course home &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/nuclear.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

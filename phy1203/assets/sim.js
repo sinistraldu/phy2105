@@ -154,10 +154,20 @@
     S.scene.add(new THREE.AmbientLight(0xffffff, 0.65));
     var dl = new THREE.DirectionalLight(0xffffff, 0.75); dl.position.set(5, 10, 7); S.scene.add(dl);
     S.cv.parentNode.style.position = 'relative';
-    var hint = document.createElement('div');
-    hint.textContent = 'drag to rotate the 3D view';
-    hint.style.cssText = 'position:absolute;right:12px;margin-top:8px;font:600 11px Inter,system-ui,sans-serif;color:var(--muted);background:var(--surface-2);padding:3px 8px;border-radius:999px;pointer-events:none;z-index:1';
-    S.cv.parentNode.insertBefore(hint, S.cv);
+    S.home = { th: S.orbit.th, ph: S.orbit.ph, r: S.orbit.r };
+    S.speed = 1; S.autoRot = false;
+    /* toolbar shown on every 3D view: pause, slow motion, auto-rotate, zoom, reset view */
+    var tb = document.createElement('div'); tb.className = 'tb3d';
+    var mk = function (label, title, fn) { var b = document.createElement('button'); b.type = 'button'; b.textContent = label; b.title = title; b.setAttribute('aria-label', title); b.addEventListener('click', function () { fn(b); S.redraw(); }); tb.appendChild(b); return b; };
+    var speeds = [1, 0.5, 0.25, 2], si = 0, lastSpeed = 1;
+    var pb = mk('\u23F8 Pause', 'Pause or play the animation', function (b) { if (S.speed) { lastSpeed = S.speed; S.speed = 0; b.textContent = '\u25B6 Play'; } else { S.speed = lastSpeed; b.textContent = '\u23F8 Pause'; } });
+    var sb = mk('Speed 1\u00D7', 'Change the animation speed (slow motion)', function (b) { si = (si + 1) % speeds.length; S.speed = speeds[si]; lastSpeed = S.speed; pb.textContent = '\u23F8 Pause'; b.textContent = 'Speed ' + speeds[si] + '\u00D7'; });
+    mk('\u21BB Auto-rotate', 'Slowly turn the view by itself', function (b) { S.autoRot = !S.autoRot; b.classList.toggle('on', S.autoRot); });
+    mk('\uFF0B', 'Zoom in', function () { S.orbit.r = Math.max(S.home.r * 0.35, S.orbit.r * 0.85); placeCam(S); });
+    mk('\uFF0D', 'Zoom out', function () { S.orbit.r = Math.min(S.home.r * 2.5, S.orbit.r / 0.85); placeCam(S); });
+    mk('\u27F2 Reset view', 'Go back to the starting view', function () { S.orbit.th = S.home.th; S.orbit.ph = S.home.ph; S.orbit.r = S.home.r; placeCam(S); });
+    var hint = document.createElement('span'); hint.className = 'tb-hint'; hint.textContent = 'drag to rotate \u00B7 pinch to zoom'; tb.appendChild(hint);
+    S.cv.parentNode.insertBefore(tb, S.cv);
     return true;
   }
   /* small 3D drawing kit */
@@ -173,12 +183,19 @@
     },
     line: function (scene, color, n) { var g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n * 3), 3)); var l = new THREE.Line(g, new THREE.LineBasicMaterial({ color: color })); scene.add(l); return l; },
     setLine: function (l, pts) { var a = l.geometry.attributes.position; for (var i = 0; i < pts.length && i < a.count; i++) a.setXYZ(i, pts[i][0], pts[i][1], pts[i][2]); l.geometry.setDrawRange(0, Math.min(pts.length, a.count)); a.needsUpdate = true; },
+    cyl: function (r, color, o) { return new THREE.Mesh(new THREE.CylinderGeometry(r, r, 1, 20), T3.mat(color, o)); },
+    span: function (mesh, a, b) {
+      var A = new THREE.Vector3(a[0], a[1], a[2]), B = new THREE.Vector3(b[0], b[1], b[2]), d = B.clone().sub(A), L = d.length();
+      mesh.position.copy(A).add(B).multiplyScalar(0.5); mesh.scale.set(mesh.scale.x, Math.max(L, 1e-3), mesh.scale.z);
+      if (L > 1e-6) mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+    },
     grid: function (scene, size, y) { var g = new THREE.GridHelper(size, size, 0x88998c, 0xbfcabf); g.position.y = y || 0; g.material.transparent = true; g.material.opacity = 0.35; scene.add(g); return g; },
     label: function (scene, text, color, scale) {
-      var cv = document.createElement('canvas'); cv.width = 256; cv.height = 64; var x = cv.getContext('2d');
-      x.font = '600 34px Inter,system-ui,sans-serif'; x.fillStyle = color; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 128, 32);
+      var cv = document.createElement('canvas'), x = cv.getContext('2d'), font = '600 34px Inter,system-ui,sans-serif';
+      x.font = font; var w = Math.max(256, Math.ceil(x.measureText(text).width) + 24); cv.width = w; cv.height = 64;
+      x = cv.getContext('2d'); x.font = font; x.fillStyle = color; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, w / 2, 32);
       var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(cv), transparent: true, depthTest: false }));
-      var s = scale || 1; sp.scale.set(2 * s, 0.5 * s, 1); scene.add(sp); return sp;
+      var s = scale || 1; sp.scale.set(2 * s * w / 256, 0.5 * s, 1); scene.add(sp); return sp;
     }
   };
 
@@ -267,24 +284,32 @@
       cv.addEventListener('pointerup', function () { down = false; });
       cv.style.cursor = 'pointer';
     } else if (o.webgl) {
-      var drag = null;
+      var ptrs = {}, pinch0 = 0, r0 = 0, active = false;
       cv.style.cursor = 'grab';
-      cv.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+      cv.addEventListener('pointerdown', function (e) { ptrs[e.pointerId] = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; active = true;
+        var k = Object.keys(ptrs); if (k.length === 2) { pinch0 = Math.hypot(ptrs[k[0]][0] - ptrs[k[1]][0], ptrs[k[0]][1] - ptrs[k[1]][1]); r0 = S.orbit.r; } });
       cv.addEventListener('pointermove', function (e) {
-        if (!drag) return;
-        S.orbit.th -= (e.clientX - drag[0]) * 0.008; S.orbit.ph = Sim.clamp(S.orbit.ph - (e.clientY - drag[1]) * 0.008, 0.12, 3.0);
-        drag = [e.clientX, e.clientY]; placeCam(S); S.redraw();
+        if (!ptrs[e.pointerId]) return;
+        var prev = ptrs[e.pointerId]; ptrs[e.pointerId] = [e.clientX, e.clientY];
+        var k = Object.keys(ptrs);
+        if (k.length >= 2) { var d = Math.hypot(ptrs[k[0]][0] - ptrs[k[1]][0], ptrs[k[0]][1] - ptrs[k[1]][1]); if (pinch0 > 0) S.orbit.r = Sim.clamp(r0 * pinch0 / d, S.home.r * 0.35, S.home.r * 2.5); }
+        else { S.orbit.th -= (e.clientX - prev[0]) * 0.008; S.orbit.ph = Sim.clamp(S.orbit.ph - (e.clientY - prev[1]) * 0.008, 0.12, 3.0); }
+        placeCam(S); S.redraw();
       });
-      cv.addEventListener('pointerup', function () { drag = null; cv.style.cursor = 'grab'; });
+      var up = function (e) { delete ptrs[e.pointerId]; pinch0 = 0; if (!Object.keys(ptrs).length) cv.style.cursor = 'grab'; };
+      cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+      cv.addEventListener('pointerleave', function () { active = false; });
+      cv.addEventListener('wheel', function (e) { if (!active) return; e.preventDefault(); S.orbit.r = Sim.clamp(S.orbit.r * (e.deltaY > 0 ? 1.08 : 0.93), S.home.r * 0.35, S.home.r * 2.5); placeCam(S); S.redraw(); }, { passive: false });
     }
 
     if (o.init) o.init(S);
-    if (o.animate) {
+    if (o.animate || o.webgl) {
       var visible = false, last = 0;
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; if (visible) { last = 0; requestAnimationFrame(tick); } }).observe(cv);
       var tick = function (now) {
         if (!visible) return;
         var dt = last ? Math.min(0.05, (now - last) / 1000) : 0; last = now;
+        if (o.webgl) { if (S.autoRot) { S.orbit.th += dt * 0.35; placeCam(S); } dt *= S.speed; }
         if (S.running) S.t += dt;
         if (S.W) frame(S.running ? dt : 0);
         requestAnimationFrame(tick);

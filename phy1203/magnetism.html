@@ -61,7 +61,7 @@
 
   <div class="sim" id="sim-wire3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>The field around a current-carrying wire</h4></div>
-    <p class="sim-try"><b>Try:</b> change the size and direction of the current and watch the compass needles. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> change the current in wire 1, add a current in wire 2 (same or opposite direction), move the wires apart, and switch Earth&rsquo;s field off. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> near the wire the needles follow circles around it (right-hand rule: thumb along I, fingers along B). Far away the weak wire field loses to Earth&rsquo;s field and the needles point north. B = &mu;<sub>0</sub>I/2&pi;r.</p>
   </div>
 
@@ -81,7 +81,7 @@
 
   <div class="sim" id="sim-helix3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Spiralling along a field line</h4></div>
-    <p class="sim-try"><b>Try:</b> drag to rotate. Change the angle between the velocity and the field.</p>
+    <p class="sim-try"><b>Try:</b> change the angle, speed, field strength and ion mass, and flip the charge sign. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> only the part of v across the field (v sin&theta;) is bent into a circle; the part along the field (v cos&theta;) carries on. The result is a helix. At 90&deg; it is a flat circle; at 0&deg; it is a straight line with no force. Charged particles from the Sun spiral along Earth's field this way to make the auroras.</p>
   </div>
 
@@ -98,6 +98,13 @@
     <p class="sim-try"><b>Try:</b> rotate the magnetic field direction, and make the field stronger or weaker.</p>
     <p class="sim-note"><b>What to notice:</b> each cell's magnetite chain feels a torque &tau; = &mu;B sin&theta; that turns it toward the field. In a strong field they line up neatly and swim in a group; in a weak field random jostling wins and they wander.</p>
   </div>
+
+  <div class="sim" id="sim-bacteria3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Magnetotactic bacteria in 3D</h4></div>
+    <p class="sim-try"><b>Try:</b> turn the field direction and dip angle, change its strength and the temperature.</p>
+    <p class="sim-note"><b>What to notice:</b> the bacteria line up with the field and swim along it. Because Earth&rsquo;s field dips into the ground, following it takes them down to the low-oxygen mud. More thermal jostling or a weaker field and they wander randomly.</p>
+  </div>
+
 
   <h3>Practice problems</h3>
   <ol class="problems">
@@ -142,7 +149,7 @@
 
   <div class="sim" id="sim-emwave3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>An electromagnetic wave</h4></div>
-    <p class="sim-try"><b>Try:</b> drag to view it from different sides. Change the wavelength.</p>
+    <p class="sim-try"><b>Try:</b> change the wavelength, the amplitude and the polarisation angle. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> E (red) wiggles up and down, B (blue) wiggles side to side, and the wave moves along the third direction. E and B rise and fall together. This is a transverse wave.</p>
   </div>
 
@@ -194,7 +201,7 @@
 
   <div class="sim" id="sim-nmr3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Proton spins and resonance</h4></div>
-    <p class="sim-try"><b>Try:</b> set the magnet strength, then tune the radio frequency. Press <b>RF pulse</b>. Only when the radio frequency matches the Larmor frequency do the spins tip over. Drag to rotate.</p>
+    <p class="sim-try"><b>Try:</b> tune the radio frequency to the Larmor frequency, choose the pulse strength and the tissue&rsquo;s T<sub>1</sub>, then press <b>RF pulse</b>. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> the spins wobble (precess) faster in a stronger field. Resonance is very sharp: a few percent off and nothing happens. That sharpness is what lets MRI pick out one slice of the body at a time.</p>
   </div>
 
@@ -203,7 +210,7 @@
 
   <div class="sim" id="sim-mri3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>How MRI picks one slice of the body</h4></div>
-    <p class="sim-try"><b>Try:</b> set the gradient, then tune the radio frequency to light up different slices of the patient. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> change the gradient, then tune the radio frequency to light up different slices. Change the pulse bandwidth (slice thickness) and the scanner strength. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> the gradient makes the field (and so the Larmor frequency) slightly different along the body. A radio pulse at one frequency excites only the slice where it matches. With no gradient the whole body resonates at once and the scanner cannot tell where the signal came from.</p>
   </div>
 
@@ -243,5 +250,7 @@
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/magnetism.js"></script>
 <script src="assets/js/bio3d.js"></script>
+<script src="assets/js/bio3d-2.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1203" data-course="PHY1203"></script>
 </body>
 </html>

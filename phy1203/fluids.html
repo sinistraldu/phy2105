@@ -140,6 +140,12 @@
     <p>Standing, the blood column from head to feet is about 1.3 m (&rho; = 1060 kg/m&sup3;). Extra pressure at the feet: &Delta;P = &rho;gh = 1060 &times; 9.8 &times; 1.3 &asymp; <b>13.5 kPa &asymp; 100 mmHg</b>. Leg veins need one-way valves to stop blood pooling.</p>
   </div>
 
+  <div class="sim" id="sim-bp3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Blood pressure from head to toe</h4></div>
+    <p class="sim-try"><b>Try:</b> change the heart pressure and body height, then press <b>Lying down</b>. Try the <b>Giraffe</b> button.</p>
+    <p class="sim-note"><b>What to notice:</b> standing up, pressure at the feet is about 100 mmHg higher than at the heart and the head gets less (P = P<sub>0</sub> + &rho;gh). Lying down, everything is at the same height, so the pressures become almost equal.</p>
+  </div>
+
   <h3><span class="n">7.2</span>Pascal's law</h3>
   <div class="box key"><span class="lbl">Key concept</span>
     <p>A pressure change applied to a confined fluid is passed on <b>equally to every part</b> of the fluid. In a hydraulic lift, the same pressure acts on a small and a large piston:</p>
@@ -170,7 +176,7 @@
 
   <div class="sim" id="sim-fish3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>A fish and its swim bladder</h4></div>
-    <p class="sim-try"><b>Try:</b> change the fish&rsquo;s average density by filling or emptying its swim bladder (the white bubble). Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> change the fish&rsquo;s density (its swim bladder grows and shrinks), its size, and switch between fresh and sea water. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> a fish slightly denser than water sinks; slightly less dense, it rises and floats. At exactly 1000 kg/m&sup3; the net force is zero and it hovers without swimming.</p>
   </div>
 
@@ -226,7 +232,7 @@
 
   <div class="sim" id="sim-artery3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>A plaque narrows an artery</h4></div>
-    <p class="sim-try"><b>Try:</b> make the narrowing worse and follow the blood cells through the plaque (yellow). Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> make the plaque worse and speed up the blood. Turn on <b>Heartbeat</b>. Past Re &asymp; 2000 the flow after the plaque turns turbulent (cells jitter). Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> cells speed up through the narrow part (they turn bright) because A<sub>1</sub>v<sub>1</sub> = A<sub>2</sub>v<sub>2</sub>. Halving the area doubles the speed, and Bernoulli says the pressure there drops.</p>
   </div>
 
@@ -240,6 +246,12 @@
     <div class="sim-head"><span class="tag">Simulation</span><h4>Laminar or turbulent blood flow?</h4></div>
     <p class="sim-try"><b>Try:</b> increase the blood speed and the vessel diameter until the dye lines start to swirl.</p>
     <p class="sim-note"><b>What to notice:</b> small, slow vessels stay laminar. A wide vessel with fast flow (the aorta at peak heartbeat) gets close to turbulence. Turbulence is noisy: that is what a doctor hears as a murmur or in a blood-pressure cuff.</p>
+  </div>
+
+  <div class="sim" id="sim-pipe3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Watch dye turn turbulent</h4></div>
+    <p class="sim-try"><b>Try:</b> raise the speed or the diameter, or lower the viscosity, until Re passes about 2000.</p>
+    <p class="sim-note"><b>What to notice:</b> below Re &asymp; 2000 the five dye streams stay in neat lines (laminar). Above it they start to wander and then mix completely (turbulent). Thicker blood (higher &eta;) keeps the flow laminar.</p>
   </div>
 
   <div class="box bio"><span class="lbl">Blood velocity in the body</span>
@@ -268,7 +280,7 @@
 
   <div class="sim" id="sim-vessel3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Inside a blood vessel</h4></div>
-    <p class="sim-try"><b>Try:</b> drag to look along the vessel or from the side. Then narrow the vessel.</p>
+    <p class="sim-try"><b>Try:</b> change the radius, the pressure drop and the blood viscosity. Switch on <b>Heartbeat</b> to see pulsing flow. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> cells near the centre (bright yellow) race ahead; cells near the wall (dark red) barely move. The arrows trace the parabola v(r) = (&Delta;P/4&eta;L)(R&sup2; &minus; r&sup2;).</p>
   </div>
 
@@ -318,7 +330,7 @@
 
   <div class="sim" id="sim-sediment3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Blood cells settling (the ESR test)</h4></div>
-    <p class="sim-try"><b>Try:</b> watch platelets, red cells and white cells sink in a tube of plasma. Raise the plasma viscosity, then press <b>Stir the tube</b>. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> raise the red-cell clumping (as in inflammation), change the plasma viscosity and the density difference. Press <b>Stir the tube</b> to start again. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> terminal speed grows as r&sup2;, so big white cells sink fastest and tiny platelets barely move. Red cells fall a few mm per hour: that is the erythrocyte sedimentation rate (ESR) measured in hospitals. Thicker plasma slows everything (v &prop; 1/&eta;).</p>
   </div>
 
@@ -340,7 +352,7 @@
 
   <div class="sim" id="sim-diffuse3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Diffusion in three dimensions</h4></div>
-    <p class="sim-try"><b>Try:</b> watch both clouds spread through the 3D boxes, change the protein size, and restart. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> change the protein size, the temperature and the viscosity, then press <b>Restart</b>. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> the small molecule fills its box quickly while the protein cloud stays near the middle. Spread grows only as &radic;(Dt), so a 25&times; smaller D gives a 5&times; smaller spread in the same time.</p>
   </div>
 
@@ -388,5 +400,7 @@
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/fluids.js"></script>
 <script src="assets/js/bio3d.js"></script>
+<script src="assets/js/bio3d-2.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1203" data-course="PHY1203"></script>
 </body>
 </html>

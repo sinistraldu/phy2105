@@ -235,38 +235,3 @@
   });
 })();
 
-/* 3D: a block of air carrying a sound wave */
-(function () {
-  var T = Sim.T3, f = Sim.fmt, NX = 40, NY = 6, NZ = 6;
-  Sim.make('sim-sound3d', {
-    webgl: true, aspect: 0.5, animate: true, camera: { th: 0.55, ph: 1.15, r: 13, target: [0.5, 0, 0] },
-    controls: [
-      { k: 'f', label: 'Frequency f', min: 0.5, max: 2, step: 0.1, v: 1, unit: 'Hz' },
-      { k: 'A', label: 'Loudness (amplitude)', min: 0, max: 0.3, step: 0.02, v: 0.16, unit: 'm' }
-    ],
-    reads: [{ k: 'lam', label: 'Wavelength (v = 2 m/s)', big: true }, { k: 'T', label: 'Period' }],
-    init: function (S) {
-      var sc = S.scene, n = NX * NY * NZ;
-      S.st.mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(0.07, 8, 6), new THREE.MeshPhongMaterial({ color: 0xffffff }), n); sc.add(S.st.mesh);
-      S.st.m4 = new THREE.Matrix4(); S.st.col = new THREE.Color();
-      S.st.cone = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 1.1, 0.5, 32, 1, true), T.mat(0x444444, { side: THREE.DoubleSide })); S.st.cone.rotation.z = -Math.PI / 2; sc.add(S.st.cone);
-      var box = new THREE.Mesh(new THREE.BoxGeometry(0.8, 2.4, 2.4), T.mat(0x2d3a32)); box.position.x = -5.6; sc.add(box); S.st.box = box;
-      T.label(sc, 'speaker', '#56655b', 0.9).position.set(-5.6, 1.7, 0);
-    },
-    draw: function (S, c, W, H) {
-      var p = S.p, v = 2, lam = v / p.f, k = 2 * Math.PI / lam, w = 2 * Math.PI * p.f, t = S.t, i = 0;
-      var x0 = -5, dx = 0.26;
-      S.st.cone.position.x = -4.95 + p.A * Math.sin(-w * t);
-      for (var a = 0; a < NX; a++) {
-        var xr = a * dx, ph = k * xr - w * t, disp = p.A * Math.sin(ph), comp = -Math.cos(ph) * (p.A > 0 ? 1 : 0);
-        S.st.col.setHSL(comp > 0 ? 0.0 : 0.58, 0.75, 0.55 - 0.18 * Math.abs(comp));
-        for (var b = 0; b < NY; b++) for (var d = 0; d < NZ; d++) {
-          S.st.m4.makeTranslation(x0 + xr + disp, (b - 2.5) * 0.4, (d - 2.5) * 0.4);
-          S.st.mesh.setMatrixAt(i, S.st.m4); S.st.mesh.setColorAt(i, S.st.col); i++;
-        }
-      }
-      S.st.mesh.instanceMatrix.needsUpdate = true; if (S.st.mesh.instanceColor) S.st.mesh.instanceColor.needsUpdate = true;
-      S.set('lam', f(lam, 3) + ' m'); S.set('T', f(1 / p.f, 3) + ' s');
-    }
-  });
-})();

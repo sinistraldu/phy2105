@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Electrostatics | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 1 to 5: charge, Coulomb's law, electric field, dipoles, flux, Gauss's law, potential, capacitors, dielectrics, with derivations and 2D/3D simulations.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html" aria-current="page">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 1 &middot; Classes 1&ndash;5 &middot; Electricity</span>
+  <h1>Electrostatics</h1>
+  <p class="lead">Charges at rest: the forces between them, the fields and potentials they create, Gauss&rsquo;s shortcut for symmetric problems, and how capacitors and dielectrics store electrical energy.</p>
+  <ul class="toc">
+    <li><a href="#c1"><span>Classes 1&ndash;2</span>Charge, field, dipole, Gauss</a></li>
+    <li><a href="#c3"><span>Classes 3&ndash;4</span>Electric potential</a></li>
+    <li><a href="#c5"><span>Class 5</span>Capacitors and dielectrics</a></li>
+    <li><a href="#review"><span>Review</span>Formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASSES 1-2 ===================== -->
+<section class="class" id="c1"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Classes 1&ndash;2</span>
+    <h2>Charge, Coulomb&rsquo;s law, electric field, dipoles, flux and Gauss&rsquo;s law</h2>
+    <p class="goals"><b>By the end you can:</b> add Coulomb forces as vectors; find E for point charges and continuous distributions; derive the field and torque of a dipole; compute flux; use Gauss&rsquo;s law for spheres, lines and planes.</p>
+  </div>
+
+  <h3><span class="n">1.1</span>Electric charge</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>Charge comes in two kinds (like charges repel, unlike attract), is <b>quantised</b> ($q = ne$, $e = 1.602\times10^{-19}$ C) and is <b>conserved</b>. Conductors let charge move freely; insulators do not.</p>
+  </div>
+
+  <h3><span class="n">1.2</span>Coulomb&rsquo;s law and superposition</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\vec F_{12} = \frac{1}{4\pi\varepsilon_0}\,\frac{q_1 q_2}{r^2}\,\hat r_{12}, \qquad k=\frac{1}{4\pi\varepsilon_0}=8.99\times10^{9}\ \text{N m}^2\text{C}^{-2}$$</div>
+    <p>The force on one charge due to several others is the <b>vector sum</b> of the individual forces (superposition): $\vec F = \sum_i \vec F_i$.</p>
+  </div>
+
+  <div class="sim" id="sim-coulomb3">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Superposition of Coulomb forces</h4></div>
+    <p class="sim-try"><b>Try:</b> drag the three source charges and the test charge $q_0$ (green). Change the charges with the sliders. The thin arrows are the individual forces; the thick arrow is their vector sum.</p>
+    <p class="sim-note"><b>What to notice:</b> each force points along the line joining the two charges and falls as $1/r^2$. The net force is found by adding components, not magnitudes; it can be zero at special points.</p>
+  </div>
+
+  <h3><span class="n">1.3</span>Electric field</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\vec E = \frac{\vec F}{q_0}, \qquad \vec E_{\text{point}} = \frac{1}{4\pi\varepsilon_0}\frac{q}{r^2}\hat r, \qquad \vec E = \int \frac{1}{4\pi\varepsilon_0}\frac{dq}{r^2}\hat r$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: field on the axis of a charged ring</span>
+    <p><span class="step">Step 1</span>A ring of radius $R$ carries charge $q$ uniformly. A small piece $dq$ is a distance $r=\sqrt{z^2+R^2}$ from a point $P$ on the axis.</p>
+    <p><span class="step">Step 2</span>By symmetry the components perpendicular to the axis cancel in pairs. Only the axial part $dE\cos\theta$ survives, with $\cos\theta = z/r$.</p>
+    <p><span class="step">Step 3</span>$$E = \int \frac{k\,dq}{r^2}\frac{z}{r} = \frac{kz}{(z^2+R^2)^{3/2}}\int dq = \frac{kqz}{(z^2+R^2)^{3/2}}$$</p>
+    <p><span class="step">Check</span>For $z\gg R$, $E\to kq/z^2$: from far away the ring looks like a point charge.</p>
+  </div>
+
+  <div class="sim" id="sim-fieldlines">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Field lines and equipotentials</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a set-up and drag the charges. Change the size of charge 2. Switch on <b>Equipotentials</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> lines start on + and end on &minus;, never cross, and crowd where $E$ is strong. Equipotentials always cross field lines at right angles.</p>
+  </div>
+
+  <h3><span class="n">1.4</span>The electric dipole</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\vec p = q\vec d, \qquad E_{\text{axis}} \approx \frac{1}{4\pi\varepsilon_0}\frac{2p}{z^3}, \qquad \vec\tau = \vec p\times\vec E, \qquad U = -\vec p\cdot\vec E$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: field on the dipole axis</span>
+    <p><span class="step">Step 1</span>Charges $+q$ at $z=d/2$ and $-q$ at $z=-d/2$. At a point on the axis a distance $z$ from the centre:
+    $$E = kq\left[\frac{1}{(z-d/2)^2} - \frac{1}{(z+d/2)^2}\right]$$</p>
+    <p><span class="step">Step 2</span>Combine: $\displaystyle E = kq\,\frac{2zd}{(z^2-d^2/4)^2}$.</p>
+    <p><span class="step">Step 3</span>For $z \gg d$: $\displaystyle E \approx \frac{2kqd}{z^3} = \frac{1}{4\pi\varepsilon_0}\frac{2p}{z^3}$. A dipole field falls as $1/r^3$, faster than a point charge.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: torque and energy in a uniform field</span>
+    <p><span class="step">Step 1</span>In a uniform $\vec E$ the forces $+q\vec E$ and $-q\vec E$ cancel, so the net force is zero. They form a couple with moment arm $d\sin\theta$: $\tau = qE\,d\sin\theta = pE\sin\theta$, i.e. $\vec\tau = \vec p\times\vec E$.</p>
+    <p><span class="step">Step 2</span>Work done by the field when the dipole turns from $\theta_0$ to $\theta$: $W = -\int_{\theta_0}^{\theta}pE\sin\theta'\,d\theta' = pE(\cos\theta-\cos\theta_0)$.</p>
+    <p><span class="step">Step 3</span>$U = -W$; choosing $U=0$ at $\theta_0 = 90^\circ$ gives $U = -pE\cos\theta = -\vec p\cdot\vec E$. Minimum (stable) at $\theta=0$, maximum at $\theta=180^\circ$.</p>
+  </div>
+
+  <div class="sim" id="sim-dipole3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A dipole twisting in a uniform field</h4></div>
+    <p class="sim-try"><b>Try:</b> set $p$, $E$ and the starting angle, then press <b>Release</b>. Add damping to let it settle. Drag to rotate the view.</p>
+    <p class="sim-note"><b>What to notice:</b> the torque $pE\sin\theta$ swings the dipole toward the field and it oscillates about $\theta=0$ (like a pendulum), with $U=-pE\cos\theta$ trading with rotational kinetic energy. A larger $pE$ means faster oscillation.</p>
+  </div>
+
+  <h3><span class="n">1.5</span>Electric flux and flux density</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\Phi_E = \int \vec E\cdot d\vec A = EA\cos\theta \ \text{(uniform field, flat surface)}, \qquad \vec D = \varepsilon_0\vec E \ \text{(flux density in vacuum)}$$</div>
+    <p>Flux measures how much field passes through a surface. It is largest when the surface faces the field ($\theta=0$) and zero when the field skims along it.</p>
+  </div>
+
+  <div class="sim" id="sim-flux3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Flux through a tilted surface</h4></div>
+    <p class="sim-try"><b>Try:</b> tilt the surface, change its area and the field strength. Drag to look along the field.</p>
+    <p class="sim-note"><b>What to notice:</b> only the component of $\vec E$ along the normal $\hat n$ (purple) gets through: $\Phi = EA\cos\theta$. At $90^\circ$ the field lines slide past and the flux is zero.</p>
+  </div>
+
+  <h3><span class="n">1.6</span>Gauss&rsquo;s law</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\varepsilon_0\oint \vec E\cdot d\vec A = q_{\text{enc}} \qquad\Longleftrightarrow\qquad \oint \vec D\cdot d\vec A = q_{\text{enc}}$$</div>
+    <p>The total flux out of any closed surface depends only on the charge inside it. Charges outside contribute equal inward and outward flux.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: Coulomb&rsquo;s law from Gauss&rsquo;s law</span>
+    <p><span class="step">Step 1</span>Surround a point charge $q$ with a sphere of radius $r$. By symmetry $\vec E$ is radial and has the same size everywhere on the sphere.</p>
+    <p><span class="step">Step 2</span>$\varepsilon_0\oint E\,dA = \varepsilon_0 E(4\pi r^2) = q$, so $E = \dfrac{q}{4\pi\varepsilon_0 r^2}$. Then $F = q_0E$ is Coulomb&rsquo;s law.</p>
+  </div>
+  <div class="box der"><span class="lbl">Applications</span>
+    <p><b>Infinite line</b> ($\lambda$ C/m), Gaussian cylinder of radius $r$, length $h$: $\varepsilon_0E(2\pi rh) = \lambda h \Rightarrow E = \dfrac{\lambda}{2\pi\varepsilon_0 r}$.</p>
+    <p><b>Infinite sheet</b> ($\sigma$ C/m&sup2;), pillbox of face area $A$: $\varepsilon_0(2EA) = \sigma A \Rightarrow E = \dfrac{\sigma}{2\varepsilon_0}$, independent of distance.</p>
+    <p><b>Charged conductor</b>: $E=0$ inside, so a pillbox with one face inside gives $E = \sigma/\varepsilon_0$ just outside.</p>
+    <p><b>Uniformly charged insulating sphere</b> (radius $R$, charge $Q$): outside $E = kQ/r^2$; inside, $q_{\text{enc}} = Q r^3/R^3$ so $E = \dfrac{kQ}{R^3}\,r$, growing linearly from zero at the centre.</p>
+  </div>
+
+  <div class="sim" id="sim-gauss">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Gauss&rsquo;s law: E(r) for different charge shapes</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a charge distribution and slide the Gaussian surface radius $r$ in and out. Change the total charge and the object&rsquo;s radius $R$.</p>
+    <p class="sim-note"><b>What to notice:</b> outside any sphere the field is exactly $kQ/r^2$. Inside a conductor it is zero; inside an insulating sphere it grows like $r$. A line gives $1/r$ and a sheet gives a constant.</p>
+  </div>
+
+  <div class="sim" id="sim-gauss3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Flux through a Gaussian sphere</h4></div>
+    <p class="sim-try"><b>Try:</b> change the sphere&rsquo;s radius and move the two charges in and out of it. Change their values.</p>
+    <p class="sim-note"><b>What to notice:</b> the net flux only changes when a charge crosses the surface. A charge outside sends flux in on one side and out on the other, adding nothing: $\Phi = q_{\text{enc}}/\varepsilon_0$.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>Charges $q_1 = +2\ \mu$C at the origin and $q_2 = -3\ \mu$C at $x = 0.5$ m. Find $E$ at $x = 1.0$ m.</p>
+    <p><span class="step">Step 1</span>$E_1 = kq_1/1.0^2 = 1.80\times10^4$ N/C, pointing $+x$.</p>
+    <p><span class="step">Step 2</span>$E_2 = k(3\ \mu\text{C})/0.5^2 = 1.08\times10^5$ N/C, pointing $-x$ (toward the negative charge).</p>
+    <p><span class="step">Step 3</span>$E = 1.80\times10^4 - 1.08\times10^5 = -8.99\times10^4$ N/C, i.e. $8.99\times10^4$ N/C in the $-x$ direction.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Two charges of $+4\ \mu$C and $-2\ \mu$C are 30 cm apart. Find the force between them. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$F = k|q_1q_2|/r^2 = 8.99\times10^9 \times 8\times10^{-12}/0.09 \approx 0.80$ N, attractive.</p></div></details></li>
+    <li>A ring of radius 10 cm carries 5 nC. Find $E$ on its axis 20 cm from the centre. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$E = kqz/(z^2+R^2)^{3/2} = 8.99\times10^9\times5\times10^{-9}\times0.2/(0.05)^{3/2} \approx 805$ N/C.</p></div></details></li>
+    <li>A dipole has $p = 6.2\times10^{-30}$ C m in a field of $10^5$ N/C. Find the maximum torque and the work needed to turn it from $0^\circ$ to $180^\circ$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tau_{\max} = pE = 6.2\times10^{-25}$ N m. $W = U(180^\circ)-U(0^\circ) = 2pE = 1.24\times10^{-24}$ J.</p></div></details></li>
+    <li>A long wire carries $\lambda = 2\ \mu$C/m. Find $E$ at 5 cm. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$E = \lambda/(2\pi\varepsilon_0 r) = 2\times10^{-6}/(2\pi\times8.85\times10^{-12}\times0.05) \approx 7.2\times10^5$ N/C.</p></div></details></li>
+    <li>A cube of side 10 cm sits in a uniform field of 500 N/C along one edge. Find the flux through each face and the net flux. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Faces facing the field: $\pm EA = \pm 5$ N m&sup2;/C; the other four: 0. Net flux = 0 (no charge inside).</p></div></details></li>
+    <li>A solid insulating sphere ($R = 10$ cm, $Q = 8$ nC). Find $E$ at $r = 5$ cm and $r = 20$ cm. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Inside: $E = kQr/R^3 = 8.99\times10^9\times8\times10^{-9}\times0.05/10^{-3} \approx 3.6\times10^3$ N/C. Outside: $kQ/r^2 = 71.9/0.04 \approx 1.8\times10^3$ N/C.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASSES 3-4 ===================== -->
+<section class="class" id="c3"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Classes 3&ndash;4</span>
+    <h2>Electric potential, potential energy and the field&ndash;potential relation</h2>
+    <p class="goals"><b>By the end you can:</b> define $V$ and $U$; derive $V$ for a point charge, a dipole, a ring and a disc; get $\vec E$ from $V$ with the gradient; describe equipotential surfaces.</p>
+  </div>
+
+  <h3><span class="n">3.1</span>Potential energy and potential</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\Delta U = -W_{\text{field}}, \qquad V = \frac{U}{q_0}, \qquad V_B - V_A = -\int_A^B \vec E\cdot d\vec s$$</div>
+    <p>Potential (volts) is energy per unit charge. Only differences matter; we usually set $V = 0$ at infinity.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: potential of a point charge</span>
+    <p><span class="step">Step 1</span>Take the path straight out along $\hat r$ from $r$ to $\infty$: $V(\infty)-V(r) = -\int_r^\infty \dfrac{kq}{r'^2}dr'$.</p>
+    <p><span class="step">Step 2</span>$\displaystyle -\int_r^\infty \frac{kq}{r'^2}dr' = -\left[-\frac{kq}{r'}\right]_r^\infty = -\frac{kq}{r}$. With $V(\infty)=0$:</p>
+    <div class="eq">$$V = \frac{1}{4\pi\varepsilon_0}\frac{q}{r}, \qquad U = \frac{1}{4\pi\varepsilon_0}\frac{q_1q_2}{r}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: potential of a dipole and of continuous charges</span>
+    <p><b>Dipole.</b> $V = kq\left(\dfrac1{r_+}-\dfrac1{r_-}\right) = kq\dfrac{r_- - r_+}{r_+r_-}$. Far away, $r_- - r_+ \approx d\cos\theta$ and $r_+r_- \approx r^2$, so $V \approx \dfrac{1}{4\pi\varepsilon_0}\dfrac{p\cos\theta}{r^2}$.</p>
+    <p><b>Ring</b> on its axis: every $dq$ is the same distance away, so $V = \dfrac{kq}{\sqrt{z^2+R^2}}$.</p>
+    <p><b>Disc</b> ($\sigma$, radius $R$): add rings of radius $r'$, charge $\sigma 2\pi r'dr'$: $V = \displaystyle\int_0^R \frac{k\sigma 2\pi r'dr'}{\sqrt{z^2+r'^2}} = \frac{\sigma}{2\varepsilon_0}\left(\sqrt{z^2+R^2}-z\right)$.</p>
+  </div>
+
+  <h3><span class="n">3.2</span>Field from potential: the gradient</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$E_s = -\frac{\partial V}{\partial s}, \qquad \vec E = -\nabla V = -\left(\frac{\partial V}{\partial x}\hat i + \frac{\partial V}{\partial y}\hat j + \frac{\partial V}{\partial z}\hat k\right)$$</div>
+    <p>$\vec E$ points &ldquo;downhill&rdquo; in potential, along the steepest descent, and is perpendicular to every <b>equipotential surface</b> (surfaces of constant $V$). Moving a charge along an equipotential costs no work.</p>
+  </div>
+  <div class="box der"><span class="lbl">Check with the ring</span>
+    <p>$E_z = -\dfrac{\partial}{\partial z}\dfrac{kq}{\sqrt{z^2+R^2}} = \dfrac{kqz}{(z^2+R^2)^{3/2}}$, exactly the field found by integration in 1.3, with much less work.</p>
+  </div>
+
+  <div class="sim" id="sim-vgraph">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Potential and its slope: E = &minus;dV/dx</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a charge arrangement and move the probe point $x$. The tangent line on the $V$ graph has slope $dV/dx$; the lower graph shows $E_x = -dV/dx$.</p>
+    <p class="sim-note"><b>What to notice:</b> where $V$ is steep, $E$ is large; where $V$ has a maximum or minimum, $E=0$. The field always points toward lower potential.</p>
+  </div>
+
+  <div class="sim" id="sim-landscape3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>The potential landscape</h4></div>
+    <p class="sim-try"><b>Try:</b> change the two charges and their separation. Press <b>Roll a test charge</b> to release a positive charge that slides downhill. Drag to look from the side.</p>
+    <p class="sim-note"><b>What to notice:</b> height is $V(x,y)$: positive charges make hills, negative charges make pits. A positive test charge rolls down the steepest slope, which is the direction of $\vec E = -\nabla V$. Contour lines at equal height are equipotentials.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>$V(x,y) = 3x^2y - 2y^3$ volts (x, y in m). Find $\vec E$ at $(1, 2)$.</p>
+    <p>$E_x = -\partial V/\partial x = -6xy = -12$ V/m; $E_y = -(3x^2 - 6y^2) = -(3 - 24) = 21$ V/m. So $\vec E = -12\hat i + 21\hat j$ V/m.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the potential 2 cm from a proton and the potential energy of an electron there. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$V = ke/r = 8.99\times10^9\times1.6\times10^{-19}/0.02 = 7.2\times10^{-8}$ V; $U = -eV = -1.15\times10^{-26}$ J.</p></div></details></li>
+    <li>How much work is needed to bring three $+2\ \mu$C charges from infinity to the corners of an equilateral triangle of side 10 cm? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Three pairs: $U = 3kq^2/a = 3\times8.99\times10^9\times4\times10^{-12}/0.1 \approx 1.08$ J.</p></div></details></li>
+    <li>Find $V$ on the axis of a disc ($R = 5$ cm, $\sigma = 1\ \mu$C/m&sup2;) at $z = 5$ cm. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$V = \frac{\sigma}{2\varepsilon_0}(\sqrt{z^2+R^2}-z) = 5.65\times10^4\times(0.0707-0.05) \approx 1.17\times10^3$ V.</p></div></details></li>
+    <li>$V = 5x^2 - 3xy + z$ (SI). Find $\vec E$ at $(1, 1, 1)$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\vec E = -(10x - 3y)\hat i - (-3x)\hat j - \hat k = -7\hat i + 3\hat j - \hat k$ V/m.</p></div></details></li>
+    <li>A dipole ($p = 2\times10^{-9}$ C m). Find $V$ at $r = 10$ cm on its axis and at $90^\circ$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Axis: $kp/r^2 = 8.99\times10^9\times2\times10^{-9}/0.01 \approx 1.8\times10^3$ V. At $90^\circ$: $V = 0$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 5 ===================== -->
+<section class="class" id="c5"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 5</span>
+    <h2>Capacitors, stored energy, the electron volt and dielectrics</h2>
+    <p class="goals"><b>By the end you can:</b> derive $C$ for a parallel-plate capacitor; combine capacitors in series and parallel; derive $U = \tfrac12CV^2$ and $u = \tfrac12\varepsilon_0E^2$; use $\kappa$, $\vec P$ and $\vec D$.</p>
+  </div>
+
+  <h3><span class="n">5.1</span>Capacitance</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$C = \frac{Q}{V}, \qquad C_{\text{plates}} = \frac{\varepsilon_0 A}{d}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: parallel-plate capacitor</span>
+    <p><span class="step">Step 1</span>Plates of area $A$ carry $\pm Q$, so $\sigma = Q/A$. Gauss&rsquo;s law (conductor surface) gives $E = \sigma/\varepsilon_0 = Q/(\varepsilon_0A)$ between the plates.</p>
+    <p><span class="step">Step 2</span>$V = Ed = Qd/(\varepsilon_0 A)$.</p>
+    <p><span class="step">Step 3</span>$C = Q/V = \varepsilon_0A/d$: it depends only on geometry.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: series and parallel</span>
+    <p><b>Parallel:</b> same $V$ on each, charges add: $Q = \sum C_iV$, so $C_{\text{eq}} = C_1 + C_2 + \cdots$</p>
+    <p><b>Series:</b> the same $Q$ sits on each (charge conservation on the isolated middle plates) and voltages add: $V = \sum Q/C_i$, so $\dfrac{1}{C_{\text{eq}}} = \dfrac1{C_1}+\dfrac1{C_2}+\cdots$</p>
+  </div>
+
+  <div class="sim" id="sim-caps">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Capacitor network</h4></div>
+    <p class="sim-try"><b>Try:</b> choose series, parallel or mixed, change $C_1$, $C_2$, $C_3$ and the battery. Read the charge, voltage and energy of each capacitor.</p>
+    <p class="sim-note"><b>What to notice:</b> in series every capacitor has the same $Q$ and the smallest $C$ takes the biggest voltage; in parallel each has the full $V$ and the biggest $C$ stores the most charge and energy.</p>
+  </div>
+
+  <h3><span class="n">5.2</span>Energy stored and energy density</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Moving charge $dq$ across the gap when the capacitor already holds $q$ costs $dW = V\,dq = (q/C)\,dq$.</p>
+    <p><span class="step">Step 2</span>$U = \displaystyle\int_0^Q \frac{q}{C}dq = \frac{Q^2}{2C} = \frac12CV^2 = \frac12QV$.</p>
+    <p><span class="step">Step 3</span>For plates, $U = \tfrac12(\varepsilon_0A/d)(Ed)^2 = \tfrac12\varepsilon_0E^2(Ad)$. Dividing by the volume $Ad$:</p>
+    <div class="eq">$$u = \frac12\varepsilon_0E^2 \quad \text{(J/m}^3\text{)}$$</div>
+    <p>The energy is stored in the field itself. <b>Electron volt:</b> $1$ eV $= 1.602\times10^{-19}$ J, the energy an electron gains through 1 V.</p>
+  </div>
+
+  <h3><span class="n">5.3</span>Dielectrics, polarization and displacement</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$C = \kappa C_0, \qquad \vec P = \varepsilon_0\chi_e\vec E, \qquad \vec D = \varepsilon_0\vec E + \vec P = \varepsilon_0\kappa\vec E = \varepsilon\vec E, \qquad \kappa = 1+\chi_e$$</div>
+    <p>An insulator in a field <b>polarizes</b>: its molecules&rsquo; dipoles line up, producing bound surface charge $\sigma_b = P$ that partly cancels the field inside. With the same free charge, $E$ and $V$ drop by $\kappa$, so $C$ rises by $\kappa$.</p>
+  </div>
+
+  <div class="sim" id="sim-dielectric">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Slide a dielectric into a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> raise $\kappa$. Compare <b>Battery connected</b> (fixed $V$) with <b>Battery removed</b> (fixed $Q$).</p>
+    <p class="sim-note"><b>What to notice:</b> with fixed $Q$, the bound charges (pale) cancel part of the free charge, so $E$, $V$ and $U$ fall by $\kappa$. With fixed $V$, the battery pushes in more charge: $Q$ and $U$ grow by $\kappa$, but $E = V/d$ stays the same.</p>
+  </div>
+
+  <div class="sim" id="sim-capacitor3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Parallel-plate capacitor in 3D</h4></div>
+    <p class="sim-try"><b>Try:</b> change the plate area, the gap, the voltage, and slide the dielectric slab in.</p>
+    <p class="sim-note"><b>What to notice:</b> $C = \kappa\varepsilon_0A/d$ grows with area and shrinks with gap. The field between the plates is uniform; the stored energy $\tfrac12CV^2$ is spread through the volume between them.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>2 &micro;F and 3 &micro;F in series across 10 V. Find $C_{\text{eq}}$, $Q$, each voltage and the total energy.</p>
+    <p>$C_{\text{eq}} = 6/5 = 1.2\ \mu$F; $Q = 12\ \mu$C; $V_1 = 6$ V, $V_2 = 4$ V; $U = \tfrac12(1.2\times10^{-6})(100) = 60\ \mu$J.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Plates of area 100 cm&sup2;, 1 mm apart, at 50 V. Find $C$, $Q$, $E$ and $U$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$C = 8.85\times10^{-12}\times0.01/0.001 = 88.5$ pF; $Q = 4.43$ nC; $E = 5\times10^4$ V/m; $U = \tfrac12CV^2 = 1.1\times10^{-7}$ J.</p></div></details></li>
+    <li>Three 6 &micro;F capacitors: find $C_{\text{eq}}$ (a) all in series, (b) all in parallel, (c) two in series, that pair in parallel with the third. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>(a) 2 &micro;F; (b) 18 &micro;F; (c) 3 + 6 = 9 &micro;F.</p></div></details></li>
+    <li>Find the energy density in a field of $10^6$ V/m in air. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$u = \tfrac12\varepsilon_0E^2 = 0.5\times8.85\times10^{-12}\times10^{12} \approx 4.4$ J/m&sup3;.</p></div></details></li>
+    <li>A charged, isolated capacitor (100 pF, 200 V) is filled with a dielectric of $\kappa = 4$. Find the new $C$, $V$ and the energy change. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Q = 20$ nC fixed. $C = 400$ pF, $V = 50$ V. $U$: $2\ \mu$J $\to 0.5\ \mu$J, so 1.5 &micro;J is released (the slab is pulled in).</p></div></details></li>
+    <li>In a dielectric of $\kappa = 5$ the field is $10^4$ V/m. Find $D$ and $P$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$D = \kappa\varepsilon_0E = 4.43\times10^{-7}$ C/m&sup2;; $P = D - \varepsilon_0E = 3.54\times10^{-7}$ C/m&sup2;.</p></div></details></li>
+    <li>An electron is accelerated through 500 V. Give its kinetic energy in eV and in J. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>500 eV $= 8.0\times10^{-17}$ J.</p></div></details></li>
+  </ol>
+</div></section>
+
+<section class="class" id="review"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Review</span><h2>Formula sheet: electrostatics</h2></div>
+  <div class="sheet">
+    <div><h4>Force and field</h4><p>$F = kq_1q_2/r^2$</p><p>$\vec E = \vec F/q_0$, $E = kq/r^2$</p><p>Ring: $E = kqz/(z^2+R^2)^{3/2}$</p></div>
+    <div><h4>Dipole</h4><p>$p = qd$, $E_{\text{axis}} = 2kp/z^3$</p><p>$\vec\tau = \vec p\times\vec E$</p><p>$U = -\vec p\cdot\vec E$</p></div>
+    <div><h4>Gauss</h4><p>$\varepsilon_0\oint\vec E\cdot d\vec A = q_{\text{enc}}$</p><p>Line: $\lambda/2\pi\varepsilon_0r$; sheet: $\sigma/2\varepsilon_0$</p><p>Conductor: $\sigma/\varepsilon_0$</p></div>
+    <div><h4>Potential</h4><p>$V = kq/r$, $U = kq_1q_2/r$</p><p>Dipole: $kp\cos\theta/r^2$</p><p>$\vec E = -\nabla V$</p></div>
+    <div><h4>Capacitors</h4><p>$C = Q/V = \varepsilon_0A/d$</p><p>Series: $1/C = \sum 1/C_i$; parallel: $\sum C_i$</p><p>$U = \tfrac12CV^2$, $u = \tfrac12\varepsilon_0E^2$</p></div>
+    <div><h4>Dielectrics</h4><p>$C = \kappa C_0$</p><p>$\vec D = \varepsilon_0\vec E + \vec P = \varepsilon\vec E$</p><p>$\kappa = 1 + \chi_e$</p></div>
+  </div>
+  <div class="pager"><a href="index.html"><small>Back to</small>Course home</a><a href="current.html"><small>Next unit</small>Current and resistance &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/electrostatics.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

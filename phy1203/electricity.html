@@ -80,6 +80,12 @@
     <p class="sim-note"><b>What to notice:</b> both charges feel the same size of force, in opposite directions (Newton's third law). Doubling r cuts the force to 1/4; doubling one charge doubles the force.</p>
   </div>
 
+  <div class="sim" id="sim-pendulum3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Two charged balls on threads</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the charge, make the balls heavier, change the thread length. Then try <b>Opposite charges</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> more charge pushes the balls further apart; heavier balls hang closer together. They settle where tan&theta; = F/(mg). Opposite charges attract and swing together.</p>
+  </div>
+
   <h3><span class="n">13.3</span>Electric field and field lines</h3>
   <div class="box key"><span class="lbl">Key concept</span>
     <div class="eq">E = <span class="fr"><span>F</span><span>q<sub>test</sub></span></span> &emsp;&emsp; <span class="up">point charge:</span> E = k<span class="fr"><span>q</span><span>r<sup>2</sup></span></span> &emsp; (N/C or V/m)</div>
@@ -100,7 +106,7 @@
 
   <div class="sim" id="sim-field3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>The field all around a charge</h4></div>
-    <p class="sim-try"><b>Try:</b> drag to rotate. Switch between a single charge and a dipole.</p>
+    <p class="sim-try"><b>Try:</b> change the two charges (make them alike or opposite) and their separation, then press <b>Release test charges</b> and watch them follow the field lines. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> the field exists in all three dimensions, not just on paper. Arrows are long and bright near the charge and fade as 1/r&sup2;. For the dipole they curve from + to &minus;.</p>
   </div>
 
@@ -160,7 +166,7 @@
 
   <div class="sim" id="sim-membrane3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>The membrane is a capacitor</h4></div>
-    <p class="sim-try"><b>Try:</b> change the membrane potential from the resting &minus;70 mV up to +30 mV (as in a spike). Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> change the resting potential, the membrane thickness and its dielectric constant, then press <b>Fire an action potential</b>. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> at rest, + ions (red) line the outside and &minus; ions (blue) the inside, with a strong field (purple) across the thin lipid layer. When the inside becomes positive the charges swap sides and the field reverses.</p>
   </div>
 
@@ -250,6 +256,12 @@
     <div class="sim-head"><span class="tag">Simulation</span><h4>Charge and discharge a capacitor</h4></div>
     <p class="sim-try"><b>Try:</b> press <b>Charge</b>, wait, then <b>Discharge</b>. Change R or C and try again. The dashed line marks t = &tau;.</p>
     <p class="sim-note"><b>What to notice:</b> the curve is steep at first and flattens out. At t = &tau; the voltage is 63% of the battery voltage. Doubling either R or C doubles &tau;, so everything happens twice as slowly.</p>
+  </div>
+
+  <div class="sim" id="sim-rc3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Charge flowing onto a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Charge</b>, then <b>Discharge</b>. Change R, C and the battery voltage and repeat.</p>
+    <p class="sim-note"><b>What to notice:</b> charges (blue) rush round the circuit at first, then slow down as the plates fill up. The purple curve behind the circuit is the voltage, rising along 1 &minus; e<sup>&minus;t/RC</sup>. Bigger R or C means slower charging.</p>
   </div>
 
   <div class="box der"><span class="lbl">Where the equation comes from</span>
@@ -370,7 +382,7 @@
 
   <div class="sim" id="sim-axon3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>A nerve impulse travelling along an axon</h4></div>
-    <p class="sim-try"><b>Try:</b> press <b>Fire!</b> and watch the spike run from the cell body. Then switch to <b>Myelinated</b> and fire again. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> press <b>Fire!</b>, change the axon diameter, switch to <b>Myelinated</b>, or set an automatic firing rate. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> without myelin the spike creeps along continuously. With myelin (white sheaths) it jumps from gap to gap (nodes of Ranvier) and arrives much sooner: saltatory conduction.</p>
   </div>
 
@@ -395,5 +407,7 @@
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/electricity.js"></script>
 <script src="assets/js/bio3d.js"></script>
+<script src="assets/js/bio3d-2.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1203" data-course="PHY1203"></script>
 </body>
 </html>

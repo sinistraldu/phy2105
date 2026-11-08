@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magnetism and Induction | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 8 to 12: magnetic field, Lorentz force, Hall effect, Biot-Savart and Ampere laws, magnetization, hysteresis, Faraday and Lenz laws, inductance.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html" aria-current="page">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 3 &middot; Classes 8&ndash;12 &middot; Magnetism</span>
+  <h1>Magnetism and Induction</h1>
+  <p class="lead">Moving charges feel magnetic forces and create magnetic fields. Changing magnetic flux creates EMFs. These two facts run every motor, generator, transformer and sensor in electrical engineering.</p>
+  <ul class="toc">
+    <li><a href="#c8"><span>Class 8</span>Magnetic force, Hall effect</a></li>
+    <li><a href="#c9"><span>Class 9</span>Biot&ndash;Savart, Amp&egrave;re, materials</a></li>
+    <li><a href="#c10"><span>Classes 10&ndash;11</span>Induction and inductance</a></li>
+    <li><a href="#c12"><span>Class 12</span>Review</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 8 ===================== -->
+<section class="class" id="c8"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 8</span>
+    <h2>Magnetic field and flux, the Lorentz force, charged particle motion and the Hall effect</h2>
+    <p class="goals"><b>By the end you can:</b> use $\vec F = q(\vec E + \vec v\times\vec B)$; derive the radius and frequency of circular motion; explain why $\oint\vec B\cdot d\vec A = 0$; derive the Hall voltage; relate $\vec B$, $\vec H$ and $\vec M$.</p>
+  </div>
+
+  <h3><span class="n">8.1</span>Magnetic field, flux and Gauss&rsquo;s law for magnetism</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\Phi_B = \int\vec B\cdot d\vec A \ \ (\text{Wb} = \text{T m}^2), \qquad \oint\vec B\cdot d\vec A = 0$$</div>
+    <p>$\vec B$ is the <b>magnetic flux density</b> (tesla). Magnetic field lines always close on themselves: there are no magnetic monopoles, so every field line that enters a closed surface also leaves it and the net flux is zero.</p>
+  </div>
+
+  <h3><span class="n">8.2</span>The Lorentz force</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\vec F = q\left(\vec E + \vec v\times\vec B\right), \qquad F_B = |q|vB\sin\theta$$</div>
+    <p>The magnetic part is always perpendicular to $\vec v$, so it does no work and cannot change the particle&rsquo;s speed, only its direction.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: circular motion and the cyclotron frequency</span>
+    <p><span class="step">Step 1</span>For $\vec v\perp\vec B$ the magnetic force supplies the centripetal force: $|q|vB = mv^2/r$.</p>
+    <p><span class="step">Step 2</span>$r = \dfrac{mv}{|q|B}$, and the period $T = \dfrac{2\pi r}{v} = \dfrac{2\pi m}{|q|B}$, independent of speed.</p>
+    <p><span class="step">Step 3</span>Cyclotron frequency $f = \dfrac{|q|B}{2\pi m}$. If $\vec v$ has a component along $\vec B$, that part is untouched and the path becomes a helix.</p>
+  </div>
+  <div class="box der"><span class="lbl">Velocity selector</span>
+    <p>Crossed $\vec E$ and $\vec B$: the electric force $qE$ and magnetic force $qvB$ point opposite ways. They cancel when $qE = qvB$, so only particles with $v = E/B$ pass straight through.</p>
+  </div>
+
+  <div class="sim" id="sim-selector">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Velocity selector: crossed E and B</h4></div>
+    <p class="sim-try"><b>Try:</b> change $E$, $B$ and the particle speed $v$ until the particle goes straight through the slit. Then flip the charge sign.</p>
+    <p class="sim-note"><b>What to notice:</b> only $v = E/B$ goes straight; faster particles are bent by the magnetic force, slower ones by the electric force. Flipping the sign flips both forces, so the selected speed is the same for any charge.</p>
+  </div>
+
+  <div class="sim" id="sim-lorentz3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>A charge in E and B fields</h4></div>
+    <p class="sim-try"><b>Try:</b> change $B$, the launch angle and speed; then add an electric field $E$ at right angles to $B$.</p>
+    <p class="sim-note"><b>What to notice:</b> with $E = 0$ the path is a circle or a helix with $r = mv\sin\theta/qB$. Switching on $E$ makes the whole orbit drift sideways at $E/B$ (the $\vec E\times\vec B$ drift), the principle behind magnetrons and plasma traps.</p>
+  </div>
+
+  <h3><span class="n">8.3</span>The Hall effect</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A strip of thickness $t$ (along $\vec B$) and width $w$ carries current $I$; carriers drift with $v_d$ and are pushed sideways by $qv_dB$.</p>
+    <p><span class="step">Step 2</span>Charge piles up on one edge until the transverse Hall field balances the magnetic force: $qE_H = qv_dB$.</p>
+    <p><span class="step">Step 3</span>$V_H = E_Hw = v_dBw$. With $I = nqv_d(wt)$: $v_d = I/(nqwt)$, so</p>
+    <div class="eq">$$V_H = \frac{IB}{nqt}, \qquad R_H = \frac{1}{nq}$$</div>
+    <p>The sign of $V_H$ gives the sign of the carriers (electrons in metals, holes in p-type silicon); its size gives $n$. Hall sensors measure $B$ in phones, cars and current clamps.</p>
+  </div>
+
+  <div class="sim" id="sim-hall">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Hall effect in a strip</h4></div>
+    <p class="sim-try"><b>Try:</b> change $I$, $B$, the thickness and the carrier density. Switch between electrons and holes.</p>
+    <p class="sim-note"><b>What to notice:</b> carriers are pushed to one edge, building up the Hall voltage. Fewer carriers (a semiconductor) means a much larger $V_H$, and positive carriers give the opposite sign.</p>
+  </div>
+
+  <h3><span class="n">8.4</span>Magnetic field intensity</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\vec B = \mu_0(\vec H + \vec M), \qquad \vec M = \chi_m\vec H, \qquad \vec B = \mu_0\mu_r\vec H = \mu\vec H$$</div>
+    <p>$\vec H$ (A/m) is set by the free currents; $\vec M$ is the magnetization of the material; $\mu_r = 1 + \chi_m$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>An electron moves at $2\times10^6$ m/s perpendicular to a 0.01 T field. Find the radius of its path. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$r = mv/(eB) = 9.11\times10^{-31}\times2\times10^6/(1.6\times10^{-19}\times0.01) \approx 1.1$ mm.</p></div></details></li>
+    <li>Find the cyclotron frequency of a proton in a 1 T field. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$f = eB/(2\pi m_p) \approx 15.2$ MHz.</p></div></details></li>
+    <li>A copper strip 0.1 mm thick carries 10 A in a 1.5 T field ($n = 8.5\times10^{28}$ m$^{-3}$). Find $V_H$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$V_H = IB/(nqt) = 15/(8.5\times10^{28}\times1.6\times10^{-19}\times10^{-4}) \approx 11\ \mu$V.</p></div></details></li>
+    <li>A velocity selector has $E = 2\times10^4$ V/m. What $B$ selects $v = 4\times10^5$ m/s? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$B = E/v = 0.05$ T.</p></div></details></li>
+    <li>Find the flux through a 200 cm&sup2; loop in 0.4 T when the normal makes 60&deg; with $\vec B$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Phi = BA\cos60^\circ = 0.4\times0.02\times0.5 = 4$ mWb.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 9 ===================== -->
+<section class="class" id="c9"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 9</span>
+    <h2>Magnetic dipole moment, Biot&ndash;Savart law, Amp&egrave;re&rsquo;s law and magnetic materials</h2>
+    <p class="goals"><b>By the end you can:</b> find the torque on a current loop; derive $B$ for a straight wire, a loop and a solenoid; use Amp&egrave;re&rsquo;s law; describe dia-, para- and ferromagnetism and a hysteresis loop.</p>
+  </div>
+
+  <h3><span class="n">9.1</span>Magnetic dipole moment</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\vec\mu = NI\vec A, \qquad \vec\tau = \vec\mu\times\vec B, \qquad U = -\vec\mu\cdot\vec B$$</div>
+    <p>A current loop behaves like a tiny bar magnet: it twists to line up with the field. This torque drives every DC motor and moving-coil meter. (Compare the electric dipole: $\vec\tau = \vec p\times\vec E$.)</p>
+  </div>
+
+  <div class="sim" id="sim-motor3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Torque on a current loop (a simple motor)</h4></div>
+    <p class="sim-try"><b>Try:</b> change the current, turns, loop size and field. Switch the commutator on to make it spin continuously.</p>
+    <p class="sim-note"><b>What to notice:</b> the forces on the two sides form a couple; $\tau = NIAB\sin\theta$ is largest when the plane of the loop is parallel to $\vec B$ and zero when $\vec\mu$ lines up with $\vec B$. Without a commutator the loop just rocks about that position.</p>
+  </div>
+
+  <h3><span class="n">9.2</span>The Biot&ndash;Savart law</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$d\vec B = \frac{\mu_0}{4\pi}\frac{I\,d\vec l\times\hat r}{r^2}, \qquad \mu_0 = 4\pi\times10^{-7}\ \text{T m/A}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: long straight wire</span>
+    <p><span class="step">Step 1</span>Element $dl$ at position $l$ along the wire, point $P$ at perpendicular distance $R$. $|d\vec l\times\hat r| = dl\sin\phi$, with $r = \sqrt{l^2+R^2}$ and $\sin\phi = R/r$.</p>
+    <p><span class="step">Step 2</span>$\displaystyle B = \frac{\mu_0I}{4\pi}\int_{-\infty}^{\infty}\frac{R\,dl}{(l^2+R^2)^{3/2}} = \frac{\mu_0I}{4\pi}\cdot\frac{2}{R}$.</p>
+    <div class="eq">$$B_{\text{wire}} = \frac{\mu_0 I}{2\pi R}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: circular loop</span>
+    <p><b>Centre:</b> every element is at distance $R$ and perpendicular to $\hat r$: $B = \dfrac{\mu_0I}{4\pi R^2}\oint dl = \dfrac{\mu_0 I}{2R}$.</p>
+    <p><b>On the axis</b> at distance $z$: sideways components cancel; the axial parts add: $B = \dfrac{\mu_0IR^2}{2(R^2+z^2)^{3/2}}$. Far away this is $\dfrac{\mu_0}{2\pi}\dfrac{\mu}{z^3}$, a dipole field.</p>
+  </div>
+
+  <div class="sim" id="sim-biot3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Biot&ndash;Savart: building the field of a loop or wire</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a loop or a straight wire, change the current and loop radius, and move the probe along the axis. Press <b>Sweep a current element</b> to see each $d\vec B$ contribution.</p>
+    <p class="sim-note"><b>What to notice:</b> each element contributes a small $d\vec B$ perpendicular to both $d\vec l$ and $\hat r$. For a loop the sideways parts cancel and the axial parts add up to $B = \mu_0IR^2/2(R^2+z^2)^{3/2}$; for a wire the field circles it.</p>
+  </div>
+
+  <h3><span class="n">9.3</span>Amp&egrave;re&rsquo;s law and its applications</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\oint\vec B\cdot d\vec l = \mu_0 I_{\text{enc}}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Applications</span>
+    <p><b>Long wire</b> (circle of radius $r$): $B(2\pi r) = \mu_0I \Rightarrow B = \mu_0I/2\pi r$. Inside a wire of radius $a$ with uniform current: $I_{\text{enc}} = Ir^2/a^2$, so $B = \mu_0Ir/2\pi a^2$.</p>
+    <p><b>Solenoid</b> ($n$ turns per metre). Rectangle of length $h$, one side inside: only that side contributes, $Bh = \mu_0(nh)I$:</p>
+    <div class="eq">$$B_{\text{solenoid}} = \mu_0 nI$$</div>
+    <p><b>Toroid</b> ($N$ turns), circle of radius $r$ inside the core: $B(2\pi r) = \mu_0NI \Rightarrow B = \dfrac{\mu_0NI}{2\pi r}$; zero outside.</p>
+  </div>
+
+  <div class="sim" id="sim-solenoid3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Inside a solenoid</h4></div>
+    <p class="sim-try"><b>Try:</b> change the number of turns, the length and the current. Slide the Amp&egrave;rian rectangle in and out of the coil.</p>
+    <p class="sim-note"><b>What to notice:</b> the field inside is strong and uniform, outside it is almost zero. Amp&egrave;re&rsquo;s law gives $B = \mu_0 nI$: only the turn density $n = N/L$ matters, not the coil&rsquo;s width. When the rectangle is fully outside, it encloses no net current.</p>
+  </div>
+
+  <h3><span class="n">9.4</span>Magnetic materials, magnetization and hysteresis</h3>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Type</th><th>$\chi_m$</th><th>Origin</th><th>Examples</th></tr>
+    <tr><td>Diamagnetic</td><td>small, negative ($\sim-10^{-5}$)</td><td>induced orbital moments oppose $\vec B$</td><td>copper, water, bismuth</td></tr>
+    <tr><td>Paramagnetic</td><td>small, positive ($\sim10^{-5}$&ndash;$10^{-3}$)</td><td>permanent atomic moments, partly aligned</td><td>aluminium, oxygen</td></tr>
+    <tr><td>Ferromagnetic</td><td>huge ($10^2$&ndash;$10^5$), non-linear</td><td>domains of aligned moments</td><td>iron, nickel, cobalt</td></tr>
+  </table></div>
+  <p>In a ferromagnet $B$ depends on its history. Cycling $H$ traces a <b>hysteresis loop</b>: the <b>retentivity</b> (remanence) $B_r$ is what is left at $H = 0$; the <b>coercivity</b> $H_c$ is the reverse field needed to bring $B$ back to zero. The loop area is the energy lost as heat per cycle per unit volume. Soft iron (narrow loop) suits transformer cores; hard steel (wide loop) suits permanent magnets.</p>
+
+  <div class="sim" id="sim-hyst">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Trace a hysteresis loop</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a material and raise the amplitude of the applied field $H$. Watch the loop being drawn.</p>
+    <p class="sim-note"><b>What to notice:</b> a soft material has a thin loop (small $H_c$, little loss); a hard material has a wide loop (large $H_c$, keeps its magnetism). Small drive amplitudes trace smaller inner loops.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find $B$ 5 cm from a long wire carrying 10 A. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$B = \mu_0I/(2\pi r) = 4\times10^{-5}$ T.</p></div></details></li>
+    <li>Find $B$ at the centre of a single loop of radius 10 cm carrying 5 A. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$B = \mu_0I/2R = 3.14\times10^{-5}$ T.</p></div></details></li>
+    <li>A solenoid has 1000 turns per metre and carries 2 A. Find $B$ inside. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$B = \mu_0nI = 2.51$ mT.</p></div></details></li>
+    <li>A toroid of 500 turns, mean radius 10 cm, carries 3 A. Find $B$ in the core. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$B = \mu_0NI/(2\pi r) = 3.0$ mT.</p></div></details></li>
+    <li>A 50-turn coil of radius 5 cm carries 2 A in a 0.5 T field at 30&deg; between $\vec\mu$ and $\vec B$. Find $\mu$ and $\tau$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\mu = NI\pi r^2 = 0.785$ A m&sup2;; $\tau = \mu B\sin30^\circ = 0.196$ N m.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASSES 10-11 ===================== -->
+<section class="class" id="c10"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Classes 10&ndash;11</span>
+    <h2>Faraday&rsquo;s law, Lenz&rsquo;s law, mutual and self-inductance, energy and MMF</h2>
+    <p class="goals"><b>By the end you can:</b> use $\varepsilon = -N\,d\Phi/dt$ and Lenz&rsquo;s law; derive motional and generator EMFs; define and calculate $M$ and $L$; derive $U = \tfrac12LI^2$ and $u_B = B^2/2\mu_0$; use MMF and reluctance.</p>
+  </div>
+
+  <h3><span class="n">10.1</span>Faraday&rsquo;s and Lenz&rsquo;s laws</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\varepsilon = -N\frac{d\Phi_B}{dt}, \qquad \oint\vec E\cdot d\vec l = -\frac{d\Phi_B}{dt}$$</div>
+    <p><b>Lenz&rsquo;s law</b> (the minus sign): the induced current flows so as to <b>oppose the change</b> in flux that produced it. Otherwise energy would be created from nothing.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: motional EMF</span>
+    <p><span class="step">Step 1</span>A rod of length $L$ slides at speed $v$ on rails in field $B$. The circuit area grows at $dA/dt = Lv$.</p>
+    <p><span class="step">Step 2</span>$\varepsilon = d(BA)/dt = BLv$. (Equivalently, each charge in the rod feels $qvB$ along it, doing work $qvBL$.)</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: AC generator</span>
+    <p>A coil of $N$ turns and area $A$ spins at $\omega$ in field $B$: $\Phi = BA\cos\omega t$, so $\varepsilon = -N\dfrac{d\Phi}{dt} = NBA\omega\sin\omega t$, peak $\varepsilon_0 = NBA\omega$.</p>
+  </div>
+
+  <div class="sim" id="sim-faraday">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Push a magnet through a coil</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Push magnet</b>, then change its speed, strength and the number of turns. Flip the magnet.</p>
+    <p class="sim-note"><b>What to notice:</b> the EMF is the <i>slope</i> of the flux graph: zero when the flux is momentarily constant, opposite signs entering and leaving. A faster magnet, a stronger magnet or more turns all give a bigger EMF.</p>
+  </div>
+
+  <div class="sim" id="sim-generator3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>An AC generator</h4></div>
+    <p class="sim-try"><b>Try:</b> change the rotation speed, field, coil area and number of turns.</p>
+    <p class="sim-note"><b>What to notice:</b> the EMF is largest when the coil&rsquo;s plane is parallel to $\vec B$ (flux zero but changing fastest) and zero when it faces the field (flux maximum, momentarily constant). Doubling $\omega$ doubles both the frequency and the peak voltage.</p>
+  </div>
+
+  <h3><span class="n">10.2</span>Mutual and self-inductance</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$M = \frac{N_2\Phi_{21}}{I_1}, \quad \varepsilon_2 = -M\frac{dI_1}{dt}, \qquad L = \frac{N\Phi}{I}, \quad \varepsilon = -L\frac{dI}{dt}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: inductance of a solenoid</span>
+    <p><span class="step">Step 1</span>Length $l$, $N$ turns, area $A$: $B = \mu_0(N/l)I$ and $\Phi = BA$ through each turn.</p>
+    <p><span class="step">Step 2</span>$L = \dfrac{N\Phi}{I} = \dfrac{N\mu_0NIA}{lI} = \dfrac{\mu_0N^2A}{l} = \mu_0n^2Al$.</p>
+  </div>
+
+  <h3><span class="n">10.3</span>Energy stored in an inductor and in a magnetic field</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>To raise the current against the back-EMF the source supplies power $P = LI\,dI/dt$.</p>
+    <p><span class="step">Step 2</span>$U = \displaystyle\int_0^I LI'\,dI' = \frac12LI^2$.</p>
+    <p><span class="step">Step 3</span>For a solenoid, $U = \tfrac12\mu_0n^2Al\,I^2 = \dfrac{B^2}{2\mu_0}(Al)$, so the energy density is</p>
+    <div class="eq">$$u_B = \frac{B^2}{2\mu_0}$$</div>
+  </div>
+
+  <div class="sim" id="sim-rl">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Current growth in an RL circuit</h4></div>
+    <p class="sim-try"><b>Try:</b> close the switch, then open it. Change $L$ and $R$.</p>
+    <p class="sim-note"><b>What to notice:</b> the inductor resists changes in current: $I = (\varepsilon/R)(1-e^{-t/\tau})$ with $\tau = L/R$. The stored energy $\tfrac12LI^2$ grows as the current builds and is released when the switch opens.</p>
+  </div>
+
+  <h3><span class="n">10.4</span>Magnetomotive force (MMF)</h3>
+  <div class="box key"><span class="lbl">Magnetic circuits</span>
+    <div class="eq">$$\mathcal{F} = NI \ \ (\text{ampere-turns}), \qquad \mathcal{R} = \frac{l}{\mu A}, \qquad \Phi = \frac{\mathcal F}{\mathcal R}$$</div>
+    <p>This is &ldquo;Ohm&rsquo;s law&rdquo; for magnetism: MMF drives flux through a core, opposed by its reluctance. Iron cores have a tiny reluctance (large $\mu$); an air gap adds a large one.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A rod 0.5 m long moves at 3 m/s through a 0.2 T field. Find the EMF. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\varepsilon = BLv = 0.3$ V.</p></div></details></li>
+    <li>A 200-turn coil of area 100 cm&sup2; sees $B$ fall from 0.5 T to 0.1 T in 0.2 s. Find the average EMF. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\varepsilon = N\Delta(BA)/\Delta t = 200\times0.4\times0.01/0.2 = 4$ V.</p></div></details></li>
+    <li>A generator: 100 turns, area 100 cm&sup2;, $B = 0.2$ T, 50 Hz. Find the peak EMF. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\varepsilon_0 = NBA\omega = 100\times0.2\times0.01\times2\pi\times50 \approx 62.8$ V.</p></div></details></li>
+    <li>Find $L$ for a solenoid of 1000 turns, length 50 cm, area 1 cm&sup2;. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$L = \mu_0N^2A/l = 4\pi\times10^{-7}\times10^6\times10^{-4}/0.5 \approx 0.25$ mH.</p></div></details></li>
+    <li>A 100 mH inductor carries 2 A. Find the stored energy. Find the energy density in a 1 T field. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$U = \tfrac12LI^2 = 0.2$ J; $u_B = B^2/2\mu_0 \approx 4\times10^5$ J/m&sup3;.</p></div></details></li>
+    <li>$M = 2$ mH. The current in coil 1 changes at 100 A/s. Find the EMF in coil 2. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$|\varepsilon_2| = M\,dI/dt = 0.2$ V.</p></div></details></li>
+    <li>An iron ring ($\mu_r = 1000$, mean length 40 cm, area 4 cm&sup2;) has 500 turns carrying 2 A. Find the flux. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\mathcal R = l/(\mu_0\mu_rA) = 0.4/(4\pi\times10^{-7}\times1000\times4\times10^{-4}) \approx 7.96\times10^5$ A/Wb; $\Phi = NI/\mathcal R = 1000/7.96\times10^5 \approx 1.26$ mWb.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 12 ===================== -->
+<section class="class" id="c12"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Class 12</span><h2>Review class: formula sheet for the mid-term</h2></div>
+  <div class="sheet">
+    <div><h4>Force</h4><p>$\vec F = q(\vec E + \vec v\times\vec B)$</p><p>$r = mv/qB$, $f = qB/2\pi m$</p><p>Selector $v = E/B$</p><p>$\vec F = I\vec L\times\vec B$</p></div>
+    <div><h4>Hall</h4><p>$V_H = IB/nqt$</p><p>$R_H = 1/nq$</p></div>
+    <div><h4>Sources</h4><p>$d\vec B = \frac{\mu_0}{4\pi}\frac{Id\vec l\times\hat r}{r^2}$</p><p>Wire $\mu_0I/2\pi r$; loop $\mu_0I/2R$</p><p>Solenoid $\mu_0nI$; toroid $\mu_0NI/2\pi r$</p></div>
+    <div><h4>Laws</h4><p>$\oint\vec B\cdot d\vec A = 0$</p><p>$\oint\vec B\cdot d\vec l = \mu_0I_{\text{enc}}$</p><p>$\varepsilon = -N\,d\Phi/dt$</p></div>
+    <div><h4>Dipoles and materials</h4><p>$\mu = NIA$, $\vec\tau = \vec\mu\times\vec B$</p><p>$\vec B = \mu_0(\vec H+\vec M) = \mu\vec H$</p></div>
+    <div><h4>Inductance</h4><p>$L = N\Phi/I = \mu_0n^2Al$</p><p>$U = \tfrac12LI^2$, $u_B = B^2/2\mu_0$</p><p>$\Phi = NI/\mathcal R$, $\mathcal R = l/\mu A$</p></div>
+  </div>
+  <p style="margin-top:18px"><b>Mid-term examination</b> covers Classes 1&ndash;11.</p>
+  <div class="pager"><a href="current.html"><small>&larr; Previous unit</small>Current and resistance</a><a href="heat.html"><small>Next unit</small>Temperature and kinetic theory &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/magnetism.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

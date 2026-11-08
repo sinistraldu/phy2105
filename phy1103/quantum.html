@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantum Physics | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 20 to 22: quantum theory of radiation, photoelectric and Compton effects, de Broglie waves, group and phase velocity, X-rays, Bragg's law, uncertainty principle, pair production.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html" aria-current="page">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 6 &middot; Classes 20&ndash;22 &middot; Modern physics</span>
+  <h1>Quantum Physics</h1>
+  <p class="lead">Light comes in packets of energy $hf$, particles behave as waves of wavelength $h/p$, and nature limits how precisely position and momentum can be known together. These ideas explain photocells, X-ray machines, crystal diffraction, electron microscopes and the creation of matter from light.</p>
+  <ul class="toc">
+    <li><a href="#c20"><span>Class 20</span>Photons, photoelectric, Compton</a></li>
+    <li><a href="#c21"><span>Class 21</span>De Broglie, velocities, X-rays, Bragg</a></li>
+    <li><a href="#c22"><span>Class 22</span>Uncertainty, correspondence, pairs</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 20 ===================== -->
+<section class="class" id="c20"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 20</span>
+    <h2>Quantum theory of radiation, photons, the photoelectric effect and the Compton effect</h2>
+    <p class="goals"><b>By the end you can:</b> explain Planck&rsquo;s quantum hypothesis; use $E = hf$; derive Einstein&rsquo;s photoelectric equation and find work function, threshold frequency and stopping voltage; derive the Compton shift.</p>
+  </div>
+
+  <h3><span class="n">20.1</span>Quantum theory of radiation</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>Classical physics predicted that a hot body should radiate infinite energy at short wavelengths (the <b>ultraviolet catastrophe</b>, Rayleigh&ndash;Jeans law). Planck fixed this in 1900 by assuming that oscillators in the walls can only have energies $nhf$. Light is emitted and absorbed in <b>quanta</b> (photons):</p>
+    <div class="eq">$$E = hf = \frac{hc}{\lambda}, \qquad p = \frac{h}{\lambda}, \qquad h = 6.626\times10^{-34}\ \text{J s}$$</div>
+    <div class="eq">$$u(\lambda,T) = \frac{8\pi hc}{\lambda^5}\,\frac{1}{e^{hc/\lambda kT}-1} \quad\text{(Planck)}, \qquad \lambda_{\max}T = 2.898\times10^{-3}\ \text{m K}$$</div>
+  </div>
+
+  <div class="sim" id="sim-planck">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Blackbody radiation: Planck vs Rayleigh&ndash;Jeans</h4></div>
+    <p class="sim-try"><b>Try:</b> change the temperature from a warm stove to the Sun. Switch on the classical Rayleigh&ndash;Jeans curve.</p>
+    <p class="sim-note"><b>What to notice:</b> the classical curve shoots to infinity at short wavelengths; Planck&rsquo;s quanta make high-frequency modes too &ldquo;expensive&rdquo; to excite, so the curve turns over. Hotter bodies peak at shorter wavelength (Wien) and radiate far more ($\propto T^4$).</p>
+  </div>
+
+  <h3><span class="n">20.2</span>The photoelectric effect</h3>
+  <div class="box der"><span class="lbl">Einstein&rsquo;s equation</span>
+    <p><span class="step">Step 1</span>A single photon gives all its energy $hf$ to a single electron.</p>
+    <p><span class="step">Step 2</span>The electron must spend at least the <b>work function</b> $\phi$ to escape; whatever is left is its maximum kinetic energy:</p>
+    <div class="eq">$$hf = \phi + K_{\max}, \qquad K_{\max} = eV_0, \qquad f_0 = \frac{\phi}{h}, \qquad \lambda_0 = \frac{hc}{\phi}$$</div>
+    <p><span class="step">Consequences</span>Below the <b>threshold frequency</b> $f_0$ no electrons come out, however bright the light. Above it, $K_{\max}$ rises linearly with $f$ (slope $h$) but does not depend on intensity; intensity only changes the <b>number</b> of electrons (the current). The <b>stopping voltage</b> $V_0$ is the reverse voltage that just stops the fastest electrons. Emission is instantaneous.</p>
+  </div>
+
+  <div class="sim" id="sim-photo">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Photoelectric effect lab</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a metal, change the wavelength and the intensity, and adjust the voltage. Find the threshold wavelength and the stopping voltage.</p>
+    <p class="sim-note"><b>What to notice:</b> red light ejects nothing from zinc however bright it is; UV ejects electrons immediately. Brighter light gives more current but the same stopping voltage. The $K_{\max}$&ndash;$f$ line has slope $h$ and crosses zero at $f_0$.</p>
+  </div>
+
+  <div class="sim" id="sim-photo3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Photons knocking out electrons</h4></div>
+    <p class="sim-try"><b>Try:</b> change the wavelength, the intensity (photons per second) and the work function. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> each photon (yellow) either frees one electron (blue) or nothing. The electrons&rsquo; speed depends only on $hf - \phi$; more photons give more electrons, not faster ones.</p>
+  </div>
+
+  <h3><span class="n">20.3</span>The Compton effect</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A photon (energy $hc/\lambda$, momentum $h/\lambda$) hits a free electron at rest and scatters through angle $\theta$ with wavelength $\lambda'$; the electron recoils.</p>
+    <p><span class="step">Step 2</span>Conservation of momentum (vector): $p_e^2 = \left(\dfrac h\lambda\right)^2 + \left(\dfrac h{\lambda'}\right)^2 - \dfrac{2h^2}{\lambda\lambda'}\cos\theta$.</p>
+    <p><span class="step">Step 3</span>Conservation of energy (relativistic electron): $\dfrac{hc}\lambda + m_ec^2 = \dfrac{hc}{\lambda'} + \sqrt{p_e^2c^2 + m_e^2c^4}$.</p>
+    <p><span class="step">Step 4</span>Square, substitute $p_e^2$ and simplify:</p>
+    <div class="eq">$$\Delta\lambda = \lambda' - \lambda = \frac{h}{m_ec}(1-\cos\theta), \qquad \frac{h}{m_ec} = 2.426\times10^{-12}\ \text{m}$$</div>
+    <p>The shift is independent of $\lambda$ and the material, and is noticeable only for X-rays and gamma rays. It proves photons carry momentum.</p>
+  </div>
+
+  <div class="sim" id="sim-compton">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Compton scattering</h4></div>
+    <p class="sim-try"><b>Try:</b> change the scattering angle and the incident X-ray wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> the shift is zero straight ahead and largest ($2h/m_ec = 4.85$ pm) for back-scattering. The same shift is a big fraction of a short wavelength (gamma ray) but tiny for visible light.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the energy of a 500 nm photon in eV. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$E = hc/\lambda = 2.48$ eV.</p></div></details></li>
+    <li>Sodium has $\phi = 2.28$ eV. Find $f_0$, $\lambda_0$, and $K_{\max}$ and $V_0$ for 400 nm light. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$f_0 = 5.51\times10^{14}$ Hz; $\lambda_0 = 544$ nm; $K_{\max} = 3.10 - 2.28 = 0.82$ eV; $V_0 = 0.82$ V.</p></div></details></li>
+    <li>Why does doubling the intensity of light below threshold still give no photoelectrons? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Each electron absorbs one photon; if $hf &lt; \phi$ no single photon has enough energy, however many arrive.</p></div></details></li>
+    <li>X-rays scatter at 60&deg;. Find $\Delta\lambda$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta\lambda = 2.426\times10^{-12}(1-0.5) = 1.21$ pm.</p></div></details></li>
+    <li>Find $\lambda_{\max}$ for a filament at 3000 K. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda_{\max} = 2.898\times10^{-3}/3000 \approx 966$ nm (infrared; most of a bulb&rsquo;s output is heat).</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 21 ===================== -->
+<section class="class" id="c21"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 21</span>
+    <h2>De Broglie waves, group and phase velocity, X-rays and Bragg&rsquo;s law</h2>
+    <p class="goals"><b>By the end you can:</b> find de Broglie wavelengths; derive $v_g = v$ for a matter wave; describe X-ray production, types and spectrum; derive Bragg&rsquo;s law; use Miller indices to find plane spacings.</p>
+  </div>
+
+  <h3><span class="n">21.1</span>De Broglie wavelength</h3>
+  <div class="box key"><span class="lbl">Key result</span>
+    <div class="eq">$$\lambda = \frac hp = \frac{h}{mv} = \frac{h}{\sqrt{2mK}} = \frac{h}{\sqrt{2meV}}\ \text{(electron accelerated through } V)$$</div>
+    <p>Every moving particle has a wavelength. For an electron through 100 V it is 0.123 nm, about an atom&rsquo;s size, so electrons diffract from crystals (Davisson&ndash;Germer). For a cricket ball it is $\sim10^{-34}$ m, far too small to notice.</p>
+  </div>
+
+  <div class="sim" id="sim-orbit3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Electron waves fitting around an orbit</h4></div>
+    <p class="sim-try"><b>Try:</b> change the orbit number $n$ and the orbit radius. Only when a whole number of wavelengths fits does the wave join smoothly.</p>
+    <p class="sim-note"><b>What to notice:</b> requiring $2\pi r = n\lambda = nh/mv$ gives $mvr = n\hbar$, Bohr&rsquo;s quantization of angular momentum. The allowed orbits (and energies) are exactly those where the de Broglie wave forms a standing wave.</p>
+  </div>
+
+  <h3><span class="n">21.2</span>Phase velocity and group velocity</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Phase velocity</span>A single wave $\cos(kx - \omega t)$ moves at $v_p = \omega/k$. For a matter wave $E = \hbar\omega = mc^2$ and $p = \hbar k = mv$, so $v_p = c^2/v &gt; c$. No information travels at $v_p$.</p>
+    <p><span class="step">Group velocity</span>Adding two waves with slightly different $k$ and $\omega$ gives $2\cos\!\left(\frac{\Delta k}2x - \frac{\Delta\omega}2t\right)\cos(kx - \omega t)$: an envelope (the &ldquo;group&rdquo;) moving at $v_g = \Delta\omega/\Delta k \to d\omega/dk$.</p>
+    <p><span class="step">Matter wave</span>$v_g = \dfrac{d\omega}{dk} = \dfrac{dE}{dp}$. With $E^2 = p^2c^2 + m_0^2c^4$: $\dfrac{dE}{dp} = \dfrac{pc^2}{E} = v$. The group moves with the particle. Also $v_gv_p = c^2$.</p>
+  </div>
+
+  <div class="sim" id="sim-groupvel">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Phase velocity vs group velocity</h4></div>
+    <p class="sim-try"><b>Try:</b> change the dispersion (how $\omega$ depends on $k$) and the spread $\Delta k$ between the two waves. Follow the red crest and the green envelope.</p>
+    <p class="sim-note"><b>What to notice:</b> with no dispersion both move together. With dispersion the crests slide through the envelope: they move at $v_p = \omega/k$ while the envelope (which carries the energy) moves at $v_g = d\omega/dk$. A smaller $\Delta k$ makes longer groups.</p>
+  </div>
+
+  <h3><span class="n">21.3</span>X-rays: production, properties, types and spectrum</h3>
+  <ul>
+    <li><b>Production:</b> electrons accelerated through a high voltage $V$ hit a heavy-metal target (tungsten, molybdenum, copper) in an evacuated tube.</li>
+    <li><b>Continuous spectrum</b> (bremsstrahlung, &ldquo;braking radiation&rdquo;): electrons decelerate in the nuclei&rsquo;s fields. Its sharp short-wavelength cut-off comes from an electron giving all its energy to one photon: $\lambda_{\min} = hc/eV$ (Duane&ndash;Hunt law).</li>
+    <li><b>Characteristic lines</b> ($K_\alpha$, $K_\beta$): an electron knocks out an inner-shell electron; an outer electron drops in and emits a photon with energy fixed by the target element.</li>
+    <li><b>Hard X-rays</b> (short $\lambda$, high tube voltage) penetrate deeply: radiography, CT, industrial inspection. <b>Soft X-rays</b> (longer $\lambda$) are absorbed easily: surface studies, mammography.</li>
+    <li><b>Properties:</b> travel in straight lines, not deflected by fields, ionize gases, cause fluorescence, blacken film, and diffract from crystals.</li>
+  </ul>
+
+  <div class="sim" id="sim-xspec">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>X-ray tube spectrum</h4></div>
+    <p class="sim-try"><b>Try:</b> raise the tube voltage and change the target metal and the current.</p>
+    <p class="sim-note"><b>What to notice:</b> $\lambda_{\min} = hc/eV$ moves to shorter wavelength as $V$ rises, whatever the target. The characteristic peaks stay at fixed wavelengths for each metal and only appear once $V$ is high enough to knock out a K-shell electron. Current only scales the height.</p>
+  </div>
+
+  <h3><span class="n">21.4</span>Bragg&rsquo;s law and Miller indices</h3>
+  <div class="box der"><span class="lbl">Derivation of Bragg&rsquo;s law</span>
+    <p><span class="step">Step 1</span>X-rays reflect off successive parallel planes of atoms, spacing $d$, at glancing angle $\theta$.</p>
+    <p><span class="step">Step 2</span>The ray from the lower plane travels extra distance $d\sin\theta$ going in and $d\sin\theta$ coming out: path difference $2d\sin\theta$.</p>
+    <p><span class="step">Step 3</span>Constructive interference when the path difference is a whole number of wavelengths:</p>
+    <div class="eq">$$2d\sin\theta = n\lambda$$</div>
+  </div>
+  <div class="box key"><span class="lbl">Miller indices</span>
+    <p>A crystal plane cutting the axes at $a/h$, $b/k$, $c/l$ has Miller indices $(hkl)$ (take reciprocals of the intercepts in units of the lattice constant and clear fractions). For a cubic crystal of side $a$:</p>
+    <div class="eq">$$d_{hkl} = \frac{a}{\sqrt{h^2+k^2+l^2}}$$</div>
+    <p><b>Applications:</b> finding crystal structures and lattice constants, identifying minerals and drugs (powder diffraction), measuring X-ray wavelengths, and solving the structures of DNA and proteins.</p>
+  </div>
+
+  <div class="sim" id="sim-miller3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Miller planes and Bragg reflection</h4></div>
+    <p class="sim-try"><b>Try:</b> set the Miller indices $h$, $k$, $l$ to light up a family of planes. Then change the glancing angle and wavelength to find the Bragg reflection for that family.</p>
+    <p class="sim-note"><b>What to notice:</b> higher indices mean more closely spaced planes, $d = a/\sqrt{h^2+k^2+l^2}$, which reflect at larger angles. The reflected beam is bright only when $2d\sin\theta = n\lambda$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the de Broglie wavelength of an electron accelerated through 100 V, and of a 145 g ball at 40 m/s. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Electron: $h/\sqrt{2meV} = 0.123$ nm. Ball: $h/mv = 1.1\times10^{-34}$ m.</p></div></details></li>
+    <li>Find $\lambda_{\min}$ for an X-ray tube at 30 kV. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$hc/eV = 4.14\times10^{-11}$ m $= 0.0414$ nm.</p></div></details></li>
+    <li>X-rays of 0.154 nm reflect from planes 0.20 nm apart. Find the first-order Bragg angle. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\sin\theta = \lambda/2d = 0.385$, $\theta = 22.6^\circ$.</p></div></details></li>
+    <li>A cubic crystal has $a = 0.40$ nm. Find $d_{111}$ and $d_{200}$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$d_{111} = 0.40/\sqrt3 = 0.231$ nm; $d_{200} = 0.40/2 = 0.20$ nm.</p></div></details></li>
+    <li>For deep-water waves $\omega = \sqrt{gk}$. Show that $v_g = v_p/2$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$v_p = \omega/k = \sqrt{g/k}$; $v_g = d\omega/dk = \tfrac12\sqrt{g/k} = v_p/2$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 22 ===================== -->
+<section class="class" id="c22"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 22</span>
+    <h2>Heisenberg&rsquo;s uncertainty principle, the correspondence principle, pair production and annihilation</h2>
+    <p class="goals"><b>By the end you can:</b> state and use both forms of the uncertainty principle; explain it from wave packets; state the correspondence principle; find the threshold for pair production and the photons from annihilation.</p>
+  </div>
+
+  <h3><span class="n">22.1</span>The uncertainty principle</h3>
+  <div class="box key"><span class="lbl">Principles I and II</span>
+    <div class="eq">$$\Delta x\,\Delta p \ge \frac\hbar2, \qquad \Delta E\,\Delta t \ge \frac\hbar2, \qquad \hbar = \frac{h}{2\pi}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Where it comes from</span>
+    <p><span class="step">Step 1</span>A particle localised in space is a wave packet: a sum of waves with a spread of wavenumbers $\Delta k$.</p>
+    <p><span class="step">Step 2</span>To build a packet of length $\Delta x$ you need $\Delta k \gtrsim 1/\Delta x$ (a property of all waves: a short pulse needs many frequencies). Exactly, $\Delta x\,\Delta k \ge \tfrac12$.</p>
+    <p><span class="step">Step 3</span>With $p = \hbar k$: $\Delta x\,\Delta p \ge \hbar/2$. In time, a signal lasting $\Delta t$ has a spread of frequencies $\Delta\omega\ge 1/(2\Delta t)$, and $E = \hbar\omega$ gives $\Delta E\,\Delta t\ge\hbar/2$.</p>
+    <p>This is not a fault of instruments: it is built into the wave nature of matter. Consequence: electrons cannot sit inside nuclei (their confinement energy would be far too large), and excited states have a natural line width.</p>
+  </div>
+
+  <div class="sim" id="sim-packet">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Build a wave packet: &Delta;x &middot; &Delta;k</h4></div>
+    <p class="sim-try"><b>Try:</b> widen or narrow the spread of wavenumbers $\Delta k$ and the number of waves added. Watch the packet in space (top) and the spread of $k$ (bottom).</p>
+    <p class="sim-note"><b>What to notice:</b> a narrow range of $k$ (well-known momentum) gives a long packet (poorly known position), and vice versa. The product $\Delta x\,\Delta k$ never drops below $\tfrac12$.</p>
+  </div>
+
+  <h3><span class="n">22.2</span>The correspondence principle</h3>
+  <p>Bohr&rsquo;s <b>correspondence principle</b>: in the limit of large quantum numbers (or when $h$ is negligible), quantum physics must reproduce classical physics. Example: for a hydrogen atom with very large $n$, the frequency of light emitted in a jump $n\to n-1$ approaches the classical orbital frequency of the electron, and energy levels become so close they look continuous. A cricket ball&rsquo;s de Broglie wavelength is so small that it simply follows Newton&rsquo;s laws.</p>
+
+  <h3><span class="n">22.3</span>Pair production and pair annihilation</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\gamma \to e^- + e^+ \quad (hf \ge 2m_ec^2 = 1.022\ \text{MeV}), \qquad e^- + e^+ \to 2\gamma\ (0.511\ \text{MeV each, back to back})$$</div>
+    <p>A high-energy photon passing close to a nucleus can turn into an electron and a positron; the nucleus takes up some momentum so both energy and momentum can be conserved (this cannot happen in empty space). Energy above the threshold becomes the pair&rsquo;s kinetic energy. When a positron meets an electron they annihilate into two photons going in opposite directions (to conserve momentum). PET scanners detect exactly these back-to-back 511 keV photons.</p>
+  </div>
+
+  <div class="sim" id="sim-pair3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Pair production and annihilation in a magnetic field</h4></div>
+    <p class="sim-try"><b>Try:</b> set the gamma-ray energy and press <b>Fire gamma</b>. Then press <b>Annihilate</b>. Change the magnetic field (as in a bubble chamber).</p>
+    <p class="sim-note"><b>What to notice:</b> below 1.022 MeV nothing happens. Above it, the electron and positron curl in opposite directions in the field (opposite charges); extra energy makes them faster, with larger spirals. Annihilation always gives two photons flying apart in opposite directions.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>An electron is confined to $\Delta x = 0.1$ nm. Find the minimum uncertainty in its velocity. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta v = \hbar/(2m\Delta x) \approx 5.8\times10^5$ m/s.</p></div></details></li>
+    <li>An excited state lives $10^{-8}$ s. Find the minimum energy uncertainty. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta E \ge \hbar/(2\Delta t) \approx 3.3\times10^{-8}$ eV.</p></div></details></li>
+    <li>Find the threshold photon energy for pair production and the wavelength of each annihilation photon. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>1.022 MeV; $\lambda = hc/(0.511\ \text{MeV}) = 2.43$ pm.</p></div></details></li>
+    <li>A 3 MeV photon produces a pair. Find the total kinetic energy shared by the electron and positron. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$3 - 1.022 = 1.978$ MeV (ignoring the tiny recoil of the nucleus).</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="thermo.html"><small>&larr; Previous unit</small>Thermodynamics</a><a href="nuclear.html"><small>Next unit</small>Nuclear physics &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/quantum.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

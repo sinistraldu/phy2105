@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHY1103 Physics II</title>
+<meta name="description" content="Course website for PHY1103 Physics II (EEE, Section B): electricity and magnetism, heat and thermodynamics, quantum and nuclear physics, with derivations, problems and interactive 2D and 3D simulations.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">United International University &middot; Department of Electrical and Electronic Engineering</span>
+  <h1>PHY1103: Physics II</h1>
+  <p class="lead">Electricity and magnetism, heat and thermodynamics, and quantum and nuclear physics, class by class. Every topic has the theory, step-by-step derivations, worked examples, practice problems, and 2D and 3D simulations whose sliders match the symbols in the equations.</p>
+  <ul class="toc">
+    <li><a href="#units">Start learning</a></li>
+    <li><a href="#schedule">Class-by-class schedule</a></li>
+    <li><a href="#course">Course information</a></li>
+  </ul>
+</div></div>
+
+<section class="class" id="how"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">How to use this site</span><h2>Derive it, see it, solve it</h2></div>
+  <ol class="steps">
+    <li><b>Read the idea</b>Each class starts with the physical picture, then the key result in a box.</li>
+    <li><b>Follow the derivation</b>Derivations are written step by step, so you can reproduce them in an exam.</li>
+    <li><b>Play with the simulations</b>Every slider is a symbol in the equation. Change one thing at a time and watch the live numbers. 2D views show graphs; 3D views can be rotated, zoomed, paused and slowed down.</li>
+    <li><b>Try the problems</b>Work each problem first, then press <i>Show solution</i>.</li>
+  </ol>
+</div></section>
+
+<section class="class" id="units"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Units</span><h2>Seven units, 24 classes</h2></div>
+  <div class="units">
+    <a class="unit" href="electrostatics.html"><span class="kicker">Classes 1&ndash;5</span><h3>Electrostatics</h3><p>Charge, Coulomb&rsquo;s law, field, dipoles, flux, Gauss&rsquo;s law, potential, capacitors, dielectrics, P and D.</p><div class="count" data-count="electrostatics">11 simulations &middot; 5 in 3D</div></a>
+    <a class="unit" href="current.html"><span class="kicker">Classes 6&ndash;7</span><h3>Current and Resistance</h3><p>Laplace and Poisson equations, Gauss&rsquo;s law in dielectrics, current density, resistivity, colour code, Ohm&rsquo;s law, EMF.</p><div class="count" data-count="current">7 simulations &middot; 2 in 3D</div></a>
+    <a class="unit" href="magnetism.html"><span class="kicker">Classes 8&ndash;12</span><h3>Magnetism and Induction</h3><p>Lorentz force, Hall effect, Biot&ndash;Savart and Amp&egrave;re, magnetic materials, hysteresis, Faraday, Lenz, inductance.</p><div class="count" data-count="magnetism">10 simulations &middot; 5 in 3D</div></a>
+    <a class="unit" href="heat.html"><span class="kicker">Classes 13&ndash;14</span><h3>Temperature and Kinetic Theory</h3><p>Temperature scales, thermometers, pressure of a gas, degrees of freedom, equipartition, mean free path, van der Waals.</p><div class="count" data-count="heat">7 simulations &middot; 3 in 3D</div></a>
+    <a class="unit" href="thermo.html"><span class="kicker">Classes 16&ndash;19</span><h3>Thermodynamics</h3><p>First law, processes and work, heat engines, refrigerators, Carnot, Otto and Diesel cycles, entropy, potentials, Maxwell relations.</p><div class="count" data-count="thermo">8 simulations &middot; 3 in 3D</div></a>
+    <a class="unit" href="quantum.html"><span class="kicker">Classes 20&ndash;22</span><h3>Quantum Physics</h3><p>Planck, photons, photoelectric and Compton effects, de Broglie, group and phase velocity, X-rays, Bragg, uncertainty, pair production.</p><div class="count" data-count="quantum">10 simulations &middot; 4 in 3D</div></a>
+    <a class="unit" href="nuclear.html"><span class="kicker">Classes 23&ndash;24</span><h3>Nuclear Physics</h3><p>Nuclear size, mass defect, binding energy, radioactivity, decay law, half-life, &alpha;, &beta;, &gamma;, fission, fusion, chain reactions.</p><div class="count" data-count="nuclear">6 simulations &middot; 2 in 3D</div></a>
+  </div>
+</div></section>
+
+<section class="class" id="schedule"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Topic outline</span><h2>Class-by-class schedule</h2><p class="goals">Follows the official course outline. Click a class to go straight to it.</p></div>
+  <div class="table-wrap"><table class="data sched">
+    <tr><th>Class</th><th>Topics</th><th>Activities</th></tr>
+    <tr><td><a href="electrostatics.html#c1">1, 2</a></td><td>Charge, Coulomb&rsquo;s law, electric field and its calculation, dipole and its field, torque on a dipole, electric flux, Gauss&rsquo;s law and its applications</td><td>Problem solving</td></tr>
+    <tr><td><a href="electrostatics.html#c3">3, 4</a></td><td>Electric potential and potential energy, field&ndash;potential relation, potential of a point charge, dipole and continuous distributions, equipotentials, potential gradient</td><td>HW</td></tr>
+    <tr class="quiz"><td><a href="electrostatics.html#c5">5</a></td><td>Capacitors in series and parallel, stored energy, energy density, electron volt, dielectrics, polarization and displacement vectors</td><td>Quiz 1</td></tr>
+    <tr><td><a href="current.html#c6">6</a></td><td>Laplace&rsquo;s and Poisson&rsquo;s equations, capacitor with a dielectric, Gauss&rsquo;s law with dielectric, current, current density, charge density</td><td>HW</td></tr>
+    <tr class="quiz"><td><a href="current.html#c7">7</a></td><td>Resistance and resistivity, colour code, expression for resistivity, conductance and conductivity, Ohm&rsquo;s law, EMF</td><td>Quiz 2</td></tr>
+    <tr><td><a href="magnetism.html#c8">8</a></td><td>Magnetic field, flux, Lorentz force, Gauss&rsquo;s law for magnetism, charged particle motion, Hall effect, magnetic field intensity</td><td>Assignment</td></tr>
+    <tr><td><a href="magnetism.html#c9">9</a></td><td>Magnetic dipole moment, Biot&ndash;Savart law, Amp&egrave;re&rsquo;s law and applications, magnetic materials, magnetization, hysteresis</td><td>Problem solving</td></tr>
+    <tr><td><a href="magnetism.html#c10">10, 11</a></td><td>Induced emf, Faraday&rsquo;s and Lenz&rsquo;s laws, mutual and self-inductance, energy in an inductor, MMF</td><td>Assignment</td></tr>
+    <tr><td><a href="magnetism.html#c12">12</a></td><td>Review class</td><td>&ndash;</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Mid-term examination</td><td>30%</td></tr>
+    <tr><td><a href="heat.html#c13">13</a></td><td>Temperature scales, principles of measurement, resistance, thermoelectric and radiation thermometers</td><td>HW</td></tr>
+    <tr><td><a href="heat.html#c14">14</a></td><td>Kinetic theory: postulates, pressure of a gas, degrees of freedom, equipartition, KE and temperature, equation of state, van der Waals</td><td>HW</td></tr>
+    <tr class="quiz"><td><a href="thermo.html#c16">16</a></td><td>First law, path-dependent work and heat, isothermal, adiabatic, isochoric and isobaric processes</td><td>Quiz 3</td></tr>
+    <tr><td><a href="thermo.html#c17">17</a></td><td>Heat engines and refrigerators, efficiency, COP, Carnot, Otto and Diesel cycles</td><td>HW</td></tr>
+    <tr><td><a href="thermo.html#c18">18</a></td><td>Entropy, reversible and irreversible processes, T&ndash;S diagram, U, A, G and H</td><td>HW</td></tr>
+    <tr><td><a href="thermo.html#c19">19</a></td><td>Maxwell&rsquo;s relations, Clausius&ndash;Clapeyron equation, pressure and boiling/melting points</td><td>Exercise</td></tr>
+    <tr><td><a href="quantum.html#c20">20</a></td><td>Quantum theory of radiation, photon energy, photoelectric effect, work function, threshold frequency and voltage, Compton effect</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="quantum.html#c21">21</a></td><td>De Broglie wavelength, group and phase velocity, X-rays, spectrum, Bragg&rsquo;s law and derivation, Miller indices</td><td>Quiz 4</td></tr>
+    <tr><td><a href="quantum.html#c22">22</a></td><td>Heisenberg&rsquo;s uncertainty principle, correspondence principle, pair production and annihilation</td><td>Assignment</td></tr>
+    <tr><td><a href="nuclear.html#c23">23</a></td><td>Nucleus, mass defect, binding energy, radioactivity, series, decay law, half-life, mean life, &alpha; &beta; &gamma;, fission, fusion, chain reactions</td><td>Assignment</td></tr>
+    <tr><td><a href="nuclear.html#c24">24</a></td><td>Review class</td><td>&ndash;</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Final examination</td><td>40%</td></tr>
+  </table></div>
+</div></section>
+
+<section class="class" id="course"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Course information</span><h2>About the course</h2></div>
+  <dl class="info">
+    <dt>Course</dt><dd>PHY 1103 / PHY 103: Physics II (3 credits, core course)</dd>
+    <dt>Programme</dt><dd>B.Sc. in Electrical and Electronic Engineering, School of Science and Engineering</dd>
+    <dt>Prerequisite</dt><dd>Physics I (PHY 1101 / PHY 101)</dd>
+    <dt>Section</dt><dd>B</dd>
+    <dt>Class hours</dt><dd>Saturday and Tuesday, 12:31 PM &ndash; 1:50 PM, Room 801</dd>
+    <dt>Assessment</dt><dd>Class participation 5% &middot; Class tests (best 3 of 4) 20% &middot; Assignments 5% &middot; Mid-term 30% &middot; Final 40%</dd>
+    <dt>Text book</dt><dd>Halliday, Resnick &amp; Walker, <i>Fundamentals of Physics</i> (10th ed.)</dd>
+    <dt>References</dt><dd>Beiser, <i>Concepts of Modern Physics</i>; Giasuddin Ahmed, <i>Physics for Engineers</i>; Brij Lal, Subrahmanyam &amp; Hemne, <i>Heat, Thermodynamics and Statistical Physics</i>; T. Hossain, <i>A Text Book of Heat</i>; Ghoshal, <i>Atomic Physics</i>; Young &amp; Freedman, <i>University Physics</i>; Alexander &amp; Sadiku, <i>Fundamentals of Electric Circuits</i></dd>
+  </dl>
+  <h3>Course outcomes</h3>
+  <ol>
+    <li><b>Define and explain</b> the quantities and laws of electricity and magnetism, heat and thermodynamics, and quantum, modern and nuclear physics.</li>
+    <li><b>Derive and establish</b> relations such as the field of a dipole, potentials, series&ndash;parallel capacitance, the Hall equation, Biot&ndash;Savart, Amp&egrave;re and Gauss laws, Einstein&rsquo;s photoelectric equation, Compton and de Broglie wavelengths, the decay law, equipartition, work in processes, engine and refrigerator efficiency, entropy, Maxwell&rsquo;s relations and the uncertainty principle.</li>
+    <li><b>Calculate</b> fields, potentials, flux, capacitor energy, degrees of freedom, temperatures, Carnot efficiency, entropy changes, work function and threshold values, half-life, decay constant, activity, uncertainty, phase and group velocity.</li>
+  </ol>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

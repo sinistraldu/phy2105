@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Current and Resistance | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 6 and 7: Laplace and Poisson equations, dielectrics, current density, resistivity, colour code, Ohm's law and EMF.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html" aria-current="page">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 2 &middot; Classes 6&ndash;7 &middot; Electricity</span>
+  <h1>Current and Resistance</h1>
+  <p class="lead">From the differential form of Gauss&rsquo;s law to Laplace&rsquo;s and Poisson&rsquo;s equations, then charges on the move: current density, drift velocity, why metals have resistance, and what an EMF really is.</p>
+  <ul class="toc">
+    <li><a href="#c6"><span>Class 6</span>Laplace, Poisson, dielectrics, current</a></li>
+    <li><a href="#c7"><span>Class 7</span>Resistance, Ohm&rsquo;s law, EMF</a></li>
+    <li><a href="#review"><span>Review</span>Formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 6 ===================== -->
+<section class="class" id="c6"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 6</span>
+    <h2>Laplace&rsquo;s and Poisson&rsquo;s equations, dielectrics, current and current density</h2>
+    <p class="goals"><b>By the end you can:</b> derive $\nabla^2V = -\rho/\varepsilon_0$; solve it in one dimension; apply Gauss&rsquo;s law with a dielectric using $\vec D$; define $I$, $\vec J$ and charge density; derive $J = nqv_d$.</p>
+  </div>
+
+  <h3><span class="n">6.1</span>Poisson&rsquo;s and Laplace&rsquo;s equations</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Gauss&rsquo;s law for a tiny volume $dV$ (divergence theorem) gives the differential form: $\nabla\cdot\vec E = \rho/\varepsilon_0$, where $\rho$ is the volume charge density.</p>
+    <p><span class="step">Step 2</span>Substitute $\vec E = -\nabla V$: $\nabla\cdot(-\nabla V) = \rho/\varepsilon_0$.</p>
+    <div class="eq">$$\nabla^2 V = \frac{\partial^2V}{\partial x^2}+\frac{\partial^2V}{\partial y^2}+\frac{\partial^2V}{\partial z^2} = -\frac{\rho}{\varepsilon_0}\quad\text{(Poisson)}, \qquad \nabla^2 V = 0 \quad\text{(Laplace, where } \rho = 0)$$</div>
+    <p><span class="step">Step 3</span>In one dimension between plates at $x=0$ ($V_0$) and $x=L$ ($V_L$) with no charge: $V'' = 0 \Rightarrow V = V_0 + (V_L-V_0)\,x/L$, a straight line (uniform $E$).</p>
+    <p><span class="step">Step 4</span>With a uniform charge density $\rho$: $V'' = -\rho/\varepsilon_0 \Rightarrow V = -\dfrac{\rho}{2\varepsilon_0}x^2 + Ax + B$, a parabola. The constants come from the boundary values.</p>
+  </div>
+  <p>Laplace&rsquo;s equation says the potential in a charge-free region has no local maximum or minimum: at every point $V$ is the average of its neighbours. That is why an electron cannot be held at rest by electrostatic forces alone, and why the inside of a closed conductor is field-free (a Faraday cage).</p>
+
+  <div class="sim" id="sim-poisson">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Solve Poisson&rsquo;s equation between two plates</h4></div>
+    <p class="sim-try"><b>Try:</b> set the two plate voltages, then fill the gap with charge (positive or negative $\rho$). The lower graph is $E = -dV/dx$.</p>
+    <p class="sim-note"><b>What to notice:</b> with $\rho = 0$ the potential is a straight line and $E$ is constant (Laplace). Positive charge bends $V$ into a hill (curvature $-\rho/\varepsilon_0$), and $E$ then changes linearly across the gap, exactly as Gauss&rsquo;s law requires.</p>
+  </div>
+
+  <h3><span class="n">6.2</span>Capacitor with a dielectric; Gauss&rsquo;s law in a dielectric</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Inside a dielectric the enclosed charge has two parts: free charge $q$ on the plates and bound charge $-q'$ on the dielectric surface. Gauss: $\varepsilon_0\oint\vec E\cdot d\vec A = q - q'$.</p>
+    <p><span class="step">Step 2</span>Experiment shows the field is reduced by $\kappa$: $E = E_0/\kappa$, so $q - q' = q/\kappa$, i.e. $q' = q(1 - 1/\kappa)$.</p>
+    <p><span class="step">Step 3</span>Hence $\varepsilon_0\oint\kappa\vec E\cdot d\vec A = q$. Writing $\vec D = \kappa\varepsilon_0\vec E = \varepsilon_0\vec E + \vec P$:</p>
+    <div class="eq">$$\oint \vec D\cdot d\vec A = q_{\text{free}}$$</div>
+    <p>Only the <b>free</b> charge appears; the bound charge is hidden inside $\vec D$. For a plate capacitor this gives $C = \kappa\varepsilon_0A/d$.</p>
+  </div>
+
+  <div class="sim" id="sim-polarize3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Molecules polarizing in a dielectric</h4></div>
+    <p class="sim-try"><b>Try:</b> raise the applied field and the susceptibility $\chi_e$; lower the temperature to reduce the thermal jiggling.</p>
+    <p class="sim-note"><b>What to notice:</b> the molecular dipoles (arrows) swing toward the field. Their alignment is the polarization $\vec P$; it leaves a layer of bound charge on each face that opposes the applied field, so the field inside drops to $E_0/\kappa$.</p>
+  </div>
+
+  <h3><span class="n">6.3</span>Current, current density and charge density</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$I = \frac{dq}{dt}, \qquad I = \int \vec J\cdot d\vec A, \qquad \vec J = nq\vec v_d = \rho_q\vec v_d$$</div>
+    <p>Current (A) is a scalar rate of charge flow; current density $\vec J$ (A/m&sup2;) is a vector that says how the flow is spread over a cross-section. $\rho_q = nq$ is the density of mobile charge.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: J = nqv<sub>d</sub></span>
+    <p><span class="step">Step 1</span>Carriers (density $n$, charge $q$) drift with average speed $v_d$. In time $dt$ they move a distance $v_d\,dt$.</p>
+    <p><span class="step">Step 2</span>All carriers in the slab of volume $A\,v_d\,dt$ cross the area $A$: $dq = nq\,(A v_d\,dt)$.</p>
+    <p><span class="step">Step 3</span>$I = dq/dt = nqAv_d$, so $J = I/A = nqv_d$.</p>
+  </div>
+
+  <div class="sim" id="sim-current3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Electrons drifting through a wire that narrows</h4></div>
+    <p class="sim-try"><b>Try:</b> change the current and how much the wire narrows. Watch the electrons in the narrow part.</p>
+    <p class="sim-note"><b>What to notice:</b> the current $I$ is the same everywhere (charge is conserved), but in the thin part the same flow is squeezed through a smaller area, so $J = I/A$ and the drift speed are larger there.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example: drift speed in copper</span>
+    <p>A copper wire ($n = 8.5\times10^{28}$ m$^{-3}$) of cross-section 1 mm&sup2; carries 1 A. $v_d = I/(nqA) = 1/(8.5\times10^{28}\times1.6\times10^{-19}\times10^{-6}) \approx 7.4\times10^{-5}$ m/s, less than 0.1 mm/s. The signal travels fast, but each electron crawls.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Between plates 1 cm apart the gap holds uniform charge $\rho = 1\ \mu$C/m&sup3;, and both plates are at 0 V. Find $V$ at the midpoint. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$V = \frac{\rho}{2\varepsilon_0}x(L-x)$, at $x = L/2$: $V = \rho L^2/(8\varepsilon_0) = 10^{-6}\times10^{-4}/(8\times8.85\times10^{-12}) \approx 1.41$ V.</p></div></details></li>
+    <li>Show that $V = 3x^2 - 3y^2$ satisfies Laplace&rsquo;s equation. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\partial^2V/\partial x^2 = 6$, $\partial^2V/\partial y^2 = -6$, sum $= 0$.</p></div></details></li>
+    <li>A 2 A current flows in a wire of radius 1 mm. Find $J$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$J = I/(\pi r^2) = 2/(\pi\times10^{-6}) \approx 6.4\times10^5$ A/m&sup2;.</p></div></details></li>
+    <li>A capacitor plate carries free charge 10 nC; the dielectric has $\kappa = 5$. Find the bound charge on the dielectric surface. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$q' = q(1-1/\kappa) = 10\times0.8 = 8$ nC.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 7 ===================== -->
+<section class="class" id="c7"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 7</span>
+    <h2>Resistance, resistivity, colour code, Ohm&rsquo;s law and EMF</h2>
+    <p class="goals"><b>By the end you can:</b> derive $R = \rho L/A$ and the microscopic form $\vec J = \sigma\vec E$; derive $\rho = m/(ne^2\tau)$; read a colour code; use $V = \varepsilon - Ir$ and the maximum power theorem.</p>
+  </div>
+
+  <h3><span class="n">7.1</span>Resistance and resistivity</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$R = \frac{V}{I}, \qquad \rho = \frac{E}{J}, \qquad R = \rho\frac{L}{A}, \qquad G = \frac1R, \qquad \sigma = \frac1\rho, \qquad \rho(T) = \rho_0[1+\alpha(T-T_0)]$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: the resistance law</span>
+    <p><span class="step">Step 1</span>In a uniform wire, $E = V/L$ and $J = I/A$.</p>
+    <p><span class="step">Step 2</span>$\rho = E/J = (V/L)/(I/A) = \dfrac{V}{I}\dfrac{A}{L} = R\dfrac{A}{L}$.</p>
+    <p><span class="step">Step 3</span>So $R = \rho L/A$: longer wires resist more, thicker wires less.</p>
+  </div>
+
+  <div class="sim" id="sim-wire">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Resistance of a wire</h4></div>
+    <p class="sim-try"><b>Try:</b> change the length, the diameter and the temperature, and switch materials.</p>
+    <p class="sim-note"><b>What to notice:</b> doubling $L$ doubles $R$; doubling the diameter quarters it ($A \propto d^2$). Metals get more resistive when hot (positive $\alpha$); a semiconductor such as carbon gets <i>less</i> resistive (negative $\alpha$).</p>
+  </div>
+
+  <h3><span class="n">7.2</span>Why metals obey Ohm&rsquo;s law: the expression for resistivity</h3>
+  <div class="box der"><span class="lbl">Derivation (free-electron / Drude model)</span>
+    <p><span class="step">Step 1</span>An electron in field $E$ accelerates: $a = eE/m$. It collides with the lattice on average every $\tau$ seconds, losing its extra velocity each time.</p>
+    <p><span class="step">Step 2</span>Average drift speed: $v_d = a\tau = \dfrac{eE\tau}{m}$.</p>
+    <p><span class="step">Step 3</span>$J = nev_d = \dfrac{ne^2\tau}{m}E$. This is <b>Ohm&rsquo;s law</b> in microscopic form, $\vec J = \sigma\vec E$, with</p>
+    <div class="eq">$$\sigma = \frac{ne^2\tau}{m}, \qquad \rho = \frac{m}{ne^2\tau}$$</div>
+    <p>$J$ is proportional to $E$ because $\tau$ does not depend on $E$. Heating the metal makes the lattice vibrate more, so $\tau$ falls and $\rho$ rises.</p>
+  </div>
+
+  <div class="sim" id="sim-drift">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Drift velocity and collisions</h4></div>
+    <p class="sim-try"><b>Try:</b> switch the field on, then change the collision time $\tau$ (cleaner, colder metal = longer $\tau$) and the electron density.</p>
+    <p class="sim-note"><b>What to notice:</b> each electron moves randomly at high speed, but between collisions it gains a small push against the field. The average of all those pushes is the slow drift $v_d = eE\tau/m$. Longer $\tau$ means less resistance.</p>
+  </div>
+
+  <h3><span class="n">7.3</span>Resistor colour code</h3>
+  <p>Small resistors are marked with coloured bands: two significant digits, a multiplier (power of ten), and a tolerance band (gold 5%, silver 10%).</p>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Colour</th><th>Black</th><th>Brown</th><th>Red</th><th>Orange</th><th>Yellow</th><th>Green</th><th>Blue</th><th>Violet</th><th>Grey</th><th>White</th></tr>
+    <tr><td>Digit</td><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-colour">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Read a resistor</h4></div>
+    <p class="sim-try"><b>Try:</b> set the four bands, or press <b>Quiz me</b> for a random resistor and work out its value before looking at the answer.</p>
+    <p class="sim-note"><b>What to notice:</b> yellow&ndash;violet&ndash;red&ndash;gold is $47\times10^2 = 4.7$ k&Omega; &plusmn;5%. The multiplier band is the number of zeros to add.</p>
+  </div>
+
+  <h3><span class="n">7.4</span>EMF and internal resistance</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\varepsilon = \frac{dW}{dq}, \qquad V_{\text{terminal}} = \varepsilon - Ir, \qquad I = \frac{\varepsilon}{R+r}, \qquad P_{\text{load}} = \frac{\varepsilon^2R}{(R+r)^2}$$</div>
+    <p>An EMF is not a force: it is the work per unit charge done by a non-electrostatic agent (chemical, magnetic) that pushes charge &ldquo;uphill&rdquo; inside the source.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: maximum power transfer</span>
+    <p>$\dfrac{dP}{dR} = \varepsilon^2\dfrac{(R+r)^2 - 2R(R+r)}{(R+r)^4} = 0 \Rightarrow R = r$, giving $P_{\max} = \dfrac{\varepsilon^2}{4r}$ (at 50% efficiency).</p>
+  </div>
+
+  <div class="sim" id="sim-emf">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>A real battery: EMF, internal resistance and power</h4></div>
+    <p class="sim-try"><b>Try:</b> change the load $R$ and watch the terminal voltage and the power curve. Then change $r$.</p>
+    <p class="sim-note"><b>What to notice:</b> the terminal voltage falls as more current is drawn. The power delivered to the load peaks exactly when $R = r$.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>A 12 V battery with $r = 0.5\ \Omega$ drives a 5 &Omega; load. $I = 12/5.5 = 2.18$ A; $V = 12 - 2.18\times0.5 = 10.9$ V; $P_{\text{load}} = I^2R = 23.8$ W. Maximum possible load power: $\varepsilon^2/4r = 72$ W at $R = 0.5\ \Omega$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the resistance of 10 m of copper wire ($\rho = 1.7\times10^{-8}\ \Omega$ m) of diameter 1 mm. What is it at 100 &deg;C ($\alpha = 0.0039$/K, $T_0 = 20$ &deg;C)? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$R = \rho L/A = 1.7\times10^{-8}\times10/(\pi\times(0.5\times10^{-3})^2) \approx 0.216\ \Omega$. At 100 &deg;C: $0.216\times(1 + 0.0039\times80) \approx 0.284\ \Omega$.</p></div></details></li>
+    <li>Estimate the collision time $\tau$ in copper ($\rho = 1.7\times10^{-8}\ \Omega$ m, $n = 8.5\times10^{28}$ m$^{-3}$). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tau = m/(ne^2\rho) = 9.11\times10^{-31}/(8.5\times10^{28}\times2.56\times10^{-38}\times1.7\times10^{-8}) \approx 2.5\times10^{-14}$ s.</p></div></details></li>
+    <li>Read: brown, black, orange, gold. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$10\times10^3 = 10$ k&Omega; &plusmn;5%.</p></div></details></li>
+    <li>A cell gives 1.5 V on open circuit and 1.2 V when delivering 0.6 A. Find $r$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Ir = 0.3$ V, so $r = 0.5\ \Omega$.</p></div></details></li>
+    <li>Find the resistance of 1 m of nichrome wire ($\rho = 1.1\times10^{-6}\ \Omega$ m), diameter 0.5 mm. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$R = 1.1\times10^{-6}/(\pi\times(0.25\times10^{-3})^2) \approx 5.6\ \Omega$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<section class="class" id="review"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Review</span><h2>Formula sheet: current and resistance</h2></div>
+  <div class="sheet">
+    <div><h4>Potential equations</h4><p>$\nabla\cdot\vec E = \rho/\varepsilon_0$</p><p>$\nabla^2V = -\rho/\varepsilon_0$ (Poisson)</p><p>$\nabla^2V = 0$ (Laplace)</p></div>
+    <div><h4>Dielectrics</h4><p>$\oint\vec D\cdot d\vec A = q_{\text{free}}$</p><p>$q' = q(1-1/\kappa)$</p></div>
+    <div><h4>Current</h4><p>$I = dq/dt$, $J = I/A$</p><p>$J = nqv_d$</p></div>
+    <div><h4>Resistance</h4><p>$R = \rho L/A$, $G = 1/R$, $\sigma = 1/\rho$</p><p>$\rho = m/ne^2\tau$</p><p>$\rho = \rho_0[1+\alpha\Delta T]$</p></div>
+    <div><h4>Ohm and EMF</h4><p>$V = IR$, $\vec J = \sigma\vec E$</p><p>$V = \varepsilon - Ir$</p><p>$P_{\max} = \varepsilon^2/4r$ at $R = r$</p></div>
+  </div>
+  <div class="pager"><a href="electrostatics.html"><small>&larr; Previous unit</small>Electrostatics</a><a href="magnetism.html"><small>Next unit</small>Magnetism and induction &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/current.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>
