@@ -52,34 +52,6 @@
     }
   });
 
-  /* 2. 3D ray bundle through a lens */
-  Sim.make('sim-lens3d', {
-    webgl: true, aspect: 0.5, camera: { th: 0.9, ph: 1.2, r: 15, target: [1, 0, 0] },
-    controls: [
-      { k: 'f', label: 'Focal length f', min: 2, max: 6, step: 0.25, v: 4 },
-      { k: 'w', label: 'Beam radius', min: 0.4, max: 2, step: 0.1, v: 1.5 }
-    ],
-    reads: [{ k: 'cone', label: 'Half-angle of the cone &alpha;', big: true }, { k: 'na', label: 'NA = sin&alpha; (in air)' }],
-    init: function (S) {
-      var lens = new THREE.Mesh(new THREE.SphereGeometry(2.4, 40, 24), T.mat(0x5aa0dc, { opacity: 0.28 })); lens.scale.set(0.18, 1, 1); S.scene.add(lens);
-      S.st.rays = []; for (var i = 0; i < 26; i++) S.st.rays.push(T.line(S.scene, i < 13 ? 0xc62828 : 0xe09b3d, 3));
-      S.st.F = T.sphere(0.12, 0x1e4d2b); S.scene.add(S.st.F); S.st.lab = T.label(S.scene, 'F', '#1e4d2b', 0.8);
-      var ax = T.line(S.scene, 0x88998c, 2); T.setLine(ax, [[-7, 0, 0], [12, 0, 0]]);
-    },
-    draw: function (S) {
-      var p = S.p, n = 0;
-      [p.w, p.w * 0.5].forEach(function (r) {
-        for (var i = 0; i < 13; i++) {
-          var a = 2 * PI * i / 13, y = r * Math.cos(a), z = r * Math.sin(a), end = 2 * p.f + 1;
-          T.setLine(S.st.rays[n++], [[-7, y, z], [0, y, z], [end, y * (1 - end / p.f), z * (1 - end / p.f)]]);
-        }
-      });
-      S.st.F.position.set(p.f, 0, 0); S.st.lab.position.set(p.f, -0.6, 0);
-      var al = Math.atan(p.w / p.f);
-      S.set('cone', f(al * 180 / PI, 3) + '°'); S.set('na', f(Math.sin(al), 3));
-    }
-  });
-
   /* 3. Resolution: two point sources */
   function J1(x) { // Bessel J1 (polynomial approximations)
     var ax = Math.abs(x), y, ans1, ans2;

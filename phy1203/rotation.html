@@ -181,8 +181,8 @@
 
   <div class="sim" id="sim-arm3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Your forearm as a lever, in 3D</h4></div>
-    <p class="sim-try"><b>Try:</b> change the dumbbell mass, where the tendon attaches, and the angle of the forearm. Drag the picture to look from any side.</p>
-    <p class="sim-note"><b>What to notice:</b> the biceps (red) pulls almost straight up close to the elbow, so its force is many times the weight. Lowering the forearm or raising it changes the lever arm of the load (x cos&theta;), so the muscle force changes too.</p>
+    <p class="sim-try"><b>Try:</b> press <b>Do biceps curls</b> and watch the muscle force change with the angle. Change the dumbbell mass, tendon position and hand distance; add the forearm&rsquo;s own weight. Use the toolbar to pause, slow down or zoom.</p>
+    <p class="sim-note"><b>What to notice:</b> the biceps force is many times the weight, set mainly by x/d. As the forearm moves, the load&rsquo;s lever arm (x cos&theta;) and the muscle&rsquo;s lever arm shrink together, so the force barely changes; but a heavier dumbbell, a longer reach (bigger x) or a tendon closer to the elbow (smaller d) all raise it a lot.</p>
   </div>
 
   <div class="box ex"><span class="lbl">Worked example &middot; biceps force</span>
@@ -230,7 +230,7 @@
 
   <div class="sim" id="sim-tuck3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Tuck in, spin faster</h4></div>
-    <p class="sim-try"><b>Try:</b> slide from spread out to tucked while the athlete spins about the grey axis. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> slide from spread out to tucked, or press <b>Tuck and open automatically</b>. Change the starting spin and the arm mass. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> pulling the arms and legs close to the axis shrinks I, so the spin rate jumps up while L = I&omega; stays the same. Divers and figure skaters use exactly this.</p>
   </div>
 
@@ -332,7 +332,7 @@
 
   <div class="sim" id="sim-wheel3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Angular momentum is a vector</h4></div>
-    <p class="sim-try"><b>Try:</b> drag the picture to look from any side. Change the spin rate (negative = the other way) and switch between a disc and a ring of the same mass.</p>
+    <p class="sim-try"><b>Try:</b> apply a torque and watch the wheel spin up and L grow; reverse the torque to slow it. Change the mass and radius, and switch disc/ring. Drag to look from any side. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> L points along the axle (right-hand rule: curl your fingers the way it spins, your thumb gives L). The ring has all its mass at the rim, so its I and L are twice the disc's at the same &omega;.</p>
   </div>
 
@@ -353,7 +353,7 @@
 
   <div class="sim" id="sim-centrifuge3d">
     <div class="sim-head"><span class="tag">3D simulation</span><h4>Inside a lab centrifuge</h4></div>
-    <p class="sim-try"><b>Try:</b> set the speed and watch the six blood tubes in a fixed-angle rotor. Press <b>Fresh blood samples</b> to start again. Drag the picture to look from any side.</p>
+    <p class="sim-try"><b>Try:</b> set the speed and tube radius and watch the pellet form. Switch to <b>Bacteria culture</b> or <b>Cell organelles</b>: they need much higher g. Use the toolbar to pause, slow down or zoom.</p>
     <p class="sim-note"><b>What to notice:</b> the tubes tilt outward, so cells are flung toward the outer bottom of each tube. At a few thousand &times; g the red cells pack into a pellet and clear yellow plasma is left on top.</p>
   </div>
 
@@ -407,5 +407,6 @@
 <footer><div class="wrap"><span>PHY1203 &middot; Physics for Biologists I &middot; Section B &middot; Fall 2026</span><span>Arafat Rahman &middot; United International University</span></div></footer>
 <script src="assets/js/rotation.js"></script>
 <script src="assets/js/bio3d.js"></script>
+<script src="assets/js/bio3d-2.js"></script>
 </body>
 </html>

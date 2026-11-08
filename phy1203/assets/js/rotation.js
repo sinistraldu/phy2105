@@ -329,36 +329,3 @@
   });
 })();
 
-/* 3D: spinning wheel and its angular momentum vector */
-(function () {
-  var T = Sim.T3, f = Sim.fmt;
-  Sim.make('sim-wheel3d', {
-    webgl: true, aspect: 0.55, animate: true, camera: { th: 0.7, ph: 1.15, r: 6, target: [0, 0.6, 0] },
-    controls: [{ k: 'w', label: 'Spin rate &omega; (sign = direction)', min: -10, max: 10, step: 0.5, v: 4, unit: 'rad/s' }],
-    buttons: [
-      { label: 'Solid disc', group: 's', on: true, click: function (S) { S.st.ring = false; } },
-      { label: 'Ring (same mass)', group: 's', click: function (S) { S.st.ring = true; } }
-    ],
-    reads: [{ k: 'I', label: 'I (M = 2 kg, R = 0.3 m)' }, { k: 'L', label: 'L = I&omega;', big: true }, { k: 'K', label: 'K = &frac12;I&omega;&sup2;' }, { k: 'dir', label: 'L points' }],
-    init: function (S) {
-      var sc = S.scene, g = new THREE.Group(); sc.add(g); S.st.g = g; S.st.ring = false; S.st.th = 0;
-      S.st.disc = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.18, 48), T.mat(0x2d6a3e));
-      S.st.torus = new THREE.Mesh(new THREE.TorusGeometry(1.42, 0.12, 16, 60), T.mat(0x2d6a3e)); S.st.torus.rotation.x = Math.PI / 2;
-      for (var i = 0; i < 6; i++) { var sp = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.05, 0.05), T.mat(0xc2410c)); sp.position.set(0.7 * Math.cos(i * Math.PI / 3), 0, 0.7 * Math.sin(i * Math.PI / 3)); sp.rotation.y = -i * Math.PI / 3; S.st.torus.add(sp); sp.rotation.x = -Math.PI / 2; }
-      var mark = T.sphere(0.12, 0xc2410c); mark.position.set(1.25, 0.12, 0); S.st.mark = mark;
-      g.add(S.st.disc); g.add(S.st.torus); g.add(mark);
-      var axle = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 1.2, 12), T.mat(0x888888)); sc.add(axle);
-      S.st.Larrow = T.arrow(sc, '#7c3aed'); S.st.lab = T.label(sc, 'L', '#7c3aed', 0.9);
-      T.grid(sc, 6, -0.8);
-    },
-    draw: function (S, c, W, H, dt) {
-      var p = S.p, ring = S.st.ring, I = ring ? 2 * 0.09 : 0.5 * 2 * 0.09, L = I * p.w;
-      S.st.disc.visible = !ring; S.st.torus.visible = ring;
-      S.st.th += p.w * dt * 0.4; S.st.g.rotation.y = S.st.th;
-      T.setArrow(S.st.Larrow, [0, 0.1, 0], [0, L * 2.2, 0], 0.35);
-      S.st.lab.position.set(0.35, 0.1 + L * 2.2 + (L >= 0 ? 0.3 : -0.3), 0); S.st.lab.visible = Math.abs(L) > 0.01;
-      S.set('I', f(I, 3) + ' kg·m²'); S.set('L', f(L, 3) + ' kg·m²/s'); S.set('K', f(0.5 * I * p.w * p.w, 3) + ' J');
-      S.set('dir', p.w > 0 ? 'up (anticlockwise seen from above)' : p.w < 0 ? 'down (clockwise from above)' : 'nowhere (L = 0)');
-    }
-  });
-})();

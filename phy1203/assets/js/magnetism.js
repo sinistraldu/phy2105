@@ -33,30 +33,6 @@
     }
   });
 
-  /* 2. Helix (3D) */
-  Sim.make('sim-helix3d', {
-    webgl: true, aspect: 0.55, animate: true, camera: { th: 0.9, ph: 1.2, r: 21 },
-    controls: [{ k: 'ang', label: 'Angle &theta; between v and B', min: 0, max: 90, step: 5, v: 60, unit: '°' }],
-    reads: [{ k: 'perp', label: 'v sin&theta; (makes the circle)' }, { k: 'par', label: 'v cos&theta; (along B)' }, { k: 'shape', label: 'Path', big: true }],
-    init: function (S) {
-      for (var i = -1; i <= 1; i++) for (var j = -1; j <= 1; j++) { var a = T.arrow(S.scene, '#1565c0'); T.setArrow(a, [i * 2.6, -3.8, j * 2.6], [0, 7.6, 0], 0.4); }
-      T.label(S.scene, 'B', '#1565c0', 1).position.set(2.6, 4.3, 2.6);
-      S.st.dot = T.sphere(0.22, 0xc62828); S.scene.add(S.st.dot);
-      S.st.line = T.line(S.scene, 0xc62828, 900); S.st.pts = []; S.st.t = 0;
-    },
-    onChange: function (S) { S.st.pts = []; S.st.t = 0; },
-    draw: function (S, c, W, H, dt) {
-      var th = S.p.ang * PI / 180, v = 1.8, r = v * Math.sin(th) * 1.0, vy = v * Math.cos(th) * 0.5;
-      S.st.t += dt * 2.5;
-      var y = -3.5 + vy * S.st.t; if (y > 3.5 || S.st.t > 60) { S.st.t = 0; S.st.pts = []; y = -3.5; }
-      var p = [r * Math.cos(S.st.t), y, r * Math.sin(S.st.t)];
-      S.st.pts.push(p); if (S.st.pts.length > 900) S.st.pts.shift();
-      S.st.dot.position.set(p[0], p[1], p[2]); T.setLine(S.st.line, S.st.pts);
-      S.set('perp', f(Math.sin(th) * 100, 3) + '% of v'); S.set('par', f(Math.cos(th) * 100, 3) + '% of v');
-      S.set('shape', S.p.ang === 90 ? 'circle' : S.p.ang === 0 ? 'straight line (no force)' : 'helix (spiral)');
-    }
-  });
-
   /* 3. Magnetotactic bacteria */
   Sim.make('sim-bacteria', {
     aspect: 0.45, animate: true,
@@ -120,26 +96,6 @@
     }
   });
 
-  /* 5. EM wave (3D) */
-  Sim.make('sim-emwave3d', {
-    webgl: true, aspect: 0.52, animate: true, camera: { th: 0.75, ph: 1.15, r: 15 },
-    controls: [{ k: 'lam', label: 'Wavelength &lambda; (display units)', min: 2, max: 8, step: 0.5, v: 4 }],
-    reads: [{ k: 'r', label: 'E and B' }, { k: 'd', label: 'Direction of travel' }],
-    init: function (S) {
-      S.st.E = []; S.st.B = []; for (var i = 0; i < 30; i++) { S.st.E.push(T.arrow(S.scene, '#c62828')); S.st.B.push(T.arrow(S.scene, '#1565c0')); }
-      S.st.lE = T.line(S.scene, 0xc62828, 300); S.st.lB = T.line(S.scene, 0x1565c0, 300);
-      var ax = T.arrow(S.scene, '#56655b'); T.setArrow(ax, [-7.5, 0, 0], [15.5, 0, 0], 0.5);
-      T.label(S.scene, 'E', '#c62828', 1).position.set(-7, 2.6, 0); T.label(S.scene, 'B', '#1565c0', 1).position.set(-7, 0, 2.6); T.label(S.scene, 'travel', '#56655b', 1).position.set(8.5, 0.5, 0);
-    },
-    draw: function (S, c, W, H) {
-      var k = 2 * PI / S.p.lam, w = 2.2, t = S.t, pe = [], pb = [];
-      for (var i = 0; i < 300; i++) { var x = -7 + 14 * i / 299, a = Math.sin(k * x - w * t); pe.push([x, 2 * a, 0]); pb.push([x, 0, 2 * a]); }
-      T.setLine(S.st.lE, pe); T.setLine(S.st.lB, pb);
-      for (var j = 0; j < 30; j++) { var X = -7 + 14 * j / 29, A = Math.sin(k * X - w * t); T.setArrow(S.st.E[j], [X, 0, 0], [0, 2 * A, 0], 0.25); T.setArrow(S.st.B[j], [X, 0, 0], [0, 0, 2 * A], 0.25); }
-      S.set('r', 'perpendicular, in step'); S.set('d', 'perpendicular to both');
-    }
-  });
-
   /* 6. EM spectrum explorer */
   var regions = [[-12, -11, 'Gamma rays', '#7c3aed'], [-11, -8, 'X-rays', '#5b6bd8'], [-8, -6.4, 'Ultraviolet', '#8e6be8'], [-6.4, -6.15, 'Visible', null], [-6.15, -3, 'Infrared', '#d9534f'], [-3, 0, 'Microwave', '#e09b3d'], [0, 3, 'Radio', '#5d9c59']];
   var uses = { 'Gamma rays': 'radiotherapy, sterilising, PET', 'X-rays': 'radiography, CT, crystallography', 'Ultraviolet': 'sterilising, vitamin D, fluorescence', 'Visible': 'vision, photosynthesis, microscopy', 'Infrared': 'thermal imaging, thermometers', 'Microwave': 'heating water, diathermy', 'Radio': 'MRI signal, telemetry, radio' };
@@ -189,31 +145,4 @@
     }
   });
 
-  /* 8. NMR precession and resonance (3D) */
-  Sim.make('sim-nmr3d', {
-    webgl: true, aspect: 0.55, animate: true, camera: { th: 0.6, ph: 1.2, r: 13 },
-    controls: [
-      { k: 'B', label: 'Magnet strength B', min: 0.5, max: 3, step: 0.1, v: 1.5, unit: 'T' },
-      { k: 'rf', label: 'Radio frequency sent', min: 20, max: 130, step: 0.5, v: 50, unit: 'MHz' }
-    ],
-    buttons: [{ label: 'RF pulse', click: function (S) { S.st.pulse = S.t; S.st.hit = Math.abs(S.p.rf - 42.58 * S.p.B) / (42.58 * S.p.B) < 0.03; } }],
-    reads: [{ k: 'fl', label: 'Larmor frequency 42.58 &times; B', big: true }, { k: 'rf', label: 'Radio frequency sent' }, { k: 'st', label: 'Result' }],
-    init: function (S) {
-      S.st.sp = []; S.st.pulse = -99; S.st.hit = false;
-      for (var i = -1; i <= 1; i++) for (var j = -1; j <= 1; j++) { var a = T.arrow(S.scene, '#c2410c'); var s = T.sphere(0.25, 0xc2410c); s.position.set(i * 2.6, 0, j * 2.6); S.scene.add(s); S.st.sp.push({ a: a, x: i * 2.6, z: j * 2.6, ph: Math.random() * 6 }); }
-      var bA = T.arrow(S.scene, '#1565c0'); T.setArrow(bA, [-5.5, -3, -5.5], [0, 6, 0], 0.5); T.label(S.scene, 'B', '#1565c0', 1).position.set(-5.5, 3.6, -5.5);
-      T.grid(S.scene, 10, -2.2);
-    },
-    draw: function (S, c, W, H, dt) {
-      var fl = 42.58 * S.p.B, since = S.t - S.st.pulse, tilt = 0.3;
-      if (S.st.hit && since >= 0) tilt = since < 1 ? 0.3 + (PI / 2 - 0.3) * since : Math.max(0.3, PI / 2 - (since - 1) * 0.4);
-      S.st.sp.forEach(function (s) {
-        s.ph += dt * S.p.B * 2.4;
-        T.setArrow(s.a, [s.x, 0, s.z], [1.8 * Math.sin(tilt) * Math.cos(s.ph), 1.8 * Math.cos(tilt), 1.8 * Math.sin(tilt) * Math.sin(s.ph)], 0.35);
-      });
-      var near = Math.abs(S.p.rf - fl) / fl < 0.03;
-      S.set('fl', f(fl, 3) + ' MHz'); S.set('rf', f(S.p.rf, 3) + ' MHz');
-      S.set('st', since >= 0 && since < 6 ? (S.st.hit ? 'resonance: spins tipped, now relaxing' : 'off resonance: nothing absorbed') : near ? 'tuned: press RF pulse' : 'not tuned yet');
-    }
-  });
 })();

@@ -293,35 +293,3 @@
   });
 })();
 
-/* 3D: inside a blood vessel (Poiseuille flow) */
-(function () {
-  var T = Sim.T3, f = Sim.fmt, N = 420, LEN = 8;
-  Sim.make('sim-vessel3d', {
-    webgl: true, aspect: 0.5, animate: true, camera: { th: 0.9, ph: 1.2, r: 11.5 },
-    controls: [{ k: 'R', label: 'Vessel radius (% of normal)', min: 40, max: 100, step: 5, v: 100, show: function (v) { return v + '%'; } }],
-    reads: [{ k: 'vm', label: 'Centre speed (&prop; R&sup2;)' }, { k: 'Q', label: 'Flow rate Q (&prop; R<sup>4</sup>)', big: true }],
-    init: function (S) {
-      var sc = S.scene;
-      S.st.tube = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, LEN, 40, 1, true), T.mat(0xc62828, { opacity: 0.18, side: THREE.DoubleSide }));
-      S.st.tube.rotation.z = Math.PI / 2; sc.add(S.st.tube);
-      var geo = new THREE.SphereGeometry(0.06, 8, 6), pts = [];
-      S.st.mesh = new THREE.InstancedMesh(geo, new THREE.MeshPhongMaterial({ color: 0xffffff }), N); sc.add(S.st.mesh);
-      for (var i = 0; i < N; i++) pts.push({ x: Math.random() * LEN - LEN / 2, r: Math.sqrt(Math.random()), a: Math.random() * 6.283 });
-      S.st.pts = pts; S.st.m4 = new THREE.Matrix4(); S.st.col = new THREE.Color();
-      S.st.arrows = []; for (var j = -4; j <= 4; j++) S.st.arrows.push(T.arrow(sc, '#2f6690'));
-    },
-    draw: function (S, c, W, H, dt) {
-      var s = S.p.R / 100, R = 1.5 * s;
-      S.st.tube.scale.set(s, 1, s);
-      S.st.pts.forEach(function (q, i) {
-        var v = (1 - q.r * q.r) * s * s; q.x += v * dt * 2.2; if (q.x > LEN / 2) q.x -= LEN;
-        S.st.m4.makeTranslation(q.x, q.r * R * 0.95 * Math.cos(q.a), q.r * R * 0.95 * Math.sin(q.a));
-        S.st.mesh.setMatrixAt(i, S.st.m4);
-        S.st.col.setHSL(0.0 + 0.12 * (1 - q.r * q.r), 0.85, 0.35 + 0.3 * (1 - q.r * q.r)); S.st.mesh.setColorAt(i, S.st.col);
-      });
-      S.st.mesh.instanceMatrix.needsUpdate = true; if (S.st.mesh.instanceColor) S.st.mesh.instanceColor.needsUpdate = true;
-      S.st.arrows.forEach(function (a, j) { var y = (j - 4) / 4 * R * 0.95, v = (1 - (y / R) * (y / R)) * s * s; Sim.T3.setArrow(a, [-1, y, 0], [v * 2.4, 0, 0], 0.25); });
-      S.set('vm', Math.round(s * s * 100) + '% of normal'); S.set('Q', Math.round(Math.pow(s, 4) * 1000) / 10 + '% of normal');
-    }
-  });
-})();

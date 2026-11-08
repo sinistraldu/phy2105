@@ -190,3 +190,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   details.ans .sol{display:block}
   body{background:#fff;color:#000}
 }
+
+/* 3D view toolbar */
+.tb3d{position:absolute;left:10px;margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;z-index:2;max-width:calc(100% - 20px)}
+.tb3d button{font:600 12px var(--sans);padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--surface) 88%,transparent);color:var(--ink);cursor:pointer;line-height:1.3}
+.tb3d button:hover{border-color:var(--accent-2);color:var(--accent-2)}
+.tb3d button.on{background:var(--accent-2);border-color:var(--accent-2);color:#fff}
+.tb-hint{font:600 11px var(--sans);color:var(--muted);align-self:center;padding:0 4px;background:color-mix(in srgb,var(--surface) 70%,transparent);border-radius:999px}
+@media (max-width:700px){.tb3d button{font-size:11px;padding:3px 8px}.tb-hint{display:none}}
