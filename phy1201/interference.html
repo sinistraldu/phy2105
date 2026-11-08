@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interference of Light | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 12 to 14: theories of light, Huygens' principle, Young's double slit, displacement of fringes, Fresnel biprism, wedge films, Newton's rings and interferometers.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html" aria-current="page">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 4 &middot; Classes 12&ndash;15 &middot; Physical optics</span>
+  <h1>Interference of Light</h1>
+  <p class="lead">When two coherent light waves overlap they add, and the result is a pattern of bright and dark fringes. Interference proves that light is a wave, and it lets us measure wavelengths, thin-film thicknesses and tiny displacements to a fraction of a micrometre, the basis of precision instruments used in surveying and materials testing.</p>
+  <ul class="toc">
+    <li><a href="#c12"><span>Class 12</span>Theories of light, Huygens&rsquo; principle</a></li>
+    <li><a href="#c13"><span>Class 13</span>Interference, Young&rsquo;s double slit</a></li>
+    <li><a href="#c14"><span>Class 14</span>Fringe shift, biprism, films, Newton&rsquo;s rings, interferometers</a></li>
+    <li><a href="#c15"><span>Class 15</span>Mid-term review</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 12 ===================== -->
+<section class="class" id="c12"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 12</span>
+    <h2>Theories of light and Huygens&rsquo; principle</h2>
+    <p class="goals"><b>By the end you can:</b> describe the corpuscular, wave, electromagnetic and quantum theories of light with their successes and failures; state Huygens&rsquo; principle and use it to derive the laws of reflection and refraction.</p>
+  </div>
+
+  <h3><span class="n">12.1</span>Theories of light</h3>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Theory</th><th>Idea</th><th>Explains</th><th>Fails to explain</th></tr>
+    <tr><td>Corpuscular (Newton, 1675)</td><td>Light is a stream of tiny particles</td><td>Straight-line travel, reflection, refraction (but predicts light is faster in glass)</td><td>Interference, diffraction, polarization; light is actually <i>slower</i> in glass (Foucault)</td></tr>
+    <tr><td>Wave (Huygens, 1678; Young, Fresnel)</td><td>Light is a wave in a medium (&ldquo;ether&rdquo;)</td><td>Reflection, refraction, interference, diffraction; transverse waves explain polarization</td><td>Travel through vacuum; photoelectric effect</td></tr>
+    <tr><td>Electromagnetic (Maxwell, 1864)</td><td>Light is oscillating electric and magnetic fields, speed $c = 1/\sqrt{\mu_0\varepsilon_0}$</td><td>All wave optics; no medium needed</td><td>Photoelectric effect, blackbody radiation, Compton effect</td></tr>
+    <tr><td>Quantum (Planck 1900, Einstein 1905)</td><td>Light energy comes in photons $E = hf$</td><td>Photoelectric effect, blackbody, Compton</td><td>On its own, interference</td></tr>
+  </table></div>
+  <p>Today light is described by <b>wave&ndash;particle duality</b>: it travels and interferes as a wave and is emitted and absorbed as photons. In this course, wave optics explains everything we need.</p>
+
+  <h3><span class="n">12.2</span>Huygens&rsquo; principle</h3>
+  <div class="box der"><span class="lbl">Principle and derivation of Snell&rsquo;s law</span>
+    <p><b>Principle:</b> every point on a wavefront acts as a source of secondary spherical wavelets that spread at the wave speed; the new wavefront a time $t$ later is the surface touching all the wavelets (their envelope).</p>
+    <p><span class="step">Step 1</span>A plane wavefront AB meets a surface at angle $i$. While the edge B travels the distance BC $= v_1t$ in air, the wavelet from A travels AD $= v_2t$ in glass.</p>
+    <p><span class="step">Step 2</span>In triangles ABC and ADC (common hypotenuse AC): $\sin i = \dfrac{v_1t}{AC}$, $\sin r = \dfrac{v_2t}{AC}$. Dividing:</p>
+    <div class="eq">$$\frac{\sin i}{\sin r} = \frac{v_1}{v_2} = \mu \qquad (\text{Snell&rsquo;s law})$$</div>
+    <p>The same construction with both media equal gives reflection with $i = r$. Wave theory therefore predicts $v_2 = v_1/\mu$: light is <b>slower</b> in glass, as measured.</p>
+  </div>
+
+  <div class="sim" id="sim-huygens">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Huygens&rsquo; wavelets bend the wavefront</h4></div>
+    <p class="sim-try"><b>Try:</b> change the angle of incidence and the refractive index of the lower medium.</p>
+    <p class="sim-note"><b>What to notice:</b> in the slower medium the wavefronts are closer together ($\lambda/\mu$) and turn towards the normal. The wavelet from A grows only to radius $v_2t$ while the incident front moves $v_1t$ to B: that ratio sets the angle.</p>
+  </div>
+</div></section>
+
+<!-- ===================== CLASS 13 ===================== -->
+<section class="class" id="c13"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 13</span>
+    <h2>Interference of light and Young&rsquo;s double-slit experiment</h2>
+    <p class="goals"><b>By the end you can:</b> state the conditions for sustained interference; distinguish interference by division of wavefront and of amplitude; derive the positions of bright and dark fringes, the fringe width and the intensity distribution in Young&rsquo;s experiment.</p>
+  </div>
+
+  <h3><span class="n">13.1</span>Conditions for interference</h3>
+  <div class="box key"><span class="lbl">Key ideas</span>
+    <p>When two waves overlap, their displacements add (<b>superposition</b>). Where crest meets crest the intensity is large (<b>constructive</b>, path difference $n\lambda$); where crest meets trough it is small (<b>destructive</b>, path difference $(n+\tfrac12)\lambda$).</p>
+    <p>For a steady pattern the sources must be <b>coherent</b>: same frequency and a constant phase difference. Two separate lamps are never coherent, so we split one source: by <b>division of wavefront</b> (Young&rsquo;s slits, Fresnel biprism) or by <b>division of amplitude</b> (thin films, Newton&rsquo;s rings, Michelson). For good contrast the amplitudes should be nearly equal and the sources narrow and close together.</p>
+  </div>
+
+  <div class="sim" id="sim-ripple3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Two coherent sources in a ripple tank</h4></div>
+    <p class="sim-try"><b>Try:</b> change the separation of the sources and the wavelength. Give one source a phase lag of 180&deg;. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> calm &ldquo;nodal lines&rdquo; fan out from between the sources where the waves always cancel. Moving the sources apart or shortening the wavelength gives more, narrower lines. A 180&deg; phase difference swaps calm and rough lines: the centre line becomes calm.</p>
+  </div>
+
+  <h3><span class="n">13.2</span>Young&rsquo;s double-slit experiment</h3>
+  <div class="box der"><span class="lbl">Derivation: fringe positions and width</span>
+    <p><span class="step">Step 1</span>Slits S&#8321;, S&#8322; are a distance $d$ apart; the screen is $D$ away ($D\gg d$). For a point P at height $y$, the path difference is $S_2P - S_1P \approx d\sin\theta\approx\dfrac{yd}{D}$.</p>
+    <p><span class="step">Step 2</span>Bright fringes: $\dfrac{yd}{D} = n\lambda \Rightarrow y_n = \dfrac{n\lambda D}{d}$. Dark fringes: $y_n = \left(n+\tfrac12\right)\dfrac{\lambda D}{d}$.</p>
+    <p><span class="step">Step 3</span>The spacing of neighbouring bright (or dark) fringes, the <b>fringe width</b>, is</p>
+    <div class="eq">$$\beta = \frac{\lambda D}{d}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: intensity distribution</span>
+    <p><span class="step">Step 1</span>Waves from the two slits at P: $y_1 = a\sin\omega t$, $y_2 = a\sin(\omega t + \delta)$ with phase difference $\delta = \dfrac{2\pi}{\lambda}\cdot\dfrac{yd}{D}$.</p>
+    <p><span class="step">Step 2</span>Their sum is $R\sin(\omega t+\phi)$ with $R^2 = a^2 + a^2 + 2a^2\cos\delta = 4a^2\cos^2(\delta/2)$.</p>
+    <div class="eq">$$I = 4I_0\cos^2\frac\delta2 = 4I_0\cos^2\frac{\pi yd}{\lambda D}$$</div>
+    <p>$I$ swings between $4I_0$ and 0; the average is $2I_0$, the same as the two slits separately: interference only <b>redistributes</b> energy, it does not create or destroy it.</p>
+  </div>
+
+  <div class="sim" id="sim-ydse">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Young&rsquo;s double slit</h4></div>
+    <p class="sim-try"><b>Try:</b> change $\lambda$, $d$ and $D$. Switch to white light, and cover one slit.</p>
+    <p class="sim-note"><b>What to notice:</b> red light gives wider fringes than blue; moving the slits closer together or the screen further away widens the fringes. White light gives a white central fringe with coloured fringes beside it that quickly wash out. With one slit covered the fringes disappear.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>In Young&rsquo;s experiment $d = 0.5$ mm, $D = 1$ m, $\lambda = 600$ nm. Find the fringe width and the distance of the 3rd dark fringe from the centre. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\beta = 1.2$ mm; 3rd dark fringe $(2.5)\beta = 3.0$ mm.</p></div></details></li>
+    <li>The fringe width is 0.4 mm. The apparatus is immersed in water ($\mu = 1.33$). Find the new fringe width. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda\to\lambda/\mu$: $\beta = 0.4/1.33 = 0.30$ mm.</p></div></details></li>
+    <li>The intensities from two slits are in the ratio 9 : 1. Find the ratio of maximum to minimum intensity. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Amplitudes 3 : 1; $I_{\max}/I_{\min} = (3+1)^2/(3-1)^2 = 4$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 14 ===================== -->
+<section class="class" id="c14"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 14</span>
+    <h2>Displacement of fringes, Fresnel biprism, wedge-shaped films, Newton&rsquo;s rings and interferometers</h2>
+    <p class="goals"><b>By the end you can:</b> derive the shift of fringes caused by a thin plate and use it to find the plate&rsquo;s thickness; find $\lambda$ with a biprism; derive the fringe spacing of a wedge film; derive the radii of Newton&rsquo;s rings and find $\lambda$ or $\mu$ from them; explain the Michelson interferometer.</p>
+  </div>
+
+  <h3><span class="n">14.1</span>Displacement of fringes</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A thin transparent plate of thickness $t$ and index $\mu$ covers slit S&#8321;. Light takes the same time to cross it as to travel $\mu t$ in air, so the optical path from S&#8321; increases by $(\mu - 1)t$.</p>
+    <p><span class="step">Step 2</span>The central fringe (zero path difference) now sits where $\dfrac{yd}{D} = (\mu-1)t$:</p>
+    <div class="eq">$$x_0 = \frac{D}{d}(\mu - 1)t = \frac{\beta}{\lambda}(\mu-1)t$$</div>
+    <p><span class="step">Step 3</span>The whole pattern shifts towards the covered slit by $N = (\mu-1)t/\lambda$ fringes; the fringe width is unchanged. <b>Use:</b> measure the shift with white light (to identify the central fringe) and get the thickness of a very thin sheet: $t = \dfrac{x_0 d}{D(\mu-1)}$.</p>
+  </div>
+
+  <div class="sim" id="sim-fringeshift">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>A thin plate shifts the fringes</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the plate thickness from zero and change its refractive index.</p>
+    <p class="sim-note"><b>What to notice:</b> the pattern slides sideways while the fringe spacing stays the same. A plate with $\mu = 1$ (no plate at all) gives no shift. A few micrometres of mica can shift the pattern by several fringes.</p>
+  </div>
+
+  <h3><span class="n">14.2</span>Fresnel biprism</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A biprism (two thin prisms of angle $\alpha$ base to base) bends light from a slit S up and down by $\delta = (\mu - 1)\alpha$, so it seems to come from two <b>virtual coherent sources</b> S&#8321;, S&#8322;.</p>
+    <p><span class="step">Step 2</span>At distance $a$ from the prism, their separation is $d = 2a\delta = 2a(\mu - 1)\alpha$.</p>
+    <p><span class="step">Step 3</span>With the screen at total distance $D = a + b$: $\beta = \dfrac{\lambda(a+b)}{d}$, so $\lambda = \dfrac{\beta d}{a+b}$. In the lab $d$ is found by the displacement method: $d = \sqrt{d_1d_2}$ from the two lens positions.</p>
+  </div>
+
+  <div class="sim" id="sim-biprism">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Fresnel biprism and its virtual sources</h4></div>
+    <p class="sim-try"><b>Try:</b> change the prism angle, its index and the distances.</p>
+    <p class="sim-note"><b>What to notice:</b> a larger prism angle or index moves the virtual sources apart, which narrows the fringes but widens the overlap region. Moving the source closer to the prism brings S&#8321; and S&#8322; together and widens the fringes.</p>
+  </div>
+
+  <h3><span class="n">14.3</span>Interference in thin films and wedge-shaped films</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Light reflected from the top and bottom of a film of thickness $t$ and index $\mu$ (angle of refraction $r$) has path difference $2\mu t\cos r$, plus an extra $\lambda/2$ from reflection at the denser surface.</p>
+    <p><span class="step">Step 2</span>Reflected light: dark when $2\mu t\cos r = n\lambda$, bright when $2\mu t\cos r = (n+\tfrac12)\lambda$. (Transmitted light is the reverse.) Soap bubbles and oil films are coloured because the condition depends on $\lambda$.</p>
+    <p><span class="step">Step 3</span>A <b>wedge</b>: two plates touching at one edge with a tiny angle $\theta$. At distance $x$ from the edge $t = x\theta$. At normal incidence, the $n$th dark fringe is at $2\mu x_n\theta = n\lambda$, so neighbouring fringes are</p>
+    <div class="eq">$$\beta = \frac{\lambda}{2\mu\theta}$$</div>
+    <p>apart: straight, equally spaced fringes parallel to the edge, with a dark fringe at the contact. <b>Uses:</b> testing the flatness of a surface (fringes bend where it is not flat) and measuring the diameter of a thin wire placed at the open end: $\theta = d_{\text{wire}}/L$.</p>
+  </div>
+
+  <div class="sim" id="sim-wedge">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Fringes in a wedge-shaped air film</h4></div>
+    <p class="sim-try"><b>Try:</b> change the wedge angle, the wavelength, and fill the wedge with a liquid.</p>
+    <p class="sim-note"><b>What to notice:</b> a steeper wedge packs the fringes closer. Filling the gap with a liquid of index $\mu$ also packs them closer by the factor $\mu$. The contact line is always dark.</p>
+  </div>
+
+  <h3><span class="n">14.4</span>Newton&rsquo;s rings</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A plano-convex lens (radius of curvature $R$) rests on a flat glass plate, leaving an air film whose thickness grows outwards. At radius $r$ the film thickness $t$ satisfies $r^2 = t(2R - t)\approx 2Rt$, so $t = \dfrac{r^2}{2R}$.</p>
+    <p><span class="step">Step 2</span>In reflected light (normal incidence) the $n$th dark ring has $2\mu t = n\lambda$:</p>
+    <div class="eq">$$r_n^2 = \frac{n\lambda R}{\mu}, \qquad D_n^2 = \frac{4n\lambda R}{\mu}$$</div>
+    <p>The radii grow as $\sqrt n$, so the rings crowd together outwards. The centre is dark (the film is zero but there is a $\lambda/2$ reflection change).</p>
+    <p><span class="step">Step 3</span><b>Wavelength:</b> to avoid the uncertain contact point use two rings: $\lambda = \dfrac{D_{n+p}^2 - D_n^2}{4pR}$. <b>Refractive index of a liquid:</b> fill the gap; the rings shrink: $\mu = \dfrac{(D_{n+p}^2 - D_n^2)_{\text{air}}}{(D_{n+p}^2 - D_n^2)_{\text{liquid}}}$.</p>
+  </div>
+
+  <div class="sim" id="sim-newton3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Newton&rsquo;s rings</h4></div>
+    <p class="sim-try"><b>Try:</b> change the lens&rsquo;s radius of curvature, the wavelength, and fill the gap with a liquid. Switch between reflected and transmitted light. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> a flatter lens (larger $R$) gives larger rings; a liquid makes them shrink by $\sqrt\mu$. The reflected and transmitted patterns are complementary: dark centre in reflection, bright in transmission.</p>
+  </div>
+
+  <h3><span class="n">14.5</span>Interferometers: the Michelson interferometer</h3>
+  <div class="box der"><span class="lbl">Principle</span>
+    <p>A half-silvered plate splits a beam into two at right angles (division of amplitude). The beams reflect from mirrors M&#8321; and M&#8322; and recombine on the screen. If M&#8322; is a distance $d$ further away than M&#8321;&rsquo;s image, the path difference at angle $\theta$ is $2d\cos\theta$: circular fringes, bright when $2d\cos\theta = n\lambda$.</p>
+    <p>Moving M&#8322; by $\lambda/2$ moves the pattern by one fringe. Counting $N$ fringes while the mirror moves $x$:</p>
+    <div class="eq">$$\lambda = \frac{2x}{N}$$</div>
+    <p><b>Uses:</b> measuring wavelengths and tiny distances, the refractive index of gases, the standard metre, and (in giant form) detecting gravitational waves. Michelson and Morley used it to show there is no ether.</p>
+  </div>
+
+  <div class="sim" id="sim-michelson3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Michelson interferometer</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Move M&#8322; slowly</b> and count the fringes appearing from the centre. Change the wavelength. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> each time the mirror moves half a wavelength (about 0.3 &micro;m) a new fringe is born at the centre. As $d$ grows the rings get thinner and more numerous.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A mica sheet ($\mu = 1.58$) over one slit shifts the central fringe by 6 fringes of 600 nm light. Find its thickness. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$t = N\lambda/(\mu - 1) = 6(600\times10^{-9})/0.58 = 6.2\ \mu$m.</p></div></details></li>
+    <li>In a biprism experiment, $a + b = 1$ m, $d = 0.9$ mm and $\beta = 0.65$ mm. Find $\lambda$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda = \beta d/D = 585$ nm.</p></div></details></li>
+    <li>An air wedge between two glass plates 10 cm long is formed by a wire at one end; 20 dark fringes per cm are seen with 589 nm light. Find the wire diameter. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\beta = 0.5$ mm; $\theta = \lambda/2\beta = 5.89\times10^{-4}$; $d = \theta L = 58.9\ \mu$m.</p></div></details></li>
+    <li>In Newton&rsquo;s rings the diameters of the 5th and 15th dark rings are 3.36 mm and 5.90 mm; $R = 1$ m. Find $\lambda$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda = (5.90^2 - 3.36^2)\times10^{-6}/(4\times10\times1) = 588$ nm.</p></div></details></li>
+    <li>A liquid between lens and plate reduces the diameter of the 10th ring from 1.40 cm to 1.27 cm. Find $\mu$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\mu = (1.40/1.27)^2 = 1.215$.</p></div></details></li>
+    <li>Moving a Michelson mirror by 0.0295 mm passes 100 fringes. Find $\lambda$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda = 2x/N = 590$ nm.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 15 ===================== -->
+<section class="class" id="c15"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 15</span>
+    <h2>Mid-term review: formula sheet for Units 1&ndash;4</h2>
+  </div>
+  <div class="sheet">
+    <div><h4>Elasticity</h4><p>$Y = \dfrac{FL}{A\Delta L}$, $\eta = \dfrac{F}{A\theta}$, $K = \dfrac{-\Delta P}{\Delta V/V}$</p><p>$Y = 2\eta(1+\sigma) = 3K(1-2\sigma)$</p><p>$u = \tfrac12\,\text{stress}\times\text{strain}$</p></div>
+    <div><h4>SHM</h4><p>$\ddot x + \omega^2x = 0$, $v = \omega\sqrt{A^2-x^2}$</p><p>$E = \tfrac12kA^2$, $\overline K = \overline U = E/2$</p><p>$T = 2\pi\sqrt{(K^2+d^2)/gd}$, $C = \pi\eta r^4/2l$</p></div>
+    <div><h4>Damped and forced</h4><p>$x = Ae^{-\gamma t}\cos\omega't$, $\omega'^2 = \omega_0^2 - \gamma^2$</p><p>$A(\omega) = \dfrac{F_0/m}{\sqrt{(\omega_0^2-\omega^2)^2+4\gamma^2\omega^2}}$</p><p>$Q = \omega_0/2\gamma$, $\mu = m_1m_2/(m_1+m_2)$</p></div>
+    <div><h4>Waves and sound</h4><p>$y = A\sin(\omega t - kx)$, $v = \sqrt{F/\mu}$</p><p>$P = \tfrac12\mu v\omega^2A^2$, $v_g = d\omega/dk$</p><p>$\beta = 10\log(I/I_0)$, $T = 0.161V/\sum\alpha S$</p></div>
+    <div><h4>Interference</h4><p>$\beta = \lambda D/d$, $I = 4I_0\cos^2(\delta/2)$</p><p>$x_0 = (\mu-1)tD/d$, $d = 2a(\mu-1)\alpha$</p><p>$\beta_{\text{wedge}} = \lambda/2\mu\theta$, $D_n^2 = 4n\lambda R/\mu$, $\lambda = 2x/N$</p></div>
+  </div>
+  <div class="pager"><a href="waves.html"><small>&larr; Previous unit</small>Waves and acoustics</a><a href="diffraction.html"><small>Next unit</small>Diffraction of light &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/interference.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>
