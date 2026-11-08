@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diffraction of Light | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 16 to 18: Fresnel and Fraunhofer diffraction, single slit, double slit, N-slit grating, circular aperture, resolving and dispersive power, Poynting vector.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html" aria-current="page">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 5 &middot; Classes 16&ndash;18 &middot; Physical optics</span>
+  <h1>Diffraction of Light</h1>
+  <p class="lead">Light bends slightly around edges and spreads out after passing through small openings. Diffraction sets the limit on how much detail any lens, camera, microscope or surveying telescope can resolve, and a diffraction grating turns that spreading into one of the most precise tools for measuring wavelengths.</p>
+  <ul class="toc">
+    <li><a href="#c16"><span>Class 16</span>Fresnel and Fraunhofer, single slit</a></li>
+    <li><a href="#c17"><span>Class 17</span>Double slit and N-slit grating</a></li>
+    <li><a href="#c18"><span>Class 18</span>Circular aperture, resolving and dispersive power, Poynting vector</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 16 ===================== -->
+<section class="class" id="c16"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 16</span>
+    <h2>Diffraction: Fresnel and Fraunhofer, and the single slit</h2>
+    <p class="goals"><b>By the end you can:</b> explain the geometrical shadow and when diffraction is noticeable; distinguish Fresnel and Fraunhofer diffraction and interference from diffraction; derive the intensity of single-slit Fraunhofer diffraction and the positions of its minima and maxima.</p>
+  </div>
+
+  <h3><span class="n">16.1</span>The geometrical shadow and the condition for diffraction</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>Ray optics predicts a sharp-edged <b>geometrical shadow</b>. In reality, by Huygens&rsquo; principle, the unblocked part of every wavefront sends wavelets into the shadow region. The effect is noticeable when the size of the obstacle or opening is not too large compared with the wavelength: sound (&lambda; &asymp; 1 m) bends easily around buildings; light (&lambda; &asymp; 0.5 &micro;m) needs openings of a fraction of a millimetre.</p>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Fresnel diffraction</th><th>Fraunhofer diffraction</th></tr>
+    <tr><td>Source and/or screen at a finite distance</td><td>Source and screen effectively at infinity (lenses used)</td></tr>
+    <tr><td>Incident wavefronts spherical or cylindrical</td><td>Incident wavefronts plane</td></tr>
+    <tr><td>Pattern changes shape with distance; harder mathematics (Fresnel integrals)</td><td>Pattern only scales with distance; simple mathematics</td></tr>
+    <tr><td>Examples: straight edge, small round obstacle (bright Poisson spot)</td><td>Examples: single slit, grating, circular aperture of a telescope</td></tr>
+  </table></div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Interference</th><th>Diffraction</th></tr>
+    <tr><td>Superposition of waves from two (or a few) separate coherent sources</td><td>Superposition of wavelets from different parts of the same wavefront</td></tr>
+    <tr><td>Fringes of equal width (Young)</td><td>Central fringe twice as wide as the others</td></tr>
+    <tr><td>All bright fringes equally bright; minima perfectly dark</td><td>Brightness falls off rapidly; minima not perfectly dark in general</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-edge">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Fresnel diffraction at a straight edge</h4></div>
+    <p class="sim-try"><b>Try:</b> move the screen closer to and further from the edge; change the wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> light leaks into the geometric shadow and fades smoothly; outside it there are bright and dark bands, the first one brighter than the unobstructed light. At the edge of the shadow the intensity is exactly one quarter. The bands spread out as $\sqrt{\lambda b}$: this is Fresnel diffraction, so the pattern changes as the distance changes.</p>
+  </div>
+
+  <h3><span class="n">16.2</span>Fraunhofer diffraction at a single slit</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A plane wave falls on a slit of width $a$. Divide the slit into many strips $dy$, each sending a wavelet. In the direction $\theta$, the wavelet from height $y$ has an extra path $y\sin\theta$, a phase $ky\sin\theta$.</p>
+    <p><span class="step">Step 2</span>Add the wavelets (integrate across the slit):</p>
+    <div class="eq">$$E(\theta)\propto\int_{-a/2}^{a/2}e^{iky\sin\theta}dy = a\,\frac{\sin\alpha}{\alpha}, \qquad \alpha = \frac{\pi a\sin\theta}{\lambda}$$</div>
+    <p><span class="step">Step 3</span>Intensity:</p>
+    <div class="eq">$$I = I_0\left(\frac{\sin\alpha}{\alpha}\right)^2$$</div>
+    <p><span class="step">Minima</span>$\sin\alpha = 0$, $\alpha = n\pi$: $a\sin\theta = n\lambda$ ($n = \pm1, \pm2, \ldots$).</p>
+    <p><span class="step">Secondary maxima</span>$\dfrac{d}{d\alpha}\left(\dfrac{\sin\alpha}\alpha\right) = 0\Rightarrow\tan\alpha = \alpha$: $\alpha\approx1.43\pi, 2.46\pi, \ldots$ with intensities $\approx4.7\%$, $1.6\%$ of $I_0$.</p>
+    <p><span class="step">Width</span>On a screen at distance $D$ (or the focal plane of a lens), the central maximum spans $\pm\lambda D/a$: width $\dfrac{2\lambda D}{a}$. A narrower slit gives a wider pattern.</p>
+  </div>
+
+  <div class="sim" id="sim-single">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Single-slit diffraction pattern</h4></div>
+    <p class="sim-try"><b>Try:</b> narrow and widen the slit; change the wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> the central bright band is twice as wide as the others and holds most of the light. Halving the slit width doubles the pattern&rsquo;s width. Red light spreads more than blue.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Light of 600 nm falls on a 0.2 mm slit; a lens of focal length 1 m forms the pattern. Find the width of the central maximum. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$2\lambda f/a = 6$ mm.</p></div></details></li>
+    <li>The first minimum of a single-slit pattern is at 30&deg; for 500 nm light. Find the slit width. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$a = \lambda/\sin30^\circ = 1\ \mu$m.</p></div></details></li>
+    <li>Find the intensity at the point midway between the central maximum and the first minimum. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\alpha = \pi/2$: $I/I_0 = (1/(\pi/2))^2 = 4/\pi^2 = 0.405$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 17 ===================== -->
+<section class="class" id="c17"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 17</span>
+    <h2>Diffraction at a double slit and an N-slit grating</h2>
+    <p class="goals"><b>By the end you can:</b> derive the intensity for two and for $N$ slits; locate principal maxima, minima and secondary maxima; explain missing orders; use the grating equation with the grating element.</p>
+  </div>
+
+  <h3><span class="n">17.1</span>Double slit</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Two slits of width $a$ with centres $d = a + b$ apart. Each slit gives the single-slit amplitude $\dfrac{\sin\alpha}\alpha$; the two are out of phase by $2\beta$ with $\beta = \dfrac{\pi(a+b)\sin\theta}{\lambda}$.</p>
+    <p><span class="step">Step 2</span>Adding them, $|1 + e^{2i\beta}|^2 = 4\cos^2\beta$:</p>
+    <div class="eq">$$I = 4I_0\left(\frac{\sin\alpha}{\alpha}\right)^2\cos^2\beta$$</div>
+    <p>Young&rsquo;s $\cos^2$ interference fringes sit inside the single-slit diffraction envelope. Interference maxima: $(a+b)\sin\theta = n\lambda$; diffraction minima: $a\sin\theta = m\lambda$.</p>
+    <p><span class="step">Missing orders</span>If both conditions hold at once, $\dfrac{a+b}{a} = \dfrac nm$, that interference order is suppressed. With $b = a$, orders 2, 4, 6, &hellip; are missing.</p>
+  </div>
+
+  <h3><span class="n">17.2</span>N slits: the plane diffraction grating</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>$N$ equally spaced slits; neighbouring waves differ in phase by $2\beta$. The sum of $N$ equal phasors is a geometric series: $\left|\sum_{j=0}^{N-1}e^{2ij\beta}\right| = \dfrac{\sin N\beta}{\sin\beta}$.</p>
+    <div class="eq">$$I = I_0\left(\frac{\sin\alpha}{\alpha}\right)^2\left(\frac{\sin N\beta}{\sin\beta}\right)^2$$</div>
+    <p><span class="step">Principal maxima</span>$\sin\beta = 0$, $\beta = n\pi$: the <b>grating equation</b></p>
+    <div class="eq">$$(a+b)\sin\theta = n\lambda$$</div>
+    <p>There the intensity is $N^2$ times that of one slit. $(a+b)$ is the <b>grating element</b>; with $N'$ lines per metre, $a+b = 1/N'$.</p>
+    <p><span class="step">Minima</span>$\sin N\beta = 0$ but $\sin\beta\ne0$: $N - 1$ minima and $N - 2$ weak <b>secondary maxima</b> between neighbouring principal maxima. More slits make the principal maxima sharper and brighter.</p>
+    <p><span class="step">Highest order</span>$\sin\theta\le1$: $n_{\max} = (a+b)/\lambda$.</p>
+  </div>
+
+  <div class="sim" id="sim-nslit">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>From one slit to a grating</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the number of slits from 1 to 12. Set the spacing ratio $(a+b)/a$ to 2, 3 and 4 and look for missing orders.</p>
+    <p class="sim-note"><b>What to notice:</b> the principal maxima stay in the same places but get narrower as $N$ grows, with $N-2$ tiny bumps between them. The single-slit envelope (dashed) controls their heights; where an envelope zero lands on a principal maximum, that order disappears.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A grating has 5000 lines/cm. Find the angle of the 2nd-order maximum for 589 nm light and the highest order visible. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$a+b = 2\ \mu$m; $\sin\theta = 0.589$, $\theta = 36.1^\circ$; $n_{\max} = 2/0.589 = 3$.</p></div></details></li>
+    <li>In a double-slit pattern, slit width 0.1 mm and separation 0.4 mm. Which orders are missing? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$(a+b)/a = 4$: orders 4, 8, 12, &hellip;</p></div></details></li>
+    <li>How many interference fringes lie within the central diffraction maximum when $(a+b) = 3a$? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Orders $-2$ to $2$: 5 fringes (order 3 is missing at the envelope zero).</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 18 ===================== -->
+<section class="class" id="c18"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 18</span>
+    <h2>Circular aperture, resolving power, dispersive power and the Poynting vector</h2>
+    <p class="goals"><b>By the end you can:</b> describe the Airy pattern and its central width; use the f-number; state the Rayleigh criterion; derive the resolving power and dispersive power of a grating; find the intensity of an electromagnetic wave from the Poynting vector.</p>
+  </div>
+
+  <h3><span class="n">18.1</span>Diffraction by a circular aperture</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <p>A circular hole of diameter $D$ (a lens, a telescope mirror, the pupil of the eye) gives a bright central <b>Airy disc</b> surrounded by faint rings. The first dark ring is at</p>
+    <div class="eq">$$\sin\theta = 1.22\,\frac{\lambda}{D}$$</div>
+    <p>(the factor 1.22 comes from the first zero of the Bessel function $J_1$). In the focal plane of a lens of focal length $f$, the Airy disc has radius $1.22\lambda f/D = 1.22\lambda N$, where $N = f/D$ is the <b>f-number</b>. About 84% of the light falls in the central disc; its half-width at half maximum is about half its radius.</p>
+  </div>
+
+  <div class="sim" id="sim-airy3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Diffraction pattern as a landscape of intensity</h4></div>
+    <p class="sim-try"><b>Try:</b> change the aperture size; switch between a circular and a rectangular hole and change its aspect ratio. Press <b>Exaggerate faint rings</b>. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> the circular hole gives a tall central peak with rings; the rectangular hole gives a cross, widest along the hole&rsquo;s short side. A smaller hole spreads the pattern wider: diffraction always goes as $\lambda$ / size.</p>
+  </div>
+
+  <h3><span class="n">18.2</span>Resolving power</h3>
+  <div class="box der"><span class="lbl">Rayleigh criterion and resolving power</span>
+    <p><b>Rayleigh criterion:</b> two point sources are just resolved when the central maximum of one falls on the first minimum of the other. For a telescope or camera the smallest resolvable angle is $\theta_{\min} = 1.22\lambda/D$; its <b>resolving power</b> is $1/\theta_{\min}$. A bigger objective resolves finer detail.</p>
+    <p><span class="step">Grating, Step 1</span>The $n$th order principal maximum at $\lambda$ is at $(a+b)\sin\theta = n\lambda$. Its edge (the next minimum) is at $(a+b)\sin\theta = n\lambda + \lambda/N$ for $N$ illuminated lines.</p>
+    <p><span class="step">Step 2</span>Two wavelengths $\lambda$ and $\lambda + d\lambda$ are just resolved when the $n$th maximum of $\lambda + d\lambda$ falls on that minimum: $n(\lambda + d\lambda) = n\lambda + \lambda/N$:</p>
+    <div class="eq">$$\text{resolving power } \frac{\lambda}{d\lambda} = nN$$</div>
+    <p><span class="step">Dispersive power</span>Differentiate the grating equation: $(a+b)\cos\theta\,d\theta = n\,d\lambda$:</p>
+    <div class="eq">$$\frac{d\theta}{d\lambda} = \frac{n}{(a+b)\cos\theta}$$</div>
+    <p>Higher orders and finer gratings spread the spectrum more. Dispersive power (how far apart the lines are) is not the same as resolving power (whether they can be seen as separate).</p>
+  </div>
+
+  <div class="sim" id="sim-airy">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Can the telescope separate two stars?</h4></div>
+    <p class="sim-try"><b>Try:</b> bring the two stars closer together, then enlarge the aperture. Change the wavelength.</p>
+    <p class="sim-note"><b>What to notice:</b> when the separation drops below $1.22\lambda/D$, the two Airy discs merge into one blob. A larger aperture or a shorter wavelength makes the discs smaller and separates them again.</p>
+  </div>
+
+  <div class="sim" id="sim-grating">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Grating spectra and the sodium doublet</h4></div>
+    <p class="sim-try"><b>Try:</b> change the number of illuminated lines until the two sodium lines separate. Then view the 2nd and 3rd orders.</p>
+    <p class="sim-note"><b>What to notice:</b> to separate 589.0 and 589.6 nm you need $nN\ge982$: about 1000 lines in first order, but only 500 in second. Finer gratings spread the spectrum further (dispersion) and allow fewer orders.</p>
+  </div>
+
+  <h3><span class="n">18.3</span>The Poynting vector</h3>
+  <div class="box der"><span class="lbl">Energy flow in an electromagnetic wave</span>
+    <p>Light is an electromagnetic wave: $\vec E$ and $\vec B$ oscillate in phase, at right angles to each other and to the direction of travel, with $E = cB$. The energy flow per unit area per second is the <b>Poynting vector</b></p>
+    <div class="eq">$$\vec S = \frac1{\mu_0}\vec E\times\vec B, \qquad \langle S\rangle = \frac{E_0^2}{2\mu_0c} = \frac12c\varepsilon_0E_0^2$$</div>
+    <p>The energy density is shared equally between the electric field ($\tfrac12\varepsilon_0E^2$) and the magnetic field ($B^2/2\mu_0$). Sunlight at the Earth carries about 1.36 kW/m&sup2; ($E_0\approx1000$ V/m).</p>
+  </div>
+
+  <div class="sim" id="sim-poynting3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Electric and magnetic fields of light and the energy they carry</h4></div>
+    <p class="sim-try"><b>Try:</b> change the field amplitude. Drag to rotate and look along the beam.</p>
+    <p class="sim-note"><b>What to notice:</b> $\vec E$ (red) and $\vec B$ (blue) rise and fall together at right angles; $\vec S$ (green) always points forward, pulsing at twice the wave frequency. Doubling $E_0$ makes the intensity four times bigger.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>What is the smallest angle a 10 cm telescope can resolve at 550 nm? How far apart must two car headlights be to be resolved at 10 km? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\theta = 1.22(550\times10^{-9})/0.1 = 6.7\ \mu$rad; separation $6.7\times10^{-6}\times10^4 = 0.067$ m.</p></div></details></li>
+    <li>A camera lens of focal length 50 mm is set to f/8. Find the radius of the Airy disc for 550 nm light. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$1.22\times550\times10^{-9}\times8 = 5.4\ \mu$m.</p></div></details></li>
+    <li>What is the minimum number of lines a grating needs to resolve the sodium doublet in the 2nd order? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda/d\lambda = 589.3/0.6 = 982$; $N = 982/2 = 491$.</p></div></details></li>
+    <li>Find the dispersive power of a 6000 lines/cm grating in the first order at 500 nm. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\sin\theta = 0.3$, $\cos\theta = 0.954$; $d\theta/d\lambda = 1/(1.667\times10^{-6}\times0.954) = 6.3\times10^5$ rad/m.</p></div></details></li>
+    <li>A laser beam has intensity 1 kW/m&sup2;. Find $E_0$ and $B_0$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$E_0 = \sqrt{2\mu_0cS} = 868$ V/m; $B_0 = 2.9\ \mu$T.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="interference.html"><small>&larr; Previous unit</small>Interference of light</a><a href="polarization.html"><small>Next unit</small>Polarization of light &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/diffraction.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>

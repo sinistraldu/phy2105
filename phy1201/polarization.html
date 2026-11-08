@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Polarization of Light | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 19 to 21: plane, circular and elliptical polarization, Malus' law, Brewster's law, double refraction, retardation plates, Nicol prism, optical activity and polarimeters.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html" aria-current="page">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 6 &middot; Classes 19&ndash;21 &middot; Physical optics</span>
+  <h1>Polarization of Light</h1>
+  <p class="lead">Polarization shows that light is a <em>transverse</em> wave. Polarizing filters cut glare from water and roads, photoelastic models reveal stress patterns in structural members, and polarimeters measure sugar concentration. This unit covers how polarized light is produced, analysed and changed.</p>
+  <ul class="toc">
+    <li><a href="#c19"><span>Class 19</span>Types of polarization, polarization by reflection</a></li>
+    <li><a href="#c20"><span>Class 20</span>Malus&rsquo; law, double refraction</a></li>
+    <li><a href="#c21"><span>Class 21</span>Brewster&rsquo;s law, wave plates, Nicol prism, optical activity</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 19 ===================== -->
+<section class="class" id="c19"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 19</span>
+    <h2>Polarization: plane, circular and elliptical light</h2>
+    <p class="goals"><b>By the end you can:</b> explain unpolarized and polarized light; distinguish the plane of vibration and the plane of polarization; derive the conditions for plane, circular and elliptical polarization; list methods of producing polarized light and its uses.</p>
+  </div>
+
+  <h3><span class="n">19.1</span>What polarization means</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>In light, the electric field $\vec E$ oscillates at right angles to the direction of travel. Ordinary light (sun, lamp) is <b>unpolarized</b>: $\vec E$ points in random, rapidly changing directions in that plane. If $\vec E$ oscillates in a single fixed direction, the light is <b>plane (linearly) polarized</b>. The plane containing $\vec E$ and the direction of travel is the <b>plane of vibration</b>; the plane perpendicular to it (containing $\vec B$) is traditionally called the <b>plane of polarization</b>.</p>
+    <p>Only transverse waves can be polarized; sound in air (longitudinal) cannot. <b>Methods:</b> reflection, refraction through a pile of plates, double refraction (Nicol prism), selective absorption (Polaroid, tourmaline), and scattering (blue sky). <b>Uses:</b> glare-free sunglasses, LCD screens, 3D cinema, photoelastic stress analysis of structures, polarimeters, microscopy of rocks and concrete aggregates.</p>
+  </div>
+
+  <h3><span class="n">19.2</span>Plane, circular and elliptical polarization</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Any polarized wave can be written as two perpendicular components with a phase difference $\delta$: $E_x = a\sin\omega t$, $E_y = b\sin(\omega t + \delta)$.</p>
+    <p><span class="step">Step 2</span>Eliminating $t$ (as for perpendicular SHMs) gives the path of the tip of $\vec E$:</p>
+    <div class="eq">$$\frac{E_x^2}{a^2} + \frac{E_y^2}{b^2} - \frac{2E_xE_y}{ab}\cos\delta = \sin^2\delta$$</div>
+    <p><span class="step">Plane</span>$\delta = 0$ or $\pi$: a straight line, $E_y = \pm\dfrac baE_x$.</p>
+    <p><span class="step">Circular</span>$\delta = \pi/2$ and $a = b$: $E_x^2 + E_y^2 = a^2$; the tip of $\vec E$ turns in a circle (right- or left-handed depending on the sign of $\delta$).</p>
+    <p><span class="step">Elliptical</span>any other case: the tip traces an ellipse. Plane and circular light are special cases of elliptical light.</p>
+  </div>
+
+  <div class="sim" id="sim-polstate3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Plane, circular and elliptical light</h4></div>
+    <p class="sim-try"><b>Try:</b> press the three buttons, then change the amplitudes and phase difference yourself. Drag to rotate and look along the beam.</p>
+    <p class="sim-note"><b>What to notice:</b> with $\delta = 0$ the arrows all lie in one plane. With equal amplitudes and $\delta = 90^\circ$ the arrow tips form a helix and the face-on view is a circle. Anything else gives an ellipse.</p>
+  </div>
+
+  <h3><span class="n">19.3</span>Polarization by reflection</h3>
+  <p>When unpolarized light is reflected from glass or water, the reflected light is partly polarized with $\vec E$ mainly parallel to the surface (that is why sunglasses with vertical transmission axes cut glare from roads and lakes). At one special angle, the <b>polarizing angle</b>, the reflected light is completely plane polarized (Class 21).</p>
+</div></section>
+
+<!-- ===================== CLASS 20 ===================== -->
+<section class="class" id="c20"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 20</span>
+    <h2>Malus&rsquo; law and double refraction</h2>
+    <p class="goals"><b>By the end you can:</b> state and derive Malus&rsquo; law and calculate intensities and angles; describe double refraction in calcite and the properties of the O-ray and E-ray.</p>
+  </div>
+
+  <h3><span class="n">20.1</span>Malus&rsquo; law</h3>
+  <div class="box der"><span class="lbl">Statement and derivation</span>
+    <p><span class="step">Step 1</span>Plane-polarized light of amplitude $E_0$ meets an analyzer whose axis makes angle $\theta$ with the plane of vibration. Resolve $E_0$ along and across the axis: $E_0\cos\theta$ passes, $E_0\sin\theta$ is absorbed.</p>
+    <p><span class="step">Step 2</span>Intensity is proportional to amplitude squared:</p>
+    <div class="eq">$$I = I_0\cos^2\theta$$</div>
+    <p>For unpolarized light the average of $\cos^2\theta$ over all directions is $\tfrac12$, so an ideal polarizer passes $I_0/2$. Crossed polarizers ($\theta = 90^\circ$) pass nothing, but a third sheet between them at 45&deg; lets $I_0/8$ through.</p>
+  </div>
+
+  <div class="sim" id="sim-malus3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Polarizer and analyzer: Malus&rsquo; law</h4></div>
+    <p class="sim-try"><b>Try:</b> turn the analyzer from 0&deg; to 90&deg;. Press <b>Cross them</b>, then <b>Insert a middle polarizer</b> and turn it. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> the first sheet always halves unpolarized light. The analyzer then passes $\cos^2\theta$ of it: 75% at 30&deg;, 25% at 60&deg;, 0 at 90&deg;. Surprisingly, adding a third sheet between crossed polarizers lets light through (12.5% at 45&deg;).</p>
+  </div>
+
+  <h3><span class="n">20.2</span>Double refraction</h3>
+  <div class="box key"><span class="lbl">Key ideas</span>
+    <p>In some crystals (calcite, quartz) a single ray splits into two: the <b>ordinary (O) ray</b>, which obeys Snell&rsquo;s law with a fixed index $\mu_o$, and the <b>extraordinary (E) ray</b>, whose speed and index $\mu_e$ depend on direction, and which in general does not obey Snell&rsquo;s law. Looking through calcite you see two images; turning the crystal makes the E image circle around the O image.</p>
+    <ul>
+      <li>Both rays are plane polarized, at right angles to each other: the O-ray perpendicular to the principal section, the E-ray in it.</li>
+      <li>Along the <b>optic axis</b> both travel at the same speed and there is no double refraction.</li>
+      <li>Calcite is <b>negative</b> ($\mu_e &lt; \mu_o$: 1.486 vs 1.658), quartz is <b>positive</b> ($\mu_e &gt; \mu_o$).</li>
+      <li>The <b>principal section</b> is any plane containing the optic axis and the normal to a face.</li>
+    </ul>
+  </div>
+
+  <div class="sim" id="sim-calcite">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Double refraction in calcite</h4></div>
+    <p class="sim-try"><b>Try:</b> rotate the crystal and change its thickness. Switch on the analyzer and turn it.</p>
+    <p class="sim-note"><b>What to notice:</b> the O image stays put while the E image goes around it; a thicker crystal separates them more. Through an analyzer the two images brighten and fade alternately: they are polarized at right angles to each other.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Unpolarized light of 40 W/m&sup2; passes two polarizers at 30&deg;. Find the transmitted intensity. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$20\cos^230^\circ = 15$ W/m&sup2;.</p></div></details></li>
+    <li>At what angle between polarizer and analyzer is the transmitted intensity reduced to 1/4 of the polarized intensity? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\cos^2\theta = 1/4$, $\theta = 60^\circ$.</p></div></details></li>
+    <li>Three polarizers at 0&deg;, 45&deg; and 90&deg; with unpolarized light $I_0$. Find the final intensity. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tfrac12I_0\cos^245^\circ\cos^245^\circ = I_0/8$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 21 ===================== -->
+<section class="class" id="c21"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 21</span>
+    <h2>Brewster&rsquo;s law, retardation plates, Nicol prism, optical activity and the polarimeter</h2>
+    <p class="goals"><b>By the end you can:</b> derive Brewster&rsquo;s law; explain the Brewster window; derive the thickness of quarter- and half-wave plates; describe the Nicol prism as polarizer and analyzer; define specific rotation and use a polarimeter.</p>
+  </div>
+
+  <h3><span class="n">21.1</span>Brewster&rsquo;s law</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Brewster found that the reflected light is completely polarized when the reflected and refracted rays are at right angles: $i_p + r = 90^\circ$. (Physically: the electrons in the glass oscillate along the refracted $\vec E$; for the p-component that direction points along the reflected ray, and an oscillating charge does not radiate along its own line of motion.)</p>
+    <p><span class="step">Step 2</span>Snell: $\sin i_p = \mu\sin r = \mu\sin(90^\circ - i_p) = \mu\cos i_p$, so</p>
+    <div class="eq">$$\tan i_p = \mu$$</div>
+    <p>For glass ($\mu = 1.5$) $i_p = 56.3^\circ$; for water 53.1&deg;. A <b>Brewster window</b> (a plate tilted at $i_p$) transmits p-polarized light with no reflection loss; it is used on the ends of laser tubes, making the laser output polarized.</p>
+  </div>
+
+  <div class="sim" id="sim-brewster">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Reflection and Brewster&rsquo;s angle</h4></div>
+    <p class="sim-try"><b>Try:</b> sweep the angle of incidence and press <b>Go to Brewster angle</b>. Change the refractive index.</p>
+    <p class="sim-note"><b>What to notice:</b> the p-polarized reflection (blue) drops to zero at Brewster&rsquo;s angle, exactly when reflected and refracted rays are at 90&deg;. Near grazing incidence almost everything is reflected, which is why a wet road shines so brightly in low sunlight.</p>
+  </div>
+
+  <h3><span class="n">21.2</span>Retardation plates</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Plane-polarized light enters a doubly refracting plate (thickness $t$) cut with its optic axis parallel to the faces. It splits into E and O components that travel in the same direction at different speeds.</p>
+    <p><span class="step">Step 2</span>On leaving, their path difference is $(\mu_o - \mu_e)t$, so their phase difference is</p>
+    <div class="eq">$$\delta = \frac{2\pi}{\lambda}(\mu_o - \mu_e)t$$</div>
+    <p><span class="step">Quarter-wave plate</span>$\delta = \pi/2$: $t = \dfrac{\lambda}{4(\mu_o - \mu_e)}$. Plane light at 45&deg; to the axis becomes circular; at other angles, elliptical.</p>
+    <p><span class="step">Half-wave plate</span>$\delta = \pi$: $t = \dfrac{\lambda}{2(\mu_o - \mu_e)}$. Plane light stays plane but its direction is turned through $2\theta$.</p>
+  </div>
+
+  <div class="sim" id="sim-waveplate3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Quarter- and half-wave plates</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Quarter-wave plate</b> with input at 45&deg;, then change the input angle. Try the half-wave plate. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> a quarter-wave plate turns plane light at 45&deg; into circular light, and at other angles into elliptical light. A half-wave plate keeps the light plane but flips its direction to the other side of the optic axis.</p>
+  </div>
+
+  <h3><span class="n">21.3</span>The Nicol prism</h3>
+  <div class="box key"><span class="lbl">Construction and action</span>
+    <p>A calcite crystal is cut diagonally and the two halves are cemented with <b>Canada balsam</b> ($\mu = 1.55$, between $\mu_e = 1.486$ and $\mu_o = 1.658$). The O-ray meets the balsam at more than its critical angle and is totally reflected to the side, where it is absorbed by a blackened face. The E-ray passes through. Out comes plane-polarized light: the Nicol is a <b>polarizer</b>. A second Nicol used as an <b>analyzer</b> transmits it according to Malus&rsquo; law; crossed Nicols give darkness.</p>
+  </div>
+
+  <h3><span class="n">21.4</span>Optical activity and the polarimeter</h3>
+  <div class="box der"><span class="lbl">Specific rotation</span>
+    <p>Some substances (quartz, sugar solutions, turpentine) rotate the plane of vibration of plane-polarized light as it passes through: <b>optical activity</b>. Clockwise (looking towards the source) is <b>dextro-rotatory</b>, anticlockwise <b>laevo-rotatory</b>. For a solution, the rotation is proportional to the path length $l$ and the concentration $C$:</p>
+    <div class="eq">$$\theta = [\alpha]\,l\,C \qquad\Rightarrow\qquad [\alpha] = \frac{\theta}{lC} = \frac{10\,\theta}{l_{\text{cm}}\,C}$$</div>
+    <p>$[\alpha]$ is the <b>specific rotation</b> ($l$ in decimetres, $C$ in g/cm&sup3;). It depends on the substance, the <b>wavelength</b> (roughly $\propto1/\lambda^2$), the <b>temperature</b> and the solvent.</p>
+    <p><b>Polarimeter (Laurent&rsquo;s half-shade):</b> sodium lamp &rarr; polarizer Nicol &rarr; half-shade plate &rarr; tube with solution &rarr; analyzer Nicol &rarr; telescope. Set for equal darkness with water; fill with the solution and turn the analyzer to restore equal darkness. The angle turned is $\theta$. Used to measure sugar concentrations in industry and medicine.</p>
+  </div>
+
+  <div class="sim" id="sim-polarimeter">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Measure a sugar concentration with a polarimeter</h4></div>
+    <p class="sim-try"><b>Try:</b> set a concentration and tube length, then turn the analyzer until the eyepiece is dark. Read the concentration found.</p>
+    <p class="sim-note"><b>What to notice:</b> doubling either the concentration or the tube length doubles the rotation. The plane of vibration turns steadily along the tube, and the analyzer must follow it to find darkness.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the polarizing angle for water ($\mu = 1.33$) and the angle of refraction there. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$i_p = \tan^{-1}1.33 = 53.1^\circ$; $r = 36.9^\circ$.</p></div></details></li>
+    <li>Find the thickness of a quartz quarter-wave plate for 589 nm ($\mu_e = 1.553$, $\mu_o = 1.544$). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$t = \lambda/4|\mu_e - \mu_o| = 589\times10^{-9}/0.036 = 16.4\ \mu$m.</p></div></details></li>
+    <li>A 20 cm tube of sugar solution rotates the plane of vibration by 13&deg;. $[\alpha] = 65^\circ$ dm$^{-1}$(g/cm&sup3;)$^{-1}$. Find the concentration. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$C = \theta/([\alpha]l) = 13/(65\times2) = 0.1$ g/cm&sup3;.</p></div></details></li>
+    <li>Why can sound waves not be polarized? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Sound in air is longitudinal: the vibration is along the direction of travel, so there is no transverse direction to select.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="diffraction.html"><small>&larr; Previous unit</small>Diffraction of light</a><a href="heat.html"><small>Next unit</small>Temperature and kinetic theory &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/polarization.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>

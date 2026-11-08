@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Waves and Acoustics | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 9 to 11: progressive waves, power and intensity, stationary waves, group and phase velocity, sound, beats, intensity level, Doppler effect and Sabine's formula for architectural acoustics.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html" aria-current="page">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 3 &middot; Classes 9&ndash;11 &middot; Waves and acoustics</span>
+  <h1>Waves and Acoustics</h1>
+  <p class="lead">A wave carries energy without carrying matter. This unit derives the wave equation, the power a wave carries, standing waves, group velocity, and then turns to sound: loudness in decibels, beats, the Doppler effect and the acoustic design of halls, which every civil engineer meets when designing classrooms, auditoriums and noise barriers.</p>
+  <ul class="toc">
+    <li><a href="#c9"><span>Class 9</span>Progressive waves, power, stationary waves</a></li>
+    <li><a href="#c10"><span>Class 10</span>Group and phase velocity, standing waves</a></li>
+    <li><a href="#c11"><span>Class 11</span>Sound, beats, decibels, Doppler, Sabine</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 9 ===================== -->
+<section class="class" id="c9"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 9</span>
+    <h2>The progressive wave: its equation, power and intensity</h2>
+    <p class="goals"><b>By the end you can:</b> write the equation of a travelling wave; relate $v$, $f$, $\lambda$, $k$ and $\omega$; derive the differential wave equation and the speed of a wave on a string; derive the power and intensity carried by a wave.</p>
+  </div>
+
+  <h3><span class="n">9.1</span>Equation of a travelling wave</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>At $x = 0$ the source moves in SHM: $y = A\sin\omega t$. The disturbance travels with speed $v$, so a particle at distance $x$ repeats this motion a time $x/v$ later:</p>
+    <div class="eq">$$y(x,t) = A\sin\omega\left(t - \frac xv\right) = A\sin(\omega t - kx), \qquad k = \frac{2\pi}{\lambda},\ \ \omega = 2\pi f,\ \ v = f\lambda = \frac\omega k$$</div>
+    <p>($y = A\sin(kx - \omega t)$ describes the same wave with a shifted phase.) A wave moving in the $-x$ direction has $\omega t + kx$.</p>
+    <p><span class="step">Step 2</span>Differentiate twice: $\dfrac{\partial^2y}{\partial t^2} = -\omega^2y$ and $\dfrac{\partial^2y}{\partial x^2} = -k^2y$. Dividing:</p>
+    <div class="eq">$$\frac{\partial^2y}{\partial t^2} = v^2\frac{\partial^2y}{\partial x^2}$$</div>
+    <p>This is the <b>differential equation of a progressive wave</b>. Any function $y = g(x - vt)$ satisfies it.</p>
+    <p><span class="step">Step 3</span>For a string with tension $F$ and mass per length $\mu$: a small piece $dx$ feels a net vertical force $F\,\dfrac{\partial^2y}{\partial x^2}dx$, and Newton&rsquo;s law gives $\mu\,dx\,\dfrac{\partial^2y}{\partial t^2} = F\dfrac{\partial^2y}{\partial x^2}dx$. Comparing, $v = \sqrt{F/\mu}$. (For sound in a fluid, $v = \sqrt{K/\rho}$; in a solid rod, $v = \sqrt{Y/\rho}$.)</p>
+  </div>
+
+  <div class="sim" id="sim-travel">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>A travelling wave: transverse and longitudinal</h4></div>
+    <p class="sim-try"><b>Try:</b> change $A$, $\lambda$ and $f$. Follow the red particle. Switch to <b>Longitudinal</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> the wave pattern moves along, but each particle only oscillates about its own place. The wave speed is $f\lambda$, while the particle&rsquo;s speed is at most $A\omega$, a completely different quantity. In the longitudinal wave the layers bunch together (compressions) and spread apart (rarefactions).</p>
+  </div>
+
+  <div class="sim" id="sim-waves3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Transverse and longitudinal waves side by side</h4></div>
+    <p class="sim-try"><b>Try:</b> change the amplitude, wavelength and frequency; view each type on its own. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> both waves travel at the same speed $f\lambda$. In the top (transverse) layer the red particles move up and down; in the bottom (longitudinal) layer they move back and forth along the direction of travel.</p>
+  </div>
+
+  <h3><span class="n">9.2</span>Power and intensity of a wave</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A piece of string of length $dx$ has mass $\mu\,dx$ and oscillates in SHM with amplitude $A$; its total energy is $dE = \tfrac12(\mu\,dx)\omega^2A^2$.</p>
+    <p><span class="step">Step 2</span>Energy per unit length: $\dfrac{dE}{dx} = \tfrac12\mu\omega^2A^2$. This energy moves along with speed $v$, so the <b>power</b> delivered is</p>
+    <div class="eq">$$P = \frac{dE}{dt} = \frac12\mu v\omega^2A^2 = 2\pi^2\mu vf^2A^2$$</div>
+    <p><span class="step">Step 3</span>For a wave in 3D (sound), the <b>intensity</b> is the power per unit area: $I = \tfrac12\rho v\omega^2A^2$. From a point source the power spreads over a sphere, so $I = P/4\pi r^2$: double the distance, a quarter of the intensity.</p>
+    <p>Power depends on the <b>square</b> of both amplitude and frequency.</p>
+  </div>
+
+  <div class="sim" id="sim-power">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Power carried by a wave on a string</h4></div>
+    <p class="sim-try"><b>Try:</b> double the amplitude, then double the frequency. Change the tension and linear density.</p>
+    <p class="sim-note"><b>What to notice:</b> doubling $A$ or $f$ makes the power four times larger. A heavier or tighter string carries more power at the same amplitude, because $\mu v = \sqrt{F\mu}$ grows.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A wave is $y = 0.02\sin(4\pi t - 0.5\pi x)$ (SI). Find $A$, $f$, $\lambda$, $v$ and the direction. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$A = 0.02$ m, $f = 2$ Hz, $\lambda = 4$ m, $v = 8$ m/s, travelling in $+x$.</p></div></details></li>
+    <li>A string with $\mu = 5$ g/m and tension 80 N carries a 100 Hz wave of amplitude 2 mm. Find $v$ and the power. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$v = \sqrt{80/0.005} = 126.5$ m/s; $P = \tfrac12(0.005)(126.5)(628)^2(0.002)^2 = 0.50$ W.</p></div></details></li>
+    <li>Find the phase difference between two points 0.5 m apart on a wave of wavelength 2 m. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta\phi = 2\pi\Delta x/\lambda = \pi/2$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 10 ===================== -->
+<section class="class" id="c10"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 10</span>
+    <h2>Group and phase velocity; standing waves</h2>
+    <p class="goals"><b>By the end you can:</b> distinguish phase and group velocity and relate them through the wave number; derive the equation of a standing wave from two travelling waves; locate nodes and antinodes; compare standing and travelling waves.</p>
+  </div>
+
+  <h3><span class="n">10.1</span>Phase velocity and group velocity</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Add two waves of slightly different $k$ and $\omega$: $y = A\cos(k_1x - \omega_1t) + A\cos(k_2x - \omega_2t)$.</p>
+    <p><span class="step">Step 2</span>Using $\cos a + \cos b = 2\cos\tfrac{a-b}{2}\cos\tfrac{a+b}{2}$:</p>
+    <div class="eq">$$y = \underbrace{2A\cos\left(\frac{\Delta k}{2}x - \frac{\Delta\omega}{2}t\right)}_{\text{envelope (group)}}\ \cos(kx - \omega t)$$</div>
+    <p><span class="step">Step 3</span>The fast ripple moves at the <b>phase velocity</b> $v_p = \omega/k$; the envelope (which carries the energy and information) moves at the <b>group velocity</b></p>
+    <div class="eq">$$v_g = \frac{\Delta\omega}{\Delta k}\to\frac{d\omega}{dk} = v_p + k\frac{dv_p}{dk} = v_p - \lambda\frac{dv_p}{d\lambda}$$</div>
+    <p>If $v_p$ does not depend on wavelength (no <b>dispersion</b>, e.g. sound in air), $v_g = v_p$. Water waves and light in glass are dispersive.</p>
+  </div>
+
+  <div class="sim" id="sim-groupvel">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Phase velocity vs group velocity</h4></div>
+    <p class="sim-try"><b>Try:</b> set the dispersion $\alpha$ to zero, then positive, then negative. Change the spread $\Delta k$.</p>
+    <p class="sim-note"><b>What to notice:</b> with $\alpha = 0$ the red crest and the green envelope move together. With dispersion the crests slide through the groups, forwards or backwards. A smaller $\Delta k$ makes longer groups ($\approx 2\pi/\Delta k$).</p>
+  </div>
+
+  <h3><span class="n">10.2</span>Stationary (standing) waves</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A wave and its reflection travelling in opposite directions: $y_1 = A\sin(kx - \omega t)$, $y_2 = A\sin(kx + \omega t)$.</p>
+    <p><span class="step">Step 2</span>Add: $y = 2A\sin kx\cos\omega t$. Every point oscillates in step, with an amplitude $2A\sin kx$ that depends on position.</p>
+    <p><span class="step">Nodes</span>$\sin kx = 0$: $x = 0, \tfrac\lambda2, \lambda, \ldots$ (never move). <span class="step">Antinodes</span>$\sin kx = \pm1$: $x = \tfrac\lambda4, \tfrac{3\lambda}4, \ldots$ (largest motion). Adjacent nodes are $\lambda/2$ apart.</p>
+    <p><span class="step">String fixed at both ends</span>Nodes at both ends require $L = n\lambda/2$, giving the <b>harmonics</b> $f_n = \dfrac{nv}{2L} = \dfrac n{2L}\sqrt{\dfrac F\mu}$.</p>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Travelling wave</th><th>Standing wave</th></tr>
+    <tr><td>Pattern moves with speed $v$</td><td>Pattern stays in place</td></tr>
+    <tr><td>All particles have the same amplitude</td><td>Amplitude varies from 0 (nodes) to $2A$ (antinodes)</td></tr>
+    <tr><td>Phase changes continuously along the wave</td><td>All particles between two nodes move in phase</td></tr>
+    <tr><td>Carries energy</td><td>No net energy transport</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-standing">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Standing waves on a string</h4></div>
+    <p class="sim-try"><b>Try:</b> change the harmonic number, string length and wave speed. Show the two travelling waves that make up the standing wave.</p>
+    <p class="sim-note"><b>What to notice:</b> the $n$th harmonic has $n$ loops, $n+1$ nodes and $n$ antinodes. A shorter string or a faster wave (tighter string) raises every frequency: this is how a guitarist tunes and frets a string.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Two waves $y_1 = 0.04\sin(2x - 100t)$ and $y_2 = 0.04\sin(2x + 100t)$ superpose. Find the amplitude at $x = 0.5$ m and the node spacing. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$y = 0.08\sin2x\cos100t$; amplitude $0.08\sin1 = 0.067$ m; nodes every $\pi/2 = 1.57$ m.</p></div></details></li>
+    <li>A 0.8 m string has a fundamental of 220 Hz. Find the wave speed and the third harmonic. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$v = 2Lf = 352$ m/s; $f_3 = 660$ Hz.</p></div></details></li>
+    <li>For deep-water waves $v_p = \sqrt{g\lambda/2\pi}$. Show that $v_g = v_p/2$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$v_p\propto\lambda^{1/2}$, so $\lambda\,dv_p/d\lambda = v_p/2$ and $v_g = v_p - v_p/2 = v_p/2$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 11 ===================== -->
+<section class="class" id="c11"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 11</span>
+    <h2>Sound: nodes and antinodes in pipes, beats, intensity level, Doppler effect and architectural acoustics</h2>
+    <p class="goals"><b>By the end you can:</b> find the harmonics of open and closed pipes; explain beats; use the decibel scale; apply the Doppler formula; derive and apply Sabine&rsquo;s formula; list the requisites of a good auditorium.</p>
+  </div>
+
+  <h3><span class="n">11.1</span>Standing sound waves in pipes</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <p>At a <b>closed</b> end the air cannot move: a displacement node (pressure antinode). At an <b>open</b> end the pressure equals atmospheric: a displacement antinode (pressure node).</p>
+    <div class="eq">$$\text{open pipe: } f_n = \frac{nv}{2L},\ n = 1,2,3,\ldots \qquad \text{closed pipe: } f_n = \frac{nv}{4L},\ n = 1,3,5,\ldots$$</div>
+    <p>A closed pipe sounds an octave lower than an open pipe of the same length and has only odd harmonics. (In practice add an end correction of about $0.6r$ at each open end.)</p>
+  </div>
+
+  <div class="sim" id="sim-pipe3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Standing sound waves in open and closed pipes</h4></div>
+    <p class="sim-try"><b>Try:</b> step through the modes for an open pipe, then close one end. Change the length. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> the air particles pile up and spread out; where they move most (displacement antinode, blue curve) the pressure hardly changes, and vice versa (green curve). The closed end is always a displacement node; open ends are always antinodes.</p>
+  </div>
+
+  <h3><span class="n">11.2</span>Beats</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p>Two sounds of nearly equal frequency: $y = A\cos2\pi f_1t + A\cos2\pi f_2t = 2A\cos\left(2\pi\dfrac{f_1-f_2}{2}t\right)\cos\left(2\pi\dfrac{f_1+f_2}2t\right)$. We hear the average pitch, with a loudness that rises and falls. The amplitude is largest twice per cycle of the slow cosine, so the <b>beat frequency</b> is</p>
+    <div class="eq">$$f_{\text{beat}} = |f_1 - f_2|$$</div>
+    <p>Musicians tune instruments by adjusting until the beats disappear; an unknown frequency can be found from the beats it makes with a known tuning fork.</p>
+  </div>
+
+  <div class="sim" id="sim-beats">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Beats from two tuning forks</h4></div>
+    <p class="sim-try"><b>Try:</b> bring $f_2$ closer to $f_1$ until the beats disappear.</p>
+    <p class="sim-note"><b>What to notice:</b> 256 Hz and 252 Hz give 4 loud&ndash;soft cycles per second. The closer the frequencies, the slower the beats.</p>
+  </div>
+
+  <h3><span class="n">11.3</span>Intensity level, loudness and pitch</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <p>The ear responds to intensities from $10^{-12}$ W/m&sup2; (threshold) to about 1 W/m&sup2; (pain): a range of $10^{12}$. So we use a logarithmic scale, the <b>intensity level</b> in <b>bels</b> (or tenths, decibels):</p>
+    <div class="eq">$$\beta = 10\log_{10}\frac{I}{I_0}\ \text{dB}, \qquad I_0 = 10^{-12}\ \text{W/m}^2$$</div>
+    <p>Doubling the intensity adds 3 dB; ten times the intensity adds 10 dB. <b>Loudness</b> is the listener&rsquo;s sensation (it also depends on frequency); <b>pitch</b> is the sensation of frequency; <b>quality (timbre)</b> depends on the mix of harmonics.</p>
+  </div>
+
+  <div class="sim" id="sim-db">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Intensity and the decibel scale</h4></div>
+    <p class="sim-try"><b>Try:</b> change the source power, the distance and the number of identical sources (machines on a site).</p>
+    <p class="sim-note"><b>What to notice:</b> moving twice as far away only lowers the level by 6 dB; ten machines are only 10 dB louder than one. This is why noise control needs barriers and absorbers, not just distance.</p>
+  </div>
+
+  <h3><span class="n">11.4</span>The Doppler effect</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Moving source</span>A source moving towards the observer at $v_s$ emits a crest every $T = 1/f$; meanwhile it moves $v_sT$, so the crests are squeezed: $\lambda' = (v - v_s)/f$, and the observer hears $f' = v/\lambda'$.</p>
+    <p><span class="step">Moving observer</span>An observer moving towards the source at $v_o$ meets crests at the relative speed $v + v_o$.</p>
+    <div class="eq">$$f' = f\,\frac{v + v_o}{v - v_s}$$</div>
+    <p>(Signs flip for motion away.) Used in police radar, Doppler ultrasound of blood flow, and measuring traffic speeds.</p>
+  </div>
+
+  <div class="sim" id="sim-doppler">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Doppler effect and the sonic boom</h4></div>
+    <p class="sim-try"><b>Try:</b> increase the source speed towards and beyond 343 m/s. Let the observer move too.</p>
+    <p class="sim-note"><b>What to notice:</b> wavefronts bunch up in front of the source (higher pitch) and spread out behind (lower pitch). At the speed of sound they pile into a single front; beyond it they form a cone, the shock wave of a sonic boom.</p>
+  </div>
+
+  <h3><span class="n">11.5</span>Architectural acoustics and Sabine&rsquo;s formula</h3>
+  <div class="box der"><span class="lbl">Derivation (outline)</span>
+    <p><span class="step">Step 1</span>After a sound stops, it keeps bouncing around the room. <b>Reverberation time</b> $T$ is the time for the sound energy to fall to one-millionth (60 dB) of its initial value.</p>
+    <p><span class="step">Step 2</span>Each surface of area $S_i$ absorbs a fraction $\alpha_i$ (absorption coefficient; an open window has $\alpha = 1$). The total absorption is $A = \sum\alpha_iS_i$ (in sabin, m&sup2;).</p>
+    <p><span class="step">Step 3</span>With the sound energy density $E$ spread evenly, the energy hitting the walls per second is $\tfrac14EvA$ (kinetic-theory-like averaging over directions). So $V\dfrac{dE}{dt} = -\dfrac{vA}{4}E$, giving $E = E_0e^{-vAt/4V}$.</p>
+    <p><span class="step">Step 4</span>Setting $E/E_0 = 10^{-6}$ with $v = 343$ m/s:</p>
+    <div class="eq">$$T = \frac{0.161\,V}{\sum\alpha_iS_i}\ \text{s} \qquad (V \text{ in m}^3,\ S \text{ in m}^2)$$</div>
+  </div>
+  <div class="box bio"><span class="lbl">Requisites of a good auditorium</span>
+    <ul>
+      <li><b>Optimum reverberation time</b>: about 0.5&ndash;1 s for speech, 1.5&ndash;2 s for music. Too short sounds &ldquo;dead&rdquo;, too long blurs syllables.</li>
+      <li><b>Adequate, uniform loudness</b>: avoid focusing by concave walls and domes (they create loud spots and dead spots); use reflecting panels above the stage.</li>
+      <li><b>No echoes</b>: a distinct echo needs a path difference over about 17 m (0.05 s); treat the rear wall with absorbers.</li>
+      <li><b>Noise insulation and reduction</b>: double walls with air gaps, heavy doors and seals, floating floors, absorbent ceilings; keep machinery noise isolated.</li>
+      <li><b>No resonance</b> of panels and windows; good sound distribution with diffusing surfaces.</li>
+    </ul>
+  </div>
+
+  <div class="sim" id="sim-sabine3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Design a hall: reverberation time</h4></div>
+    <p class="sim-try"><b>Try:</b> choose the hall size, wall and floor materials and the audience, then press <b>Clap!</b> to watch the sound bounce and die away (25&times; slow motion). Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> a large bare concrete hall rings for many seconds. Curtains, acoustic tiles, carpet and a big audience all add absorption and shorten $T$. Each dot fades a little at every bounce; a softer room drains the energy in fewer bounces.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>A lecture hall $20\times15\times6$ m has plaster walls ($\alpha = 0.04$), a wooden floor (0.08), a plaster ceiling (0.04) and 300 students (0.45 each). Find $T$.</p>
+    <p>$V = 1800$ m&sup3;. Walls: $2(20+15)(6) = 420$ m&sup2; &times; 0.04 = 16.8; floor 300 &times; 0.08 = 24; ceiling 300 &times; 0.04 = 12; audience 135. $A = 187.8$ sabin.</p>
+    <p>$T = 0.161\times1800/187.8 = 1.54$ s: too long for speech. Acoustic tiles on the ceiling ($\alpha = 0.7$, +198 sabin) bring it to 0.75 s.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the first two frequencies of a 0.5 m pipe, open at both ends and closed at one end ($v = 340$ m/s). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Open: 340, 680 Hz. Closed: 170, 510 Hz.</p></div></details></li>
+    <li>A fork of 384 Hz gives 4 beats/s with an unknown fork; loading the unknown fork with wax increases the beats. Find its frequency. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>380 or 388 Hz; wax lowers the frequency, and the beats increase, so it moved away from 384: it is 380 Hz.</p></div></details></li>
+    <li>A sound has intensity $10^{-5}$ W/m&sup2;. Find its level. What is the level of 10 such sources? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>70 dB; 80 dB.</p></div></details></li>
+    <li>An ambulance at 30 m/s sounds a 700 Hz siren. What frequency does a stationary listener hear as it approaches and as it recedes? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$700\times343/313 = 767$ Hz; $700\times343/373 = 644$ Hz.</p></div></details></li>
+    <li>A hall of volume 5000 m&sup3; has $T = 2$ s. How much extra absorption is needed to bring $T$ to 1 s? <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$A_1 = 0.161\times5000/2 = 402.5$; $A_2 = 805$; add about 403 sabin.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="oscillations.html"><small>&larr; Previous unit</small>Oscillations</a><a href="interference.html"><small>Next unit</small>Interference of light &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/waves.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>
