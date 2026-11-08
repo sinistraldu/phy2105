@@ -122,6 +122,7 @@
       st.na = add(S, new THREE.InstancedMesh(new THREE.SphereGeometry(0.12, 8, 6), T.mat(0xffb300), 12));
       st.ar = []; for (var a = 0; a < 6; a++) st.ar.push(T.arrow(S.scene, '#7c3aed'));
       st.m4 = m4; st.red = new THREE.Color(0xc62828); st.blue = new THREE.Color(0x1565c0);
+      for (var q = 0; q < 60; q++) { st.ionsTop.setColorAt(q, st.red); st.ionsBot.setColorAt(q, st.blue); }
     },
     draw: function (S) {
       var st = S.st, p = S.p, el = (S.t - st.t0) * 4, V = st.t0 > -99 && el < 10 ? (el < 0.5 ? p.V + (30 - p.V) * el / 0.5 : spikeShape(el) * (p.V / -70)) : p.V;
@@ -172,6 +173,7 @@
       st.graph = T.line(S.scene, 0x7c3aed, 300); st.hist = []; st.gt = 0;
       var ax = T.line(S.scene, 0x88998c, 3); T.setLine(ax, [[-3.5, -4.6, -2], [-3.5, -2.8, -2], [-3.5, -4.6, -2], [3.5, -4.6, -2]]);
       st.m4 = new THREE.Matrix4(); st.red = new THREE.Color(0xc62828); st.blue = new THREE.Color(0x1565c0);
+      for (var q = 0; q < 60; q++) st.pl.setColorAt(q, q % 2 ? st.blue : st.red);
     },
     draw: function (S, c, W, H, dt) {
       var st = S.st, p = S.p, tau = p.R * 1e3 * p.C * 1e-6, I = 0;

@@ -183,6 +183,12 @@
     },
     line: function (scene, color, n) { var g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(n * 3), 3)); var l = new THREE.Line(g, new THREE.LineBasicMaterial({ color: color })); scene.add(l); return l; },
     setLine: function (l, pts) { var a = l.geometry.attributes.position; for (var i = 0; i < pts.length && i < a.count; i++) a.setXYZ(i, pts[i][0], pts[i][1], pts[i][2]); l.geometry.setDrawRange(0, Math.min(pts.length, a.count)); a.needsUpdate = true; },
+    cyl: function (r, color, o) { return new THREE.Mesh(new THREE.CylinderGeometry(r, r, 1, 20), T3.mat(color, o)); },
+    span: function (mesh, a, b) {
+      var A = new THREE.Vector3(a[0], a[1], a[2]), B = new THREE.Vector3(b[0], b[1], b[2]), d = B.clone().sub(A), L = d.length();
+      mesh.position.copy(A).add(B).multiplyScalar(0.5); mesh.scale.set(mesh.scale.x, Math.max(L, 1e-3), mesh.scale.z);
+      if (L > 1e-6) mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
+    },
     grid: function (scene, size, y) { var g = new THREE.GridHelper(size, size, 0x88998c, 0xbfcabf); g.position.y = y || 0; g.material.transparent = true; g.material.opacity = 0.35; scene.add(g); return g; },
     label: function (scene, text, color, scale) {
       var cv = document.createElement('canvas'), x = cv.getContext('2d'), font = '600 34px Inter,system-ui,sans-serif';

@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thermodynamics | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 16 to 19: first law, thermodynamic processes, heat engines, refrigerators, Carnot, Otto and Diesel cycles, entropy, thermodynamic potentials, Maxwell relations and the Clausius-Clapeyron equation.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html" aria-current="page">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 5 &middot; Classes 16&ndash;19 &middot; Thermodynamics</span>
+  <h1>Thermodynamics</h1>
+  <p class="lead">Energy conservation for heat and work, the four basic processes, how engines and refrigerators turn heat into work and back, why entropy always grows, and the elegant relations that tie pressure, volume, temperature and entropy together.</p>
+  <ul class="toc">
+    <li><a href="#c16"><span>Class 16</span>First law and processes</a></li>
+    <li><a href="#c17"><span>Class 17</span>Engines, refrigerators, cycles</a></li>
+    <li><a href="#c18"><span>Class 18</span>Entropy and potentials</a></li>
+    <li><a href="#c19"><span>Class 19</span>Maxwell and Clausius&ndash;Clapeyron</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 16 ===================== -->
+<section class="class" id="c16"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 16</span>
+    <h2>The first law, path-dependent work and the four thermodynamic processes</h2>
+    <p class="goals"><b>By the end you can:</b> apply $\Delta U = Q - W$; explain why $Q$ and $W$ depend on the path but $\Delta U$ does not; derive the work in isothermal, adiabatic, isochoric and isobaric processes; derive $PV^\gamma$ = constant and $C_P - C_V = R$.</p>
+  </div>
+
+  <h3><span class="n">16.1</span>The first law</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\Delta U = Q - W, \qquad W = \int_{V_1}^{V_2} P\,dV, \qquad dU = nC_V\,dT\ \text{(ideal gas)}$$</div>
+    <p>$Q$ = heat added to the gas, $W$ = work done <i>by</i> the gas. $U$ depends only on the state (a <b>state function</b>); $W$ is the area under the path on a $P$&ndash;$V$ diagram, so different paths between the same two states do different work and need different heat.</p>
+  </div>
+
+  <h3><span class="n">16.2</span>The four processes</h3>
+  <div class="box der"><span class="lbl">Derivations</span>
+    <p><b>Isochoric</b> ($V$ constant): $W = 0$, so $Q = \Delta U = nC_V\Delta T$.</p>
+    <p><b>Isobaric</b> ($P$ constant): $W = P(V_2 - V_1) = nR\Delta T$, $Q = nC_P\Delta T$. Since $Q = \Delta U + W$: $nC_P\Delta T = nC_V\Delta T + nR\Delta T$, giving <b>Mayer&rsquo;s relation</b> $C_P - C_V = R$.</p>
+    <p><b>Isothermal</b> ($T$ constant): $\Delta U = 0$, $Q = W = \displaystyle\int\frac{nRT}{V}dV = nRT\ln\frac{V_2}{V_1}$.</p>
+    <p><b>Adiabatic</b> ($Q = 0$): $dU = -P\,dV \Rightarrow nC_VdT = -P\,dV$. From $PV = nRT$: $nR\,dT = P\,dV + V\,dP$. Eliminate $dT$: $C_V(P\,dV + V\,dP) = -R\,P\,dV$, i.e. $C_PP\,dV + C_VV\,dP = 0$, so $\gamma\dfrac{dV}{V} + \dfrac{dP}{P} = 0$:</p>
+    <div class="eq">$$PV^\gamma = \text{const}, \qquad TV^{\gamma-1} = \text{const}, \qquad W_{\text{adiabatic}} = \frac{P_1V_1 - P_2V_2}{\gamma - 1} = nC_V(T_1 - T_2)$$</div>
+  </div>
+
+  <div class="sim" id="sim-process">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>P&ndash;V process explorer</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a process, then change the final volume (or temperature for isochoric) and $\gamma$. Read $Q$, $W$ and $\Delta U$ and check that $Q = \Delta U + W$.</p>
+    <p class="sim-note"><b>What to notice:</b> the shaded area is the work. An adiabat is steeper than an isotherm because the gas cools as it expands. Compression gives negative $W$ (work is done on the gas).</p>
+  </div>
+
+  <div class="sim" id="sim-piston3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Gas in a cylinder: watch each process happen</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a process and press <b>Run</b>. Watch the piston, the heat flow (orange arrows in or out) and the molecules&rsquo; speed (colour = temperature).</p>
+    <p class="sim-note"><b>What to notice:</b> isothermal expansion needs heat flowing <i>in</i> to keep $T$ fixed; adiabatic expansion has no heat flow, so the gas cools as it does work; isochoric heating raises $T$ and $P$ without moving the piston.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>1 mol of ideal gas at 300 K expands isothermally to twice its volume. Find $W$, $Q$ and $\Delta U$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$W = Q = RT\ln2 = 1729$ J; $\Delta U = 0$.</p></div></details></li>
+    <li>Air ($\gamma = 1.4$) at 300 K is compressed adiabatically to 1/10 of its volume. Find the final temperature. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$T_2 = T_1(V_1/V_2)^{\gamma-1} = 300\times10^{0.4} \approx 754$ K. (This is how a diesel engine ignites its fuel.)</p></div></details></li>
+    <li>1 mol of a diatomic gas is heated at constant pressure from 300 K to 400 K. Find $Q$, $W$ and $\Delta U$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Q = \tfrac72R\Delta T = 2910$ J; $W = R\Delta T = 831$ J; $\Delta U = 2079$ J.</p></div></details></li>
+    <li>Why is $\oint dU = 0$ around a cycle but $\oint dW \ne 0$? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$U$ is a state function: returning to the same state returns the same $U$. Work is the enclosed area on the $P$&ndash;$V$ diagram, which is not zero for a cycle.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 17 ===================== -->
+<section class="class" id="c17"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 17</span>
+    <h2>Heat engines, refrigerators and the Carnot, Otto and Diesel cycles</h2>
+    <p class="goals"><b>By the end you can:</b> define efficiency and COP; derive the Carnot efficiency; derive the Otto efficiency; state the Diesel efficiency; compare the cycles.</p>
+  </div>
+
+  <h3><span class="n">17.1</span>Engines and refrigerators</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$\eta = \frac{W}{Q_H} = 1 - \frac{Q_C}{Q_H}, \qquad \text{COP}_{\text{fridge}} = \frac{Q_C}{W} = \frac{Q_C}{Q_H - Q_C}, \qquad \text{COP}_{\text{heat pump}} = \frac{Q_H}{W}$$</div>
+    <p>Heat flows naturally from hot to cold. An engine takes $Q_H$ from a hot reservoir, turns part into work $W$ and must reject $Q_C$ to a cold reservoir. A refrigerator uses work to pump heat from cold to hot.</p>
+  </div>
+
+  <h3><span class="n">17.2</span>The Carnot cycle</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">1&rarr;2</span>Isothermal expansion at $T_H$: $Q_H = nRT_H\ln(V_2/V_1)$.</p>
+    <p><span class="step">2&rarr;3</span>Adiabatic expansion: $T_HV_2^{\gamma-1} = T_CV_3^{\gamma-1}$.</p>
+    <p><span class="step">3&rarr;4</span>Isothermal compression at $T_C$: $Q_C = nRT_C\ln(V_3/V_4)$.</p>
+    <p><span class="step">4&rarr;1</span>Adiabatic compression: $T_CV_4^{\gamma-1} = T_HV_1^{\gamma-1}$.</p>
+    <p><span class="step">Combine</span>Dividing the two adiabatic relations gives $V_2/V_1 = V_3/V_4$, so the logarithms cancel:</p>
+    <div class="eq">$$\frac{Q_C}{Q_H} = \frac{T_C}{T_H}, \qquad \eta_{\text{Carnot}} = 1 - \frac{T_C}{T_H}, \qquad \text{COP}_{\text{Carnot}} = \frac{T_C}{T_H - T_C}$$</div>
+    <p>No engine working between the same two temperatures can beat this (Carnot&rsquo;s theorem).</p>
+  </div>
+
+  <h3><span class="n">17.3</span>Otto and Diesel cycles</h3>
+  <div class="box der"><span class="lbl">Otto cycle (petrol engine)</span>
+    <p>Two adiabats and two isochores. Heat in at constant volume ($Q_H = nC_V(T_3 - T_2)$), heat out at constant volume ($Q_C = nC_V(T_4 - T_1)$). Using $TV^{\gamma-1}$ = const on both adiabats with compression ratio $r = V_1/V_2$: $T_3/T_4 = T_2/T_1 = r^{\gamma-1}$, so</p>
+    <div class="eq">$$\eta_{\text{Otto}} = 1 - \frac{T_4 - T_1}{T_3 - T_2} = 1 - \frac{1}{r^{\gamma-1}}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Diesel cycle</span>
+    <p>Heat is added at constant <b>pressure</b> while the piston moves out (cut-off ratio $\rho = V_3/V_2$); air alone is compressed to a high ratio $r$ so the fuel self-ignites:</p>
+    <div class="eq">$$\eta_{\text{Diesel}} = 1 - \frac{1}{\gamma\,r^{\gamma-1}}\,\frac{\rho^\gamma - 1}{\rho - 1}$$</div>
+    <p><b>Differences:</b> Carnot uses isotherms (ideal, impractical); Otto adds heat at constant volume (spark ignition, $r\approx 8$&ndash;12, limited by knocking); Diesel adds heat at constant pressure (compression ignition, $r\approx 15$&ndash;22, so it is more efficient in practice even though for the same $r$ Otto would win).</p>
+  </div>
+
+  <div class="sim" id="sim-cycle">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Engine cycles on the P&ndash;V diagram</h4></div>
+    <p class="sim-try"><b>Try:</b> pick Carnot, Otto or Diesel. Change $T_H$ and $T_C$ (Carnot), the compression ratio $r$, the cut-off ratio (Diesel) and $\gamma$. Watch the state point go round.</p>
+    <p class="sim-note"><b>What to notice:</b> the enclosed area is the net work per cycle. Higher compression ratios (and larger $\gamma$) raise the efficiency; for Carnot only the two temperatures matter.</p>
+  </div>
+
+  <div class="sim" id="sim-fridge">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Refrigerator and heat pump</h4></div>
+    <p class="sim-try"><b>Try:</b> change the inside (cold) and outside (hot) temperatures and the work input.</p>
+    <p class="sim-note"><b>What to notice:</b> the closer the two temperatures, the more heat each joule of work can move (larger COP). Heat dumped outside is always $Q_H = Q_C + W$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A Carnot engine works between 500 K and 300 K and takes in 1000 J per cycle. Find $\eta$, $W$ and $Q_C$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\eta = 0.40$; $W = 400$ J; $Q_C = 600$ J.</p></div></details></li>
+    <li>A Carnot refrigerator keeps 5 &deg;C in a 30 &deg;C room. Find its COP. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>COP $= 278.15/25 \approx 11.1$.</p></div></details></li>
+    <li>Find the Otto efficiency for $r = 8$, $\gamma = 1.4$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$1 - 8^{-0.4} \approx 56.5\%$.</p></div></details></li>
+    <li>Find the Diesel efficiency for $r = 18$, $\rho = 2$, $\gamma = 1.4$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$1 - \dfrac{1}{1.4\times18^{0.4}}\dfrac{2^{1.4}-1}{1} \approx 63.2\%$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 18 ===================== -->
+<section class="class" id="c18"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 18</span>
+    <h2>Entropy, T&ndash;S diagrams and the thermodynamic potentials</h2>
+    <p class="goals"><b>By the end you can:</b> define and compute entropy changes; show that $\Delta S = 0$ for reversible and $\Delta S &gt; 0$ for irreversible processes; read a T&ndash;S diagram; define $U$, $H$, $A$ and $G$ and their differentials.</p>
+  </div>
+
+  <h3><span class="n">18.1</span>Entropy</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$dS = \frac{dQ_{\text{rev}}}{T}, \qquad \Delta S = \int\frac{dQ_{\text{rev}}}{T}, \qquad \Delta S_{\text{universe}} \ge 0$$</div>
+    <p>Entropy measures how spread out (how unavailable for work) energy is. Physically, it counts the number of microscopic arrangements: $S = k\ln\Omega$. In any real (irreversible) process the total entropy grows; only in an ideal reversible process does it stay constant. The energy made <b>unavailable</b> for work is $T_0\,\Delta S_{\text{universe}}$.</p>
+  </div>
+  <div class="box der"><span class="lbl">Entropy changes</span>
+    <p><b>Isothermal ideal gas:</b> $\Delta S = Q/T = nR\ln(V_2/V_1)$.</p>
+    <p><b>Heating at constant pressure:</b> $\Delta S = \displaystyle\int\frac{mc\,dT}{T} = mc\ln\frac{T_2}{T_1}$.</p>
+    <p><b>Phase change:</b> $\Delta S = mL/T$.</p>
+    <p><b>General ideal gas:</b> $\Delta S = nC_V\ln\dfrac{T_2}{T_1} + nR\ln\dfrac{V_2}{V_1}$.</p>
+    <p><b>Carnot cycle:</b> $\Delta S = Q_H/T_H - Q_C/T_C = 0$ (reversible), which is the same statement as $Q_C/Q_H = T_C/T_H$.</p>
+  </div>
+  <div class="box ex"><span class="lbl">Worked example: entropy increases in an irreversible process</span>
+    <p>Mix 1 kg of water at 80 &deg;C with 1 kg at 20 &deg;C; final 50 &deg;C. $\Delta S = mc\left[\ln\frac{323}{353} + \ln\frac{323}{293}\right] = 4186(-0.0888 + 0.0975) \approx +36$ J/K &gt; 0. The hot water loses less entropy than the cold water gains.</p>
+  </div>
+
+  <div class="sim" id="sim-mix">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Two bodies reach the same temperature</h4></div>
+    <p class="sim-try"><b>Try:</b> set the two starting temperatures and masses, then press <b>Let heat flow</b>. Watch both entropy changes.</p>
+    <p class="sim-note"><b>What to notice:</b> heat leaves the hot body at high $T$ (small $dQ/T$) and enters the cold body at low $T$ (large $dQ/T$), so the total entropy always rises. It is zero only if the bodies start at the same temperature.</p>
+  </div>
+
+  <div class="sim" id="sim-freeexp3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Free expansion: entropy as disorder</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Remove the partition</b> and watch the gas fill the box. Press <b>Reset</b> and try a different number of molecules.</p>
+    <p class="sim-note"><b>What to notice:</b> no work is done and no heat flows, yet the process is irreversible: the molecules never all go back to one side by themselves. $\Delta S = nR\ln2$; the number of arrangements has grown by $2^N$.</p>
+  </div>
+
+  <h3><span class="n">18.2</span>The T&ndash;S diagram</h3>
+  <p>Plotting $T$ against $S$, a reversible adiabat is a vertical line (isentropic) and an isotherm is horizontal, so the <b>Carnot cycle is a rectangle</b>. The area under a path is the heat $\int T\,dS$; the area inside a cycle is the net work.</p>
+
+  <h3><span class="n">18.3</span>Thermodynamic potentials</h3>
+  <div class="box key"><span class="lbl">Definitions and differentials</span>
+    <div class="eq">$$\begin{aligned} U &:& dU &= T\,dS - P\,dV \\ H = U + PV &:& dH &= T\,dS + V\,dP \\ A = U - TS &:& dA &= -S\,dT - P\,dV \\ G = H - TS &:& dG &= -S\,dT + V\,dP \end{aligned}$$</div>
+    <p>$H$ (enthalpy) is the heat absorbed at constant pressure; $A$ (Helmholtz free energy) is the maximum work at constant $T$; $G$ (Gibbs free energy) is constant during a phase change at fixed $T$ and $P$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find the entropy change when 1 kg of ice melts at 0 &deg;C ($L = 334$ kJ/kg). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta S = mL/T = 334000/273.15 \approx 1223$ J/K.</p></div></details></li>
+    <li>1 mol of gas expands freely into a vacuum, doubling its volume. Find $\Delta S$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta S = R\ln2 \approx 5.76$ J/K (use a reversible isothermal path between the same states).</p></div></details></li>
+    <li>Show that the area of a Carnot rectangle on a T&ndash;S diagram equals the work done. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Area $= (T_H - T_C)\Delta S$. $Q_H = T_H\Delta S$, $Q_C = T_C\Delta S$, so $W = Q_H - Q_C = (T_H-T_C)\Delta S$.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 19 ===================== -->
+<section class="class" id="c19"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 19</span>
+    <h2>Maxwell&rsquo;s thermodynamic relations and the Clausius&ndash;Clapeyron equation</h2>
+    <p class="goals"><b>By the end you can:</b> derive the four Maxwell relations; derive the Clausius&ndash;Clapeyron equation; predict how pressure changes boiling and melting points.</p>
+  </div>
+
+  <h3><span class="n">19.1</span>Maxwell&rsquo;s relations</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Idea</span>If $dz = M\,dx + N\,dy$ is an exact differential, then $\left(\dfrac{\partial M}{\partial y}\right)_x = \left(\dfrac{\partial N}{\partial x}\right)_y$ (mixed partial derivatives are equal).</p>
+    <p><span class="step">Apply</span>to each potential:</p>
+    <div class="eq">$$\begin{aligned} dU = T\,dS - P\,dV &\Rightarrow \left(\frac{\partial T}{\partial V}\right)_S = -\left(\frac{\partial P}{\partial S}\right)_V \\ dH = T\,dS + V\,dP &\Rightarrow \left(\frac{\partial T}{\partial P}\right)_S = \left(\frac{\partial V}{\partial S}\right)_P \\ dA = -S\,dT - P\,dV &\Rightarrow \left(\frac{\partial S}{\partial V}\right)_T = \left(\frac{\partial P}{\partial T}\right)_V \\ dG = -S\,dT + V\,dP &\Rightarrow \left(\frac{\partial S}{\partial P}\right)_T = -\left(\frac{\partial V}{\partial T}\right)_P \end{aligned}$$</div>
+    <p>They swap hard-to-measure entropy derivatives for easy $P$, $V$, $T$ measurements.</p>
+  </div>
+
+  <h3><span class="n">19.2</span>The Clausius&ndash;Clapeyron equation</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>During a phase change at fixed $T$ the pressure stays at the vapour pressure $P(T)$, so $(\partial P/\partial T)_V = dP/dT$.</p>
+    <p><span class="step">Step 2</span>The third Maxwell relation: $\left(\dfrac{\partial S}{\partial V}\right)_T = \dfrac{dP}{dT}$. Converting a mass $m$ from phase 1 to phase 2: $\Delta S = mL/T$ and $\Delta V = m(v_2 - v_1)$.</p>
+    <p><span class="step">Step 3</span>$$\frac{dP}{dT} = \frac{L}{T(v_2 - v_1)}$$</p>
+    <p><span class="step">Vapour form</span>With $v_{\text{gas}}\gg v_{\text{liquid}}$ and $v_{\text{gas}} = RT/(MP)$: $\ln\dfrac{P_2}{P_1} = -\dfrac{L_m}{R}\left(\dfrac1{T_2}-\dfrac1{T_1}\right)$.</p>
+  </div>
+  <div class="box bio"><span class="lbl">Effect of pressure on boiling and melting</span>
+    <p><b>Boiling:</b> $v_{\text{vapour}} &gt; v_{\text{liquid}}$, so $dP/dT &gt; 0$: higher pressure raises the boiling point (pressure cooker: about 121 &deg;C at 2 atm), lower pressure lowers it (about 71 &deg;C on Everest).</p>
+    <p><b>Melting of ice:</b> ice is less dense than water ($v_{\text{water}} &lt; v_{\text{ice}}$), so $dT/dP &lt; 0$: pressure lowers the melting point (about $-0.0075$ K per atm), which is why ice under a skate blade or a glacier can melt.</p>
+  </div>
+
+  <div class="sim" id="sim-clapeyron">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Boiling point of water vs pressure</h4></div>
+    <p class="sim-try"><b>Try:</b> change the pressure from a mountain top to a pressure cooker. Change the latent heat to see how a different liquid would behave.</p>
+    <p class="sim-note"><b>What to notice:</b> the boiling curve rises steeply: the slope is $dP/dT = L/T\Delta v$. Doubling the pressure raises water&rsquo;s boiling point by about 20 &deg;C.</p>
+  </div>
+
+  <div class="sim" id="sim-pvt3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>The P&ndash;V&ndash;T surface of an ideal gas</h4></div>
+    <p class="sim-try"><b>Try:</b> move the state point by changing $V$ and $T$. Switch on the isotherm, isobar and adiabat through the point. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> every equilibrium state lies on the surface $PV = nRT$. Processes are paths on it: isotherms are hyperbolas, isobars straight lines, and the adiabat cuts across the isotherms, losing temperature as volume grows.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Estimate the boiling point of water in a pressure cooker at 2 atm ($L_m = 40.7$ kJ/mol). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$1/T_2 = 1/373.15 - R\ln2/L_m \Rightarrow T_2 \approx 394$ K $\approx 121$ &deg;C.</p></div></details></li>
+    <li>Find $dT/dP$ for melting ice ($v_{\text{water}} = 1.000\times10^{-3}$, $v_{\text{ice}} = 1.091\times10^{-3}$ m&sup3;/kg, $L = 334$ kJ/kg). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$dT/dP = T\Delta v/L = 273.15\times(-9.1\times10^{-5})/3.34\times10^5 \approx -7.4\times10^{-8}$ K/Pa $\approx -0.0075$ K/atm.</p></div></details></li>
+    <li>Use a Maxwell relation to show that for an ideal gas $(\partial S/\partial V)_T = nR/V$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$(\partial S/\partial V)_T = (\partial P/\partial T)_V = \partial(nRT/V)/\partial T = nR/V$.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="heat.html"><small>&larr; Previous unit</small>Temperature and kinetic theory</a><a href="quantum.html"><small>Next unit</small>Quantum physics &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/thermo.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>

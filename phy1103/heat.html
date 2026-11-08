@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Temperature and Kinetic Theory | PHY1103</title>
+<meta name="description" content="PHY1103 Classes 13 and 14: temperature scales, thermometers, kinetic theory of gases, degrees of freedom, equipartition, mean free path and van der Waals equation.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%232e2a7a'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f7f1e5' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1103</b> Physics II</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="electrostatics.html">Electrostatics</a></li>
+      <li><a href="current.html">Current</a></li>
+      <li><a href="magnetism.html">Magnetism</a></li>
+      <li><a href="heat.html" aria-current="page">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <li><a href="nuclear.html">Nuclear</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 4 &middot; Classes 13&ndash;14 &middot; Heat</span>
+  <h1>Temperature and Kinetic Theory</h1>
+  <p class="lead">How temperature is defined and measured, and how the pressure and temperature of a gas come from the motion of its molecules: pressure, equipartition, degrees of freedom, mean free path and the van der Waals correction for real gases.</p>
+  <ul class="toc">
+    <li><a href="#c13"><span>Class 13</span>Temperature and thermometers</a></li>
+    <li><a href="#c14"><span>Class 14</span>Kinetic theory of gases</a></li>
+    <li><a href="#review"><span>Review</span>Formula sheet</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 13 ===================== -->
+<section class="class" id="c13"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 13</span>
+    <h2>Temperature scales, measurement principles and thermometers</h2>
+    <p class="goals"><b>By the end you can:</b> convert between the Celsius, Fahrenheit, Kelvin and Rankine scales; explain the principle of a thermometric property; describe resistance, thermoelectric and radiation thermometers and use their equations.</p>
+  </div>
+
+  <h3><span class="n">13.1</span>Temperature and the zeroth law</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>Two bodies in thermal equilibrium with a third are in equilibrium with each other (<b>zeroth law</b>). That is what lets a thermometer work: it reaches equilibrium with the object and then reads its own temperature. Any property that changes steadily with temperature (length of a liquid column, gas pressure, electrical resistance, a thermocouple EMF, emitted radiation) can serve as a <b>thermometric property</b>.</p>
+  </div>
+  <div class="box key"><span class="lbl">Key results</span>
+    <div class="eq">$$T_X = 100\,\frac{X - X_0}{X_{100} - X_0}\ ^\circ\text{C}, \qquad \frac{C}{100} = \frac{F-32}{180} = \frac{K-273.15}{100} = \frac{R-491.67}{180}$$</div>
+    <p>$X_0$ and $X_{100}$ are the readings of the property at the ice point and the steam point. The Kelvin scale starts at absolute zero; the Rankine scale is its Fahrenheit-sized counterpart.</p>
+  </div>
+
+  <div class="sim" id="sim-scales">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>One temperature, four scales</h4></div>
+    <p class="sim-try"><b>Try:</b> slide the temperature and read the four scales. Find the temperature where Celsius and Fahrenheit read the same.</p>
+    <p class="sim-note"><b>What to notice:</b> all scales are straight-line (linear) relations of each other. $-40^\circ$C $= -40^\circ$F. Kelvin and Celsius have the same step size; Fahrenheit and Rankine steps are 5/9 as big.</p>
+  </div>
+
+  <h3><span class="n">13.2</span>Resistance, thermoelectric and radiation thermometers</h3>
+  <div class="box key"><span class="lbl">Platinum resistance thermometer</span>
+    <div class="eq">$$R_T = R_0\left(1 + \alpha T + \beta T^2\right) \qquad (\text{Pt100: } R_0 = 100\ \Omega,\ \alpha = 3.908\times10^{-3},\ \beta = -5.78\times10^{-7})$$</div>
+    <p>Construction: a fine platinum coil wound on mica in a sealed tube, connected in a Wheatstone bridge with compensating leads. Very accurate from about &minus;200 &deg;C to 1200 &deg;C, but slow to respond.</p>
+  </div>
+  <div class="box key"><span class="lbl">Thermocouple (Seebeck effect)</span>
+    <div class="eq">$$\varepsilon = aT + \tfrac12bT^2, \qquad T_n = -\frac{a}{b}\ \text{(neutral temperature, }\varepsilon\text{ max)}, \qquad T_i = 2T_n\ \text{(inversion)}$$</div>
+    <p>Two different metals joined at a hot and a cold junction produce an EMF that depends on the temperature difference. Small, fast and cheap; used up to about 1600 &deg;C.</p>
+  </div>
+  <div class="box key"><span class="lbl">Radiation pyrometer</span>
+    <div class="eq">$$P = \sigma A\varepsilon T^4\ \ (\sigma = 5.67\times10^{-8}\ \text{W m}^{-2}\text{K}^{-4}), \qquad \lambda_{\max}T = 2.898\times10^{-3}\ \text{m K}$$</div>
+    <p>Focuses the radiation from a hot body on a detector (total radiation pyrometer) or compares its colour with a heated filament (optical pyrometer). No contact needed, so it works for furnaces and molten metal.</p>
+  </div>
+
+  <div class="sim" id="sim-thermo">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Three thermometers, three physical laws</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a thermometer and slide the temperature. For the thermocouple, change the material constants and find the neutral and inversion temperatures.</p>
+    <p class="sim-note"><b>What to notice:</b> the Pt resistance rises almost linearly; the thermocouple EMF rises, peaks at $T_n$ and falls back to zero at $T_i = 2T_n$ (so a thermocouple must be used well below $T_n$); the radiated power grows as $T^4$, so the pyrometer is very sensitive at high temperature.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Convert 37 &deg;C to &deg;F, K and &deg;R. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>98.6 &deg;F; 310.15 K; 558.27 &deg;R.</p></div></details></li>
+    <li>At what temperature do the Celsius and Fahrenheit scales agree? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Put $F = C$ in $C = (F-32)\times5/9$: $9C = 5C - 160$, so $C = F = -40$.</p></div></details></li>
+    <li>A thermometric property reads 2.0 at the ice point, 7.6 at the steam point and 5.2 in a bath. Find the bath temperature. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$T = 100(5.2-2.0)/(7.6-2.0) \approx 57.1$ &deg;C.</p></div></details></li>
+    <li>Find the resistance of a Pt100 at 100 &deg;C. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$R = 100(1 + 0.3908 - 0.00578) \approx 138.5\ \Omega$.</p></div></details></li>
+    <li>A thermocouple has $a = 40\ \mu$V/&deg;C and $b = -0.08\ \mu$V/&deg;C&sup2;. Find $T_n$ and $T_i$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$T_n = -a/b = 500$ &deg;C; $T_i = 1000$ &deg;C.</p></div></details></li>
+    <li>A furnace&rsquo;s absolute temperature doubles from 600 K to 1200 K. By what factor does its radiated power change? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$P \propto T^4$: factor 16.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 14 ===================== -->
+<section class="class" id="c14"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 14</span>
+    <h2>Kinetic theory: pressure, temperature, equipartition, mean free path, real gases</h2>
+    <p class="goals"><b>By the end you can:</b> state the postulates; derive $P = \tfrac13\rho\overline{c^2}$ and $\overline{KE} = \tfrac32kT$; count degrees of freedom and use equipartition; derive the mean free path; build the ideal gas equation from the gas laws; derive the van der Waals equation.</p>
+  </div>
+
+  <h3><span class="n">14.1</span>Postulates of kinetic theory</h3>
+  <ul>
+    <li>A gas is made of a very large number of identical molecules, small compared with the distances between them.</li>
+    <li>They move randomly in all directions with a range of speeds, obeying Newton&rsquo;s laws.</li>
+    <li>Collisions with each other and with the walls are perfectly elastic and take negligible time.</li>
+    <li>There are no forces between molecules except during collisions.</li>
+  </ul>
+
+  <h3><span class="n">14.2</span>Pressure of a gas</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A molecule of mass $m$ with velocity component $c_x$ hits a wall of a cube of side $L$ and rebounds: momentum change $2mc_x$.</p>
+    <p><span class="step">Step 2</span>It returns to the same wall every $2L/c_x$, so the average force it exerts is $2mc_x / (2L/c_x) = mc_x^2/L$.</p>
+    <p><span class="step">Step 3</span>For $N$ molecules: $F = \dfrac{m}{L}\sum c_x^2 = \dfrac{mN}{L}\overline{c_x^2}$. By symmetry $\overline{c_x^2} = \tfrac13\overline{c^2}$.</p>
+    <p><span class="step">Step 4</span>$P = F/L^2 = \dfrac{mN}{3L^3}\overline{c^2}$, and with $V = L^3$, $\rho = mN/V$:</p>
+    <div class="eq">$$P = \frac13\frac{N}{V}m\overline{c^2} = \frac13\rho\,\overline{c^2}$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: kinetic energy and temperature</span>
+    <p><span class="step">Step 1</span>Compare $PV = \tfrac13Nm\overline{c^2}$ with the gas law $PV = NkT$ ($k = R/N_A = 1.38\times10^{-23}$ J/K).</p>
+    <p><span class="step">Step 2</span>$\tfrac13m\overline{c^2} = kT$, so</p>
+    <div class="eq">$$\overline{KE} = \tfrac12m\overline{c^2} = \tfrac32kT, \qquad c_{\text{rms}} = \sqrt{\frac{3kT}{m}} = \sqrt{\frac{3RT}{M}}$$</div>
+    <p>Temperature <i>is</i> a measure of the average translational kinetic energy of the molecules.</p>
+  </div>
+
+  <div class="sim" id="sim-gasbox3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Molecules in a box: where pressure comes from</h4></div>
+    <p class="sim-try"><b>Try:</b> change the temperature, the number of molecules and the box volume (move the piston). Watch the pressure measured from wall hits.</p>
+    <p class="sim-note"><b>What to notice:</b> the measured pressure (from momentum delivered to the walls) follows $P = NkT/V$: double $N$ or $T$ and it doubles; double $V$ and it halves. Hotter molecules (redder) move faster: $c_{\text{rms}}\propto\sqrt T$.</p>
+  </div>
+
+  <h3><span class="n">14.3</span>Maxwell speed distribution</h3>
+  <p>Not all molecules have the same speed. The fraction with speeds near $v$ is given by Maxwell&rsquo;s distribution, from which three useful speeds follow:</p>
+  <div class="eq">$$v_p = \sqrt{\frac{2kT}{m}}, \qquad \bar v = \sqrt{\frac{8kT}{\pi m}}, \qquad v_{\text{rms}} = \sqrt{\frac{3kT}{m}}$$</div>
+
+  <div class="sim" id="sim-maxwell">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Maxwell speed distribution</h4></div>
+    <p class="sim-try"><b>Try:</b> change the temperature and the gas (molar mass). Compare the three speeds.</p>
+    <p class="sim-note"><b>What to notice:</b> hotter or lighter gases spread to higher speeds and the peak gets lower (the area stays 1). Always $v_p < \bar v < v_{\text{rms}}$. Hydrogen molecules are fast enough that some escape from the atmosphere.</p>
+  </div>
+
+  <h3><span class="n">14.4</span>Degrees of freedom and equipartition of energy</h3>
+  <div class="box key"><span class="lbl">Key results</span>
+    <p>Each independent quadratic term in a molecule&rsquo;s energy (a <b>degree of freedom</b>) holds on average $\tfrac12kT$.</p>
+    <div class="eq">$$U = \frac f2 nRT, \qquad C_V = \frac f2R, \qquad C_P = C_V + R, \qquad \gamma = \frac{C_P}{C_V} = 1 + \frac2f$$</div>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th>Molecule</th><th>Translational</th><th>Rotational</th><th>$f$ (no vibration)</th><th>$\gamma$</th></tr>
+    <tr><td>Monatomic (He, Ar)</td><td>3</td><td>0</td><td>3</td><td>5/3 = 1.67</td></tr>
+    <tr><td>Diatomic (O&#8322;, N&#8322;)</td><td>3</td><td>2</td><td>5 (7 at high T)</td><td>7/5 = 1.40</td></tr>
+    <tr><td>Non-linear polyatomic (H&#8322;O, CH&#8324;)</td><td>3</td><td>3</td><td>6</td><td>4/3 = 1.33</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-dof3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Degrees of freedom of a molecule</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a monatomic, diatomic or polyatomic molecule. Turn the vibration on (high temperature) and change the temperature.</p>
+    <p class="sim-note"><b>What to notice:</b> each way the molecule can move or turn holds $\tfrac12kT$. A diatomic molecule cannot usefully spin about its own axis, so it has 2 rotational, not 3. Vibration adds kinetic and potential energy (2 more) only when hot.</p>
+  </div>
+
+  <h3><span class="n">14.5</span>Mean free path</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Treat molecules as spheres of diameter $d$. A moving molecule hits any other whose centre lies within $d$ of its path: it sweeps a <b>collision cylinder</b> of cross-section $\pi d^2$.</p>
+    <p><span class="step">Step 2</span>In time $t$ it travels $\bar vt$ and sweeps volume $\pi d^2\bar vt$, which contains $n\pi d^2\bar vt$ molecules ($n = N/V$), so that many collisions.</p>
+    <p><span class="step">Step 3</span>Mean free path = distance / collisions $= 1/(n\pi d^2)$. Allowing for the motion of the other molecules (relative speed $\sqrt2\,\bar v$):</p>
+    <div class="eq">$$\lambda = \frac{1}{\sqrt2\,\pi d^2 n} = \frac{kT}{\sqrt2\,\pi d^2P}$$</div>
+  </div>
+
+  <div class="sim" id="sim-mfp3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Follow one molecule: the mean free path</h4></div>
+    <p class="sim-try"><b>Try:</b> change the number density and the molecular diameter. Follow the orange molecule&rsquo;s zig-zag path.</p>
+    <p class="sim-note"><b>What to notice:</b> double the density or double the diameter and the average straight run between collisions gets shorter ($\lambda\propto 1/nd^2$). The measured average approaches the formula as more collisions are counted.</p>
+  </div>
+
+  <h3><span class="n">14.6</span>Equation of state, its failure and the van der Waals equation</h3>
+  <div class="box der"><span class="lbl">Derivation: ideal gas equation from the gas laws</span>
+    <p>Boyle: $V\propto1/P$ (fixed $T$, $n$). Charles: $V\propto T$ (fixed $P$, $n$). Avogadro: $V\propto n$ (fixed $P$, $T$). Together $V\propto nT/P$, i.e. $PV = nRT$ with $R = 8.314$ J mol$^{-1}$K$^{-1}$.</p>
+    <p><b>Failure:</b> at high pressure and low temperature real gases deviate: molecules have their own volume and attract each other, and gases liquefy, which $PV = nRT$ can never predict.</p>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: van der Waals&rsquo; assumptions and equation</span>
+    <p><span class="step">Volume correction</span>Molecules occupy volume, so the free space is $V - nb$ ($b$ about 4 times the actual molecular volume per mole).</p>
+    <p><span class="step">Pressure correction</span>Molecules near a wall are pulled back by the others, so the wall feels less than the &ldquo;kinetic&rdquo; pressure. The pull is proportional to the density of molecules pulling and of molecules being pulled, i.e. to $(n/V)^2$: $P_{\text{kinetic}} = P + an^2/V^2$.</p>
+    <div class="eq">$$\left(P + \frac{an^2}{V^2}\right)(V - nb) = nRT, \qquad T_c = \frac{8a}{27Rb},\ \ P_c = \frac{a}{27b^2},\ \ V_c = 3b$$</div>
+  </div>
+
+  <div class="sim" id="sim-vdw">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Ideal vs van der Waals isotherms</h4></div>
+    <p class="sim-try"><b>Try:</b> pick a gas and lower the temperature towards and below the critical temperature $T_c$. Adjust $a$ and $b$ to see what each correction does.</p>
+    <p class="sim-note"><b>What to notice:</b> at high $T$ the van der Waals curve follows the ideal hyperbola. Near $T_c$ it flattens (critical point), and below $T_c$ it develops a wiggle: the region where gas and liquid coexist. $a$ lowers the pressure; $b$ stops the volume going below $nb$.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Find $c_{\text{rms}}$ for nitrogen ($M = 28$ g/mol) at 300 K. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\sqrt{3RT/M} = \sqrt{3\times8.314\times300/0.028} \approx 517$ m/s.</p></div></details></li>
+    <li>Find the average translational KE of a molecule at 300 K. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tfrac32kT = 6.21\times10^{-21}$ J $\approx 0.039$ eV.</p></div></details></li>
+    <li>Air has density 1.29 kg/m&sup3; and $c_{\text{rms}} = 485$ m/s. Find the pressure. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$P = \tfrac13\rho c^2 \approx 1.01\times10^5$ Pa (1 atm).</p></div></details></li>
+    <li>Find $C_V$, $C_P$ and $\gamma$ for a diatomic gas (no vibration). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$C_V = \tfrac52R = 20.8$, $C_P = \tfrac72R = 29.1$ J mol$^{-1}$K$^{-1}$, $\gamma = 1.4$.</p></div></details></li>
+    <li>Find the mean free path of air molecules ($d = 3.7\times10^{-10}$ m) at STP ($n = 2.69\times10^{25}$ m$^{-3}$). <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\lambda = 1/(\sqrt2\pi d^2n) \approx 6.1\times10^{-8}$ m, about 165 molecular diameters.</p></div></details></li>
+    <li>CO&#8322; has $a = 0.364$ Pa m$^6$/mol&sup2; and $b = 4.27\times10^{-5}$ m&sup3;/mol. Find $T_c$ and $P_c$. Compare the vdW and ideal pressures of 1 mol in 1 L at 300 K. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$T_c = 8a/27Rb \approx 304$ K; $P_c = a/27b^2 \approx 7.4$ MPa. Ideal: 2.49 MPa; vdW: $RT/(V-b) - a/V^2 \approx 2.24$ MPa.</p></div></details></li>
+  </ol>
+</div></section>
+
+<section class="class" id="review"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Review</span><h2>Formula sheet: temperature and kinetic theory</h2></div>
+  <div class="sheet">
+    <div><h4>Scales</h4><p>$C/100 = (F-32)/180$</p><p>$K = C + 273.15$, $R = F + 459.67$</p><p>$T = 100(X-X_0)/(X_{100}-X_0)$</p></div>
+    <div><h4>Thermometers</h4><p>$R = R_0(1+\alpha T+\beta T^2)$</p><p>$\varepsilon = aT + \tfrac12bT^2$, $T_n = -a/b$</p><p>$P = \sigma A T^4$, $\lambda_{\max}T = b$</p></div>
+    <div><h4>Kinetic theory</h4><p>$P = \tfrac13\rho\overline{c^2}$</p><p>$\tfrac12m\overline{c^2} = \tfrac32kT$</p><p>$c_{\text{rms}} = \sqrt{3RT/M}$</p></div>
+    <div><h4>Equipartition</h4><p>$\tfrac12kT$ per degree of freedom</p><p>$C_V = \tfrac f2R$, $\gamma = 1 + 2/f$</p></div>
+    <div><h4>Real gases</h4><p>$\lambda = 1/(\sqrt2\pi d^2n)$</p><p>$(P + an^2/V^2)(V-nb) = nRT$</p><p>$T_c = 8a/27Rb$, $P_c = a/27b^2$</p></div>
+  </div>
+  <div class="pager"><a href="magnetism.html"><small>&larr; Previous unit</small>Magnetism</a><a href="thermo.html"><small>Next unit</small>Thermodynamics &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1103 &middot; Physics II &middot; Department of EEE &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/heat.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1103" data-course="PHY1103"></script>
+</body>
+</html>
