@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PHY1201 Physics</title>
+<meta name="description" content="Course website for PHY1201 Physics (Civil Engineering, Section A): elasticity, oscillations, waves and acoustics, physical optics, heat and thermodynamics, with derivations, problems and interactive 2D and 3D simulations.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">United International University &middot; Department of Civil Engineering</span>
+  <h1>PHY1201: Physics</h1>
+  <p class="lead">Elasticity, oscillations, waves and acoustics, physical optics, and heat and thermodynamics, class by class. Every topic has the theory, step-by-step derivations, worked examples, practice problems, and 2D and 3D simulations whose sliders match the symbols in the equations.</p>
+  <ul class="toc">
+    <li><a href="#units">Start learning</a></li>
+    <li><a href="#schedule">Class-by-class schedule</a></li>
+    <li><a href="#course">Course information</a></li>
+  </ul>
+</div></div>
+
+<section class="class" id="how"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">How to use this site</span><h2>Derive it, see it, solve it</h2></div>
+  <ol class="steps">
+    <li><b>Read the idea</b>Each class starts with the physical picture, then the key result in a box.</li>
+    <li><b>Follow the derivation</b>Derivations are written step by step, so you can reproduce them in an exam.</li>
+    <li><b>Play with the simulations</b>Every slider is a symbol in the equation. Change one thing at a time and watch the live numbers. 2D views show graphs; 3D views can be rotated, zoomed, paused and slowed down.</li>
+    <li><b>Try the problems</b>Work each problem first, then press <i>Show solution</i>.</li>
+  </ol>
+</div></section>
+
+<section class="class" id="units"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Units</span><h2>Eight units, 28 classes</h2></div>
+  <div class="units">
+    <a class="unit" href="elasticity.html"><span class="kicker">Classes 1&ndash;2</span><h3>Elasticity</h3><p>States of matter, stress, strain, Hooke&rsquo;s law, Young&rsquo;s, shear and bulk moduli, Poisson&rsquo;s ratio, strain energy.</p><div class="count" data-count="elasticity"></div></a>
+    <a class="unit" href="oscillations.html"><span class="kicker">Classes 2&ndash;8</span><h3>Oscillations</h3><p>SHM and its energy, Lissajous figures, pendulums, damped motion, LC and RLC circuits, forced oscillation, resonance, Q factor, reduced mass.</p><div class="count" data-count="oscillations"></div></a>
+    <a class="unit" href="waves.html"><span class="kicker">Classes 9&ndash;11</span><h3>Waves and Acoustics</h3><p>Progressive and stationary waves, power and intensity, group and phase velocity, beats, decibels, Doppler effect, Sabine&rsquo;s formula.</p><div class="count" data-count="waves"></div></a>
+    <a class="unit" href="interference.html"><span class="kicker">Classes 12&ndash;14</span><h3>Interference of Light</h3><p>Theories of light, Huygens, Young&rsquo;s double slit, fringe shift, biprism, wedge films, Newton&rsquo;s rings, interferometers.</p><div class="count" data-count="interference"></div></a>
+    <a class="unit" href="diffraction.html"><span class="kicker">Classes 16&ndash;18</span><h3>Diffraction of Light</h3><p>Fresnel and Fraunhofer, single and double slit, grating, circular aperture, resolving and dispersive power, Poynting vector.</p><div class="count" data-count="diffraction"></div></a>
+    <a class="unit" href="polarization.html"><span class="kicker">Classes 19&ndash;21</span><h3>Polarization of Light</h3><p>Plane, circular and elliptical light, Malus&rsquo; law, Brewster&rsquo;s law, double refraction, wave plates, Nicol prism, polarimeter.</p><div class="count" data-count="polarization"></div></a>
+    <a class="unit" href="heat.html"><span class="kicker">Classes 22&ndash;23</span><h3>Temperature and Kinetic Theory</h3><p>Scales, thermometers, thermocouple, pyrometer, pressure of a gas, Maxwell&rsquo;s speeds, mean free path, equipartition, Brownian motion.</p><div class="count" data-count="heat"></div></a>
+    <a class="unit" href="thermo.html"><span class="kicker">Classes 24&ndash;28</span><h3>Thermodynamics</h3><p>Van der Waals, first law, processes, engines and refrigerators, Carnot, Otto, Diesel, entropy, potentials, Maxwell relations, Clapeyron, third law.</p><div class="count" data-count="thermo"></div></a>
+  </div>
+</div></section>
+
+<section class="class" id="schedule"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Topic outline</span><h2>Class-by-class schedule</h2><p class="goals">Follows the official course outline. Click a class to go straight to it.</p></div>
+  <div class="table-wrap"><table class="data sched">
+    <tr><th>Class</th><th>Topics</th><th>Activities</th></tr>
+    <tr><td><a href="elasticity.html#c1">1</a></td><td>Course overview, states of matter, behaviour of a solid under stress, stress&ndash;strain diagram, Hooke&rsquo;s law, relations among elastic constants</td><td>Exercise, HW</td></tr>
+    <tr><td><a href="elasticity.html#c2">2</a></td><td>Elastic moduli, energy density, strain energy for different deformations, Poisson&rsquo;s ratio; types of motion and waves</td><td>Group discussion</td></tr>
+    <tr><td><a href="oscillations.html#c3">3</a></td><td>Differential equation of SHM, total and average energy, graphs of position, velocity and acceleration</td><td>Problem solving</td></tr>
+    <tr><td><a href="oscillations.html#c4">4</a></td><td>Ratios of quantities in oscillatory motion, maximum velocity and acceleration, period and frequency</td><td>Problem solving</td></tr>
+    <tr><td><a href="oscillations.html#c5">5</a></td><td>Combination of SHMs, Lissajous figures, physical pendulum, spring&ndash;mass system, torsional pendulum</td><td>Assignment</td></tr>
+    <tr><td><a href="oscillations.html#c6">6</a></td><td>Damped oscillation, solution of DHM, damping coefficient, LC and RLC circuits, energy and lifetime of damped oscillations</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="oscillations.html#c7">7</a></td><td>Damping conditions (mechanical and electrical), reactance, impedance, characteristic graphs</td><td>Quiz 1</td></tr>
+    <tr><td><a href="oscillations.html#c8">8</a></td><td>Forced oscillation, resonance, Q factor, two-body oscillation, reduced mass</td><td>Problem solving</td></tr>
+    <tr><td><a href="waves.html#c9">9</a></td><td>Differential equation of a progressive wave, travelling wave, power and intensity, stationary wave</td><td>Assignment</td></tr>
+    <tr><td><a href="waves.html#c10">10</a></td><td>Group and phase velocity, formation and equation of standing waves</td><td>Problem solving</td></tr>
+    <tr><td><a href="waves.html#c11">11</a></td><td>Longitudinal and transverse waves, nodes and antinodes, sound, beats, intensity level, Doppler effect, Sabine&rsquo;s formula</td><td>Problem solving</td></tr>
+    <tr class="quiz"><td><a href="interference.html#c12">12</a></td><td>Theories of light, Huygens&rsquo; principle</td><td>Quiz 2</td></tr>
+    <tr><td><a href="interference.html#c13">13</a></td><td>Interference, coherence, Young&rsquo;s double slit, intensity distribution</td><td>Problem solving</td></tr>
+    <tr><td><a href="interference.html#c14">14</a></td><td>Displacement of fringes, Fresnel biprism, wedge-shaped films, Newton&rsquo;s rings, interferometers</td><td>Problem solving</td></tr>
+    <tr><td><a href="interference.html#c15">15</a></td><td>Review class</td><td>&ndash;</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Mid-term examination</td><td>30%</td></tr>
+    <tr><td><a href="diffraction.html#c16">16</a></td><td>Fresnel and Fraunhofer diffraction, grating, single-slit width and intensity</td><td>Assignment</td></tr>
+    <tr><td><a href="diffraction.html#c17">17</a></td><td>Double slit and N-slit grating, maxima, minima and secondary maxima</td><td>Problem solving</td></tr>
+    <tr><td><a href="diffraction.html#c18">18</a></td><td>Circular aperture, f-number, resolving and dispersive power, Poynting vector</td><td>Problem solving</td></tr>
+    <tr><td><a href="polarization.html#c19">19</a></td><td>Polarization, plane, circular and elliptical light, polarization by reflection</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="polarization.html#c20">20</a></td><td>Malus&rsquo; law, double refraction, e-ray and o-ray</td><td>Quiz 3</td></tr>
+    <tr><td><a href="polarization.html#c21">21</a></td><td>Brewster&rsquo;s law, retardation plates, Nicol prism, optical activity, specific rotation, polarimeter</td><td>Assignment</td></tr>
+    <tr><td><a href="heat.html#c22">22</a></td><td>Temperature scales, resistance, thermoelectric and radiation thermometers</td><td>Assignment</td></tr>
+    <tr class="quiz"><td><a href="heat.html#c23">23</a></td><td>Kinetic theory, pressure of a gas, degrees of freedom, equipartition, equation of state</td><td>Quiz 4</td></tr>
+    <tr><td><a href="thermo.html#c24">24</a></td><td>Van der Waals equation, first law, thermodynamic processes and work</td><td>Assignment</td></tr>
+    <tr><td><a href="thermo.html#c25">25</a></td><td>Heat engines and refrigerators, COP, Carnot, Otto and Diesel cycles</td><td>Assignment</td></tr>
+    <tr><td><a href="thermo.html#c26">26</a></td><td>Entropy, reversible and irreversible processes, T&ndash;S diagram</td><td>Problem solving</td></tr>
+    <tr><td><a href="thermo.html#c27">27</a></td><td>U, A, G and H, Maxwell&rsquo;s relations, Clausius&ndash;Clapeyron equation</td><td>Problem solving</td></tr>
+    <tr><td><a href="thermo.html#c28">28</a></td><td>Review class</td><td>&ndash;</td></tr>
+    <tr class="exam"><td>&ndash;</td><td>Final examination</td><td>40%</td></tr>
+  </table></div>
+</div></section>
+
+<section class="class" id="course"><div class="wrap prose">
+  <div class="class-head"><span class="kicker">Course information</span><h2>About the course</h2></div>
+  <dl class="info">
+    <dt>Course</dt><dd>PHY 1201: Physics (3 credits, core course)</dd>
+    <dt>Programme</dt><dd>B.Sc. in Civil Engineering, School of Science and Engineering</dd>
+    <dt>Prerequisite</dt><dd>None</dd>
+    <dt>Section</dt><dd>A</dd>
+    <dt>Assessment</dt><dd>Class participation 5% &middot; Class tests (best 3 of 4) 20% &middot; Assignments 5% &middot; Mid-term 30% &middot; Final 40%</dd>
+    <dt>Text book</dt><dd>Halliday, Resnick &amp; Walker, <i>Fundamentals of Physics</i> (10th ed.)</dd>
+    <dt>References</dt><dd>Giasuddin Ahmed, <i>Physics for Engineers</i>; T. Hossain, <i>A Text Book of Heat</i>; Young &amp; Freedman, <i>University Physics</i>; Brij Lal &amp; Subrahmanyam, <i>Properties of Matter</i>, <i>A Text Book of Optics</i> and <i>Waves and Oscillations</i>; Jenkins &amp; White, <i>Fundamentals of Optics</i>; A. P. French, <i>Vibrations and Waves</i>; Alexander &amp; Sadiku, <i>Fundamentals of Electric Circuits</i></dd>
+  </dl>
+  <h3>Course outcomes</h3>
+  <ol>
+    <li><b>Explain</b> physical quantities and the behaviour of oscillating systems, waves, elastic solids, sound, light, heat and thermodynamic systems.</li>
+    <li><b>Demonstrate and analyse</b> the equations of simple, damped and forced harmonic motion, relations among elastic constants, acoustic phenomena, Lissajous figures, the laws of physical optics and of thermodynamics, using analytical and graphical tools.</li>
+    <li><b>Evaluate</b> numerical problems on waves, elastic constants, strain energy, acoustics, interference, diffraction, polarization, heat engines, efficiency and COP.</li>
+  </ol>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>

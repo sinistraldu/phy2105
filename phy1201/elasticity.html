@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Elasticity | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 1 and 2: states of matter, stress and strain, Hooke's law, elastic moduli, Poisson's ratio, relations among elastic constants and strain energy, with derivations and 2D/3D simulations.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html" aria-current="page">Elasticity</a></li>
+      <li><a href="oscillations.html">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 1 &middot; Classes 1&ndash;2 &middot; Properties of matter</span>
+  <h1>Elasticity</h1>
+  <p class="lead">Every beam, column, cable and foundation deforms a little under load and springs back when the load is removed, as long as we stay within its elastic limit. This unit gives the language engineers use for that: stress, strain, the elastic moduli, Poisson&rsquo;s ratio and the energy stored in a strained body.</p>
+  <ul class="toc">
+    <li><a href="#c1"><span>Class 1</span>States of matter, stress, strain, Hooke&rsquo;s law</a></li>
+    <li><a href="#c2"><span>Class 2</span>Moduli, Poisson&rsquo;s ratio, strain energy</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== CLASS 1 ===================== -->
+<section class="class" id="c1"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 1</span>
+    <h2>States of matter, stress and strain, the stress&ndash;strain diagram and Hooke&rsquo;s law</h2>
+    <p class="goals"><b>By the end you can:</b> compare solids, liquids and gases; define stress and strain of each kind; read a stress&ndash;strain diagram (proportional limit, elastic limit, yield point, ultimate strength, fracture); state Hooke&rsquo;s law; distinguish ductile and brittle materials.</p>
+  </div>
+
+  <h3><span class="n">1.1</span>States of matter</h3>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p>Atoms attract each other at moderate distances and repel strongly when pushed too close. In a <b>solid</b> each atom vibrates about a fixed place in a lattice, so a solid has a definite shape and volume and resists every kind of deformation. In a <b>liquid</b> the atoms stay close but slide past each other: fixed volume, no fixed shape, no resistance to shear. In a <b>gas</b> the atoms are far apart and move freely: no fixed shape or volume, and easy to compress.</p>
+    <div class="table-wrap"><table class="data">
+      <tr><th></th><th>Solid</th><th>Liquid</th><th>Gas</th></tr>
+      <tr><td>Shape / volume</td><td>fixed / fixed</td><td>container&rsquo;s / fixed</td><td>container&rsquo;s / container&rsquo;s</td></tr>
+      <tr><td>Moduli it has</td><td>$Y$, $\eta$, $K$</td><td>$K$ only</td><td>$K$ only (small)</td></tr>
+      <tr><td>Typical $K$</td><td>steel 160 GPa</td><td>water 2.2 GPa</td><td>air 0.1 MPa (isothermal $K = P$)</td></tr>
+    </table></div>
+  </div>
+
+  <div class="sim" id="sim-states3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Solid, liquid and gas: the same atoms at different temperatures</h4></div>
+    <p class="sim-try"><b>Try:</b> raise the temperature slowly through melting and boiling, then cool back down. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> in the solid the atoms only vibrate about their lattice sites (the bonds are shown); the lattice is what lets a solid resist stretching and shearing. In the liquid the lattice is gone but the atoms stay together in a pool. In the gas they fill the whole box. Cooling the liquid lets the crystal form again.</p>
+  </div>
+
+  <h3><span class="n">1.2</span>Stress and strain</h3>
+  <div class="box key"><span class="lbl">Definitions</span>
+    <p><b>Stress</b> is the internal restoring force per unit area, $\text{stress} = F/A$ (unit N/m&sup2; = Pa). <b>Strain</b> is the fractional change in size (no unit). There are three kinds:</p>
+    <div class="table-wrap"><table class="data">
+      <tr><th>Deformation</th><th>Stress</th><th>Strain</th><th>Modulus</th></tr>
+      <tr><td>Longitudinal (tension or compression)</td><td>$F/A$ normal to the face</td><td>$\Delta L/L$</td><td>Young&rsquo;s $Y = \dfrac{F/A}{\Delta L/L}$</td></tr>
+      <tr><td>Shear</td><td>$F/A$ tangential to the face</td><td>angle $\theta$ (rad)</td><td>Rigidity $\eta = \dfrac{F/A}{\theta}$</td></tr>
+      <tr><td>Volume (bulk)</td><td>pressure change $\Delta P$</td><td>$-\Delta V/V$</td><td>Bulk $K = \dfrac{-\Delta P}{\Delta V/V}$; compressibility $1/K$</td></tr>
+    </table></div>
+    <p><b>Hooke&rsquo;s law:</b> within the proportional limit, stress $\propto$ strain, i.e. $\text{stress} = \text{modulus}\times\text{strain}$.</p>
+  </div>
+
+  <h3><span class="n">1.3</span>Behaviour of a solid under stress: the stress&ndash;strain diagram</h3>
+  <div class="box der"><span class="lbl">Reading the curve of a tensile test</span>
+    <p><span class="step">O&ndash;A</span><b>Proportional limit</b>: a straight line, Hooke&rsquo;s law holds; the slope is $Y$.</p>
+    <p><span class="step">A&ndash;B</span><b>Elastic limit</b>: up to here the wire still returns to its original length when unloaded.</p>
+    <p><span class="step">B&ndash;C</span><b>Yield point</b>: the material flows: strain grows with almost no increase in stress (plastic deformation). Unloading now leaves a <b>permanent set</b>; the unloading line is parallel to O&ndash;A.</p>
+    <p><span class="step">C&ndash;D</span><b>Strain hardening</b> up to the <b>ultimate tensile strength</b> D (the maximum stress).</p>
+    <p><span class="step">D&ndash;E</span><b>Necking</b>: the bar thins at one place and breaks at the <b>fracture point</b> E.</p>
+    <p><b>Ductile</b> materials (mild steel, copper, aluminium) have a long plastic region, so they give warning before failure. <b>Brittle</b> materials (cast iron, glass, concrete in tension) break almost at the end of the elastic region. This is why concrete is reinforced with steel bars on the tension side of a beam.</p>
+  </div>
+
+  <div class="sim" id="sim-stressstrain">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Tensile test: stress&ndash;strain curve, permanent set and absorbed energy</h4></div>
+    <p class="sim-try"><b>Try:</b> choose a material and stretch the specimen step by step to breaking. Watch the dashed unloading line once you pass the elastic limit.</p>
+    <p class="sim-note"><b>What to notice:</b> steel and aluminium stretch a lot (many %) after yielding, and absorb a large energy (the shaded area) before breaking: that is toughness. Cast iron and concrete break at a tiny strain with little warning. The elastic part is very steep: real elastic strains are only about 0.1%.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A steel rod of diameter 20 mm carries a tension of 50 kN. Find the stress. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$A = \pi(0.01)^2 = 3.14\times10^{-4}$ m&sup2;; stress $= 1.59\times10^8$ Pa $= 159$ MPa.</p></div></details></li>
+    <li>A 2 m wire stretches 1 mm. Find the strain and the stress if $Y = 2\times10^{11}$ Pa. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Strain $= 5\times10^{-4}$; stress $= Y\times$ strain $= 1.0\times10^8$ Pa.</p></div></details></li>
+    <li>Water is compressed by 0.5% of its volume. What pressure is needed? ($K = 2.2$ GPa) <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\Delta P = K\,\Delta V/V = 2.2\times10^9\times0.005 = 1.1\times10^7$ Pa (about 110 atm).</p></div></details></li>
+    <li>A rubber pad 2 cm thick with a top area of 100 cm&sup2; carries a horizontal force of 500 N. Its top shifts by 2 mm. Find the shear strain and rigidity modulus. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\theta = 2/20 = 0.1$ rad; stress $= 500/0.01 = 5\times10^4$ Pa; $\eta = 5\times10^5$ Pa.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 2 ===================== -->
+<section class="class" id="c2"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 2</span>
+    <h2>Elastic moduli, Poisson&rsquo;s ratio, relations among the constants and strain energy</h2>
+    <p class="goals"><b>By the end you can:</b> find $Y$ from a loaded wire; define Poisson&rsquo;s ratio and its limits; derive $Y = 2\eta(1+\sigma)$, $Y = 3K(1-2\sigma)$ and $9/Y = 1/K + 3/\eta$; derive the strain energy and energy density for stretching, shearing and compression.</p>
+  </div>
+
+  <h3><span class="n">2.1</span>Determining Young&rsquo;s modulus</h3>
+  <div class="box der"><span class="lbl">Searle&rsquo;s method</span>
+    <p>Two identical wires hang from the same support. One carries a constant load to keep it straight (reference); the other carries the load $m$ under test, and a spirit level and micrometer read its extension $\Delta L$ relative to the reference (so sagging of the support and temperature changes cancel).</p>
+    <div class="eq">$$Y = \frac{F/A}{\Delta L/L} = \frac{mgL}{\pi r^2\,\Delta L}$$</div>
+    <p>Plot $\Delta L$ against $m$: a straight line through the origin (Hooke&rsquo;s law) with slope $gL/(\pi r^2Y)$.</p>
+  </div>
+
+  <div class="sim" id="sim-wire">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Stretch a wire: extension, strain energy, breaking</h4></div>
+    <p class="sim-try"><b>Try:</b> change the load, length and diameter, and pick different metals. Try a thin wire with a heavy load.</p>
+    <p class="sim-note"><b>What to notice:</b> $\Delta L$ doubles when you double the load or the length, but falls by 4 when you double the diameter (area $\propto d^2$). Stiffer metals (larger $Y$) stretch less. A thin wire snaps once the stress passes its breaking stress, whatever its length.</p>
+  </div>
+
+  <h3><span class="n">2.2</span>Poisson&rsquo;s ratio</h3>
+  <div class="box key"><span class="lbl">Definition and limits</span>
+    <p>When a bar is stretched it gets thinner. <b>Poisson&rsquo;s ratio</b> is</p>
+    <div class="eq">$$\sigma = -\frac{\text{lateral strain}}{\text{longitudinal strain}} = -\frac{\Delta d/d}{\Delta L/L}$$</div>
+    <p>From the relations below, $K &gt; 0$ needs $\sigma &lt; \tfrac12$ and $\eta &gt; 0$ needs $\sigma &gt; -1$. In practice $0 &lt; \sigma &lt; 0.5$: concrete 0.1&ndash;0.2, steel 0.3, rubber almost 0.5 (it keeps its volume when stretched). Cork has $\sigma\approx0$, which is why it fits easily into a bottle.</p>
+  </div>
+
+  <h3><span class="n">2.3</span>Relations among the elastic constants</h3>
+  <div class="box der"><span class="lbl">Derivation: $Y$, $\eta$ and $\sigma$</span>
+    <p><span class="step">Step 1</span>A unit cube is acted on by a shearing stress $S$ on its faces. This is equivalent to a tensile stress $S$ along one diagonal and an equal compressive stress $S$ along the other.</p>
+    <p><span class="step">Step 2</span>The extension per unit length of the stretched diagonal is $\dfrac SY + \sigma\dfrac SY = \dfrac SY(1+\sigma)$ (stretch from the tension plus the Poisson stretch from the compression).</p>
+    <p><span class="step">Step 3</span>Geometry of the sheared cube: the diagonal strain is $\theta/2$, with $\theta = S/\eta$. So $\dfrac{S}{2\eta} = \dfrac SY(1+\sigma)$:</p>
+    <div class="eq">$$Y = 2\eta(1+\sigma)$$</div>
+  </div>
+  <div class="box der"><span class="lbl">Derivation: $Y$, $K$ and $\sigma$</span>
+    <p><span class="step">Step 1</span>A unit cube under equal pressure $P$ on all faces. Along each axis, the strain from the stress on that axis is $-P/Y$, and each of the other two adds $+\sigma P/Y$ (Poisson), giving $-\dfrac PY(1-2\sigma)$.</p>
+    <p><span class="step">Step 2</span>Volume strain = sum of the three linear strains: $\dfrac{\Delta V}V = -\dfrac{3P}{Y}(1-2\sigma)$, and $K = \dfrac{P}{-\Delta V/V}$:</p>
+    <div class="eq">$$Y = 3K(1-2\sigma), \qquad \text{and eliminating }\sigma:\quad \frac9Y = \frac1K + \frac3\eta, \qquad \sigma = \frac{3K - 2\eta}{6K + 2\eta}$$</div>
+  </div>
+
+  <div class="sim" id="sim-cube3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Stretch, shear and squeeze a cube</h4></div>
+    <p class="sim-try"><b>Try:</b> choose <b>Tension</b>, <b>Shear</b> or <b>Bulk</b>. Change the stress, Young&rsquo;s modulus and Poisson&rsquo;s ratio. The deformation is magnified so you can see it; drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> in tension the cube gets longer and thinner; with $\sigma = 0$ it does not get thinner at all, and with negative $\sigma$ it actually gets fatter. In shear the faces slide (the volume does not change). In bulk compression the cube shrinks evenly; as $\sigma\to0.5$, $K$ becomes enormous and the cube hardly shrinks.</p>
+  </div>
+
+  <div class="sim" id="sim-moduli">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>How $\eta$ and $K$ depend on Poisson&rsquo;s ratio</h4></div>
+    <p class="sim-try"><b>Try:</b> move Poisson&rsquo;s ratio across its whole range, or press a material button. Change $Y$ and check that $9/Y = 1/K + 3/\eta$ always holds.</p>
+    <p class="sim-note"><b>What to notice:</b> $\eta$ is always a bit less than half of $Y$ for real materials. $K$ shoots up as $\sigma\to\tfrac12$ (rubber, water-like solids are almost incompressible) and would become negative beyond it, which is impossible: that is the upper limit of $\sigma$.</p>
+  </div>
+
+  <h3><span class="n">2.4</span>Strain energy</h3>
+  <div class="box der"><span class="lbl">Derivation: work done in stretching a wire</span>
+    <p><span class="step">Step 1</span>When the extension is $x$, the force is $F = \dfrac{YA}{L}x$ (Hooke&rsquo;s law).</p>
+    <p><span class="step">Step 2</span>Work to extend further by $dx$: $dW = F\,dx$. Total for extension $l$:</p>
+    <div class="eq">$$W = \int_0^l \frac{YA}{L}x\,dx = \frac12\frac{YA}{L}l^2 = \frac12 F\,l$$</div>
+    <p><span class="step">Step 3</span>Divide by the volume $AL$: <b>energy density</b></p>
+    <div class="eq">$$u = \frac12\,\frac FA\,\frac lL = \frac12\,\text{stress}\times\text{strain} = \frac{(\text{stress})^2}{2Y}$$</div>
+    <p>The same form holds for the other deformations: shear $u = \tfrac12 S\theta = S^2/2\eta$; bulk $u = \tfrac12\,\Delta P\,(\Delta V/V) = (\Delta P)^2/2K$. On a graph, the energy is the area under the stress&ndash;strain line.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>A steel cable ($Y = 200$ GPa) 10 m long and 1 cm&sup2; in cross-section carries 10 kN. Find the extension, the stored energy and the energy density.</p>
+    <p>Stress $= 10^4/10^{-4} = 10^8$ Pa; strain $= 10^8/2\times10^{11} = 5\times10^{-4}$; $\Delta L = 5$ mm.</p>
+    <p>$W = \tfrac12F\Delta L = \tfrac12(10^4)(0.005) = 25$ J; $u = \tfrac12(10^8)(5\times10^{-4}) = 2.5\times10^4$ J/m&sup3; (check: $25/(10^{-4}\times10) = 2.5\times10^4$).</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A wire 3 m long and 0.6 mm in diameter stretches 1.2 mm under a 4 kg load. Find $Y$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Y = mgL/(\pi r^2\Delta L) = 4(9.8)(3)/(\pi(3\times10^{-4})^2\times1.2\times10^{-3}) \approx 3.5\times10^{11}$ Pa.</p></div></details></li>
+    <li>For steel $Y = 200$ GPa and $\sigma = 0.29$. Find $\eta$ and $K$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\eta = 200/2.58 = 77.5$ GPa; $K = 200/(3\times0.42) = 159$ GPa.</p></div></details></li>
+    <li>A material has $K = 140$ GPa and $\eta = 80$ GPa. Find $Y$ and $\sigma$. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$9/Y = 1/140 + 3/80 \Rightarrow Y = 201$ GPa; $\sigma = (3K-2\eta)/(6K+2\eta) = 260/1000 = 0.26$.</p></div></details></li>
+    <li>Show that $\sigma$ cannot exceed 0.5. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Y = 3K(1-2\sigma)$ with $Y, K &gt; 0$ requires $1 - 2\sigma &gt; 0$.</p></div></details></li>
+    <li>Find the work needed to stretch a 1 m wire of area 1 mm&sup2; by 1 mm ($Y = 2\times10^{11}$ Pa). <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$W = \tfrac12(YA/L)l^2 = \tfrac12(2\times10^{11}\times10^{-6})(10^{-6}) = 0.1$ J.</p></div></details></li>
+    <li>A column of concrete 3 m high and 0.3 m &times; 0.3 m in section carries 270 kN. Find the shortening and the energy stored ($Y = 30$ GPa). <span class="lvl hard">hard</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Stress $= 3$ MPa; strain $= 10^{-4}$; shortening $= 0.3$ mm; $W = \tfrac12(2.7\times10^5)(3\times10^{-4}) = 40.5$ J.</p></div></details></li>
+  </ol>
+
+  <div class="pager"><a href="index.html"><small>&larr; Back to</small>Course home</a><a href="oscillations.html"><small>Next unit</small>Oscillations &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/elasticity.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>

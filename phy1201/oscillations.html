@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oscillations | PHY1201</title>
+<meta name="description" content="PHY1201 Classes 2 to 8: simple harmonic motion, energy, Lissajous figures, physical and torsional pendulums, damped oscillation, LC and RLC circuits, forced oscillation, resonance, Q factor, two-body oscillation and reduced mass.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%238c2f1b'/><text x='32' y='42' font-family='Arial' font-weight='bold' font-size='22' fill='%23f2f0ec' text-anchor='middle'>PHY</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/vendor/katex/katex.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/vendor/three.min.js"></script>
+<script src="assets/sim.js"></script>
+<script src="assets/vendor/katex/katex.min.js"></script>
+<script src="assets/vendor/katex/auto-render.min.js"></script>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><b>PHY1201</b> Physics</a>
+    <nav aria-label="Units"><ul id="navlist">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="elasticity.html">Elasticity</a></li>
+      <li><a href="oscillations.html" aria-current="page">Oscillations</a></li>
+      <li><a href="waves.html">Waves &amp; sound</a></li>
+      <li><a href="interference.html">Interference</a></li>
+      <li><a href="diffraction.html">Diffraction</a></li>
+      <li><a href="polarization.html">Polarization</a></li>
+      <li><a href="heat.html">Heat &amp; gases</a></li>
+      <li><a href="thermo.html">Thermodynamics</a></li>
+    </ul></nav>
+    <div style="display:flex;gap:8px">
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle dark mode"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="navlist"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="hero"><div class="wrap">
+  <span class="kicker">Unit 2 &middot; Classes 2&ndash;8 &middot; Waves and oscillations</span>
+  <h1>Oscillations</h1>
+  <p class="lead">Buildings sway, bridges vibrate, car suspensions bounce and circuits ring. All of these obey the same few differential equations: simple, damped and forced harmonic motion. This unit derives them, solves them, and shows how resonance can amplify a small push into a large motion.</p>
+  <ul class="toc">
+    <li><a href="#intro"><span>Class 2</span>Types of motion and waves</a></li>
+    <li><a href="#c3"><span>Classes 3&ndash;4</span>Simple harmonic motion and energy</a></li>
+    <li><a href="#c5"><span>Class 5</span>Lissajous figures and pendulums</a></li>
+    <li><a href="#c6"><span>Classes 6&ndash;7</span>Damped oscillation, LC and RLC</a></li>
+    <li><a href="#c8"><span>Class 8</span>Forced oscillation, resonance, reduced mass</a></li>
+  </ul>
+</div></div>
+
+<!-- ===================== INTRO (from Class 2) ===================== -->
+<section class="class" id="intro"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 2 (second part)</span>
+    <h2>Types of motion and types of waves</h2>
+  </div>
+  <div class="box"><span class="lbl">Big idea</span>
+    <p><b>Translational</b> motion moves the whole body from place to place; <b>rotational</b> motion turns it about an axis; <b>periodic</b> motion repeats itself after a fixed time $T$ (the Earth around the Sun). <b>Oscillatory</b> (vibratory) motion is periodic motion back and forth about an equilibrium position, driven by a restoring force (a mass on a spring, a pendulum, a swaying tower). When the restoring force is proportional to the displacement, the oscillation is <b>simple harmonic</b>.</p>
+    <p>A <b>wave</b> carries energy from place to place without carrying matter. <b>Mechanical</b> waves need a medium (sound, waves on a string, seismic waves); <b>electromagnetic</b> waves do not (light). In <b>transverse</b> waves the particles move at right angles to the wave (string, light); in <b>longitudinal</b> waves they move along it (sound, the P wave of an earthquake).</p>
+  </div>
+</div></section>
+
+<!-- ===================== CLASSES 3-4 ===================== -->
+<section class="class" id="c3"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Classes 3&ndash;4</span>
+    <h2>Simple harmonic motion: its equation, graphs and energy</h2>
+    <p class="goals"><b>By the end you can:</b> derive and solve $\ddot x + \omega^2x = 0$; find period, frequency, maximum velocity and acceleration; draw $x$, $v$, $a$ against time; derive the total energy and the average kinetic and potential energies.</p>
+  </div>
+  <span id="c4"></span>
+
+  <h3><span class="n">3.1</span>The differential equation of SHM</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A mass $m$ on a spring of constant $k$. Displaced by $x$, the spring pulls back with $F = -kx$ (Hooke&rsquo;s law).</p>
+    <p><span class="step">Step 2</span>Newton&rsquo;s second law: $m\ddot x = -kx$, so</p>
+    <div class="eq">$$\frac{d^2x}{dt^2} + \omega^2x = 0, \qquad \omega = \sqrt{\frac km}$$</div>
+    <p><span class="step">Step 3</span>Try $x = A\cos(\omega t + \phi)$: $\ddot x = -\omega^2A\cos(\omega t+\phi) = -\omega^2x$. It works for any amplitude $A$ and phase $\phi$ (set by how the motion starts).</p>
+    <p><span class="step">Step 4</span>Velocity and acceleration:</p>
+    <div class="eq">$$v = -A\omega\sin(\omega t+\phi) = \pm\omega\sqrt{A^2-x^2}, \qquad a = -\omega^2x$$</div>
+    <p>So $v_{\max} = A\omega$ at $x = 0$, $a_{\max} = A\omega^2$ at $x = \pm A$; period $T = 2\pi/\omega = 2\pi\sqrt{m/k}$, frequency $f = 1/T$.</p>
+  </div>
+
+  <div class="sim" id="sim-shm">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>SHM as the shadow of circular motion: x, v and a</h4></div>
+    <p class="sim-try"><b>Try:</b> change the amplitude, frequency and initial phase. Watch the three graphs as the phasor turns.</p>
+    <p class="sim-note"><b>What to notice:</b> velocity is largest at the centre and zero at the ends; acceleration is largest at the ends and always points back towards the centre (opposite to $x$). Doubling $f$ doubles $v_{\max}$ but quadruples $a_{\max}$.</p>
+  </div>
+
+  <h3><span class="n">3.2</span>Energy in SHM</h3>
+  <div class="box der"><span class="lbl">Derivation: total and average energy</span>
+    <p><span class="step">Potential</span>$U = \int_0^x kx\,dx = \tfrac12kx^2 = \tfrac12kA^2\cos^2(\omega t+\phi)$.</p>
+    <p><span class="step">Kinetic</span>$K = \tfrac12mv^2 = \tfrac12m\omega^2A^2\sin^2(\omega t+\phi) = \tfrac12kA^2\sin^2(\omega t+\phi)$ (using $m\omega^2 = k$).</p>
+    <p><span class="step">Total</span>$E = K + U = \tfrac12kA^2 = \tfrac12m\omega^2A^2$, constant, proportional to the square of the amplitude.</p>
+    <p><span class="step">Averages</span>Over one period $\overline{\sin^2} = \overline{\cos^2} = \tfrac12$, so</p>
+    <div class="eq">$$\overline{K} = \overline{U} = \tfrac14kA^2 = \tfrac12E$$</div>
+    <p>(Averaged over position instead of time, $\overline K = \tfrac13 kA^2$ and $\overline U = \tfrac16kA^2$, because the mass spends longer near the ends.)</p>
+  </div>
+
+  <div class="sim" id="sim-energy">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Energy sloshing between kinetic and potential</h4></div>
+    <p class="sim-try"><b>Try:</b> change the mass, the spring constant and the amplitude.</p>
+    <p class="sim-note"><b>What to notice:</b> the total stays on the flat line $E = \tfrac12kA^2$; the mass does not change $E$, only how fast the exchange happens. KE and PE oscillate at twice the frequency of the motion and each averages to $E/2$.</p>
+  </div>
+
+  <div class="sim" id="sim-spring3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Vertical spring&ndash;mass system with a chart recorder</h4></div>
+    <p class="sim-try"><b>Try:</b> change $m$ and $k$, press <b>Pull down and release</b>, and add a little damping. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> the pen draws a sine curve. A heavier mass or softer spring gives a longer period ($T = 2\pi\sqrt{m/k}$), but the amplitude does not change the period. Gravity only shifts the equilibrium position; the oscillation about it is the same SHM.</p>
+  </div>
+
+  <div class="box ex"><span class="lbl">Worked example</span>
+    <p>A body executes SHM with amplitude 5 cm and period 0.4 s. Find $v_{\max}$, $a_{\max}$, and the speed when $x = 3$ cm.</p>
+    <p>$\omega = 2\pi/0.4 = 15.7$ rad/s; $v_{\max} = 0.05\times15.7 = 0.785$ m/s; $a_{\max} = 0.05\times15.7^2 = 12.3$ m/s&sup2;; $v = \omega\sqrt{A^2-x^2} = 15.7\times0.04 = 0.63$ m/s.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A 0.5 kg mass on a spring ($k = 200$ N/m) oscillates with amplitude 4 cm. Find $T$, $v_{\max}$ and $E$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\omega = 20$ rad/s, $T = 0.314$ s, $v_{\max} = 0.8$ m/s, $E = \tfrac12(200)(0.04)^2 = 0.16$ J.</p></div></details></li>
+    <li>At what displacement are KE and PE equal? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tfrac12kx^2 = \tfrac14kA^2 \Rightarrow x = A/\sqrt2$.</p></div></details></li>
+    <li>The displacement is $x = 0.1\sin(5\pi t + \pi/6)$ m. Find amplitude, frequency, initial phase and the velocity at $t = 0.1$ s. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$A = 0.1$ m, $f = 2.5$ Hz, $\phi = 30^\circ$; $v = 0.5\pi\cos(\pi/2 + \pi/6) = -0.785$ m/s.</p></div></details></li>
+    <li>The ratio of the maximum acceleration to the maximum velocity of an SHM is 10 s$^{-1}$. Find the period. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$A\omega^2/A\omega = \omega = 10$ rad/s, so $T = 0.628$ s.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 5 ===================== -->
+<section class="class" id="c5"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 5</span>
+    <h2>Combination of SHMs, Lissajous figures, physical and torsional pendulums</h2>
+    <p class="goals"><b>By the end you can:</b> combine two perpendicular SHMs and identify the figure; read a frequency ratio from a Lissajous figure; derive the period of a compound pendulum and of a torsional pendulum.</p>
+  </div>
+
+  <h3><span class="n">5.1</span>Two perpendicular SHMs of the same frequency</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>$x = a\sin(\omega t + \delta)$, $y = b\sin\omega t$. From the second, $\sin\omega t = y/b$, $\cos\omega t = \sqrt{1-y^2/b^2}$.</p>
+    <p><span class="step">Step 2</span>Expand the first: $\dfrac xa = \dfrac yb\cos\delta + \sqrt{1-\dfrac{y^2}{b^2}}\sin\delta$. Isolate the root, square, and rearrange:</p>
+    <div class="eq">$$\frac{x^2}{a^2} + \frac{y^2}{b^2} - \frac{2xy}{ab}\cos\delta = \sin^2\delta$$</div>
+    <p><span class="step">Cases</span>$\delta = 0$: straight line $y = (b/a)x$; $\delta = \pi$: line $y = -(b/a)x$; $\delta = \pi/2$: ellipse $x^2/a^2 + y^2/b^2 = 1$ (a circle if $a = b$); other $\delta$: a tilted ellipse.</p>
+    <p>With frequencies in a whole-number ratio the path is a closed <b>Lissajous figure</b>. Counting where it touches the bounding box gives the ratio: $\dfrac{f_y}{f_x} = \dfrac{\text{touches on a vertical side}}{\text{touches on the top}}$. Engineers use this with an oscilloscope to compare an unknown frequency with a known one.</p>
+  </div>
+
+  <div class="sim" id="sim-lissajous">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Lissajous figures</h4></div>
+    <p class="sim-try"><b>Try:</b> set equal frequencies and change the phase from 0&deg; to 180&deg;. Then try ratios 1:2, 2:3, 3:4. Press <b>Let the phase drift</b>.</p>
+    <p class="sim-note"><b>What to notice:</b> with 1:1 the figure goes line &rarr; ellipse &rarr; circle &rarr; ellipse &rarr; line as $\delta$ grows. With a slight mismatch in frequency the phase drifts and the figure slowly rotates: that is how an oscilloscope shows that two frequencies are nearly, but not exactly, equal.</p>
+  </div>
+
+  <h3><span class="n">5.2</span>Compound (physical) pendulum</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>A rigid body of mass $m$ pivoted a distance $d$ from its centre of mass G. Turned by $\theta$, gravity gives a restoring torque $\tau = -mgd\sin\theta\approx-mgd\,\theta$.</p>
+    <p><span class="step">Step 2</span>$I\ddot\theta = -mgd\,\theta$ with $I = m(K^2 + d^2)$ (parallel axes; $K$ is the radius of gyration about G):</p>
+    <div class="eq">$$T = 2\pi\sqrt{\frac{I}{mgd}} = 2\pi\sqrt{\frac{K^2 + d^2}{gd}} = 2\pi\sqrt{\frac lg}, \qquad l = \frac{K^2}{d} + d$$</div>
+    <p><span class="step">Step 3</span>$l$ is the length of the <b>equivalent simple pendulum</b>. $T$ is smallest when $d = K$, giving $T_{\min} = 2\pi\sqrt{2K/g}$. For a uniform rod of length $L$, $K = L/\sqrt{12}$.</p>
+  </div>
+
+  <div class="sim" id="sim-pendulum3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Compound pendulum and its equivalent simple pendulum</h4></div>
+    <p class="sim-try"><b>Try:</b> move the pivot from near the centre of the rod to its end. Press <b>Pivot for shortest period</b>. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> pivoting very close to the centre makes the period very long (little torque). Moving the pivot out first shortens and then lengthens it again. The blue simple pendulum of length $l$ always swings in step with the rod.</p>
+  </div>
+
+  <h3><span class="n">5.3</span>Torsional pendulum</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Twisting a wire (length $l$, radius $r$, rigidity $\eta$) through $\theta$ needs a couple $\tau = C\theta$. Treat the wire as thin cylindrical shells of radius $x$; each shell is sheared by $\phi = x\theta/l$, giving stress $\eta x\theta/l$ on area $2\pi x\,dx$ at lever arm $x$:</p>
+    <div class="eq">$$C = \int_0^r \frac{\eta x\theta}{l}\,2\pi x\cdot x\,dx\Big/\theta = \frac{\pi\eta r^4}{2l}$$</div>
+    <p><span class="step">Step 2</span>A disc of moment of inertia $I$ on the wire: $I\ddot\theta = -C\theta$, so</p>
+    <div class="eq">$$T = 2\pi\sqrt{\frac IC} = 2\pi\sqrt{\frac{2Il}{\pi\eta r^4}}$$</div>
+    <p>Because $C\propto r^4$, a wire of half the radius is 16 times easier to twist. Measuring $T$ gives $\eta$ (Maxwell&rsquo;s needle method).</p>
+  </div>
+
+  <div class="sim" id="sim-torsion3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Torsional pendulum</h4></div>
+    <p class="sim-try"><b>Try:</b> change the wire&rsquo;s length, radius and rigidity, and the disc radius. Follow the red stripe twisting along the wire.</p>
+    <p class="sim-note"><b>What to notice:</b> halving the wire radius makes the period 4 times longer ($T\propto r^{-2}$). A bigger disc (larger $I$) also swings more slowly. The twist is spread evenly along the wire.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>Two SHMs at right angles, $x = 3\sin\omega t$ and $y = 4\sin(\omega t + \pi/2)$. What is the path? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Ellipse $x^2/9 + y^2/16 = 1$.</p></div></details></li>
+    <li>A Lissajous figure touches the top edge 3 times and a side 2 times. If $f_x = 300$ Hz, find $f_y$. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$f_y/f_x = 2/3$, so $f_y = 200$ Hz.</p></div></details></li>
+    <li>A metre stick pivoted at one end swings. Find its period and equivalent length. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$d = 0.5$, $K^2 = 1/12$; $l = (1/12 + 0.25)/0.5 = 0.667$ m; $T = 2\pi\sqrt{0.667/9.8} = 1.64$ s.</p></div></details></li>
+    <li>A disc ($I = 0.02$ kg m&sup2;) hangs from a steel wire 1 m long, radius 0.5 mm, $\eta = 80$ GPa. Find the period. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$C = \pi(8\times10^{10})(0.5\times10^{-3})^4/2 = 7.85\times10^{-3}$ N m/rad; $T = 2\pi\sqrt{0.02/0.00785} = 10.0$ s.</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASSES 6-7 ===================== -->
+<section class="class" id="c6"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Classes 6&ndash;7</span>
+    <h2>Damped oscillation, LC and RLC circuits, damping conditions, reactance and impedance</h2>
+    <p class="goals"><b>By the end you can:</b> set up and solve the equation of damped harmonic motion; identify under-, critical and over-damping; find the damping coefficient from decaying amplitude; map the spring&ndash;mass&ndash;dashpot onto an RLC circuit; use time constants, reactance and impedance.</p>
+  </div>
+  <span id="c7"></span>
+
+  <h3><span class="n">6.1</span>The damped harmonic oscillator</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Add a resisting force proportional to velocity, $-b\dot x$ (air, oil, a shock absorber): $m\ddot x = -kx - b\dot x$,</p>
+    <div class="eq">$$\ddot x + 2\gamma\dot x + \omega_0^2x = 0, \qquad \gamma = \frac{b}{2m},\ \ \omega_0 = \sqrt{\frac km}$$</div>
+    <p><span class="step">Step 2</span>Try $x = e^{\lambda t}$: $\lambda^2 + 2\gamma\lambda + \omega_0^2 = 0$, so $\lambda = -\gamma\pm\sqrt{\gamma^2-\omega_0^2}$.</p>
+    <p><span class="step">Underdamped</span>($\gamma &lt; \omega_0$): the root is imaginary:</p>
+    <div class="eq">$$x = A_0e^{-\gamma t}\cos(\omega' t + \phi), \qquad \omega' = \sqrt{\omega_0^2 - \gamma^2}$$</div>
+    <p>It oscillates a little more slowly than without damping, inside an exponentially shrinking envelope.</p>
+    <p><span class="step">Critical</span>($\gamma = \omega_0$): $x = (A + Bt)e^{-\gamma t}$, the fastest return without overshoot (door closers, car suspensions, meters).</p>
+    <p><span class="step">Overdamped</span>($\gamma &gt; \omega_0$): $x = Ae^{-(\gamma-\beta)t} + Be^{-(\gamma+\beta)t}$, $\beta = \sqrt{\gamma^2-\omega_0^2}$: a slow creep back.</p>
+  </div>
+  <div class="box key"><span class="lbl">Measuring damping</span>
+    <p><b>Energy</b> $E = \tfrac12kA^2\propto e^{-2\gamma t}$: it decays with lifetime $\tau = 1/2\gamma$; the amplitude decays with time constant $1/\gamma$.</p>
+    <p><b>Logarithmic decrement</b>: the ratio of successive maxima is constant, $\dfrac{A_n}{A_{n+1}} = e^{\gamma T'}$, so $\Lambda = \ln\dfrac{A_n}{A_{n+1}} = \gamma T'$. Measuring two amplitudes gives the damping coefficient $\gamma$.</p>
+    <p><b>Quality factor</b> $Q = \omega_0/2\gamma = 2\pi\times\dfrac{\text{energy stored}}{\text{energy lost per cycle}}$ (for light damping).</p>
+  </div>
+
+  <h3><span class="n">6.2</span>The same equation in electric circuits</h3>
+  <div class="box der"><span class="lbl">LC and RLC circuits</span>
+    <p><span class="step">LC</span>A charged capacitor connected to an inductor: around the loop $L\dfrac{di}{dt} + \dfrac qC = 0$ with $i = dq/dt$, so $\ddot q + \dfrac1{LC}q = 0$: charge oscillates with $\omega_0 = 1/\sqrt{LC}$, energy passing between the capacitor ($q^2/2C$) and the inductor ($\tfrac12Li^2$).</p>
+    <p><span class="step">RLC</span>Add a resistor: $L\ddot q + R\dot q + \dfrac qC = 0$, exactly the damped oscillator with</p>
+    <div class="table-wrap"><table class="data">
+      <tr><th>Mechanical</th><td>$x$</td><td>$m$</td><td>$b$</td><td>$k$</td><td>$\gamma = b/2m$</td><td>$\tfrac12kx^2$</td><td>$\tfrac12mv^2$</td></tr>
+      <tr><th>Electrical</th><td>$q$</td><td>$L$</td><td>$R$</td><td>$1/C$</td><td>$\gamma = R/2L$</td><td>$q^2/2C$</td><td>$\tfrac12Li^2$</td></tr>
+    </table></div>
+    <p>Critical damping when $R = 2\sqrt{L/C}$.</p>
+  </div>
+
+  <div class="sim" id="sim-damped">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Damped oscillation: spring&ndash;dashpot or RLC circuit</h4></div>
+    <p class="sim-try"><b>Try:</b> start with no damping, then increase $b$ (or $R$). Press <b>Critical damping</b>, then go beyond it. Switch to the <b>RLC circuit</b> view.</p>
+    <p class="sim-note"><b>What to notice:</b> light damping keeps the period almost unchanged while the envelope $e^{-\gamma t}$ shrinks. At critical damping the system returns to zero fastest without crossing it. Overdamped systems are slow. The circuit behaves identically, with the capacitor&rsquo;s charge swapping sign each half cycle.</p>
+  </div>
+
+  <h3><span class="n">6.3</span>Time constant: charging and discharging</h3>
+  <div class="box der"><span class="lbl">Derivation: RC circuit</span>
+    <p><span class="step">Charging</span>$\varepsilon = iR + q/C$ with $i = dq/dt$: $\dfrac{dq}{\varepsilon C - q} = \dfrac{dt}{RC}$, so $q = \varepsilon C(1 - e^{-t/RC})$ and $i = \dfrac{\varepsilon}{R}e^{-t/RC}$.</p>
+    <p><span class="step">Discharging</span>$iR + q/C = 0$: $q = q_0e^{-t/RC}$.</p>
+    <p>The <b>time constant</b> $\tau = RC$ is the time to reach 63% of the final charge (or fall to 37%). For an RL circuit, $\tau = L/R$.</p>
+  </div>
+
+  <div class="sim" id="sim-rc">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Charging and discharging a capacitor</h4></div>
+    <p class="sim-try"><b>Try:</b> press <b>Charge</b> and <b>Discharge</b>; change $R$ and $C$.</p>
+    <p class="sim-note"><b>What to notice:</b> after one time constant the capacitor is 63% charged; after 5$\tau$ it is essentially full. Doubling $R$ or $C$ doubles $\tau$. The current is largest at the start and dies away exponentially.</p>
+  </div>
+
+  <h3><span class="n">6.4</span>Reactance and impedance</h3>
+  <div class="box key"><span class="lbl">Key results (series RLC on an ac supply)</span>
+    <div class="eq">$$X_L = \omega L, \qquad X_C = \frac{1}{\omega C}, \qquad Z = \sqrt{R^2 + (X_L - X_C)^2}, \qquad \tan\phi = \frac{X_L - X_C}{R}$$</div>
+    <p>The inductor opposes fast changes (large $X_L$ at high frequency); the capacitor blocks slow ones (large $X_C$ at low frequency). When $X_L = X_C$, i.e. $\omega_0 = 1/\sqrt{LC}$, $Z = R$ is smallest and the current is largest: <b>electrical resonance</b>. $Q = \dfrac1R\sqrt{\dfrac LC}$ measures how sharp the peak is.</p>
+  </div>
+
+  <div class="sim" id="sim-impedance">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Series RLC: impedance triangle and resonance</h4></div>
+    <p class="sim-try"><b>Try:</b> sweep the supply frequency through $f_0$. Then increase $R$ and watch the peak.</p>
+    <p class="sim-note"><b>What to notice:</b> below $f_0$ the circuit is capacitive (current leads), above it inductive (current lags), and at $f_0$ the reactances cancel. A small resistance gives a tall, narrow peak (high $Q$, as in a radio tuner); a large one flattens it.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>The amplitude of a damped oscillator falls from 10 cm to 5 cm in 20 oscillations of period 0.5 s. Find $\gamma$ and the logarithmic decrement. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$e^{-\gamma(10)} = 0.5 \Rightarrow \gamma = 0.0693$ s$^{-1}$; $\Lambda = \gamma T = 0.0347$.</p></div></details></li>
+    <li>A 2 kg mass on a 50 N/m spring. What damping constant $b$ gives critical damping? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$b = 2\sqrt{km} = 2\sqrt{100} = 20$ kg/s.</p></div></details></li>
+    <li>$L = 10$ mH, $C = 1\ \mu$F. Find the natural frequency and the resistance for critical damping. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$f_0 = 1/(2\pi\sqrt{10^{-8}}) = 1.59$ kHz; $R = 2\sqrt{L/C} = 200\ \Omega$.</p></div></details></li>
+    <li>$R = 1$ M$\Omega$, $C = 10\ \mu$F, $\varepsilon = 12$ V. Find $\tau$ and the voltage across $C$ after 20 s of charging. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\tau = 10$ s; $V = 12(1 - e^{-2}) = 10.4$ V.</p></div></details></li>
+    <li>Series RLC: $R = 30\ \Omega$, $X_L = 80\ \Omega$, $X_C = 40\ \Omega$, 100 V supply. Find $Z$, current and phase. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$Z = 50\ \Omega$; $I = 2$ A; $\phi = \tan^{-1}(40/30) = 53^\circ$ (current lags).</p></div></details></li>
+  </ol>
+</div></section>
+
+<!-- ===================== CLASS 8 ===================== -->
+<section class="class" id="c8"><div class="wrap prose">
+  <div class="class-head">
+    <span class="kicker">Class 8</span>
+    <h2>Forced oscillation, resonance, Q factor, two-body oscillation and reduced mass</h2>
+    <p class="goals"><b>By the end you can:</b> solve the equation of forced harmonic motion for the steady state; find the amplitude and phase against driving frequency; find the resonance frequency, Q and bandwidth; compare SHM, DHM and FHM; derive the reduced mass of a two-body oscillator.</p>
+  </div>
+
+  <h3><span class="n">8.1</span>Forced harmonic motion</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Drive the damped oscillator with $F_0\cos\omega t$:</p>
+    <div class="eq">$$\ddot x + 2\gamma\dot x + \omega_0^2x = \frac{F_0}{m}\cos\omega t$$</div>
+    <p><span class="step">Step 2</span>After the transient (the DHM solution) dies away, the body moves at the <b>driving</b> frequency: try $x = A\cos(\omega t - \theta)$. Substituting and matching the $\cos\omega t$ and $\sin\omega t$ terms:</p>
+    <div class="eq">$$A = \frac{F_0/m}{\sqrt{(\omega_0^2 - \omega^2)^2 + 4\gamma^2\omega^2}}, \qquad \tan\theta = \frac{2\gamma\omega}{\omega_0^2 - \omega^2}$$</div>
+    <p><span class="step">Step 3</span>$A$ is largest when the denominator is smallest: $\dfrac{d}{d\omega}[\ldots] = 0$ gives the <b>amplitude resonance</b> $\omega_r = \sqrt{\omega_0^2 - 2\gamma^2}$, with $A_{\max} = \dfrac{F_0/m}{2\gamma\sqrt{\omega_0^2-\gamma^2}}$. The phase lag is $90^\circ$ at $\omega = \omega_0$.</p>
+    <p><span class="step">Q and bandwidth</span>The power absorbed peaks at $\omega_0$ and falls to half at $\omega_0\pm\gamma$: bandwidth $\Delta\omega = 2\gamma$ and $Q = \omega_0/\Delta\omega$.</p>
+  </div>
+  <div class="table-wrap"><table class="data">
+    <tr><th></th><th>SHM</th><th>DHM</th><th>FHM</th></tr>
+    <tr><td>Equation</td><td>$\ddot x + \omega_0^2x = 0$</td><td>$\ddot x + 2\gamma\dot x + \omega_0^2x = 0$</td><td>$\ldots = (F_0/m)\cos\omega t$</td></tr>
+    <tr><td>Frequency</td><td>$\omega_0$</td><td>$\sqrt{\omega_0^2 - \gamma^2}$</td><td>$\omega$ (driver&rsquo;s)</td></tr>
+    <tr><td>Amplitude</td><td>constant</td><td>decays as $e^{-\gamma t}$</td><td>constant, depends on $\omega$</td></tr>
+    <tr><td>Energy</td><td>conserved</td><td>lost to friction</td><td>supplied by driver = lost to friction</td></tr>
+  </table></div>
+
+  <div class="sim" id="sim-forced">
+    <div class="sim-head"><span class="tag">Simulation</span><h4>Resonance curve and phase lag</h4></div>
+    <p class="sim-try"><b>Try:</b> sweep the driving frequency through $\omega_0$ with light damping, then with heavy damping.</p>
+    <p class="sim-note"><b>What to notice:</b> at low frequency the body follows the force; near $\omega_0$ the amplitude shoots up and the response lags by $90^\circ$; far above, the body moves opposite to the force with a tiny amplitude. Less damping gives a taller, sharper peak (larger $Q$). Engineers design buildings so that their natural frequencies are far from wind, traffic and earthquake frequencies, and add dampers to keep $Q$ low.</p>
+  </div>
+
+  <div class="sim" id="sim-barton3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Barton&rsquo;s pendulums: which one resonates?</h4></div>
+    <p class="sim-try"><b>Try:</b> change the length of the heavy red driver pendulum and wait a few seconds. Lower the damping. Drag to rotate.</p>
+    <p class="sim-note"><b>What to notice:</b> all the small pendulums are pushed at the driver&rsquo;s frequency, but only the one with the same length (same natural frequency) builds up a large swing. With less damping its swing grows bigger and takes longer to build up.</p>
+  </div>
+
+  <h3><span class="n">8.2</span>Two-body oscillation and reduced mass</h3>
+  <div class="box der"><span class="lbl">Derivation</span>
+    <p><span class="step">Step 1</span>Masses $m_1$ and $m_2$ joined by a spring $k$ (a diatomic molecule, two railway wagons). If the spring is stretched by $x = x_2 - x_1 - l_0$: $m_1\ddot x_1 = kx$ and $m_2\ddot x_2 = -kx$.</p>
+    <p><span class="step">Step 2</span>Divide and subtract: $\ddot x_2 - \ddot x_1 = -kx\left(\dfrac1{m_1}+\dfrac1{m_2}\right)$, i.e. $\mu\ddot x = -kx$ with</p>
+    <div class="eq">$$\mu = \frac{m_1m_2}{m_1+m_2}, \qquad \omega = \sqrt{\frac k\mu}, \qquad T = 2\pi\sqrt{\frac\mu k}$$</div>
+    <p><span class="step">Step 3</span>The centre of mass does not move (no external force); the two masses move in opposite directions with amplitudes in the ratio $m_2 : m_1$. If one mass is very heavy, $\mu\to$ the lighter mass (a mass on a spring fixed to a wall).</p>
+  </div>
+
+  <div class="sim" id="sim-twobody3d">
+    <div class="sim-head"><span class="tag">3D simulation</span><h4>Two masses on a spring</h4></div>
+    <p class="sim-try"><b>Try:</b> make the masses equal, then make one much heavier than the other.</p>
+    <p class="sim-note"><b>What to notice:</b> the green marker (centre of mass) never moves. With equal masses each moves equally; with very unequal masses the heavy one hardly moves and $\mu$ approaches the light mass.</p>
+  </div>
+
+  <h3>Practice problems</h3>
+  <ol class="problems">
+    <li>A system with $\omega_0 = 10$ rad/s and $\gamma = 0.5$ s$^{-1}$ is driven. Find the resonance frequency, $Q$ and bandwidth. <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\omega_r = \sqrt{100 - 0.5} = 9.97$ rad/s; $Q = 10$; $\Delta\omega = 1$ rad/s.</p></div></details></li>
+    <li>For the system above with $F_0/m = 1$ m/s&sup2;, find the steady amplitude at $\omega = 5$ rad/s and at resonance. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\omega = 5$: $A = 1/\sqrt{75^2 + 25} = 0.0133$ m. Resonance: $A \approx 1/(2\times0.5\times10) = 0.1$ m.</p></div></details></li>
+    <li>Find the reduced mass of an HCl molecule (H = 1 u, Cl = 35 u) and its vibration frequency if $k = 480$ N/m. <span class="lvl med">medium</span>
+      <details class="ans"><summary></summary><div class="sol"><p>$\mu = 35/36$ u $= 1.61\times10^{-27}$ kg; $f = \tfrac1{2\pi}\sqrt{k/\mu} = 8.7\times10^{13}$ Hz.</p></div></details></li>
+    <li>Why can soldiers be ordered to break step when marching across a bridge? <span class="lvl easy">easy</span>
+      <details class="ans"><summary></summary><div class="sol"><p>Marching in step applies a periodic force; if its frequency matches a natural frequency of the bridge, resonance can build up dangerous amplitudes.</p></div></details></li>
+  </ol>
+  <div class="pager"><a href="elasticity.html"><small>&larr; Previous unit</small>Elasticity</a><a href="waves.html"><small>Next unit</small>Waves and acoustics &rarr;</a></div>
+</div></section>
+</main>
+
+<footer><div class="wrap"><span>PHY1201 &middot; Physics &middot; Department of Civil Engineering &middot; United International University</span></div></footer>
+<script>renderMathInElement(document.body, { delimiters: [{ left: '$$', right: '$$', display: true }, { left: '$', right: '$', display: false }], throwOnError: false, ignoredClasses: ['sim-ui', 'tb3d'] });</script>
+<script src="assets/js/oscillations.js"></script>
+<script src="assets/editor.js" data-repo="sinistraldu/phy2105" data-dir="phy1201" data-course="PHY1201"></script>
+</body>
+</html>
