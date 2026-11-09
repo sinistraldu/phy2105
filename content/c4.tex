@@ -1,0 +1,146 @@
+\replacepage
+% The whole page is below. Edit freely, then Save and publish.
+
+\begin{itemize}
+\item Damping force −bv
+\item Differential equation of DHM
+\item Under, critical and over damping
+\item Logarithmic decrement, damping coefficient
+\item LC and series RLC circuits
+\item Reactance and impedance
+\end{itemize}
+
+ 
+\section{Key ideas}
+
+ 
+\begin{keyidea}
+Real oscillators lose energy to friction or resistance. With a damping force $-bv$ the amplitude decays exponentially. A spring–mass system with friction and an RLC circuit obey the \textbf{same} differential equation, with $m\leftrightarrow L$, $b\leftrightarrow R$, $k\leftrightarrow 1/C$ and $x\leftrightarrow q$. Here, I have defined $\dot x=\frac{dx}{dt}$.
+\end{keyidea}
+
+ 
+\begin{formulas}
+\formula{Damped oscillator}{$$m\ddot x+b\dot x+kx=0$$}
+\formula{Standard form}{$$\ddot x+2\gamma\dot x+\omega_0^2x=0,\ \gamma=\frac b{2m}$$}
+\formula{Characteristic equation}{$$\lambda^2+2\gamma\lambda+\omega_0^2=0$$}
+\formula{Roots}{$$\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$}
+\formula{Underdamped solution}{$$x=Ae^{-\gamma t}\cos(\omega' t+\phi),\ \omega'=\sqrt{\omega_0^2-\gamma^2}$$}
+\formula{LC circuit}{$$\frac{d^2q}{dt^2}+\frac{q}{LC}=0,\quad f=\frac1{2\pi\sqrt{LC}}$$}
+\formula{Series RLC}{$$L\ddot q+R\dot q+\frac qC=0,\ \gamma=\frac R{2L}$$}
+\formula{Oscillatory if}{$$\frac1{LC}>\frac{R^2}{4L^2}$$}
+\formula{Log decrement}{$$\lambda=\ln\frac{A_n}{A_{n+1}}=\gamma T'$$}
+\formula{Reactance and impedance}{$$X_L=\omega L,\ X_C=\frac1{\omega C},\ Z=\sqrt{R^2+(X_L-X_C)^2}$$}
+\end{formulas}
+
+ 
+\section{Setting up the equation for a mass in water}
+
+ 
+Hang a block from a spring and let it oscillate inside a beaker of water. Its weight and the buoyant force only move the rest position a little, so we measure the displacement $x$ from that new rest position. When the block is at $x$ and moving with velocity $v=\dot x$, two forces act on it.
+
+          x = 0  m   x  v  Fs = −kx  Fd = −bv water (damping liquid) spring constant k  A block on a spring oscillating in water. The spring pulls it back toward x = 0 and the water drags against its velocity. 
+\begin{enumerate}
+\item \textbf{Spring force.} $F_s=-kx$. It always pulls the block back toward $x=0$.
+\item \textbf{Damping force.} At low speed the water pushes against the motion with a force proportional to the speed, $F_d=-bv=-b\dot x$. The constant $b$ is the damping coefficient, measured in kg/s. A thicker liquid such as oil or honey has a larger $b$.
+\item \textbf{Newton's second law.} $m\ddot x=-kx-b\dot x$, which gives 
+$$m\ddot x+b\dot x+kx=0$$
+\item \textbf{Divide by $m$.} 
+$$\ddot x+2\gamma\dot x+\omega_0^2x=0,\qquad \gamma=\frac b{2m},\quad \omega_0=\sqrt{\frac km}$$
+ Here $\gamma$ tells how strongly the liquid damps the motion and $\omega_0$ is the angular frequency the block would have with no damping.
+\item \textbf{Same equation for a pendulum.} For a bob swinging in a liquid, with small angle $\theta$, 
+$$\ddot\theta+2\gamma\dot\theta+\frac gL\,\theta=0,\qquad \omega_0=\sqrt{\frac gL}$$
+ So everything below works for both systems.
+\end{enumerate}
+
+ 
+\section{Solving the damped equation with the exponential method}
+
+ 
+Exactly as for SHM, try $x=e^{\lambda t}$ in $\ddot x+2\gamma\dot x+\omega_0^2x=0$.
+
+ 
+\begin{enumerate}
+\item \textbf{Substitute.} $(\lambda^2+2\gamma\lambda+\omega_0^2)\,e^{\lambda t}=0$, so the characteristic equation is 
+$$\lambda^2+2\gamma\lambda+\omega_0^2=0\quad\Rightarrow\quad\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$
+\item \textbf{Overdamped} ($\gamma>\omega_0$). Two real negative roots. With $\beta=\sqrt{\gamma^2-\omega_0^2}$, 
+$$x=e^{-\gamma t}\left(C_1e^{\beta t}+C_2e^{-\beta t}\right)$$
+ The body creeps back to equilibrium without oscillating.
+\item \textbf{Critically damped} ($\gamma=\omega_0$). One repeated root $\lambda=-\gamma$, 
+$$x=(C_1+C_2t)\,e^{-\gamma t}$$
+ This returns to equilibrium in the shortest time without overshooting.
+\item \textbf{Underdamped} ($\gamma<\omega_0$). Complex roots $\lambda=-\gamma\pm i\omega'$ with $\omega'=\sqrt{\omega_0^2-\gamma^2}$, 
+$$x=e^{-\gamma t}\left(C_1e^{i\omega't}+C_2e^{-i\omega't}\right)=Ae^{-\gamma t}\cos(\omega't+\phi)$$
+ The body oscillates at $\omega'$ inside a shrinking envelope $Ae^{-\gamma t}$.
+\item \textbf{Check.} Setting $\gamma=0$ gives back $\lambda=\pm i\omega_0$, the SHM result.
+\end{enumerate}
+
+ 2D illustration
+\subsubsection{Damped oscillation in a liquid: under, critical and over damping}
+
+PauseRelease againSpring and mass in a liquidPendulum in a liquidJump to a caseUnderCriticalOverLiquidAirWaterOilHoneyDamping coefficient b\textbf{2.00 kg/s}Mass m\textbf{1.0 kg}Spring constant k\textbf{20 N/m}String length L\textbf{1.00 m}Starting pull A\textbf{8.0 cm}Starting angle θ₀\textbf{15°}Show all three cases on the graphOffOnUnderdampedx(t) = 8.0 cm e−1.00t [cos 4.36t + 0.23 sin 4.36t]Damping rate γ = b/2m\textbf{1.00 s⁻¹}Natural ω₀ = √(k/m)\textbf{4.47 rad/s}Damping ratio γ/ω₀\textbf{0.22}Critical b = 2mω₀\textbf{8.94 kg/s}Damped ω' = √(ω₀² − γ²)\textbf{4.36 rad/s}Period T' = 2π/ω'\textbf{1.44 s}Log decrement γT'\textbf{1.441}Time t\textbf{0.10 s}Displacement x\textbf{7.26 cm}Energy left E/E₀\textbf{98 \%}
+The block is pulled and released from rest. Two forces act on it. The spring (or gravity, for the pendulum) pulls it back to the middle, and the liquid pushes against its velocity with the drag force \textbf{−bv}. Pick a liquid or move \textbf{b} and watch three different behaviours appear. When γ = b/2m is smaller than ω₀ the motion is \textbf{underdamped}. It still oscillates, but inside the shrinking orange envelope Ae−γt. When γ = ω₀ it is \textbf{critically damped} and returns to x = 0 in the shortest time without crossing it. When γ is larger than ω₀ it is \textbf{overdamped} and creeps back slowly, as if moving through honey. Turn on "Show all three cases" to compare them for the same mass and spring.
+
+ 
+\sim{dampedv}
+
+ CLLC, q = Q₀ cos ωtCLRRLC, L q̈ + R q̇ + q/C = 0Charge sloshes between C and L like a mass on a spring. Adding R damps it, exactly as friction damps a spring. 2D illustration
+\subsubsection{LC circuit. Charge sloshing between a capacitor and an inductor}
+
+PauseResetInductance L10 mHCapacitance C1.0 µFResistance R0 Ω
+A charged capacitor is connected to an inductor. The charge flows out as a current, the current builds a magnetic field in the coil, and the coil then pushes the charge back onto the other plate. Energy swaps between the electric field of the capacitor (½q²/C) and the magnetic field of the inductor (½LI²), just like potential and kinetic energy in a spring. q = Q₀ cos ωt with ω = 1/√(LC). Add a resistance R and the oscillation dies away, which is the RLC circuit with γ = R/2L. The real frequency is far too fast to see, so time here is slowed down.
+
+ 2D illustration
+\subsubsection{Series RLC circuit. Reactance, impedance and resonance}
+
+PlayResetResistance R40 ΩInductance L10.0 mHCapacitance C2.5 µFSource frequency f900 Hz
+Inductive reactance X\_L = ωL rises with frequency and capacitive reactance X\_C = 1/ωC falls. They cancel at the resonant frequency f₀ = 1/(2π√(LC)), where the impedance Z = √(R² + (X\_L − X\_C)²) is smallest and the current is largest. This is how a radio picks one station.
+
+ 
+\sim{rlc}
+
+ 
+\section{Worked examples}
+
+ 
+\begin{example}[Example 1]
+From Prof. Saklayen’s slides
+A 1.0 µF capacitor, a 0.2 H inductor and an 800 Ω resistor are in series. Is the discharge oscillatory? If so find the frequency.
+\begin{solution}
+$1/LC=5.0\times10^6$ s⁻² and $R^2/4L^2=4.0\times10^6$ s⁻². Since $1/LC$ is larger, it oscillates.
+
+$\omega'=\sqrt{5.0\times10^6-4.0\times10^6}=1000$ rad/s, so $f=159$ Hz.
+\end{solution}
+\end{example}
+
+ 
+\begin{example}[Example 2]
+From Prof. Saklayen’s slides
+Is the discharge of a capacitor oscillatory for $C=0.1$ µF, $L=10$ mH, $R=200$ Ω? If so find the frequency.
+\begin{solution}
+$1/LC=10^9$ s⁻² and $R^2/4L^2=10^8$ s⁻². Oscillatory. $\omega'=\sqrt{9\times10^8}=3.0\times10^4$ rad/s, $f=4.77$ kHz.
+\end{solution}
+\end{example}
+
+ 
+\begin{example}[Example 3]
+A series circuit has $R=100$ Ω, $L=0.5$ H, $C=10$ µF on a 220 V, 50 Hz supply. Find $X_L$, $X_C$, $Z$, the current and the phase angle.
+\begin{solution}
+$X_L=2\pi(50)(0.5)=157$ Ω, $X_C=1/(2\pi\cdot50\cdot10^{-5})=318$ Ω.
+
+$Z=\sqrt{100^2+(157-318)^2}=190$ Ω, $I=220/190=1.16$ A.
+
+$\tan\phi=(X_L-X_C)/R$ gives $\phi=-58^\circ$. The current leads the voltage (capacitive circuit).
+\end{solution}
+\end{example}
+
+ 
+\section{Practice}
+
+ 
+\begin{problems}
+\item The amplitude of a damped oscillator falls from 10 cm to 8 cm in one period of 2 s. Find the log decrement and $\gamma$. \answer{λ = 0.223, γ = 0.112 s⁻¹}
+\item For a series RLC with $L=10$ mH and $C=1$ µF, what resistance gives critical damping? \answer{R = 2√(L/C) = 200 Ω}
+\item An LC circuit has $L=2$ mH and $C=5$ nF. Find its natural frequency. \answer{50.3 kHz}
+\item Sketch $x(t)$ for under, critical and over damping on the same axes and explain which one a car shock absorber should use.
+\item Write the electrical analogue of each term in $m\ddot x+b\dot x+kx=0$.
+\end{problems}
