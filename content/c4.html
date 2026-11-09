@@ -1,0 +1,85 @@
+<!--title:Damped Harmonic Motion and the RLC Circuit-->
+<div class="kicker">Class 4 and 5 · Text 1 · Ref 1, 4, 5 · Quiz 1</div>
+  <h1>Damped Harmonic Motion and the RLC Circuit</h1>
+  <ul class="topics"><li>Damping force −bv</li><li>Differential equation of DHM</li><li>Under, critical and over damping</li><li>Logarithmic decrement, damping coefficient</li><li>LC and series RLC circuits</li><li>Reactance and impedance</li></ul>
+
+  <h2>Key ideas</h2>
+  <div class="idea"><p>Real oscillators lose energy to friction or resistance. With a damping force $-bv$ the amplitude decays exponentially. A spring–mass system with friction and an RLC circuit obey the <b>same</b> differential equation, with $m\leftrightarrow L$, $b\leftrightarrow R$, $k\leftrightarrow 1/C$ and $x\leftrightarrow q$. Here, $$\ddot = \frac{d/dt}$$</p></div>
+  <div class="eqs">
+    <div class="eq"><span class="n">Damped oscillator</span>$$m\ddot x+b\dot x+kx=0$$</div>
+    <div class="eq"><span class="n">Standard form</span>$$\ddot x+2\gamma\dot x+\omega_0^2x=0,\ \gamma=\frac b{2m}$$</div>
+    <div class="eq"><span class="n">Characteristic equation</span>$$\lambda^2+2\gamma\lambda+\omega_0^2=0$$</div>
+    <div class="eq"><span class="n">Roots</span>$$\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$</div>
+    <div class="eq"><span class="n">Underdamped solution</span>$$x=Ae^{-\gamma t}\cos(\omega' t+\phi),\ \omega'=\sqrt{\omega_0^2-\gamma^2}$$</div>
+    <div class="eq"><span class="n">LC circuit</span>$$\frac{d^2q}{dt^2}+\frac{q}{LC}=0,\quad f=\frac1{2\pi\sqrt{LC}}$$</div>
+    <div class="eq"><span class="n">Series RLC</span>$$L\ddot q+R\dot q+\frac qC=0,\ \gamma=\frac R{2L}$$</div>
+    <div class="eq"><span class="n">Oscillatory if</span>$$\frac1{LC}&gt;\frac{R^2}{4L^2}$$</div>
+    <div class="eq"><span class="n">Log decrement</span>$$\lambda=\ln\frac{A_n}{A_{n+1}}=\gamma T'$$</div>
+    <div class="eq"><span class="n">Reactance and impedance</span>$$X_L=\omega L,\ X_C=\frac1{\omega C},\ Z=\sqrt{R^2+(X_L-X_C)^2}$$</div>
+  </div>
+  <h2>Setting up the equation for a mass in water</h2>
+  <p>Hang a block from a spring and let it oscillate inside a beaker of water. Its weight and the buoyant force only move the rest position a little, so we measure the displacement $x$ from that new rest position. When the block is at $x$ and moving with velocity $v=\dot x$, two forces act on it.</p>
+<figure class="fig" style="margin:18px auto;max-width:520px"><svg viewBox="0 0 480 336" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A block on a spring oscillating inside a beaker of water, with the spring force and the drag force both opposing the motion" style="width: 100%; height: auto;">
+<defs><marker id="dh" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"></path></marker></defs>
+<rect x="180" y="12" width="100" height="10" fill="#1f3a68"></rect>
+<g stroke="#1f3a68" stroke-width="1"><line x1="182" y1="12" x2="189" y2="4"></line><line x1="192" y1="12" x2="199" y2="4"></line><line x1="202" y1="12" x2="209" y2="4"></line><line x1="212" y1="12" x2="219" y2="4"></line><line x1="222" y1="12" x2="229" y2="4"></line><line x1="232" y1="12" x2="239" y2="4"></line><line x1="242" y1="12" x2="249" y2="4"></line><line x1="252" y1="12" x2="259" y2="4"></line><line x1="262" y1="12" x2="269" y2="4"></line><line x1="272" y1="12" x2="279" y2="4"></line></g>
+<path d="M105 118 L105 330 L355 330 L355 118" fill="none" stroke="#111" stroke-width="2.5"></path>
+<rect x="106.5" y="140" width="247" height="188.5" fill="#dbe7f5"></rect>
+<path d="M106 140 q15 -5 30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t30 0 t11 0" fill="none" stroke="#6f93c4" stroke-width="1.5"></path>
+<polyline points="230,26 230,36 218,41 242,47 218,52 242,57 218,63 242,68 218,74 242,79 218,84 242,90 218,95 242,100 218,106 242,111 218,116 242,122 218,127 242,132 218,138 242,143 218,148 242,154 218,159 242,165 218,170 242,175 218,181 230,186 230,196" fill="none" stroke="#111" stroke-width="1.8"></polyline>
+<line x1="90" y1="176" x2="420" y2="176" stroke="#1f3a68" stroke-width="1.3" stroke-dasharray="6 4"></line>
+<text x="372" y="170" font-size="13" fill="#1f3a68">x = 0</text>
+<rect x="200" y="196" width="60" height="44" rx="5" fill="#1f3a68"></rect>
+<text x="230" y="224" font-size="18" fill="#fff" text-anchor="middle" font-style="italic" font-family="Georgia,serif">m</text>
+<line x1="230" y1="176" x2="230" y2="218" stroke="none"></line>
+<g stroke="#111" stroke-width="1.4"><line x1="395" y1="178" x2="395" y2="216" marker-start="url(#dh)" marker-end="url(#dh)"></line><line x1="262" y1="218" x2="402" y2="218" stroke-dasharray="3 3" stroke-width="1"></line></g>
+<text x="404" y="202" font-size="16" font-style="italic" font-family="Georgia,serif" fill="#111">x</text>
+<line x1="230" y1="244" x2="230" y2="292" stroke="#111" stroke-width="2.2" marker-end="url(#dh)"></line>
+<text x="240" y="282" font-size="16" font-style="italic" font-family="Georgia,serif" fill="#111">v</text>
+<line x1="180" y1="236" x2="180" y2="190" stroke="#1f3a68" stroke-width="2.6" marker-end="url(#dh)"></line>
+<text x="166" y="206" font-size="14" fill="#1f3a68" text-anchor="end" font-family="Georgia,serif"><tspan font-style="italic">F</tspan><tspan font-size="10" dy="4">s</tspan><tspan dy="-4"> = −</tspan><tspan font-style="italic">kx</tspan></text>
+<line x1="280" y1="246" x2="280" y2="200" stroke="#1f3a68" stroke-width="2.6" stroke-dasharray="7 3" marker-end="url(#dh)"></line>
+<text x="290" y="246" font-size="14" fill="#1f3a68" font-family="Georgia,serif"><tspan font-style="italic">F</tspan><tspan font-size="10" dy="4">d</tspan><tspan dy="-4"> = −</tspan><tspan font-style="italic">bv</tspan></text>
+<text x="230" y="318" font-size="12.5" fill="#333" text-anchor="middle">water (damping liquid)</text>
+<text x="40" y="60" font-size="12" fill="#333">spring constant <tspan font-style="italic" font-family="Georgia,serif">k</tspan></text>
+<line x1="140" y1="64" x2="214" y2="80" stroke="#666" stroke-width="1"></line>
+</svg><figcaption>A block on a spring oscillating in water. The spring pulls it back toward x = 0 and the water drags against its velocity.</figcaption></figure>
+  <ol>
+    <li><b>Spring force.</b> $F_s=-kx$. It always pulls the block back toward $x=0$.</li>
+    <li><b>Damping force.</b> At low speed the water pushes against the motion with a force proportional to the speed, $F_d=-bv=-b\dot x$. The constant $b$ is the damping coefficient, measured in kg/s. A thicker liquid such as oil or honey has a larger $b$.</li>
+    <li><b>Newton's second law.</b> $m\ddot x=-kx-b\dot x$, which gives $$m\ddot x+b\dot x+kx=0$$</li>
+    <li><b>Divide by $m$.</b> $$\ddot x+2\gamma\dot x+\omega_0^2x=0,\qquad \gamma=\frac b{2m},\quad \omega_0=\sqrt{\frac km}$$ Here $\gamma$ tells how strongly the liquid damps the motion and $\omega_0$ is the angular frequency the block would have with no damping.</li>
+    <li><b>Same equation for a pendulum.</b> For a bob swinging in a liquid, with small angle $\theta$, $$\ddot\theta+2\gamma\dot\theta+\frac gL\,\theta=0,\qquad \omega_0=\sqrt{\frac gL}$$ So everything below works for both systems.</li>
+  </ol>
+  <h2>Solving the damped equation with the exponential method</h2>
+  <p>Exactly as for SHM, try $x=e^{\lambda t}$ in $\ddot x+2\gamma\dot x+\omega_0^2x=0$.</p>
+  <ol>
+    <li><b>Substitute.</b> $(\lambda^2+2\gamma\lambda+\omega_0^2)\,e^{\lambda t}=0$, so the characteristic equation is $$\lambda^2+2\gamma\lambda+\omega_0^2=0\quad\Rightarrow\quad\lambda=-\gamma\pm\sqrt{\gamma^2-\omega_0^2}$$</li>
+    <li><b>Overdamped</b> ($\gamma&gt;\omega_0$). Two real negative roots. With $\beta=\sqrt{\gamma^2-\omega_0^2}$, $$x=e^{-\gamma t}\left(C_1e^{\beta t}+C_2e^{-\beta t}\right)$$ The body creeps back to equilibrium without oscillating.</li>
+    <li><b>Critically damped</b> ($\gamma=\omega_0$). One repeated root $\lambda=-\gamma$, $$x=(C_1+C_2t)\,e^{-\gamma t}$$ This returns to equilibrium in the shortest time without overshooting.</li>
+    <li><b>Underdamped</b> ($\gamma&lt;\omega_0$). Complex roots $\lambda=-\gamma\pm i\omega'$ with $\omega'=\sqrt{\omega_0^2-\gamma^2}$, $$x=e^{-\gamma t}\left(C_1e^{i\omega't}+C_2e^{-i\omega't}\right)=Ae^{-\gamma t}\cos(\omega't+\phi)$$ The body oscillates at $\omega'$ inside a shrinking envelope $Ae^{-\gamma t}$.</li>
+    <li><b>Check.</b> Setting $\gamma=0$ gives back $\lambda=\pm i\omega_0$, the SHM result.</li>
+  </ol>
+  <div class="w2d" data-w="damp"></div>
+  <div class="sim" data-sim="dampedv"></div>
+  <figure class="fig" style="margin:18px auto;max-width:560px"><svg viewBox="0 0 560 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An LC circuit and a series RLC circuit" style="width: 100%; height: auto;"><defs><marker id="ah8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="context-stroke"></path></marker></defs><polyline points="60.0,40.0 220.0,40.0 220.0,180.0 60.0,180.0 60.0,120.0" fill="none" stroke="#111" stroke-width="1.8"></polyline><line x1="60.0" y1="40.0" x2="60.0" y2="100.0" stroke="#111" stroke-width="1.8"></line><line x1="44.0" y1="105.0" x2="76.0" y2="105.0" stroke="#111" stroke-width="2.6"></line><line x1="44.0" y1="115.0" x2="76.0" y2="115.0" stroke="#111" stroke-width="2.6"></line><text x="36.0" y="115.0" font-size="14" fill="#111" text-anchor="end" font-style="italic" font-family="Georgia,serif">C</text><rect x="212.0" y="70.0" width="16.0" height="80.0" rx="0" fill="#fff" stroke="#fff" stroke-width="1.6"></rect><path d="M220.0,72.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M220.0,90.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M220.0,108.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M220.0,126.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><text x="240.0" y="115.0" font-size="14" fill="#111" text-anchor="start" font-style="italic" font-family="Georgia,serif">L</text><text x="140.0" y="210.0" font-size="12" fill="#111" text-anchor="middle">LC, q = Q₀ cos ωt</text><polyline points="320.0,40.0 520.0,40.0 520.0,180.0 320.0,180.0 320.0,120.0" fill="none" stroke="#111" stroke-width="1.8"></polyline><line x1="320.0" y1="40.0" x2="320.0" y2="100.0" stroke="#111" stroke-width="1.8"></line><line x1="304.0" y1="105.0" x2="336.0" y2="105.0" stroke="#111" stroke-width="2.6"></line><line x1="304.0" y1="115.0" x2="336.0" y2="115.0" stroke="#111" stroke-width="2.6"></line><text x="296.0" y="115.0" font-size="14" fill="#111" text-anchor="end" font-style="italic" font-family="Georgia,serif">C</text><rect x="512.0" y="70.0" width="16.0" height="80.0" rx="0" fill="#fff" stroke="#fff" stroke-width="1.6"></rect><path d="M520.0,72.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M520.0,90.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M520.0,108.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><path d="M520.0,126.0 a9,9 0 0 1 0,18" fill="none" stroke="#111" stroke-width="2"></path><text x="540.0" y="115.0" font-size="14" fill="#111" text-anchor="start" font-style="italic" font-family="Georgia,serif">L</text><rect x="390.0" y="32.0" width="60.0" height="16.0" rx="0" fill="#fff" stroke="#fff" stroke-width="1.6"></rect><polyline points="390.0,40.0 405.0,40.0 408.8,46.0 412.5,34.0 416.2,46.0 420.0,34.0 423.8,46.0 427.5,34.0 431.2,46.0 435.0,40.0 450.0,40.0" fill="none" stroke="#111" stroke-width="1.8"></polyline><text x="420.0" y="26.0" font-size="14" fill="#111" text-anchor="middle" font-style="italic" font-family="Georgia,serif">R</text><text x="420.0" y="210.0" font-size="12" fill="#111" text-anchor="middle">RLC, L q̈ + R q̇ + q/C = 0</text></svg><figcaption>Charge sloshes between C and L like a mass on a spring. Adding R damps it, exactly as friction damps a spring.</figcaption></figure>
+  <div class="ill" data-ill="lc"></div>
+  <div class="ill" data-ill="rlc"></div>
+  <div class="sim" data-sim="rlc"></div>
+
+  <h2>Worked examples</h2>
+  <div class="ex" data-o="s"><div class="q"><span class="lbl">Example 1</span><p>A 1.0 µF capacitor, a 0.2 H inductor and an 800 Ω resistor are in series. Is the discharge oscillatory? If so find the frequency.</p></div>
+  <details><summary>Show solution</summary><div class="sol"><p>$1/LC=5.0\times10^6$ s⁻² and $R^2/4L^2=4.0\times10^6$ s⁻². Since $1/LC$ is larger, it oscillates.</p><p>$\omega'=\sqrt{5.0\times10^6-4.0\times10^6}=1000$ rad/s, so $f=159$ Hz.</p></div></details></div>
+  <div class="ex" data-o="s"><div class="q"><span class="lbl">Example 2</span><p>Is the discharge of a capacitor oscillatory for $C=0.1$ µF, $L=10$ mH, $R=200$ Ω? If so find the frequency.</p></div>
+  <details><summary>Show solution</summary><div class="sol"><p>$1/LC=10^9$ s⁻² and $R^2/4L^2=10^8$ s⁻². Oscillatory. $\omega'=\sqrt{9\times10^8}=3.0\times10^4$ rad/s, $f=4.77$ kHz.</p></div></details></div>
+  <div class="ex"><div class="q"><span class="lbl">Example 3</span><p>A series circuit has $R=100$ Ω, $L=0.5$ H, $C=10$ µF on a 220 V, 50 Hz supply. Find $X_L$, $X_C$, $Z$, the current and the phase angle.</p></div>
+  <details><summary>Show solution</summary><div class="sol"><p>$X_L=2\pi(50)(0.5)=157$ Ω, $X_C=1/(2\pi\cdot50\cdot10^{-5})=318$ Ω.</p><p>$Z=\sqrt{100^2+(157-318)^2}=190$ Ω, $I=220/190=1.16$ A.</p><p>$\tan\phi=(X_L-X_C)/R$ gives $\phi=-58^\circ$. The current leads the voltage (capacitive circuit).</p></div></details></div>
+
+  <h2>Practice</h2>
+  <ol class="prac">
+    <li>The amplitude of a damped oscillator falls from 10 cm to 8 cm in one period of 2 s. Find the log decrement and $\gamma$. <details class="ans"><summary>Answer</summary><div class="pa">λ = 0.223, γ = 0.112 s⁻¹</div></details></li>
+    <li>For a series RLC with $L=10$ mH and $C=1$ µF, what resistance gives critical damping? <details class="ans"><summary>Answer</summary><div class="pa">R = 2√(L/C) = 200 Ω</div></details></li>
+    <li>An LC circuit has $L=2$ mH and $C=5$ nF. Find its natural frequency. <details class="ans"><summary>Answer</summary><div class="pa">50.3 kHz</div></details></li>
+    <li>Sketch $x(t)$ for under, critical and over damping on the same axes and explain which one a car shock absorber should use.</li>
+    <li>Write the electrical analogue of each term in $m\ddot x+b\dot x+kx=0$.</li>
+  </ol>
