@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AC Generator — Interactive Physics Simulation</title>
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; min-height: 100%; padding: 0; background: #080f1c; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: #e5edf8;
+    padding: 14px;
+  }
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px;
+    background: #0d1728;
+    border: 1px solid #233852;
+    border-radius: 18px;
+    box-shadow: 0 18px 55px #0006;
+  }
+  svg { display: block; width: 100%; height: auto; }
+  .fl { stroke-dasharray: 9 7; }
+  @keyframes flow { to { stroke-dashoffset: -32; } }
+  @media (prefers-reduced-motion: no-preference) { .fl { animation: flow 1.4s linear infinite; } }
+  .ctrl {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 4px 2px;
+    font-size: 14px;
+    color: #cbd5e1;
+  }
+  .ctrl button {
+    padding: 7px 17px;
+    border: 1px solid #385574;
+    border-radius: 8px;
+    background: #17263b;
+    color: #f1f5f9;
+    cursor: pointer;
+    font: inherit;
+  }
+  .ctrl button:hover { background: #243b58; border-color: #5b83ad; }
+  .ctrl button:focus-visible, .ctrl input:focus-visible { outline: 2px solid #22d3ee; outline-offset: 3px; }
+  .ctrl input[type=range] { flex: 1; min-width: 80px; accent-color: #22d3ee; cursor: pointer; }
+  #av { min-width: 48px; text-align: right; color: #67e8f9; font-variant-numeric: tabular-nums; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (max-width: 520px) {
+    body { padding: 6px; }
+    .wrap { padding: 6px; border-radius: 12px; }
+    .ctrl { gap: 8px; font-size: 12px; }
+    .ctrl button { padding: 6px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h2 class="sr-only">Animated 3D illustration of a coil rotating between magnet poles, with the induced AC voltage plotted as a sine wave and a bulb that glows with the voltage.</h2>
+<svg id="s" viewBox="0 0 680 520" role="img">
+<title>Rotating coil generating AC voltage</title>
+<desc>A rectangular coil spins between an N and an S pole. A bulb brightens with the induced voltage while a sine wave traces the EMF against the rotation angle.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14243a"/><stop offset="1" stop-color="#0b1423"/></linearGradient>
+<linearGradient id="gN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ef4444"/><stop offset="1" stop-color="#991b1b"/></linearGradient>
+<linearGradient id="gS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#38bdf8"/><stop offset="1" stop-color="#075985"/></linearGradient>
+<linearGradient id="gR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#92400e"/><stop offset="0.5" stop-color="#fbbf24"/><stop offset="1" stop-color="#92400e"/></linearGradient>
+<marker id="fa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#67e8f9" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect width="680" height="520" rx="16" fill="url(#bg)" stroke="#2c4563"/>
+<text x="30" y="36" font-size="15" font-weight="500" fill="#e2e8f0">Rotating coil in a magnetic field</text>
+<text id="rd" x="650" y="36" font-size="13" text-anchor="end" fill="#22d3ee"></text>
+<text x="340" y="56" font-size="12" text-anchor="middle" fill="#67e8f9">Magnetic field B</text>
+
+<polygon points="30,80 52,62 134,62 112,80" fill="#dc2626"/>
+<rect x="30" y="80" width="82" height="150" rx="2" fill="url(#gN)"/>
+<polygon points="112,80 134,62 134,212 112,230" fill="#7f1d1d"/>
+<text x="71" y="156" font-size="40" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#f8fafc">N</text>
+<polygon points="568,80 590,62 672,62 650,80" fill="#0e7490"/>
+<rect x="568" y="80" width="82" height="150" rx="2" fill="url(#gS)"/>
+<polygon points="650,80 672,62 672,212 650,230" fill="#075985"/>
+<text x="609" y="156" font-size="40" font-weight="500" text-anchor="middle" dominant-baseline="central" fill="#f8fafc">S</text>
+
+<g stroke="#67e8f9" stroke-width="1.6" fill="none">
+<line class="fl" x1="142" y1="100" x2="560" y2="100" marker-end="url(#fa)"/>
+<line class="fl" x1="142" y1="120" x2="560" y2="120" marker-end="url(#fa)"/>
+<line class="fl" x1="142" y1="140" x2="560" y2="140" marker-end="url(#fa)"/>
+<line class="fl" x1="142" y1="160" x2="560" y2="160" marker-end="url(#fa)"/>
+<line class="fl" x1="142" y1="180" x2="560" y2="180" marker-end="url(#fa)"/>
+<line class="fl" x1="142" y1="200" x2="560" y2="200" marker-end="url(#fa)"/>
+</g>
+
+<line x1="340" y1="78" x2="340" y2="266" stroke="#526783" stroke-width="7" stroke-linecap="round"/>
+<line x1="338" y1="80" x2="338" y2="264" stroke="#9fb3c8" stroke-width="2" stroke-linecap="round"/>
+
+<polygon id="cf" points="" fill="#f59e0b" fill-opacity="0.6"/>
+<polygon id="co" points="" fill="none" stroke="#f59e0b" stroke-width="8" stroke-linejoin="round"/>
+<polygon id="ch" points="" fill="none" stroke="#fde68a" stroke-width="3" stroke-linejoin="round"/>
+<path id="a1" d="" fill="none" stroke="#f8fafc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="a2" d="" fill="none" stroke="#f8fafc" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="340" cy="76" r="7" fill="#e2e8f0"/>
+
+<ellipse cx="340" cy="240" rx="16" ry="5" fill="url(#gR)"/>
+<ellipse cx="340" cy="256" rx="16" ry="5" fill="url(#gR)"/>
+<rect x="308" y="236" width="16" height="8" rx="2" fill="#e2e8f0"/>
+<rect x="356" y="252" width="16" height="8" rx="2" fill="#e2e8f0"/>
+<path d="M308,240 L270,240 L270,306 L326,306" fill="none" stroke="#67e8f9" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M372,256 L410,256 L410,306 L354,306" fill="none" stroke="#67e8f9" stroke-width="2.5" stroke-linejoin="round"/>
+<circle id="halo" cx="340" cy="306" r="32" fill="#fbbf24" opacity="0"/>
+<circle cx="340" cy="306" r="15" fill="#1e293b" stroke="#fbbf24" stroke-width="2"/>
+<circle id="bulb" cx="340" cy="306" r="15" fill="#facc15" opacity="0"/>
+<path d="M332,310 L336,302 L340,310 L344,302 L348,310" fill="none" stroke="#f8fafc" stroke-width="1.5" stroke-linejoin="round"/>
+<text x="340" y="338" font-size="12" text-anchor="middle" fill="#e2e8f0">Load</text>
+
+<text x="60" y="350" font-size="12" fill="#e2e8f0">Induced EMF</text>
+<text x="46" y="374" font-size="13" text-anchor="middle" fill="#e2e8f0">+</text>
+<text x="46" y="474" font-size="13" text-anchor="middle" fill="#e2e8f0">−</text>
+<line x1="60" y1="362" x2="60" y2="482" stroke="#94a3b8" stroke-width="1.5"/>
+<line x1="60" y1="420" x2="624" y2="420" stroke="#94a3b8" stroke-width="1.5"/>
+<g stroke="#67e8f9" stroke-width="1.2" stroke-dasharray="5 4">
+<line x1="200" y1="366" x2="200" y2="478"/><line x1="340" y1="366" x2="340" y2="478"/><line x1="480" y1="366" x2="480" y2="478"/><line x1="620" y1="366" x2="620" y2="478"/>
+</g>
+<path id="full" d="" fill="none" stroke="#385574" stroke-width="3" stroke-linecap="round"/>
+<path id="prog" d="" fill="none" stroke="#22d3ee" stroke-width="4" stroke-linecap="round"/>
+<line id="dl" x1="0" y1="420" x2="0" y2="420" stroke="#22d3ee" stroke-width="1.2" stroke-dasharray="3 3"/>
+<circle id="dh" r="11" fill="#fbbf24" opacity="0.45"/>
+<circle id="dot" r="6" fill="#f8fafc" stroke="#22d3ee" stroke-width="3"/>
+<g font-size="12" text-anchor="middle" fill="#e2e8f0">
+<text x="60" y="492">0°</text><text x="200" y="492">90°</text><text x="340" y="492">180°</text><text x="480" y="492">270°</text><text x="620" y="492">360°</text>
+</g>
+<text x="340" y="511" font-size="12" text-anchor="middle" fill="#67e8f9">Rotation angle θ</text>
+</svg>
+
+<div class="ctrl">
+  <button id="pp" type="button">Pause</button>
+  <span>Angle</span>
+  <input type="range" id="sl" min="0" max="360" value="40" aria-label="Rotation angle in degrees">
+  <span id="av">40°</span>
+</div>
+</div>
+
+<script>
+(function () {
+  var $ = function (i) { return document.getElementById(i); };
+  var cx = 340, cy = 155, HH = 55, ZZ = 75, ang = 40, last = 0, visible = true;
+  var playing = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function gx(t) { return 60 + t / 360 * 560; }
+  function gy(t) { return 420 - 50 * Math.sin(t * Math.PI / 180); }
+  function pr(x, y, z) { return [cx + x + 0.42 * z, cy - y - 0.22 * z]; }
+  function lerp(a, b, t) { return Math.round(a + (b - a) * t); }
+
+  function curve(to) {
+    var d = '';
+    for (var t = 0; t <= to; t += 3) d += (t === 0 ? 'M' : 'L') + gx(t).toFixed(1) + ',' + gy(t).toFixed(1) + ' ';
+    return d + 'L' + gx(to).toFixed(1) + ',' + gy(to).toFixed(1);
+  }
+  $('full').setAttribute('d', curve(360));
+
+  function chev(el, p, up) {
+    var s = up ? -1 : 1;
+    el.setAttribute('d', 'M' + (p[0] - 6) + ',' + (p[1] - 5 * s) + ' L' + p[0] + ',' + (p[1] + 5 * s) + ' L' + (p[0] + 6) + ',' + (p[1] - 5 * s));
+  }
+
+  function draw() {
+    var th = ang * Math.PI / 180, s = Math.sin(th), c = Math.cos(th);
+    var pts = [[ZZ, HH], [ZZ, -HH], [-ZZ, -HH], [-ZZ, HH]].map(function (q) { return pr(q[0] * s, q[1], q[0] * c); });
+    var str = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' ');
+    $('cf').setAttribute('points', str); $('co').setAttribute('points', str); $('ch').setAttribute('points', str);
+    var t = (1 + c) / 2;
+    $('cf').setAttribute('fill', 'rgb(' + lerp(180, 245, t) + ',' + lerp(83, 158, t) + ',' + lerp(9, 11, t) + ')');
+    chev($('a1'), pr(ZZ * s, 0, ZZ * c), s > 0);
+    chev($('a2'), pr(-ZZ * s, 0, -ZZ * c), s <= 0);
+    var o = Math.min(1, Math.abs(s) * 1.5);
+    $('a1').setAttribute('opacity', o); $('a2').setAttribute('opacity', o);
+    $('bulb').setAttribute('opacity', (Math.abs(s) * 0.9).toFixed(2));
+    $('halo').setAttribute('opacity', (Math.abs(s) * 0.55).toFixed(2));
+    $('prog').setAttribute('d', ang < 1 ? '' : curve(ang));
+    var x = gx(ang), y = gy(ang);
+    $('dot').setAttribute('cx', x); $('dot').setAttribute('cy', y);
+    $('dh').setAttribute('cx', x); $('dh').setAttribute('cy', y);
+    $('dl').setAttribute('x1', x); $('dl').setAttribute('x2', x); $('dl').setAttribute('y2', y);
+    var pc = Math.round(s * 100);
+    $('rd').textContent = 'θ = ' + Math.round(ang) + '°   EMF = ' + (pc > 0 ? '+' : pc < 0 ? '−' : '') + Math.abs(pc) + '% of max';
+    $('av').textContent = Math.round(ang) + '°';
+    $('sl').value = Math.round(ang);
+  }
+
+  function tick(ts) {
+    if (playing && visible && last) ang = (ang + (ts - last) * 0.045) % 360;
+    last = ts;
+    if (visible) draw();
+    requestAnimationFrame(tick);
+  }
+
+  $('pp').onclick = function () { playing = !playing; this.textContent = playing ? 'Pause' : 'Play'; };
+  $('sl').oninput = function () { playing = false; $('pp').textContent = 'Play'; ang = +this.value; draw(); };
+  $('pp').textContent = playing ? 'Pause' : 'Play';
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) { visible = e[0].isIntersecting; }).observe($('s'));
+  }
+
+  draw();
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
