@@ -4,6 +4,10 @@
   "note": "",
   "hidden": {
     "pages": [],
-    "parts": {}
+    "parts": {
+      "c3": [
+        "Lissajous figures from real oscillators"
+      ]
+    }
   }
 }
