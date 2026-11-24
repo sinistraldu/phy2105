@@ -11,8 +11,8 @@
   <div class="idea" style="border-left-color:#121826">
     <p><b>Condition for SHM (the rule to remember)</b></p>
     <p>Whenever the acceleration of a body is directly proportional to its displacement from a fixed point and is always directed toward that point <b>(i.e., $a \propto -x$, where $x$ is displacement)</b>,&nbsp;the body executes <b>simple harmonic motion</b>.</p>
-    $$a=-\omega^2x\qquad\Longleftrightarrow\qquad\frac{d^2x}{dt^2}+\omega^2x=0$$
-    <p>Here $\omega^2$ must be a <b>positive constant</b>. The minus sign means the acceleration always points opposite to the displacement, that is, back toward equilibrium. So any system whose equation of motion can be brought to the form $\ddot x+\omega^2x=0$ is an SHM, and its angular frequency is read off directly as $\omega$, with period $T=2\pi/\omega$.</p><p><b><br></b></p><p><b>Why is it called "simple"?</b><br></p><p>It is called simple because the motion follows a simple mathematical equation without complicated terms. In ideal SHM, energy losses due to friction or air resistance are neglected, so the oscillation continues with constant amplitude.<b></b></p>
+    $$a=-\omega^2x\qquad\Longleftrightarrow\qquad\dfrac{d^2x}{dt^2}+\omega^2x=0$$
+    <p>Here $\omega^2$ must be a <b>positive constant</b>. The minus sign means the acceleration always points opposite to the displacement, that is, back toward equilibrium. So any system whose equation of motion can be brought to the form $\dfrac{d^2x}{dt^2}+\omega^2x=0$ is an SHM, and its angular frequency is read off directly as $\omega$, with period $T=2\pi/\omega$.</p><p><b><br></b></p><p><b>Why is it called "simple"?</b><br></p><p>It is called simple because the motion follows a simple mathematical equation without complicated terms. In ideal SHM, energy losses due to friction or air resistance are neglected, so the oscillation continues with constant amplitude.<b></b></p>
   </div>
 
   <h2>Deriving the equation of motion: spring–mass system</h2>
@@ -44,9 +44,9 @@
   </figure>
   <ol>
     <li><b>Forces.</b> Vertically, $N$ and $mg$ balance, so there is no vertical motion. Horizontally, the only force is the spring force. By Hooke's law it is proportional to the stretch and opposite to it, $F=-kx$.</li>
-    <li><b>Newton's second law</b> along $x$ gives $$m\frac{d^2x}{dt^2}=-kx$$</li>
-    <li><b>Rearrange</b> by dividing by $m$ $$\frac{d^2x}{dt^2}+\frac{k}{m}\,x=0$$</li>
-    <li><b>Compare</b> with $\ddot x+\omega^2x=0$. The acceleration is proportional to $-x$, so the motion is SHM with $$\omega=\sqrt{\frac km},\qquad T=2\pi\sqrt{\frac mk}$$</li>
+    <li><b>Newton's second law</b> along $x$ gives $$m\dfrac{d^2x}{dt^2}=-kx$$</li>
+    <li><b>Rearrange</b> by dividing by $m$ $$\dfrac{d^2x}{dt^2}+\frac{k}{m}\,x=0$$</li>
+    <li><b>Compare</b> with $\dfrac{d^2x}{dt^2}+\omega^2x=0$. The acceleration is proportional to $-x$, so the motion is SHM with $$\omega=\sqrt{\frac km},\qquad T=2\pi\sqrt{\frac mk}$$</li>
   </ol>
 
   <h2>Deriving the equation of motion: simple pendulum</h2>
@@ -86,9 +86,9 @@
   <ol>
     <li><b>Forces on the bob.</b> Tension $T$ along the string toward the pivot, and weight $mg$ straight down. Resolve $mg$ into two parts, $mg\cos\theta$ along the string and $mg\sin\theta$ along the arc (tangential), pointing back toward equilibrium.</li>
     <li><b>Along the string</b> (radial direction), $T-mg\cos\theta=\dfrac{mv^2}{L}$. This only fixes the tension and does not affect the swinging.</li>
-    <li><b>Along the arc</b> (tangential direction), the displacement is the arc length $s=L\theta$, so the tangential acceleration is $\ddot s=L\ddot\theta$. Newton's second law gives $$mL\frac{d^2\theta}{dt^2}=-mg\sin\theta$$ The minus sign shows the force always acts back toward $\theta=0$.</li>
-    <li><b>Small angle approximation.</b> For small $\theta$ (in radians, up to about $10^\circ$), $\sin\theta\approx\theta$. Then $$\frac{d^2\theta}{dt^2}+\frac{g}{L}\,\theta=0$$</li>
-    <li><b>Compare</b> with $\ddot x+\omega^2x=0$. The angular acceleration is proportional to $-\theta$, so the small swings are SHM with $$\omega=\sqrt{\frac gL},\qquad T=2\pi\sqrt{\frac Lg}$$ The period depends only on $L$ and $g$, not on the mass or (for small swings) the amplitude.</li>
+    <li><b>Along the arc</b> (tangential direction), the displacement is the arc length $s=L\theta$, so the tangential acceleration is $\dfrac{d^2s}{dt^2}=L\dfrac{d^2\theta}{dt^2}$. Newton's second law gives $$mL\dfrac{d^2\theta}{dt^2}=-mg\sin\theta$$ The minus sign shows the force always acts back toward $\theta=0$.</li>
+    <li><b>Small angle approximation.</b> For small $\theta$ (in radians, up to about $10^\circ$), $\sin\theta\approx\theta$. Then $$\dfrac{d^2\theta}{dt^2}+\frac{g}{L}\,\theta=0$$</li>
+    <li><b>Compare</b> with $\dfrac{d^2x}{dt^2}+\omega^2x=0$. The angular acceleration is proportional to $-\theta$, so the small swings are SHM with $$\omega=\sqrt{\frac gL},\qquad T=2\pi\sqrt{\frac Lg}$$ The period depends only on $L$ and $g$, not on the mass or (for small swings) the amplitude.</li>
   </ol>
   <div class="idea"><p>For large angles $\sin\theta$ is no longer close to $\theta$, the acceleration is no longer exactly proportional to $-\theta$, and the motion is periodic but <b>not</b> simple harmonic.</p></div>
 
@@ -103,13 +103,13 @@
   </div>
   <p>The same guess works again for damped and forced oscillations, so it is worth learning this method well.</p>
   <ol>
-    <li><b>Trial solution.</b> Put $x=e^{\lambda t}$. Then $\dot x=\lambda e^{\lambda t}$ and $\ddot x=\lambda^2e^{\lambda t}$.</li>
+    <li><b>Trial solution.</b> Put $x=e^{\lambda t}$. Then $\dfrac{dx}{dt}=\lambda e^{\lambda t}$ and $\dfrac{d^2x}{dt^2}=\lambda^2e^{\lambda t}$.</li>
     <li><b>Substitute.</b> $$\lambda^2e^{\lambda t}+\omega^2e^{\lambda t}=0\quad\Rightarrow\quad(\lambda^2+\omega^2)\,e^{\lambda t}=0$$ Since $e^{\lambda t}$ is never zero, we get the <b>characteristic (auxiliary) equation</b> $$\lambda^2+\omega^2=0\quad\Rightarrow\quad\lambda=\pm i\omega$$</li>
     <li><b>General solution.</b> Both roots give a solution, and their sum is also a solution $$x(t)=C_1e^{i\omega t}+C_2e^{-i\omega t}$$</li>
     <li><b>Make it real.</b> Using Euler's formula $e^{\pm i\omega t}=\cos\omega t\pm i\sin\omega t$, and choosing $C_1=\tfrac A2e^{i\phi}$ and $C_2=\tfrac A2e^{-i\phi}$ so that $x$ is real, $$x(t)=\frac A2\left[e^{i(\omega t+\phi)}+e^{-i(\omega t+\phi)}\right]=A\cos(\omega t+\phi)$$</li>
     <li><b>Constants.</b> The amplitude $A$ and the phase constant $\phi$ come from the starting conditions $x(0)$ and $v(0)$.</li>
   </ol>
-  <div class="idea"><p><b>Looking ahead.</b> For damped motion the same trial $x=e^{\lambda t}$ turns $\ddot x+2\gamma\dot x+\omega_0^2x=0$ into $\lambda^2+2\gamma\lambda+\omega_0^2=0$. The nature of its roots (real, equal or complex) decides whether the motion is overdamped, critically damped or underdamped.</p></div>
+  <div class="idea"><p><b>Looking ahead.</b> For damped motion the same trial $x=e^{\lambda t}$ turns $\dfrac{d^2x}{dt^2}+2\gamma\dfrac{dx}{dt}+\omega_0^2x=0$ into $\lambda^2+2\gamma\lambda+\omega_0^2=0$. The nature of its roots (real, equal or complex) decides whether the motion is overdamped, critically damped or underdamped.</p></div>
 
 
   <h2>Variation of position, velocity and acceleration with time</h2>
@@ -205,7 +205,7 @@
   <h2>Key equations</h2>
   <div class="eqs">
     <div class="eq"><span class="n">Condition for SHM</span>$$a=-\omega^2x$$</div>
-    <div class="eq"><span class="n">Equation of motion</span>$$\frac{d^2x}{dt^2}+\omega^2x=0$$</div>
+    <div class="eq"><span class="n">Equation of motion</span>$$\dfrac{d^2x}{dt^2}+\omega^2x=0$$</div>
     <div class="eq"><span class="n">Characteristic equation</span>$$\lambda^2+\omega^2=0,\quad\lambda=\pm i\omega$$</div>
     <div class="eq"><span class="n">Exponential solution</span>$$x=C_1e^{i\omega t}+C_2e^{-i\omega t}$$</div>
     <div class="eq"><span class="n">Real form</span>$$x=A\cos(\omega t+\phi)$$</div>
@@ -269,7 +269,7 @@
     <li data-o="s">For $y=10\sin(10\pi t+\pi/6)$ cm find $f$, $T$, $A$, $v_{\max}$ and $a_{\max}$. <details class="ans"><summary>Answer</summary><div class="pa">5 Hz, 0.2 s, 10 cm, 314 cm/s, 9.87×10³ cm/s²</div></details></li>
     <li data-o="s">What is the period of an FM station broadcasting at 100 MHz? <details class="ans"><summary>Answer</summary><div class="pa">10 ns</div></details></li>
     <li>At what displacement is the kinetic energy of an oscillator equal to its potential energy? <details class="ans"><summary>Answer</summary><div class="pa">x = ±A/√2</div></details></li>
-    <li>Show that $x=A\cos\omega t+B\sin\omega t$ also satisfies $\ddot x+\omega^2x=0$, and find its amplitude. <details class="ans"><summary>Answer</summary><div class="pa">amplitude √(A² + B²)</div></details></li>
+    <li>Show that $x=A\cos\omega t+B\sin\omega t$ also satisfies $\dfrac{d^2x}{dt^2}+\omega^2x=0$, and find its amplitude. <details class="ans"><summary>Answer</summary><div class="pa">amplitude √(A² + B²)</div></details></li>
   </ol>
 
   <h3>Practice Problem Sheet 1</h3>
